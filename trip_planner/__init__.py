@@ -1,10 +1,13 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 
 db = SQLAlchemy()
 migrate = Migrate()
+
+
+from . import models
 
 
 def create_app(test_config=None):
@@ -23,6 +26,6 @@ def create_app(test_config=None):
 
     @app.route("/")
     def root():
-        return "Hello world!"
+        return render_template('root.html')
 
     return app
