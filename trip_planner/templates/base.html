@@ -8,6 +8,8 @@
             <nav>
                 {% if g.user %}
                     {{ g.user.username }}
+                {% else %}
+                    guest
                 {% endif %}
             </nav>
             <main>
