@@ -7,6 +7,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 from .auth import auth  # noqa: E402
+from .trips import trips  # noqa: E402
 from .models import User  # noqa: E402
 
 
@@ -41,6 +42,7 @@ def create_app(test_config=None):
         return render_template('root.html')
 
     app.register_blueprint(auth)
+    app.register_blueprint(trips)
 
     if app.env == 'development':
         import IPython
