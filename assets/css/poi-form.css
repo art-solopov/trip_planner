@@ -1,0 +1,39 @@
+$gcr-margin: 0.5rem;
+
+.geocode-results {
+    justify-content: space-around;
+    margin: 0 -$gcr-margin;
+}
+
+.geocode-result {
+    flex: 1 0 25%;
+    max-width: 30rem;
+    box-sizing: border-box;
+    border: 1px solid black;
+    padding: 0.5rem;
+    margin: $gcr-margin;
+
+    &:last-child {
+        margin-right: auto;
+    }
+
+    & .name {
+        box-sizing: border-box;
+
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.25em;
+    }
+}
+
+.lat-lon-fields {
+    & > div {
+        flex-basis: 15em;
+
+        &:not(:last-child) {
+            margin-right: 0.5rem;
+        }
+    }
+}

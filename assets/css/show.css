@@ -1,0 +1,48 @@
+.map {
+    min-height: 60vh;
+    box-sizing: border-box;
+
+    & .extra-attribution {
+        position: absolute;
+        bottom: 0;
+        left: 5px;
+        height: 24px;
+        width: 78px;
+
+        background-image: url(/vendor/mapbox/logo.svg);
+        background-repeat: no-repeat;
+        z-index: 500;
+    }
+}
+
+.app {
+    box-sizing: border-box;
+
+    & .h1 {
+        margin: 0.5em 0;
+    }
+
+    & .items li {
+        margin-bottom: 0.75em;
+    }
+}
+
+@media (min-width: 940px) {
+    .layout.layout--show {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    .app {
+        flex: 0 1 26rem;
+        max-height: 90vh;
+        overflow-y: scroll;
+        order: 0;
+    }
+
+    .map {
+        flex: 1 0 640px;
+        order: 1;
+    }
+}

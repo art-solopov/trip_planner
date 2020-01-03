@@ -1,0 +1,24 @@
+{
+  "name": "trip_planner",
+  "version": "0.0.1",
+  "description": "Assets for trip planner",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artemiy Solopov",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^8.0.0",
+    "merge-stream": "^2.0.0",
+    "normalize.css": "^8.0.1",
+    "postcss-each": "^0.10.0",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-extend": "^1.0.5",
+    "postcss-font-family-system-ui": "^4.2.0",
+    "postcss-nesting": "^7.0.1",
+    "postcss-simple-vars": "^5.0.2"
+  }
+}

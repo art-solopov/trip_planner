@@ -1,0 +1,19 @@
+$input-padding: 0.25em;
+
+form {
+    & input:not([type=submit]), & select, & textarea {
+        width: 100%;
+        margin-bottom: 0.5em;
+        box-sizing: border-box;
+    }
+
+    & input:not([type=submit]) {
+        padding: calc($input-padding - 1px);
+        height: calc($input-padding + 1em);
+    }
+}
+
+label {
+    font-weight: bold;
+    display: block;
+}

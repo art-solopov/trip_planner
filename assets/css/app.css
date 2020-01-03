@@ -1,0 +1,92 @@
+@import "normalize.css";
+
+@import "./form.css";
+@import "./login.css";
+@import "./index.css";
+@import "./show.css";
+@import "./show-poi.css";
+@import "./poi-form.css";
+
+$nav-padding: 0.5em;
+
+body {
+    font-size: 16px;
+    font-family: 'DejaVu Sans', system-ui;
+}
+
+.link {
+    padding: 1em;
+    display: inline-block;
+
+    &:hover,
+    &:focus {
+        background: #EEE;
+    }
+}
+
+.main-footer {
+    box-sizing: border-box;
+
+    text-align: center;
+    padding: 1em;
+
+    background: #EEE;
+    color: #333;
+}
+
+%flex {
+    display: flex;
+}
+
+.flex-row {
+    @extend %flex;
+    flex-flow: row nowrap;
+}
+
+.flex-column {
+    @extend %flex;
+    flex-flow: column nowrap;
+}
+
+.flex-shelf {
+    @extend %flex;
+    flex-flow: row wrap;
+}
+
+.layout {
+    @extend .flex-column;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    & > nav, & > footer {
+        flex: 0 0 auto;
+    }
+
+    & > main {
+        flex: 1 0 50%;
+    }
+}
+
+nav.navbar {
+    box-sizing: border-box;
+    line-height: 1;
+
+    &, & > .navbar-left, & > .navbar-right {
+        @extend .flex-row
+    }
+
+    & > .navbar-right {
+        margin-left: auto;
+    }
+
+    & span, & a {
+        padding: $nav-padding;
+    }
+
+    & .navbar-brand {
+        font-size: 1.2rem;
+        font-variant: small-caps;
+    }
+}

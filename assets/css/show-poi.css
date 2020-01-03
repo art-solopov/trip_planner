@@ -1,0 +1,58 @@
+.map-image-container {
+    $padding: 0.25em;
+
+    position: relative;
+    float: right;
+
+    padding: $padding;
+
+    & > img.map-image {
+        max-width: 100%;
+    }
+
+    & .attribution {
+        font-size: 75%;
+        text-align: right;
+    }
+}
+
+%dow-display {
+    display: inline-block;
+    padding: 0.25em;
+}
+
+%dow-wday-display {
+    background: black;
+    color: white;
+}
+
+.schedule {
+    margin-bottom: 1em;
+
+    @each $dow in mon, tue, wed, thu, fri, sat, sun {
+        & .$(dow) {
+            @extend %dow-display;
+        }
+    }
+
+    @each $dow in mon, tue, wed, thu {
+        & .$(dow) {
+            @extend %dow-wday-display;
+        }
+    }
+
+    & .fri {
+        background: navy;
+        color: white;
+    }
+
+    & .sat {
+        background: #fa0;
+        color: black;
+    }
+
+    & .sun {
+        background: #ffa;
+        color: black;
+    }
+}
