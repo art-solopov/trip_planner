@@ -17,7 +17,28 @@ class Trip(db.Model):
     country_code = db.Column(db.String(2))
     slug = db.Column(db.String(2000), nullable=False)
 
-    author = db.relationship('User', backref='trips')
+    author = db.relationship('User',
+                             backref=db.backref('trips',
+                                                order_by=lambda: Trip.name))
 
 
 db.Index('idx_trip_author_slug', Trip.author_id, Trip.slug, unique=True)
+
+
+class Point(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    trip_id = db.Column(db.BigInteger, db.ForeignKey('trip.id'), index=True,
+                        nullable=False)
+    name = db.Column(db.String(2000), nullable=False, index=True)
+    address = db.Column(db.Text)
+    lat = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False)
+    type = db.Column(db.String(120), nullable=False, index=True)
+    notes = db.Column(db.Text)
+    schedule = db.Column(db.Text)
+
+    trip = db.relationship('Trip',
+                           backref=db.backref(
+                               'points',
+                               order_by=lambda: (Point.type, Point.name)
+                           ))

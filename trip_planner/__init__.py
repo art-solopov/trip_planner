@@ -18,8 +18,11 @@ def create_app(test_config=None):
         SECRET_KEY='LC!4.0tmi06@0J~YXiqjHVkCU3x1vDhA',
         SQLALCHEMY_DATABASE_URI='postgresql:///trip_planner',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_ECHO=True
+        SQLALCHEMY_ECHO=True,
+        SECRETS_PATH='secrets.json'
     )
+
+    app.config.from_json(app.config['SECRETS_PATH'])
 
     if test_config is not None:
         app.config.from_mapping(test_config)
