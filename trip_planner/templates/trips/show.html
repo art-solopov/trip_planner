@@ -24,7 +24,7 @@
                                 <div class="item-address">{{ point.address }}</div>
                                 <div>
                                     <a class="pan-link" href="#">Center map</a>
-                                    <a class="more-link" href="#">More</a>
+                                    <a class="more-link" href="{{ url_for('points.show', id=point.id) }}">More</a>
                                 </div>
                             </div>
                         </li>

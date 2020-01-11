@@ -8,6 +8,7 @@ migrate = Migrate()
 
 from .auth import auth  # noqa: E402
 from .trips import trips  # noqa: E402
+from .points import points  # noqa: E402
 from .models import User  # noqa: E402
 
 
@@ -46,6 +47,7 @@ def create_app(test_config=None):
 
     app.register_blueprint(auth)
     app.register_blueprint(trips)
+    app.register_blueprint(points)
 
     if app.env == 'development':
         import IPython

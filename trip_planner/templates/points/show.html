@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <figure class="map-image-container">
+        <image class="map-image" src="{{ data.point_map_url }}">
+    </figure>
+
+    <header>
+        <h1>{{ point.name }}</h1>
+        <p>{{ point.address }}</p>
+    </header>
+
+    {% if point.notes and not point.notes.isspace() %}
+        <section>
+            {%- for note_line in data.notes_lines %}
+                <p>{{ note_line }}</p>
+            {% endfor -%}
+        </section>
+    {% endif %}
+
+    {% if point.schedule %}
+        <table class="schedule">
+            <tbody>
+                {% for (dowfrom, dowto, timefrom, timeto) in data.schedule %}
+                    <tr>
+                        <td>
+                            {{ dowfrom | wday }}
+                            {%- if dowto -%}
+                                –{{ dowto | wday }}
+                            {% endif -%}
+                        </td>
+                        <td>{{ timefrom }}–{{ timeto }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

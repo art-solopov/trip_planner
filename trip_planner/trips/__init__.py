@@ -4,22 +4,21 @@ from flask import Blueprint, g, render_template
 
 from ..shared import user_requred
 from ..models import Trip
-from .data import TripsData
+from ..data import MapData
 
-trips = Blueprint('trips', __name__, url_prefix='/trips',
-                  template_folder='templates')
+trips = Blueprint('trips', __name__, url_prefix='/trips')
 
 
 @trips.before_request
 def add_data():
-    g.trips_data = TripsData()
+    g.map_data = MapData()
 
 
 @trips.route("/")
 @user_requred
 def index():
     trips = Trip.query.filter_by(author_id=g.user.id)
-    return render_template('index.html', trips=trips)
+    return render_template('trips/index.html', trips=trips)
 
 
 @trips.route("/<slug>")
@@ -27,6 +26,6 @@ def index():
 def show(slug):
     trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
     points = groupby(trip.points, attrgetter('type'))
-    return render_template('show.html', trip=trip, points=points,
+    return render_template('trips/show.html', trip=trip, points=points,
                            view_class='show-trip',
-                           map_url=g.trips_data.map_url)
+                           map_url=g.map_data.map_url)
