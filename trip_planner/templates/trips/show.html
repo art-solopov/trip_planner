@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="map" id="map"
+         data-map-url="{{ map_url }}"
+         data-map-attribution="{{ map_attribution }}">
+        <div class="extra-attribution"></div>
+    </div>
+    <div class="app">
+        <h1>{{ trip.name }}</h1>
+
+        {%- for g_type, pts in points %}
+            <section>
+                <h2>{{ g_type | capitalize }}</h2>
+                <ul>
+                    {%- for point in pts %}
+                        <li class="trip-point-item"
+                            id="{{ point.id }}"
+                            data-lat="{{ point.lat }}"
+                            data-lon="{{ point.lon }}"
+                            data-category="{{ point.type }}">
+                            <strong class="item-name">{{ point.name }}</strong>
+                            <div>
+                                <div class="item-address">{{ point.address }}</div>
+                                <div>
+                                    <a class="pan-link" href="#">Center map</a>
+                                    <a class="more-link" href="{{ url_for('points.show', id=point.id) }}">More</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" type="text/css" media="screen" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin />
+{% endblock %}
+
+{% block extra_body %}
+    <template id="map_attribution">
+        © <a href="https://www.mapbox.com/about/maps/">Mapbox</a>
+        © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
+        <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>
+    </template>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin></script>
+    <script src="/static/js/map.js"></script>
+{% endblock %}

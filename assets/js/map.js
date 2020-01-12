@@ -1,5 +1,5 @@
 function getDataPoints() {
-    let els = Array.from(document.querySelectorAll('.group .items li'))
+    let els = Array.from(document.querySelectorAll('li.trip-point-item'))
 
     return els.map(el => {
         let data = {
@@ -33,7 +33,7 @@ const MapIcon = L.Icon.extend({
 })
 
 function makeMarker({name, lat, lon, category}) {
-    var icon = new MapIcon({iconUrl: "/icons/" + category + ".png"})
+    var icon = new MapIcon({iconUrl: "/static/icons/" + category + ".png"})
 
     return L.marker([lat, lon], {icon: icon}).bindPopup(`${name} (${category})`)
 }
@@ -47,7 +47,8 @@ function main() {
     }, [0, 0]).map(e => e / dataPoints.length)
 
     let bounds = getBounds(dataPoints)
-    let {mapUrl, mapAttribution} = mapEl.dataset
+    let {mapUrl} = mapEl.dataset
+    let mapAttribution = document.getElementById('map_attribution').innerHTML
     let map = L.map(mapEl).fitBounds(bounds)
     L.tileLayer(mapUrl, {attribution: mapAttribution}).addTo(map)
 

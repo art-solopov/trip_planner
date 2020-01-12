@@ -4,18 +4,11 @@
         <title>Trip planner</title>
 
         <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen">
+        {%- block extra_head %}{% endblock %}
     </head>
     <body>
         <div class="layout">
-            <nav class="navbar">
-                <div class="navbar-right">
-                    {% if g.user %}
-                        <span>{{ g.user.username }}</span>
-                    {% else %}
-                        <a href="{{ url_for('auth.login') }}">Login</a>
-                    {% endif %}
-                </div>
-            </nav>
+            {% include "_navbar.html" %}
             <main class="{{ view_class }}">
                 {% block main %}{% endblock %}
             </main>
@@ -24,6 +17,7 @@
                 <p>All map data © OpenStreetMaps</p>
                 <p>Icons are based on icons from <a href="https://icomoon.io/">Icomoon</a></p>
             </footer>
+            {%- block extra_body %}{% endblock %}
         </div>
     </body>
 </html>

@@ -2,12 +2,12 @@
 
 @import "./form.css";
 @import "./login.css";
-@import "./index.css";
+@import "./trips-list.css";
 @import "./show.css";
 @import "./show-poi.css";
 @import "./poi-form.css";
 
-$nav-padding: 0.5em;
+$nav-padding: 0.75em;
 
 body {
     font-size: 16px;
@@ -72,6 +72,11 @@ body {
 nav.navbar {
     box-sizing: border-box;
     line-height: 1;
+    background: #EEE;
+
+    & > .navbar-title {
+        font-weight: bold;
+    }
 
     &, & > .navbar-left, & > .navbar-right {
         @extend .flex-row
@@ -83,6 +88,14 @@ nav.navbar {
 
     & span, & a {
         padding: $nav-padding;
+
+    }
+
+    & a {
+        &:hover,
+        &:focus {
+            background: #CCC;
+        }
     }
 
     & .navbar-brand {

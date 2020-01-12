@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Your trips</h1>
+
+    <ul class="trips">
+        {%- for trip in trips %}
+            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="link">{{ trip.name }}</a></li>
+        {% endfor -%}
+    </ul>
+{% endblock %}
