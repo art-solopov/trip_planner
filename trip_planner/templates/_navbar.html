@@ -1,0 +1,11 @@
+<nav class="navbar">
+    <span class="navbar-title">TRIP PLANNERS</span>
+    <div class="navbar-right">
+        {% if g.user %}
+            <span>{{ g.user.username }}</span>
+            <a href="{{ url_for('auth.logout') }}">Sign out</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">Sign in</a>
+        {% endif %}
+    </div>
+</nav>

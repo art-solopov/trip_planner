@@ -1,10 +1,12 @@
 from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_wtf.csrf import CSRFProtect
 
 
 db = SQLAlchemy()
 migrate = Migrate()
+csrf = CSRFProtect()
 
 from .auth import auth  # noqa: E402
 from .trips import trips  # noqa: E402
@@ -30,6 +32,7 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    csrf.init_app(app)
 
     @app.before_request
     def get_user():

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, session
+from flask import Blueprint, render_template, redirect, session, request
 from passlib.hash import bcrypt
 from .forms import LoginForm
 from ..models import User
@@ -27,3 +27,11 @@ def login():
         else:
             return render_template('login.html', form=form)
     return render_template('login.html', form=form)
+
+
+@auth.route('/logout', methods=('GET', 'POST'))
+def logout():
+    if request.method == 'POST':
+        del session['user_id']
+        return redirect('/')
+    return render_template('logout.html')
