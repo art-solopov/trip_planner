@@ -18,6 +18,8 @@ passlib = "*"
 bcrypt = "*"
 flask-wtf = "*"
 psycopg2 = "*"
+requests = "*"
+python-box = "*"
 
 [requires]
 python_version = "3.7"
