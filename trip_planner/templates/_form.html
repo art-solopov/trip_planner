@@ -1,0 +1,13 @@
+<form method="{{ form_method | default('POST') }}" action="{{ form_action }}">
+    {{ form.csrf_token() }}
+
+    {%- for field in form if field.type != 'CSRFTokenField' %}
+        <div>
+            {{ field.label }}
+            {{ field() }}
+        </div>
+    {%- endfor %}
+
+    <div><button type="submit">{{ submit_text | default('Submit') }}</button>
+</form>
+

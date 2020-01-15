@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from markupsafe import Markup, escape
 
-from ..shared import user_requred
+from ..shared import user_required
 from ..models import Point
 from .data import PointData
 
@@ -18,7 +18,7 @@ points.add_app_template_filter(render_weekday, 'wday')
 
 
 @points.route("/<int:id>")
-@user_requred
+@user_required
 def show(id: int):
     point = Point.query.get_or_404(id)
     data = PointData(point)

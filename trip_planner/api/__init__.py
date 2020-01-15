@@ -4,7 +4,7 @@ from requests import get
 from box import Box
 
 from .. import csrf
-from ..shared import user_requred
+from ..shared import user_required
 from ..data import MapData
 
 
@@ -40,7 +40,7 @@ def _geocode(search, country_code):
 
 @api.route("/geocode", methods=('POST',))
 @csrf.exempt
-@user_requred
+@user_required
 def api_geocode():
     search = request.json['search']
     country_code = request.json.get('country_code', '')

@@ -40,9 +40,11 @@ def create_app(test_config=None):
         try:
             user_id = session['user_id']
             if user_id is None:
+                g.user = None
                 return
             g.user = User.query.filter_by(id=user_id).first()
         except KeyError:
+            g.user = None
             return
 
     @app.route("/")
