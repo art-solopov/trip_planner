@@ -8,10 +8,10 @@ db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
 
-from .auth import auth  # noqa: E402
-from .trips import trips  # noqa: E402
-from .points import points  # noqa: E402
-from .api import api  # noqa: E402
+from .auth import auth as auth_bp  # noqa: E402
+from .trips import trips as trips_bp  # noqa: E402
+from .points import points as points_bp  # noqa: E402
+from .api import api as api_bp  # noqa: E402
 from .models import User  # noqa: E402
 
 
@@ -22,7 +22,7 @@ def create_app(test_config=None):
         SECRET_KEY='LC!4.0tmi06@0J~YXiqjHVkCU3x1vDhA',
         SQLALCHEMY_DATABASE_URI='postgresql:///trip_planner',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_ECHO=True,
+        # SQLALCHEMY_ECHO=True,
         SECRETS_PATH='secrets.json'
     )
 
@@ -51,10 +51,10 @@ def create_app(test_config=None):
     def root():
         return render_template('root.html')
 
-    app.register_blueprint(auth)
-    app.register_blueprint(trips)
-    app.register_blueprint(points)
-    app.register_blueprint(api)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(trips_bp)
+    app.register_blueprint(points_bp)
+    app.register_blueprint(api_bp)
 
     if app.env == 'development':
         import IPython
