@@ -7,7 +7,10 @@
         <div class="extra-attribution"></div>
     </div>
     <div class="app">
-        <h1>{{ trip.name }}</h1>
+        <header>
+            <h1>{{ trip.name }}</h1>
+            <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
+        </header>
 
         {%- for g_type, pts in points %}
             <section>

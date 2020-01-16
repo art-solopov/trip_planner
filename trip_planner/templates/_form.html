@@ -1,13 +1,24 @@
 <form method="{{ form_method | default('POST') }}" action="{{ form_action }}">
     {{ form.csrf_token() }}
 
+    {%- if form.errors %}
+        <ul class="form-errors">
+            {%- for fname, errors in form.errors.items() %}
+                {% set field_name = form[fname].label.text %}
+                {%- for err in errors %}
+                    <li>{{ field_name }}: {{ err }}</li>
+                {% endfor -%}
+            {% endfor -%}
+        </ul>
+    {% endif -%}
+
     {%- for field in form if field.type != 'CSRFTokenField' %}
-        <div>
+        <div class="field-{{ field.name }}">
             {{ field.label }}
             {{ field() }}
         </div>
     {%- endfor %}
 
-    <div><button type="submit">{{ submit_text | default('Submit') }}</button>
+    <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>
 </form>
 
