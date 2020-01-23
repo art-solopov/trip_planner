@@ -16,6 +16,12 @@ def authenticate(username, password):
         return None
 
 
+def _render_login_form(form):
+    return render_template('form.html', form=form,
+                           title='Sign in',
+                           submit_text='Login')
+
+
 @auth.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
@@ -25,8 +31,8 @@ def login():
             session['user_id'] = user.id
             return redirect('/')
         else:
-            return render_template('login.html', form=form)
-    return render_template('login.html', form=form)
+            return _render_login_form(form)
+    return _render_login_form(form)
 
 
 @auth.route('/logout', methods=('GET', 'POST'))

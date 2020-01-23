@@ -8,6 +8,7 @@
     <header>
         <h1>{{ point.name }}</h1>
         <p>{{ point.address }}</p>
+        <a href="{{ url_for('.update', id=point.id) }}">Edit</a>
     </header>
 
     {% if point.notes and not point.notes.isspace() %}

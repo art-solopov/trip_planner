@@ -1,3 +1,5 @@
+{% from "macros/forms.html" import form_field %}
+
 <form method="{{ form_method | default('POST') }}" action="{{ form_action }}">
     {{ form.csrf_token() }}
 
@@ -13,10 +15,7 @@
     {% endif -%}
 
     {%- for field in form if field.type != 'CSRFTokenField' %}
-        <div class="field-{{ field.name }}">
-            {{ field.label }}
-            {{ field() }}
-        </div>
+        {{ form_field(field) }}
     {%- endfor %}
 
     <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>

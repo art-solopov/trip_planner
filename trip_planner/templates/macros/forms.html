@@ -1,0 +1,6 @@
+{% macro form_field(field) -%}
+    <div class="field-{{ field.name }}">
+        {{ field.label }}
+        {{ field() }}
+    </div>
+{%- endmacro %}

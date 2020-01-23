@@ -17,9 +17,7 @@ function displayGeocode(container, data) {
         el.querySelector('.name').innerText = e.name
 
         let preview = el.querySelector('.preview')
-        let previewSrc = preview.src
-        previewSrc = previewSrc.replace(/\$lat/g, e.lat).replace(/\$lon/g, e.lon)
-        preview.src = previewSrc
+        preview.src = e.map_url
 
         container.appendChild(el)
     }

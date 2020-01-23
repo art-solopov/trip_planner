@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "macros/forms.html" import form_field %}
+
+{% block main %}
+    <form method="POST" action="">
+        {{ form.csrf_token }}
+
+        {{ form_field(form.name) }}
+        {{ form_field(form.address) }}
+
+        <div class="flex-row lat-lon-fields">
+            {{ form_field(form.lat) }}
+            {{ form_field(form.lon) }}
+        </div>
+
+        <div><button type="button" id="btn_geocode" data-link="/api/geocode" data-trip-id="{{ point.trip_id }}">Geocode</button></div>
+
+        <div class="geocode-results flex-shelf" id="geocode_results"></div>
+
+        {{ form_field(form.type) }}
+        {{ form_field(form.notes) }}
+        {{ form_field(form.schedule) }}
+
+        <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>
+    </form>
+{% endblock %}
+
+{% block extra_body %}
+    <template id="geocode_result_template">
+        <div class="geocode-result">
+            <div>
+                <button type="button" class="gc-save">Save</button>
+            </div>
+            <div class="name"></div>
+            <div class="address"></div>
+            <image class="preview" />
+        </div>
+    </template>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/static/js/geocode.js"></script>
+{% endblock %}
