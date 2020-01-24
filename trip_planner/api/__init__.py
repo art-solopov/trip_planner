@@ -1,11 +1,14 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask.json import jsonify
 from requests import get
 from box import Box
+from werkzeug.datastructures import MultiDict
 
 from .. import csrf
 from ..shared import user_required
+from ..models import Trip
 from ..data import MapData
+from .forms import GeocodeForm
 
 
 api = Blueprint('api', __name__, url_prefix='/api')
@@ -29,12 +32,21 @@ def _point_data(map_data: MapData, response_item: dict) -> dict:
     }
 
 
-def _geocode(search, country_code):
+def _geocode(form: GeocodeForm, trip_id):
+    if form.field.data == 'address':
+        search = form.address.data
+    else:
+        search = form.name.data
+
     map_data = MapData()
+    trip = Trip.query.get_or_404(trip_id)
+    if trip.name not in search:
+        search = f"{search}, {trip.name}"
     response = get(GEOCODE_ENDPOINT, params={'format': 'json',
                                              'q': search,
-                                             'countrycodes': country_code,
+                                             'countrycodes': trip.country_code,
                                              'namedetails': 1})
+    current_app.logger.info((response.request.url, response.request.body))
     return [_point_data(map_data, x) for x in response.json()]
 
 
@@ -42,6 +54,6 @@ def _geocode(search, country_code):
 @csrf.exempt
 @user_required
 def api_geocode():
-    search = request.json['search']
-    country_code = request.json.get('country_code', '')
-    return jsonify(_geocode(search, country_code))
+    form = GeocodeForm(MultiDict(request.json))
+    trip_id = request.json['trip_id']
+    return jsonify(_geocode(form, trip_id))

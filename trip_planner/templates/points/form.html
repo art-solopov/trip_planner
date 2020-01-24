@@ -2,7 +2,7 @@
 {% from "macros/forms.html" import form_field, errors %}
 
 {% block main %}
-    <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip_id }}">
+    <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
         {{ form.csrf_token }}
         {{ errors(form) }}
 
@@ -14,12 +14,21 @@
             {{ form_field(form.lon) }}
         </div>
 
-        <div class="flex-shelf">
-            <button type="button" class="btn-geocode" data-field="name">Geocode by name</button>
-            <button type="button" class="btn-geocode" data-field="address">Geocode by address</button>
-        </div>
+        <fieldset>
+            <legend>Geocoding</legend>
 
-        <div class="geocode-results flex-shelf" id="geocode_results"></div>
+            <input name="geocode_field" type="radio" id="geocode_field_name" value="name">
+            <label for="geocode_field_name">By name</label>
+
+            <input name="geocode_field" type="radio" id="geocode_field_address" value="address">
+            <label for="geocode_field_address">By address</label>
+
+            <div>
+                <button type="button" id="btn_geocode">Geocode</button>
+            </div>
+
+            <div class="geocode-results flex-shelf" id="geocode_results"></div>
+        </fieldset>
 
         {{ form_field(form.type) }}
         {{ form_field(form.notes) }}

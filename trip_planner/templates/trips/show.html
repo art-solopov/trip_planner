@@ -11,6 +11,7 @@
             <h1>{{ trip.name }}</h1>
             <a href="{{ url_for('.index') }}" class="link">Back</a>
             <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
+            <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="link">Add point</a>
         </header>
 
         {%- for g_type, pts in points %}
