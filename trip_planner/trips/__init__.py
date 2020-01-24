@@ -1,15 +1,18 @@
+from functools import wraps
 from itertools import groupby
 from operator import attrgetter
 from flask import Blueprint, g, render_template, redirect, url_for
 from flask.views import MethodView as View
 from sqlalchemy.exc import IntegrityError
 import psycopg2.errorcodes as pgerrorcodes
+from markupsafe import Markup, escape
 
 from .. import db
 from ..shared import user_required
-from ..models import Trip
+from ..models import Trip, Point
 from ..data import MapData
-from .forms import TripForm
+from .data import PointData
+from .forms import TripForm, PointForm
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 
@@ -109,4 +112,63 @@ class UpdateTripView(TripCUView):
 
 
 trips.add_url_rule('/new', view_func=CreateTripView.as_view('new'))
-trips.add_url_rule('/<slug>/update', view_func=UpdateTripView.as_view('update'))
+trips.add_url_rule('/<slug>/update',
+                   view_func=UpdateTripView.as_view('update'))
+
+# Points CRUD
+
+
+def render_weekday(weekday: str) -> str:
+    wday_short = weekday[0:3]
+    return Markup(f'<span class="{wday_short.lower()}">{escape(weekday)}</span>')
+
+
+trips.add_app_template_filter(render_weekday, 'wday')
+
+
+def trip_point_wrapper(f):
+    @wraps(f)
+    def handler(slug: str, id: int):
+        trip = Trip.query.filter_by(slug=slug).first_or_404()
+        point = Point.query.filter(Point.trip == trip, Point.id == id)\
+                           .first_or_404()
+        return f(trip, point)
+    return handler
+
+
+@trips.route("/<slug>/add-point", methods=('GET', 'POST'))
+@user_required
+def add_point(slug: str):
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    point = Point(trip=trip)
+    form = PointForm()
+    if form.validate_on_submit():
+        form.populate_obj(point)
+        db.session.add(point)
+        db.session.commit()
+        return redirect(url_for('.show', slug=trip.slug))
+    return render_template('points/form.html', form=form, point=point,
+                           title=f'Edit point {point.name}')
+
+
+@trips.route("/<slug>/<int:id>")
+@user_required
+@trip_point_wrapper
+def show_point(trip: Trip, point: Point):
+    data = PointData(point)
+    return render_template('points/show.html', point=point,
+                           data=data)
+
+
+@trips.route("/<slug>/<int:id>/update", methods=('GET', 'POST'))
+@user_required
+@trip_point_wrapper
+def update_point(trip: Trip, point: Point):
+    form = PointForm(obj=point)
+    if form.validate_on_submit():
+        form.populate_obj(point)
+        db.session.add(point)
+        db.session.commit()
+        return redirect(url_for('.show', slug=trip.slug))
+    return render_template('points/form.html', form=form, point=point,
+                           title=f'Edit point {point.name}')

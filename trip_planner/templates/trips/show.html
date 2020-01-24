@@ -9,6 +9,7 @@
     <div class="app">
         <header>
             <h1>{{ trip.name }}</h1>
+            <a href="{{ url_for('.index') }}" class="link">Back</a>
             <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
         </header>
 
@@ -27,7 +28,8 @@
                                 <div class="item-address">{{ point.address }}</div>
                                 <div>
                                     <a class="pan-link" href="#">Center map</a>
-                                    <a class="more-link" href="{{ url_for('points.show', id=point.id) }}">More</a>
+                                    <a class="more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}">More</a>
+                                    <a class="edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}">Edit</a>
                                 </div>
                             </div>
                         </li>

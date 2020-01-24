@@ -23,24 +23,28 @@ function displayGeocode(container, data) {
     }
 }
 
-function main() {
-    let button = document.getElementById('btn_geocode')
-    let results = document.getElementById('geocode_results')
-    let form = button.closest('form')
+function doGeocode(form, results, button, field) {
+    button.disabled = true
+    let search = form.querySelector(`[name=${field}]`).value
+    let tripId = form.dataset.tripId
 
-    let link = button.dataset.link
-    let tripId = button.dataset.tripId
-
-    button.addEventListener('click', (ev) => {
-        button.disabled = true
-        let address = form.querySelector('textarea[name=address]').value
-        let name = form.querySelector('input[name=name]').value
-
-        axios.post(link, { trip_id: tripId, search: address || name }).then(res => {
-            displayGeocode(results, res.data);
-            button.disabled = false
-        })
+    axios.post('/api/geocode', { trip_id: tripId, search: search }).then(res => {
+        displayGeocode(results, res.data);
+        button.disabled = false
     })
+}
+
+function main() {
+    let results = document.getElementById('geocode_results')
+    let form = document.getElementById('point_form')
+
+    for (let button of document.querySelectorAll('.btn-geocode')) {
+        console.log(button)
+        button.addEventListener('click', _ev => {
+            doGeocode(form, results, button, button.dataset.field)
+        })
+    }
+
 
     results.addEventListener('click', (ev) => {
         let {target} = ev
