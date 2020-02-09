@@ -22,7 +22,7 @@ def create_app(test_config=None):
         SQLALCHEMY_DATABASE_URI='postgresql:///trip_planner',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         # SQLALCHEMY_ECHO=True,
-        SECRETS_PATH='secrets.json'
+        SECRETS_PATH='secrets.json',
     )
 
     app.config.from_json(app.config['SECRETS_PATH'])

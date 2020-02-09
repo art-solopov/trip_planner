@@ -5,7 +5,6 @@ from trip_planner import create_app, db
 test_config = {
     'SQLALCHEMY_DATABASE_URI': 'postgresql:///trip_planner_test',
     'TESTING': True,
-    'WTF_CSRF_ENABLED': False
 }
 
 app = create_app(test_config)
