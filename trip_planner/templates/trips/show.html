@@ -9,6 +9,7 @@
     <div class="app">
         <header>
             <h1>{{ trip.name }}</h1>
+            <div>Count: {{ points_count }}</div>
             <a href="{{ url_for('.index') }}" class="link">Back</a>
             <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
             <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="link">Add point</a>

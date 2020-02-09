@@ -10,7 +10,7 @@ main.show-trip {
             height: 24px;
             width: 78px;
 
-            background-image: url(/vendor/mapbox/logo.svg);
+            background-image: url(/static/vendor/mapbox/logo.svg);
             background-repeat: no-repeat;
             z-index: 500;
         }

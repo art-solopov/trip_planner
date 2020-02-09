@@ -34,7 +34,9 @@ def index():
 def show(slug):
     trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
     points = groupby(trip.points, attrgetter('type'))
-    return render_template('trips/show.html', trip=trip, points=points,
+    return render_template('trips/show.html', trip=trip,
+                           points=points,
+                           points_count=len(trip.points),
                            view_class='show-trip',
                            map_url=g.map_data.map_url)
 
