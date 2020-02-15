@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
+from wtforms import Field
 
 
 db = SQLAlchemy()
@@ -53,6 +54,10 @@ def create_app(test_config=None):
     app.register_blueprint(auth_bp)
     app.register_blueprint(trips_bp)
     app.register_blueprint(api_bp)
+
+    @app.template_test('hidden_field')
+    def is_hidden_field(field: Field) -> bool:
+        return field.widget.input_type == 'hidden'
 
     if app.env == 'development':
         import IPython

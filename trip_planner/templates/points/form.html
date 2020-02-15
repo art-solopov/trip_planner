@@ -1,17 +1,18 @@
 {% extends "base.html" %}
-{% from "macros/forms.html" import form_field, errors %}
+{% from "macros/forms.html" import field, errors %}
 
 {% block main %}
     <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
-        {{ form.csrf_token }}
         {{ errors(form) }}
 
-        {{ form_field(form.name) }}
-        {{ form_field(form.address) }}
+        {{ form.hidden_tag() }}
+
+        {{ field(form.name) }}
+        {{ field(form.address) }}
 
         <div class="flex-row lat-lon-fields">
-            {{ form_field(form.lat) }}
-            {{ form_field(form.lon) }}
+            {{ field(form.lat) }}
+            {{ field(form.lon) }}
         </div>
 
         <fieldset>
@@ -30,9 +31,9 @@
             <div class="geocode-results flex-shelf" id="geocode_results"></div>
         </fieldset>
 
-        {{ form_field(form.type) }}
-        {{ form_field(form.notes) }}
-        {{ form_field(form.schedule) }}
+        {{ field(form.type) }}
+        {{ field(form.notes) }}
+        {{ field(form.schedule) }}
 
         <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>
     </form>

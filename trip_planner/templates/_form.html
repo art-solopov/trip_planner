@@ -1,12 +1,12 @@
-{% from "macros/forms.html" import form_field, errors %}
+{% from "macros/forms.html" import field, errors %}
 
 <form method="{{ form_method | default('POST') }}" action="{{ form_action }}">
-    {{ form.csrf_token() }}
-
     {{ errors(form) }}
 
-    {%- for field in form if field.type != 'CSRFTokenField' %}
-        {{ form_field(field) }}
+    {{ form.hidden_tag() }}
+
+    {%- for f in form if f is not hidden_field %}
+        {{ field(f) }}
     {%- endfor %}
 
     <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>

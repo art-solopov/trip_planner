@@ -25,7 +25,6 @@ def _render_login_form(form):
 @auth.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
-    # from nose.tools import set_trace; set_trace()
     if form.validate_on_submit():
         user = authenticate(form.username.data, form.password.data)
         if user is not None:
