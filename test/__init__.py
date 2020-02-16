@@ -75,3 +75,9 @@ class WithUser(WithDB):
         super().setUp()
         db.session.add(self.user)
         db.session.flush()
+
+
+class WithLogin(WithUser, WithTestClient):
+    def setUp(self):
+        super().setUp()
+        self.login(self.username, self.password)

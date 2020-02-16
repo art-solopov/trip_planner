@@ -8,6 +8,8 @@ ipython = "*"
 jedi = "*"
 flake8 = "*"
 nose = "*"
+faker = "*"
+factory-boy = "*"
 
 [packages]
 flask = "*"
