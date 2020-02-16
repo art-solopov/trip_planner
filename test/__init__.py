@@ -1,6 +1,10 @@
 from flask.ctx import AppContext
+from flask.wrappers import Response
+from flask.testing import FlaskClient
+from passlib.hash import bcrypt
 
 from trip_planner import create_app, db
+from trip_planner.models import User
 
 test_config = {
     'SQLALCHEMY_DATABASE_URI': 'postgresql:///trip_planner_test',
@@ -23,10 +27,21 @@ def teardown_module():
             db.drop_all()
 
 
+def login(client: FlaskClient, username: str, password: str):
+    return client.post('/login', data=dict(username=username,
+                                           password=password))
+
+
 class WithTestClient:
     @classmethod
     def setup_class(cls):
         cls.client = app.test_client()
+
+    def login(self, username: str, password: str) -> Response:
+        return login(self.client, username, password)
+
+    def logout(self):
+        return self.client.post('/logout')
 
 
 class WithAppContext:
@@ -49,3 +64,14 @@ class WithDB(WithAppContext):
     def tearDown(self):
         db.session.rollback()
         super().tearDown()
+
+
+class WithUser(WithDB):
+    username = 'user'
+    password = 'password'
+    user = User(username=username, password_digest=bcrypt.hash(password))
+
+    def setUp(self):
+        super().setUp()
+        db.session.add(self.user)
+        db.session.flush()
