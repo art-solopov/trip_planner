@@ -1,7 +1,7 @@
 from functools import wraps
 from itertools import groupby
 from operator import attrgetter
-from flask import Blueprint, g, render_template, redirect, url_for
+from flask import Blueprint, g, render_template, request, redirect, url_for
 from flask.views import MethodView as View
 from sqlalchemy.exc import IntegrityError
 import psycopg2.errorcodes as pgerrorcodes
@@ -112,6 +112,18 @@ class UpdateTripView(TripCUView):
         return Trip.query\
                    .filter_by(slug=self.slug, author=g.user)\
                    .first_or_404()
+
+
+@trips.route('/<slug>/delete', methods=('GET', 'POST'))
+def delete_point(slug: str):
+    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    if request.method == 'POST':
+        db.session.delete(trip)
+        db.session.commit()
+        return redirect(url_for('.index'))
+    message = f'Are you sure you want to delete trip {trip.name}?'
+    return render_template('confirm_form.html', submit_label='Delete',
+                           message=message)
 
 
 trips.add_url_rule('/new', view_func=CreateTripView.as_view('new'))

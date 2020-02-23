@@ -40,4 +40,4 @@ def logout():
     if request.method == 'POST':
         del session['user_id']
         return redirect('/')
-    return render_template('logout.html')
+    return render_template('confirm_form.html', submit_label='Log out')

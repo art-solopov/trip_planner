@@ -46,5 +46,6 @@ class Point(db.Model):
     trip = db.relationship('Trip',
                            backref=db.backref(
                                'points',
-                               order_by=lambda: (Point.type, Point.name)
+                               order_by=lambda: (Point.type, Point.name),
+                               cascade='save-update, merge, delete'
                            ))
