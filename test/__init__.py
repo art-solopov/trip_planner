@@ -60,10 +60,15 @@ class WithDB(WithAppContext):
     def setUp(self):
         super().setUp()
         self._transaction = db.session.begin_nested()
+        self._setup_db()
+        db.session.flush()
 
     def tearDown(self):
         db.session.rollback()
         super().tearDown()
+
+    def _setup_db(self):
+        pass
 
 
 class WithUser(WithDB):
@@ -71,10 +76,8 @@ class WithUser(WithDB):
     password = 'password'
     user = User(username=username, password_digest=bcrypt.hash(password))
 
-    def setUp(self):
-        super().setUp()
+    def _setup_db(self):
         db.session.add(self.user)
-        db.session.flush()
 
 
 class WithLogin(WithUser, WithTestClient):

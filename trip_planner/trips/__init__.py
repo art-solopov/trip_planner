@@ -71,6 +71,7 @@ class TripCUView(View):
                     return self._default_render()
                 else:
                     raise e
+        db.session.rollback()
         return self._default_render()
 
     def _build_form(self):
