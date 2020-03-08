@@ -115,13 +115,14 @@ class UpdateTripView(TripCUView):
 
 
 @trips.route('/<slug>/delete', methods=('GET', 'POST'))
-def delete_point(slug: str):
+def delete_trip(slug: str):
     trip = Trip.query.filter_by(slug=slug).first_or_404()
     if request.method == 'POST':
         db.session.delete(trip)
         db.session.commit()
         return redirect(url_for('.index'))
-    message = f'Are you sure you want to delete trip {trip.name}?'
+    message = (f'Are you sure you want to delete trip {trip.name}' +
+               'and all its points?')
     return render_template('confirm_form.html', submit_label='Delete',
                            message=message)
 
@@ -187,3 +188,16 @@ def update_point(trip: Trip, point: Point):
         return redirect(url_for('.show', slug=trip.slug))
     return render_template('points/form.html', form=form, point=point,
                            title=f'Edit point {point.name}')
+
+
+@trips.route("/<slug>/<int:id>/delete", methods=('GET', 'POST'))
+@user_required
+@trip_point_wrapper
+def delete_point(trip: Trip, point: Point):
+    if request.method == 'POST':
+        db.session.delete(point)
+        db.session.commit()
+        return redirect(url_for('.show', slug=trip.slug))
+    message = f'Are you sure you want to delete {point.name}?'
+    return render_template('confirm_form.html', submit_label='Delete',
+                           message=message)
