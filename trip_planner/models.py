@@ -8,6 +8,9 @@ class User(db.Model):
     username = db.Column(db.String(120), nullable=False, unique=True)
     password_digest = db.Column(db.String(100), nullable=True)
 
+    def __repr__(self):
+        return f"<User {self.username}>"
+
 
 class Trip(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
@@ -20,6 +23,9 @@ class Trip(db.Model):
     author = db.relationship('User',
                              backref=db.backref('trips',
                                                 order_by=lambda: Trip.name))
+
+    def __repr__(self):
+        return f"<Trip {self.id} author_id={self.author_id} slug={self.slug}>"
 
 
 db.Index('idx_trip_author_slug', Trip.author_id, Trip.slug, unique=True)
@@ -40,5 +46,6 @@ class Point(db.Model):
     trip = db.relationship('Trip',
                            backref=db.backref(
                                'points',
-                               order_by=lambda: (Point.type, Point.name)
+                               order_by=lambda: (Point.type, Point.name),
+                               cascade='save-update, merge, delete'
                            ))

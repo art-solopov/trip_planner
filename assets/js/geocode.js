@@ -17,31 +17,42 @@ function displayGeocode(container, data) {
         el.querySelector('.name').innerText = e.name
 
         let preview = el.querySelector('.preview')
-        let previewSrc = preview.src
-        previewSrc = previewSrc.replace(/\$lat/g, e.lat).replace(/\$lon/g, e.lon)
-        preview.src = previewSrc
+        preview.src = e.map_url
 
         container.appendChild(el)
     }
 }
 
+function doGeocode(button, form, results) {
+    button.disabled = true
+    let tripId = form.dataset.tripId
+    let name = form.querySelector('input[name=name]').value
+    let address = form.querySelector('textarea[name=address]').value
+    let field = form.querySelector('input[name=geocode_field]:checked')
+    if(field) {
+        field = field.value
+    }
+
+    let data = {
+        trip_id: tripId,
+        name: name,
+        address: address,
+        field: field
+    }
+
+    axios.post('/api/geocode', data).then(res => {
+        displayGeocode(results, res.data);
+        button.disabled = false
+    })
+}
+
 function main() {
-    let button = document.getElementById('btn_geocode')
     let results = document.getElementById('geocode_results')
-    let form = button.closest('form')
+    let form = document.getElementById('point_form')
+    let button = document.getElementById('btn_geocode')
 
-    let link = button.dataset.link
-    let tripId = button.dataset.tripId
-
-    button.addEventListener('click', (ev) => {
-        button.disabled = true
-        let address = form.querySelector('textarea[name=address]').value
-        let name = form.querySelector('input[name=name]').value
-
-        axios.post(link, { trip_id: tripId, search: address || name }).then(res => {
-            displayGeocode(results, res.data);
-            button.disabled = false
-        })
+    button.addEventListener('click', ev => {
+        doGeocode(button, form, results)
     })
 
     results.addEventListener('click', (ev) => {

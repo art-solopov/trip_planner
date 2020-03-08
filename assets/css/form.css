@@ -1,7 +1,11 @@
 $input-padding: 0.25em;
 
 form {
-    & input:not([type=submit]), & select, & textarea {
+    box-sizing: border-box;
+    max-width: 60em;
+    margin: 2em auto 0;
+
+    & input:not([type=submit]):not([type=radio]), & select, & textarea {
         width: 100%;
         margin-bottom: 0.5em;
         box-sizing: border-box;
@@ -16,4 +20,8 @@ form {
 label {
     font-weight: bold;
     display: block;
+
+    @nest input[type=radio] + & {
+        display: inline;
+    }
 }

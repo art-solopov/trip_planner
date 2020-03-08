@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "macros/forms.html" import field, errors %}
+
+{% block main %}
+    <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
+        {{ errors(form) }}
+
+        {{ form.hidden_tag() }}
+
+        {{ field(form.name) }}
+        {{ field(form.address) }}
+
+        <div class="flex-row lat-lon-fields">
+            {{ field(form.lat) }}
+            {{ field(form.lon) }}
+        </div>
+
+        <fieldset>
+            <legend>Geocoding</legend>
+
+            <input name="geocode_field" type="radio" id="geocode_field_name" value="name" checked>
+            <label for="geocode_field_name">By name</label>
+
+            <input name="geocode_field" type="radio" id="geocode_field_address" value="address">
+            <label for="geocode_field_address">By address</label>
+
+            <div>
+                <button type="button" id="btn_geocode">Geocode</button>
+            </div>
+
+            <div class="geocode-results flex-shelf" id="geocode_results"></div>
+        </fieldset>
+
+        {{ field(form.type) }}
+        {{ field(form.notes) }}
+        {{ field(form.schedule) }}
+
+        <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>
+    </form>
+{% endblock %}
+
+{% block extra_body %}
+    <template id="geocode_result_template">
+        <div class="geocode-result">
+            <div>
+                <button type="button" class="gc-save">Save</button>
+            </div>
+            <div class="name"></div>
+            <div class="address"></div>
+            <image class="preview" />
+        </div>
+    </template>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/static/js/geocode.js"></script>
+{% endblock %}

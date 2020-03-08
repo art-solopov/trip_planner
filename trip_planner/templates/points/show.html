@@ -6,7 +6,8 @@
     </figure>
 
     <header>
-        <h1>{{ point.name }}</h1>
+        <h1><a href="{{ url_for('.show', slug=point.trip.slug) }}">{{ point.trip.name }}</a> — {{ point.name }}</h1>
+        <a class="link" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">Edit</a>
         <p>{{ point.address }}</p>
     </header>
 

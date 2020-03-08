@@ -7,7 +7,14 @@
         <div class="extra-attribution"></div>
     </div>
     <div class="app">
-        <h1>{{ trip.name }}</h1>
+        <header>
+            <h1>{{ trip.name }}</h1>
+            <div>Count: {{ points_count }}</div>
+            <a href="{{ url_for('.index') }}" class="link">Back</a>
+            <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
+            <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="link">Add point</a>
+	    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="link">Delete</a>
+        </header>
 
         {%- for g_type, pts in points %}
             <section>
@@ -24,7 +31,9 @@
                                 <div class="item-address">{{ point.address }}</div>
                                 <div>
                                     <a class="pan-link" href="#">Center map</a>
-                                    <a class="more-link" href="{{ url_for('points.show', id=point.id) }}">More</a>
+                                    <a class="more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}">More</a>
+                                    <a class="edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}">Edit</a>
+				    <a class="delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}">Delete</a>
                                 </div>
                             </div>
                         </li>
