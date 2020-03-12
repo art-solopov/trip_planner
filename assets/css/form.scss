@@ -5,15 +5,15 @@ form {
     max-width: 60em;
     margin: 2em auto 0;
 
-    & input:not([type=submit]):not([type=radio]), & select, & textarea {
+    input:not([type=submit]):not([type=radio]), & select, & textarea {
         width: 100%;
         margin-bottom: 0.5em;
         box-sizing: border-box;
     }
 
-    & input:not([type=submit]) {
-        padding: calc($input-padding - 1px);
-        height: calc($input-padding + 1em);
+    input:not([type=submit]) {
+        padding: calc(#{$input-padding} - 1px);
+        height: $input-padding + 1em;
     }
 }
 
@@ -21,7 +21,7 @@ label {
     font-weight: bold;
     display: block;
 
-    @nest input[type=radio] + & {
+    input[type=radio] + & {
         display: inline;
     }
 }

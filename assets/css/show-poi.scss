@@ -30,13 +30,13 @@
     margin-bottom: 1em;
 
     @each $dow in mon, tue, wed, thu, fri, sat, sun {
-        & .$(dow) {
+        .#{$dow} {
             @extend %dow-display;
         }
     }
 
     @each $dow in mon, tue, wed, thu {
-        & .$(dow) {
+        .#{$dow} {
             @extend %dow-wday-display;
         }
     }

@@ -1,11 +1,11 @@
 @import "normalize.css";
 
-@import "./form.css";
+@import "./form.scss";
+@import "./poi-form.scss";
+@import "./show-poi.scss";
 @import "./login.css";
 @import "./trips-list.css";
 @import "./show.css";
-@import "./show-poi.css";
-@import "./poi-form.css";
 
 $nav-padding: 0.75em;
 
