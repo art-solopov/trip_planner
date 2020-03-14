@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
         <title>Trip planner</title>
 
         <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen">
@@ -8,7 +11,7 @@
     </head>
     <body>
         <div class="layout">
-            {% include "_navbar.html" %}
+            {% include "_header.html" %}
             <main class="{{ view_class }}">
                 {% block main %}{% endblock %}
             </main>

@@ -36,6 +36,10 @@ def create_app(test_config=None):
     csrf.init_app(app)
 
     @app.before_request
+    def init_breadcrumbs():
+        g.breadcrumbs = []
+
+    @app.before_request
     def get_user():
         try:
             user_id = session['user_id']
