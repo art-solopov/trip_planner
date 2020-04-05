@@ -2,12 +2,12 @@ $gcr-margin: 0.5rem;
 
 .geocode-results {
     justify-content: space-around;
-    margin: 0 -$gcr-margin;
+    margin: 0 #{-$gcr-margin};
 }
 
 .geocode-result {
     flex: 1 0 25%;
-    max-width: 30rem;
+    max-width: 25rem;
     box-sizing: border-box;
     border: 1px solid black;
     padding: 0.5rem;

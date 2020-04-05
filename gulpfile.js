@@ -1,7 +1,10 @@
 const { src, dest, series, watch } = require('gulp')
 const concat = require('gulp-concat')
 const postcss = require('gulp-postcss')
+const sass = require('gulp-sass')
 const mergeStreams = require('merge-stream')
+
+sass.compiler = require('node-sass');
 
 const postcssPlugins = {
     fontFamilySystemUI: require('postcss-font-family-system-ui'),
@@ -13,13 +16,18 @@ const postcssPlugins = {
 }
 
 function css() {
-    let assets =  src(['assets/css/app.css'])
+    let assets =  src(['assets/css/app.scss'])
+	.pipe(sass().on('error', sass.logError))
         .pipe(postcss([
             postcssPlugins.easyImport(),
-            postcssPlugins.each(),
+            // postcssPlugins.each({
+	    // 	plugins: {
+	    // 	    beforeEach: [postcssPlugins.simpleVars()]
+	    // 	}
+	    // }),
             postcssPlugins.nesting(),
-            postcssPlugins.extend(),
-            postcssPlugins.simpleVars(),
+            // postcssPlugins.extend(),
+            // postcssPlugins.simpleVars(),
             postcssPlugins.fontFamilySystemUI()
         ]))
 
@@ -38,7 +46,7 @@ function js() {
 }
 
 function watchAssets() {
-    return watch(['assets/**/*.css', 'assets/**/*.js'], {ignoreInitial: false}, exports.default)
+    return watch(['assets/**/*.scss', 'assets/**/*.css', 'assets/**/*.js'], {ignoreInitial: false}, exports.default)
 }
 
 exports.css = css

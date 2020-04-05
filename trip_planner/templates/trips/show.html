@@ -10,15 +10,14 @@
         <header>
             <h1>{{ trip.name }}</h1>
             <div>Count: {{ points_count }}</div>
-            <a href="{{ url_for('.index') }}" class="link">Back</a>
             <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
             <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="link">Add point</a>
 	    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="link">Delete</a>
         </header>
 
         {%- for g_type, pts in points %}
-            <section>
-                <h2>{{ g_type | capitalize }}</h2>
+            <section class="trip-point-items">
+                <h2 class="type-name">{{ g_type | capitalize }}</h2>
                 <ul>
                     {%- for point in pts %}
                         <li class="trip-point-item"
@@ -26,10 +25,10 @@
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
-                            <strong class="item-name">{{ point.name }}</strong>
+                            <h3 class="item-name">{{ point.name }}</h3>
                             <div>
                                 <div class="item-address">{{ point.address }}</div>
-                                <div>
+                                <div class="item-links flex-shelf">
                                     <a class="pan-link" href="#">Center map</a>
                                     <a class="more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}">More</a>
                                     <a class="edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}">Edit</a>

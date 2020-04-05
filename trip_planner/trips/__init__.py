@@ -8,7 +8,7 @@ import psycopg2.errorcodes as pgerrorcodes
 from markupsafe import Markup, escape
 
 from .. import db
-from ..shared import user_required
+from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
@@ -34,6 +34,10 @@ def index():
 def show(slug):
     trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
     points = groupby(trip.points, attrgetter('type'))
+
+    add_breadcrumb('Trips', url_for('.index'))
+    add_breadcrumb(trip.name)
+
     return render_template('trips/show.html', trip=trip,
                            points=points,
                            points_count=len(trip.points),
@@ -81,9 +85,14 @@ class TripCUView(View):
         raise NotImplementedError
 
     def _default_render(self):
+        self._add_breadcrumbs()
+        add_breadcrumb(self.title)
         return render_template('form.html', form=self.form,
                                title=self.title,
                                submit_text=self.submit_text)
+
+    def _add_breadcrumbs(self):
+        add_breadcrumb('Trips', url_for('.index'))
 
 
 class CreateTripView(TripCUView):
@@ -113,6 +122,10 @@ class UpdateTripView(TripCUView):
                    .filter_by(slug=self.slug, author=g.user)\
                    .first_or_404()
 
+    def _add_breadcrumbs(self):
+        super()._add_breadcrumbs()
+        add_breadcrumb(self.model.name, url_for('.show', slug=self.model.slug))
+
 
 @trips.route('/<slug>/delete', methods=('GET', 'POST'))
 def delete_trip(slug: str):
@@ -121,7 +134,11 @@ def delete_trip(slug: str):
         db.session.delete(trip)
         db.session.commit()
         return redirect(url_for('.index'))
-    message = (f'Are you sure you want to delete trip {trip.name}' +
+
+    add_breadcrumb('Trips', url_for('.index'))
+    add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+    add_breadcrumb('Delete')
+    message = (f'Are you sure you want to delete trip {trip.name} ' +
                'and all its points?')
     return render_template('confirm_form.html', submit_label='Delete',
                            message=message)
@@ -148,6 +165,10 @@ def trip_point_wrapper(f):
         trip = Trip.query.filter_by(slug=slug).first_or_404()
         point = Point.query.filter(Point.trip == trip, Point.id == id)\
                            .first_or_404()
+
+        add_breadcrumb('Trips', url_for('.index'))
+        add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+
         return f(trip, point)
     return handler
 
@@ -163,8 +184,12 @@ def add_point(slug: str):
         db.session.add(point)
         db.session.commit()
         return redirect(url_for('.show', slug=trip.slug))
+
+    add_breadcrumb('Trips', url_for('.index'))
+    add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+    add_breadcrumb('Add point')
     return render_template('points/form.html', form=form, point=point,
-                           title=f'Edit point {point.name}')
+                           title=f'Add point')
 
 
 @trips.route("/<slug>/<int:id>")
@@ -172,6 +197,7 @@ def add_point(slug: str):
 @trip_point_wrapper
 def show_point(trip: Trip, point: Point):
     data = PointData(point)
+    add_breadcrumb(point.name)
     return render_template('points/show.html', point=point,
                            data=data)
 
@@ -186,8 +212,11 @@ def update_point(trip: Trip, point: Point):
         db.session.add(point)
         db.session.commit()
         return redirect(url_for('.show', slug=trip.slug))
+
+    title = f'Update point {point.name}'
+    add_breadcrumb(title)
     return render_template('points/form.html', form=form, point=point,
-                           title=f'Edit point {point.name}')
+                           title=title)
 
 
 @trips.route("/<slug>/<int:id>/delete", methods=('GET', 'POST'))

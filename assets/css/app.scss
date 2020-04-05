@@ -1,11 +1,12 @@
 @import "normalize.css";
 
-@import "./form.css";
+@import "./form.scss";
+@import "./poi-form.scss";
+@import "./show-poi.scss";
+@import "./breadcrumbs.scss";
+@import "./show.scss";
 @import "./login.css";
 @import "./trips-list.css";
-@import "./show.css";
-@import "./show-poi.css";
-@import "./poi-form.css";
 
 $nav-padding: 0.75em;
 
@@ -14,9 +15,13 @@ body {
     font-family: 'DejaVu Sans', system-ui;
 }
 
-.link {
+%link {
     padding: 1em;
     display: inline-block;
+}
+
+.link {
+    @extend %link;
 
     &:hover,
     &:focus {

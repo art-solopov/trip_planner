@@ -1,4 +1,6 @@
 from functools import wraps
+from collections import namedtuple
+
 from flask import g, redirect
 
 
@@ -10,3 +12,10 @@ def user_required(handler):
         else:
             return handler(*args, **kwargs)
     return fn
+
+
+Breadcrumb = namedtuple('Breadcrumb', ['text', 'link'])
+
+
+def add_breadcrumb(text, link=None):
+    g.breadcrumbs.append(Breadcrumb(text, link))

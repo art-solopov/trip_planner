@@ -1,0 +1,22 @@
+.breadcrumbs {
+    display: flex;
+    flex-flow: row nowrap;
+    list-style: none;
+
+    margin: 0.5em 0;
+    padding: 0;
+
+    .breadcrumb-item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:not(:first-child)::before {
+            content: '/';
+        }
+
+        > * {
+            padding: 1em;
+        }
+    }
+}
