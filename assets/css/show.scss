@@ -1,9 +1,9 @@
 main.show-trip {
-    & .map {
+    .map {
         min-height: 60vh;
         box-sizing: border-box;
 
-        & .extra-attribution {
+        .extra-attribution {
             position: absolute;
             bottom: 0;
             left: 5px;
@@ -16,33 +16,51 @@ main.show-trip {
         }
     }
 
-    & .app {
+    .app {
         box-sizing: border-box;
 
-        & .h1 {
+        .h1 {
             margin: 0.5em 0;
         }
 
-        & .items li {
+        .trip-point-items {
+            .type-name {
+                border-bottom: 1px solid black;
+            }
+            
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+        }
+
+        .trip-point-item {
             margin-bottom: 0.75em;
+
+            .item-name {
+                margin: 0 0 0.5em;
+            }
+
+            .item-links a {
+                @extend %link;
+            }
         }
     }
 
     @media (min-width: 940px) {
-        & {
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-        }
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
 
-        & .app {
+        .app {
             flex: 0 1 26rem;
             max-height: 90vh;
             overflow-y: scroll;
             order: 0;
+            padding-right: 1em;
         }
 
-        & .map {
+        .map {
             flex: 1 0 640px;
             order: 1;
         }

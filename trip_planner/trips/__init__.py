@@ -33,7 +33,7 @@ def index():
 @user_required
 def show(slug):
     trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
-    points = groupby(trip.points, attrgetter('type'))\
+    points = groupby(trip.points, attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name)
