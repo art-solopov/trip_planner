@@ -1,3 +1,5 @@
+import os.path
+
 from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -26,10 +28,11 @@ def create_app(test_config=None):
         SECRETS_PATH='secrets.json',
     )
 
-    app.config.from_json(app.config['SECRETS_PATH'])
-
     if test_config is not None:
         app.config.from_mapping(test_config)
+
+    if app.config['SECRETS_PATH'] is not None:
+        app.config.from_json(app.config['SECRETS_PATH'])
 
     db.init_app(app)
     migrate.init_app(app, db)

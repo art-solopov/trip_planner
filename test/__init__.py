@@ -1,3 +1,5 @@
+from os import getenv
+
 from flask.ctx import AppContext
 from flask.wrappers import Response
 from flask.testing import FlaskClient
@@ -7,9 +9,10 @@ from trip_planner import create_app, db
 from trip_planner.models import User
 
 test_config = {
-    'SQLALCHEMY_DATABASE_URI': 'postgresql:///trip_planner_test',
+    'SQLALCHEMY_DATABASE_URI': getenv('TESTDB', 'postgresql:///trip_planner_test'),
     'TESTING': True,
     'WTF_CSRF_ENABLED': False,
+    'SECRETS_PATH': None,
 }
 
 app = create_app(test_config)
