@@ -1,4 +1,5 @@
 from os import getenv
+from os import path as path
 
 from flask.ctx import AppContext
 from flask.wrappers import Response
@@ -9,13 +10,17 @@ from trip_planner import create_app, db
 from trip_planner.models import User
 
 test_config = {
-    'SQLALCHEMY_DATABASE_URI': getenv('TESTDB', 'postgresql:///trip_planner_test'),
+    'SQLALCHEMY_DATABASE_URI': getenv('TESTDB',
+                                      'postgresql:///trip_planner_test'),
     'TESTING': True,
     'WTF_CSRF_ENABLED': False,
-    'SECRETS_PATH': None,
 }
 
-app = create_app(test_config)
+test_instance_dir = path.join(
+    path.dirname(path.abspath(__file__)),
+    'instance'
+)
+app = create_app(test_config, instance_path=test_instance_dir)
 
 
 def setup_module():

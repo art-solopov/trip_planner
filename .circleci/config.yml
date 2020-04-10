@@ -8,7 +8,7 @@ jobs:
     executor: python/default
 
     docker:
-      - image: python:3.7
+      - image: circleci/python:3.7
       - image: circleci/postgres:10.11
         environment:
           POSTGRES_USER: trip_planner
@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: apt-get update && apt-get -y install postgresql-client-11
+          command: sudo apt-get update && sudo apt-get -y install postgresql-client-11
       - run:
           command: pip install pipenv && pipenv lock -r > requirements.txt && pipenv lock -rd >> requirements.txt
           name: Generate requirements.txt
@@ -31,7 +31,7 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: python -m nose
+          command: nosetests
           name: Test
 
 workflows:
