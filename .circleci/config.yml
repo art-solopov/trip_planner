@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+
+    docker:
+      - image: circleci/python:3.7
+      - image: circleci/postgres:10.11
+        environment:
+          POSTGRES_USER: trip_planner
+          POSTGRES_DB: trip_planner_test
+
+    environment:
+      POSTGRES_USER: trip_planner
+      POSTGRES_DB: trip_planner_test
+      TESTDB: postgresql://trip_planner@localhost/trip_planner_test
+      FLASK_APP: trip_planner
+
+    steps:
+      - checkout
+      - run:
+          command: sudo apt-get update && sudo apt-get -y install postgresql-client-11
+      - run:
+          command: pip install pipenv && pipenv lock -r > requirements.txt && pipenv lock -rd >> requirements.txt
+          name: Generate requirements.txt
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: nosetests
+          name: Test
+
+workflows:
+  main:
+    jobs:
+      - build-and-test

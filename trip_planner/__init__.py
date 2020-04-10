@@ -1,3 +1,5 @@
+import os.path
+
 from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -15,21 +17,22 @@ from .api import api as api_bp  # noqa: E402
 from .models import User  # noqa: E402
 
 
-def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=True)
+def create_app(test_config=None, **kwargs):
+    app = Flask(__name__, **kwargs)
 
     app.config.from_mapping(
         SECRET_KEY='LC!4.0tmi06@0J~YXiqjHVkCU3x1vDhA',
         SQLALCHEMY_DATABASE_URI='postgresql:///trip_planner',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         # SQLALCHEMY_ECHO=True,
-        SECRETS_PATH='secrets.json',
+        SECRETS_PATH=os.path.join(app.instance_path, 'secrets.json'),
     )
-
-    app.config.from_json(app.config['SECRETS_PATH'])
 
     if test_config is not None:
         app.config.from_mapping(test_config)
+
+    if app.config['SECRETS_PATH'] is not None:
+        app.config.from_json(app.config['SECRETS_PATH'])
 
     db.init_app(app)
     migrate.init_app(app, db)
