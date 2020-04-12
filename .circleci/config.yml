@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
   node: circleci/node@2.0.1
+  docker: circleci/docker@1.0.1
 
 jobs:
   deps-and-test:
@@ -26,33 +27,59 @@ jobs:
       - run:
           command: sudo apt-get update && sudo apt-get -y install postgresql-client-11
       - run:
-          command: pip install pipenv && pipenv lock -r > requirements.txt && pipenv lock -rd >> requirements.txt
-          name: Generate requirements.txt
+          command: pip install pipenv
+          name: Install pipenv
+      - run:
+          command: pipenv lock -r > requirements.prod.txt && pipenv lock -rd > requirements.dev.txt && cat requirements.*.txt > requirements.txt && cat requirements.txt
+          name: Generate requirements files
       - python/load-cache
       - python/install-deps
       - python/save-cache
       - run:
-          command: nosetests
+          command: python -m nose
           name: Test
+      - run:
+          command: mv requirements.prod.txt requirements.txt
+      - persist_to_workspace:
+          root: .
+          paths: requirements.txt
 
   build-assets:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: "12.13"
 
     steps:
       - checkout
-      - node/install:
-          node-version: 8.11.1
       - node/install-packages
       - run:
           command: node_modules/.bin/gulp
           name: Compile assets
-      - store_artifacts:
-          path: ./trip_planner/static/css
-      - store_artifacts:
-          path: ./trip_planner/static/js
+      - persist_to_workspace:
+          root: .
+          paths:
+            - trip_planner/static/css
+            - trip_planner/static/js
+
+  build-docker:
+    executor: docker/machine
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          command: ls ./*
+      # TODO replace when credentials ready
+      #- docker/check
+      - docker/build:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
 
 workflows:
   main:
     jobs:
       - deps-and-test
       - build-assets
+      - build-docker:
+          requires:
+            - deps-and-test
+            - build-assets
