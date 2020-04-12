@@ -2,9 +2,10 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
+  node: circleci/node@2.0.1
 
 jobs:
-  build-and-test:
+  deps-and-test:
     executor: python/default
 
     docker:
@@ -34,7 +35,24 @@ jobs:
           command: nosetests
           name: Test
 
+  build-assets:
+    executor: node/default
+
+    steps:
+      - checkout
+      - node/install:
+          node-version: 8.11.1
+      - node/install-packages
+      - run:
+          command: node_modules/.bin/gulp
+          name: Compile assets
+      - store_artifacts:
+          path: ./trip_planner/static/css
+      - store_artifacts:
+          path: ./trip_planner/static/js
+
 workflows:
   main:
     jobs:
-      - build-and-test
+      - deps-and-test
+      - build-assets
