@@ -67,12 +67,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          command: ls ./*
-      # TODO replace when credentials ready
-      #- docker/check
+      - docker/check
       - docker/build:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          image: artsolopov/$CIRCLE_PROJECT_REPONAME
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: artsolopov/$CIRCLE_PROJECT_REPONAME
 
 workflows:
   main:
