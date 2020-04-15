@@ -23,6 +23,7 @@ flask-wtf = "*"
 psycopg2 = "*"
 requests = "*"
 python-box = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
