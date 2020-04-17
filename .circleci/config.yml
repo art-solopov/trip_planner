@@ -36,7 +36,7 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: python -m nose
+          command: python -m pytest
           name: Test
       - run:
           command: mv requirements.prod.txt requirements.txt

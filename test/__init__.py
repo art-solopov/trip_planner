@@ -1,3 +1,4 @@
+from os import getenv
 from os import path as path
 
 from flask.ctx import AppContext
@@ -6,15 +7,19 @@ from flask.testing import FlaskClient
 from passlib.hash import bcrypt
 
 from trip_planner import create_app, db
-from trip_planner.config import Config, from_env
+from trip_planner.config import Config
 from trip_planner.models import User
+
 
 class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    MAPBOX_APIKEY = 'testkey'
-    SQLALCHEMY_DATABASE_URI = from_env('TESTDB',
-                                       'postgresql:///trip_planner_test')
+    SECRET_KEY = 'testsecret'
+
+    def __init__(self):
+        self.SQLALCHEMY_DATABASE_URI = getenv(
+            'TESTDB', 'postgresql:///trip_planner_test'
+        )
 
 
 test_instance_dir = path.join(
@@ -22,74 +27,3 @@ test_instance_dir = path.join(
     'instance'
 )
 app = create_app(TestConfig(), instance_path=test_instance_dir)
-
-
-def setup_module():
-    with app.test_client():
-        with app.app_context():
-            db.create_all()
-
-
-def teardown_module():
-    with app.test_client():
-        with app.app_context():
-            db.drop_all()
-
-
-def login(client: FlaskClient, username: str, password: str):
-    return client.post('/login', data=dict(username=username,
-                                           password=password))
-
-
-class WithTestClient:
-    @classmethod
-    def setup_class(cls):
-        cls.client = app.test_client()
-
-    def login(self, username: str, password: str) -> Response:
-        return login(self.client, username, password)
-
-    def logout(self):
-        return self.client.post('/logout')
-
-
-class WithAppContext:
-    _app_context: AppContext = None
-
-    def setUp(self):
-        self._app_context = app.app_context()
-        self._app_context.push()
-        super().setUp()
-
-    def tearDown(self):
-        self._app_context.pop()
-
-
-class WithDB(WithAppContext):
-    def setUp(self):
-        super().setUp()
-        self._transaction = db.session.begin_nested()
-        self._setup_db()
-        db.session.flush()
-
-    def tearDown(self):
-        db.session.rollback()
-        super().tearDown()
-
-    def _setup_db(self):
-        pass
-
-
-class WithUser(WithDB):
-    username = 'user'
-    password = 'password'
-    user = User(username=username, password_digest=bcrypt.hash(password))
-
-    def _setup_db(self):
-        db.session.add(self.user)
-
-
-class WithLogin(WithUser, WithTestClient):
-    def setUp(self):
-        super().setUp()
-        self.login(self.username, self.password)

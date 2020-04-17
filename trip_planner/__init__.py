@@ -1,12 +1,10 @@
-import os.path
+import os
 
 from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
-
-from .config import get_config
 
 
 db = SQLAlchemy()
@@ -20,11 +18,21 @@ from .models import User  # noqa: E402
 
 
 def create_app(test_config=None, instance_path=None):
-    app = Flask(__name__, instance_path=instance_path)
+    if instance_path is None:
+        env_instance_path = os.getenv('INSTANCE_PATH')
+        if env_instance_path:
+            instance_path = env_instance_path
+
+    app = Flask(__name__,
+                instance_path=instance_path,
+                instance_relative_config=True)
     if test_config is not None:
         app.config.from_object(test_config)
     else:
-        app.config.from_object(get_config(app.env))
+        app.config.from_object(f'trip_planner.config.{app.env.capitalize()}')
+
+    secrets_path = app.config['SECRETS_PATH']
+    app.config.from_json(secrets_path)
 
     db.init_app(app)
     migrate.init_app(app, db)

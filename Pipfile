@@ -7,9 +7,9 @@ verify_ssl = true
 ipython = "*"
 jedi = "*"
 flake8 = "*"
-nose = "*"
 faker = "*"
 factory-boy = "*"
+pytest = "*"
 
 [packages]
 flask = "*"
@@ -24,6 +24,7 @@ psycopg2 = "*"
 requests = "*"
 python-box = "*"
 gunicorn = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"
