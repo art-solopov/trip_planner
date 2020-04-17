@@ -6,7 +6,7 @@ from flask.wrappers import Response
 from flask.testing import FlaskClient
 from passlib.hash import bcrypt
 
-from trip_planner import create_app, db
+from trip_planner import create_app
 from trip_planner.config import Config
 from trip_planner.models import User
 
@@ -26,4 +26,3 @@ test_instance_dir = path.join(
     path.dirname(path.abspath(__file__)),
     'instance'
 )
-app = create_app(TestConfig(), instance_path=test_instance_dir)

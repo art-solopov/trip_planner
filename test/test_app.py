@@ -1,5 +1,2 @@
-from . import app
-
-
-def test_first():
+def test_first(app):
     assert app is not None
