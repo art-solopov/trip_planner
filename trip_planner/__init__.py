@@ -6,6 +6,8 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
 
+from .config import get_config
+
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -17,22 +19,12 @@ from .api import api as api_bp  # noqa: E402
 from .models import User  # noqa: E402
 
 
-def create_app(test_config=None, **kwargs):
-    app = Flask(__name__, **kwargs)
-
-    app.config.from_mapping(
-        SECRET_KEY='LC!4.0tmi06@0J~YXiqjHVkCU3x1vDhA',
-        SQLALCHEMY_DATABASE_URI='postgresql:///trip_planner',
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        # SQLALCHEMY_ECHO=True,
-        SECRETS_PATH=os.path.join(app.instance_path, 'secrets.json'),
-    )
-
+def create_app(test_config=None, instance_path=None):
+    app = Flask(__name__, instance_path=instance_path)
     if test_config is not None:
-        app.config.from_mapping(test_config)
-
-    if app.config['SECRETS_PATH'] is not None:
-        app.config.from_json(app.config['SECRETS_PATH'])
+        app.config.from_object(test_config)
+    else:
+        app.config.from_object(get_config(app.env))
 
     db.init_app(app)
     migrate.init_app(app, db)

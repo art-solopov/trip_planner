@@ -1,4 +1,3 @@
-from os import getenv
 from os import path as path
 
 from flask.ctx import AppContext
@@ -7,20 +6,22 @@ from flask.testing import FlaskClient
 from passlib.hash import bcrypt
 
 from trip_planner import create_app, db
+from trip_planner.config import Config, from_env
 from trip_planner.models import User
 
-test_config = {
-    'SQLALCHEMY_DATABASE_URI': getenv('TESTDB',
-                                      'postgresql:///trip_planner_test'),
-    'TESTING': True,
-    'WTF_CSRF_ENABLED': False,
-}
+class TestConfig(Config):
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    MAPBOX_APIKEY = 'testkey'
+    SQLALCHEMY_DATABASE_URI = from_env('TESTDB',
+                                       'postgresql:///trip_planner_test')
+
 
 test_instance_dir = path.join(
     path.dirname(path.abspath(__file__)),
     'instance'
 )
-app = create_app(test_config, instance_path=test_instance_dir)
+app = create_app(TestConfig(), instance_path=test_instance_dir)
 
 
 def setup_module():
