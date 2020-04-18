@@ -24,7 +24,6 @@ psycopg2 = "*"
 requests = "*"
 python-box = "*"
 gunicorn = "*"
-pytest = "*"
 
 [requires]
 python_version = "3.7"

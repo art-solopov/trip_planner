@@ -119,3 +119,6 @@ node_modules
 
 trip_planner/static/css
 trip_planner/static/js
+
+tmp
+log

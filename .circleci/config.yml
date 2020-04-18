@@ -1,5 +1,10 @@
 version: 2.1
 
+.vars:
+  docker: &docker_vars
+    image: artsolopov/$CIRCLE_PROJECT_REPONAME
+    tag: $CIRCLE_BRANCH
+
 orbs:
   python: circleci/python@0.2.1
   node: circleci/node@2.0.1
@@ -69,10 +74,13 @@ jobs:
           at: .
       - docker/check
       - docker/build:
+          <<: *docker_vars
           image: artsolopov/$CIRCLE_PROJECT_REPONAME
       - docker/push:
+          <<: *docker_vars
           digest-path: /tmp/digest.txt
-          image: artsolopov/$CIRCLE_PROJECT_REPONAME
+      - run:
+          command: cat /tmp/digest.txt
 
 workflows:
   main:
