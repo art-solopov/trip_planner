@@ -10,4 +10,4 @@ class Development(Config):
 
 
 class Production(Config):
-    pass
+    SESSION_COOKIE_SECURE = True
