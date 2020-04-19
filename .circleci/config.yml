@@ -1,10 +1,17 @@
 version: 2.1
 
+.vars:
+  docker: &docker_vars
+    image: artsolopov/$CIRCLE_PROJECT_REPONAME
+    tag: $CIRCLE_BRANCH
+
 orbs:
   python: circleci/python@0.2.1
+  node: circleci/node@2.0.1
+  docker: circleci/docker@1.0.1
 
 jobs:
-  build-and-test:
+  deps-and-test:
     executor: python/default
 
     docker:
@@ -25,16 +32,62 @@ jobs:
       - run:
           command: sudo apt-get update && sudo apt-get -y install postgresql-client-11
       - run:
-          command: pip install pipenv && pipenv lock -r > requirements.txt && pipenv lock -rd >> requirements.txt
-          name: Generate requirements.txt
+          command: pip install pipenv
+          name: Install pipenv
+      - run:
+          command: pipenv lock -r > requirements.prod.txt && pipenv lock -rd > requirements.dev.txt && cat requirements.*.txt > requirements.txt && cat requirements.txt
+          name: Generate requirements files
       - python/load-cache
       - python/install-deps
       - python/save-cache
       - run:
-          command: nosetests
+          command: python -m pytest
           name: Test
+      - run:
+          command: mv requirements.prod.txt requirements.txt
+      - persist_to_workspace:
+          root: .
+          paths: requirements.txt
+
+  build-assets:
+    executor:
+      name: node/default
+      tag: "12.13"
+
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          command: node_modules/.bin/gulp
+          name: Compile assets
+      - persist_to_workspace:
+          root: .
+          paths:
+            - trip_planner/static/css
+            - trip_planner/static/js
+
+  build-docker:
+    executor: docker/machine
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - docker/check
+      - docker/build:
+          <<: *docker_vars
+          image: artsolopov/$CIRCLE_PROJECT_REPONAME
+      - docker/push:
+          <<: *docker_vars
+          digest-path: /tmp/digest.txt
+      - run:
+          command: cat /tmp/digest.txt
 
 workflows:
   main:
     jobs:
-      - build-and-test
+      - deps-and-test
+      - build-assets
+      - build-docker:
+          requires:
+            - deps-and-test
+            - build-assets
