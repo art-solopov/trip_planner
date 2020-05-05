@@ -180,6 +180,7 @@ def add_point(slug: str):
     point = Point(trip=trip)
     form = PointForm()
     if form.validate_on_submit():
+        print(form.data)
         form.populate_obj(point)
         db.session.add(point)
         db.session.commit()
