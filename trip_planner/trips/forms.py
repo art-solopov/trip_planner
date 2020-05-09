@@ -4,8 +4,10 @@ from collections import OrderedDict
 from copy import copy
 
 from flask_wtf import FlaskForm
-from wtforms import (Form, Field, StringField, TextAreaField, FloatField,
+from markupsafe import Markup
+from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList)
+from wtforms.widgets import html_params
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
 
@@ -34,14 +36,37 @@ class TripForm(FlaskForm):
                 yield (country['Code'], country['Name'])
 
 
+class ScheduleWidget:
+    html_params = staticmethod(html_params)
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        return Markup(''.join(self.table_rows(field, **kwargs)))
+
+    def table_rows(self, field, **kwargs):
+        yield f'<table {self.html_params(**kwargs)}>'
+
+        for subfield in field:
+            weekday = subfield.weekday.data.capitalize()
+
+            yield ('<tr>' +
+                   f'<td>{weekday}{subfield.weekday()}</td>' +
+                   f'<td>{subfield.open_from()}</td>' +
+                   f'<td>{subfield.open_to()}</td>' +
+                   '</tr>')
+
+        yield '</table>'
+
+
 class ScheduleSubForm(Form):
     weekday = HiddenField()
-    open_from = StringField('From')
-    open_to = StringField('To')
+    open_from = StringField('From', render_kw={'pattern': '\\d{1,2}:\\d{2}'})
+    open_to = StringField('To', render_kw={'pattern': '\\d{1,2}:\\d{2}'})
 
 
 class ScheduleField(FieldList):
     WEEKDAYS = 'mon tue wed thu fri sat sun'.split()
+    widget = ScheduleWidget()
 
     def __init__(self, label=None, validators=None, **kwargs):
         default = [{'weekday': wday} for wday in self.WEEKDAYS]
