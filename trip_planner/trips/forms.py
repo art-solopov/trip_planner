@@ -1,11 +1,11 @@
 from os.path import join as pjoin
 import json
 from collections import OrderedDict
+from copy import copy
 
 from flask_wtf import FlaskForm
 from wtforms import (Form, Field, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList)
-import wtforms.widgets
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
 
@@ -40,45 +40,37 @@ class ScheduleSubForm(Form):
     open_to = StringField('To')
 
 
-class ScheduleField(Field):
-    widget = wtforms.widgets.ListWidget()
+class ScheduleField(FieldList):
     WEEKDAYS = 'mon tue wed thu fri sat sun'.split()
 
-    def __init__(
-            self,
-            label=None,
-            validators=None,
-            default=(),
-            _prefix='',
-            **kwargs
-    ):
-        super().__init__(label, validators, default=default, **kwargs)
+    def __init__(self, label=None, validators=None, **kwargs):
+        default = [{'weekday': wday} for wday in self.WEEKDAYS]
 
-        self._prefix = _prefix
-        self.schedule_forms = OrderedDict(
-            (wday, FormField(ScheduleSubForm).bind(
-                form=None,
-                name=f"{self.short_name}-{wday}",
-                id=f"{self.id}-{wday}",
-                prefix=self._prefix,
-                default={'weekday': wday},
-                _meta=self.meta
-            ))
-            for wday in self.WEEKDAYS
+        super().__init__(
+            unbound_field=FormField(ScheduleSubForm),
+            label=label,
+            validators=validators,
+            default=default,
+            **kwargs
         )
 
-        for (wday, form) in self.schedule_forms.items():
-            form.process(None)
+    def process(self, formdata, data=unset_value):
+        if isinstance(data, dict):
+            data = [{**datum, 'weekday': wday}
+                    for (wday, datum) in data.items()]
 
-    def __iter__(self):
-        return iter(self.schedule_forms.values())
+        print(data)
+        super().process(formdata, data)
 
-    def __len__(self):
-        return len(self.schedule_forms)
+    def populate_obj(self, obj, name):
+        data = dict(self._transform_data(datum) for datum in self.data)
+        setattr(obj, name, data)
 
-    def __getitem__(self, index):
-        return self.schedule_forms.values()[index]
-
+    @staticmethod
+    def _transform_data(dct: dict):
+        dct = copy(dct)
+        weekday = dct.pop('weekday')
+        return (weekday, dct)
 
 
 class PointForm(FlaskForm):
