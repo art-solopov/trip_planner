@@ -4,7 +4,7 @@ from collections import OrderedDict
 from copy import copy
 
 from flask_wtf import FlaskForm
-from markupsafe import Markup
+from markupsafe import Markup, escape
 from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList)
 from wtforms.widgets import html_params
@@ -41,13 +41,20 @@ class ScheduleWidget:
 
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
+        kwargs.setdefault('class_', '')
+
+        html_class = set(kwargs['class_'].split(' '))
+        html_class.add('schedule-table')
+        html_class.add('schedule-table-form')
+        kwargs['class_'] = ' '.join(cls for cls in html_class if cls)
+
         return Markup(''.join(self.table_rows(field, **kwargs)))
 
     def table_rows(self, field, **kwargs):
         yield f'<table {self.html_params(**kwargs)}>'
 
         for subfield in field:
-            weekday = subfield.weekday.data.capitalize()
+            weekday = escape(subfield.weekday.data).capitalize()
 
             yield ('<tr>' +
                    f'<td>{weekday}{subfield.weekday()}</td>' +

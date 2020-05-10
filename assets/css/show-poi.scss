@@ -16,24 +16,21 @@
     }
 }
 
-%dow-display {
-    display: inline-block;
-    padding: 0.25em;
-}
-
 %dow-wday-display {
     background: mui-color('black-alpha-87');
     color: white;
 }
 
-.schedule {
-    margin-bottom: 1em;
+.schedule-table {
+    border-spacing: 0;
+    border-collapse: collapse;
 
-    @each $dow in mon, tue, wed, thu, fri, sat, sun {
-        .#{$dow} {
-            @extend %dow-display;
-        }
+    td, th {
+        border: 2px solid #777;
+        padding: 1em;
     }
+
+    margin-bottom: 1em;
 
     @each $dow in mon, tue, wed, thu {
         .#{$dow} {
