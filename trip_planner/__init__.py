@@ -1,4 +1,5 @@
 import os
+import os.path
 
 from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
@@ -10,6 +11,15 @@ from wtforms import Field
 db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
+
+DATA_PATH = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__),
+        '..',
+        'data'
+    )
+)
+
 
 from .auth import auth as auth_bp  # noqa: E402
 from .trips import trips as trips_bp  # noqa: E402
@@ -64,7 +74,7 @@ def create_app(test_config=None, instance_path=None):
 
     @app.template_test('hidden_field')
     def is_hidden_field(field: Field) -> bool:
-        return field.widget.input_type == 'hidden'
+        return getattr(field.widget, 'input_type', '') == 'hidden'
 
     if app.env == 'development':
         import IPython
