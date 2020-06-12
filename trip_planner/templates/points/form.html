@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros/forms.html" import field, errors %}
+{% from "macros/forms.html" import field, errors, submit_btn %}
 
 {% block main %}
     <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
@@ -24,7 +24,7 @@
 
                 <input name="geocode_field" type="radio" id="geocode_field_address" value="address">
                 <label for="geocode_field_address">By address</label>
-                
+
             </div>
 
             <div>
@@ -38,7 +38,7 @@
         {{ field(form.notes) }}
         {{ field(form.schedule) }}
 
-        <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>
+        {{ submit_btn() }}
     </form>
 {% endblock %}
 

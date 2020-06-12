@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
+from wtforms import widgets as ww
 
 
 db = SQLAlchemy()
@@ -75,6 +76,18 @@ def create_app(test_config=None, instance_path=None):
     @app.template_test('hidden_field')
     def is_hidden_field(field: Field) -> bool:
         return getattr(field.widget, 'input_type', '') == 'hidden'
+
+    @app.template_filter('mui_field_class')
+    def field_class(field: Field) -> str:
+        widget = field.widget
+        if isinstance(widget, ww.Select):
+            return 'mui-select'
+        if isinstance(widget, ww.TextArea):
+            return 'mui-textfield'
+        if widget.input_type in ('textarea', 'text', 'password'):
+            return 'mui-textfield'
+
+        return ''
 
     if app.env == 'development':
         import IPython

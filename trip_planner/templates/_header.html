@@ -1,12 +1,12 @@
 <header>
-    <nav class="navbar">
-        <span class="navbar-title">TRIP PLANNER</span>
-        <div class="navbar-right">
+    <nav class="navbar mui--bg-color-indigo-600 mui--appbar-height">
+        <span class="navbar-title mui--color-white mui--appbar-height mui--appbar-line-height">TRIP PLANNER</span>
+        <div class="navbar-right mui--appbar-height mui--appbar-line-height">
             {% if g.user %}
-                <span>{{ g.user.username }}</span>
-                <a href="{{ url_for('auth.logout') }}">Sign out</a>
+                <span class="mui--color-white">{{ g.user.username }}</span>
+                <a href="{{ url_for('auth.logout') }}" class="mui-btn">Sign out</a>
             {% else %}
-                <a href="{{ url_for('auth.login') }}">Sign in</a>
+                <a href="{{ url_for('auth.login') }}" class="mui-btn">Sign in</a>
             {% endif %}
         </div>
     </nav>
@@ -19,10 +19,9 @@
                         <a href="{{ breadcrumb.link }}">{{ breadcrumb.text }}</a>
                     {% else %}
                         <span>{{ breadcrumb.text }}</span>
-                    {% endif %}                    
+                    {% endif %}
                 </li>
             {% endfor -%}
         </ul>
     {% endif -%}
 </header>
-

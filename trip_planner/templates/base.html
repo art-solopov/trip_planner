@@ -3,8 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <title>Trip planner</title>
+
+        <link href="https://cdn.muicss.com/mui-0.10.3/extra/mui-rem.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdn.muicss.com/mui-0.10.3/extra/mui-colors.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
 
         <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen">
         {%- block extra_head %}{% endblock %}
@@ -15,7 +19,7 @@
             <main class="{{ view_class }}">
                 {% block main %}{% endblock %}
             </main>
-            <footer class="main-footer">
+            <footer class="main-footer mui--bg-color-indigo-50">
                 <p>© Artemiy Solopov, 2019</p>
                 <p>All map data © OpenStreetMaps</p>
                 <p>Icons are based on icons from <a href="https://icomoon.io/">Icomoon</a></p>
