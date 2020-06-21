@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
 from wtforms import widgets as ww
+from markupsafe import Markup
 
 
 db = SQLAlchemy()
@@ -88,6 +89,11 @@ def create_app(test_config=None, instance_path=None):
             return 'mui-textfield'
 
         return ''
+
+    @app.context_processor
+    def inject_icon_defs():
+        with app.open_resource(f'static/icons/icon-defs.svg', 'r') as f:
+            return {'icon_defs': Markup(f.read())}
 
     if app.env == 'development':
         import IPython

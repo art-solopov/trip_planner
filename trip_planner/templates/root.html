@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block main %}
+    <h1>Welcome to Trip Planner!</h1>
     {% if g.user %}
-        <p>Greetings, {{ g.user.username }}.</p>
+        <p>Greetings {{ g.user.username }}.</p>
         <p>View your trips <a href="{{ url_for('trips.index') }}">here.</a></p>
     {% else %}
-        <p>Welcome to the trip planner!</p>
         <p>Please <a href="{{ url_for('auth.login') }}">sign in</a> to see your tips.</p>
     {% endif %}
 {% endblock %}
