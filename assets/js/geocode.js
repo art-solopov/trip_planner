@@ -40,7 +40,7 @@ function doGeocode(button, form, results) {
         field: field
     }
 
-    axios.post('/api/geocode', data).then(res => {
+    axios.post('/api/geocode', data, { headers: { 'X-Device-Dims': `${window.screen.width}x${window.screen.height}` } }).then(res => {
         displayGeocode(results, res.data);
         button.disabled = false
     })

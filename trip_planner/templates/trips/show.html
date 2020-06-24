@@ -32,10 +32,10 @@
                                 <p class="item-address">{{ point.address }}</p>
                             </div>
                             <div class="item-links flex-row">
-                                <a class="mui-btn" href="#" title="Center map">{{ icon('compass2') }}</a>
-                                <a class="mui-btn" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
-                                <a class="mui-btn mui-btn--accent" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
-				<a class="mui-btn mui-btn--danger" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
+                                <a class="mui-btn mui-btn--flat pan-link" href="#" title="Center map">{{ icon('compass2') }}</a>
+                                <a class="mui-btn mui-btn--flat more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
+                                <a class="mui-btn mui-btn--flat mui-btn--accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+				<a class="mui-btn mui-btn--flat mui-btn--danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>
                     {% endfor %}
