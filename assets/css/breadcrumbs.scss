@@ -1,23 +1,28 @@
 .breadcrumbs {
     display: flex;
     flex-flow: row nowrap;
+    align-items: flex-start;
+    width: 100%;
     list-style: none;
 
     margin: 0.5em 0;
     padding: 0;
 
+    .separator {
+      margin-top: 0.5em;
+    }
+
     .breadcrumb-item {
+        white-space: nowrap;
+        display: inline-block;
+        padding: 0.5em;
+        box-sizing: border-box;
+        flex: 0 1 auto;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
 
-        &:not(:first-child)::before {
-            content: '/';
-        }
-
-        > * {
-            display: inline-block;
-            padding: 1em;
+        &-active {
+            flex: 1 1 50%;
         }
     }
 }
