@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros/icon.html" import icon %}
 
 {% block main %}
     <figure class="map-image-container">
@@ -7,7 +8,6 @@
 
     <header>
         <h1>{{ point.name }}</h1>
-        <a class="link" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">Edit</a>
         <p>{{ point.address }}</p>
     </header>
 
@@ -36,4 +36,6 @@
             </tbody>
         </table>
     {% endif %}
+
+    <a class="mui-btn mui-btn--accent mui-btn--fab mui--pull-right" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}</a>
 {% endblock %}
