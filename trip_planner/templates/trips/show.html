@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros/icon.html" import icon %}
 
 {% block main %}
     <div class="map" id="map"
@@ -10,30 +11,31 @@
         <header>
             <h1>{{ trip.name }}</h1>
             <div>Count: {{ points_count }}</div>
-            <a href="{{ url_for('.update', slug=trip.slug) }}" class="link">Edit</a>
-            <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="link">Add point</a>
-	    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="link">Delete</a>
+
+            <a href="{{ url_for('.update', slug=trip.slug) }}" class="mui-btn mui-btn--accent" title="Edit">{{ icon('pencil') }}</a>
+            <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="mui-btn mui-btn--primary" title="Add point">{{ icon('plus') }}</a>
+	    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="mui-btn mui-btn--danger" title="Delete">{{ icon('bin2') }}</a>
         </header>
 
         {%- for g_type, pts in points %}
             <section class="trip-point-items">
                 <h2 class="type-name">{{ g_type | capitalize }}</h2>
-                <ul>
+                <ul class="mui-list--unstyled">
                     {%- for point in pts %}
                         <li class="trip-point-item"
                             id="{{ point.id }}"
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
-                            <h3 class="item-name">{{ point.name }}</h3>
                             <div>
-                                <div class="item-address">{{ point.address }}</div>
-                                <div class="item-links flex-shelf">
-                                    <a class="pan-link" href="#">Center map</a>
-                                    <a class="more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}">More</a>
-                                    <a class="edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}">Edit</a>
-				    <a class="delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}">Delete</a>
-                                </div>
+                                <h3 class="item-name">{{ point.name }}</h3>
+                                <p class="item-address">{{ point.address }}</p>
+                            </div>
+                            <div class="item-links flex-row">
+                                <a class="mui-btn mui-btn--flat pan-link" href="#" title="Center map">{{ icon('compass2') }}</a>
+                                <a class="mui-btn mui-btn--flat more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
+                                <a class="mui-btn mui-btn--flat mui-btn--accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+				<a class="mui-btn mui-btn--flat mui-btn--danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>
                     {% endfor %}

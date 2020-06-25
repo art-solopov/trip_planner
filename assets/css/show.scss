@@ -19,32 +19,36 @@ main.show-trip {
     .app {
         box-sizing: border-box;
 
-        .h1 {
-            margin: 0.5em 0;
-        }
-
-        .trip-point-items {
-            .type-name {
-                border-bottom: 1px solid black;
-            }
-            
-            ul {
-                list-style: none;
-                padding: 0;
-            }
-        }
-
         .trip-point-item {
-            margin-bottom: 0.75em;
-
-            .item-name {
-                margin: 0 0 0.5em;
-            }
-
-            .item-links a {
-                @extend %link;
-            }
+            border-bottom: 1px solid #333;
         }
+
+        // .h1 {
+        //     margin: 0.5em 0;
+        // }
+
+        // .trip-point-items {
+        //     .type-name {
+        //         border-bottom: 1px solid black;
+        //     }
+
+        //     ul {
+        //         list-style: none;
+        //         padding: 0;
+        //     }
+        // }
+
+        // .trip-point-item {
+        //     margin-bottom: 0.75em;
+
+        //     .item-name {
+        //         margin: 0 0 0.5em;
+        //     }
+
+        //     .item-links a {
+        //         @extend %link;
+        //     }
+        // }
     }
 
     @media (min-width: 940px) {

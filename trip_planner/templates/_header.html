@@ -1,28 +1,32 @@
 <header>
-    <nav class="navbar">
-        <span class="navbar-title">TRIP PLANNER</span>
-        <div class="navbar-right">
-            {% if g.user %}
-                <span>{{ g.user.username }}</span>
-                <a href="{{ url_for('auth.logout') }}">Sign out</a>
-            {% else %}
-                <a href="{{ url_for('auth.login') }}">Sign in</a>
-            {% endif %}
-        </div>
+    <nav class="navbar mui--bg-color-indigo-600 mui--appbar-height">
+        <span class="navbar-title mui--color-white mui--appbar-height mui--appbar-line-height">TRIPPLAN</span>
+        <span class="navbar-separator"></span>
+        {% if g.user %}
+            <span class="mui--color-white">{{ g.user.username }}</span>
+            <a href="{{ url_for('auth.logout') }}" class="mui-btn mui-btn--small">Sign out</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="mui-btn mui-btn--small">Sign in</a>
+        {% endif %}
     </nav>
 
     {%- if g.breadcrumbs %}
-        <ul class="breadcrumbs">
-            {%- for breadcrumb in g.breadcrumbs %}
-                <li class="breadcrumb-item">
-                    {%- if breadcrumb.link %}
-                        <a href="{{ breadcrumb.link }}">{{ breadcrumb.text }}</a>
-                    {% else %}
-                        <span>{{ breadcrumb.text }}</span>
-                    {% endif %}                    
-                </li>
-            {% endfor -%}
-        </ul>
+    <nav class="breadcrumbs">
+        {%- for breadcrumb in g.breadcrumbs %}
+            {% if not loop.first -%}
+                <span class="separator">/</span>
+            {%- endif -%}
+
+            {%- set bc_class = "breadcrumb-item" -%}
+            {%- if loop.last -%}
+                {%- set bc_class = bc_class + " breadcrumb-item-active" -%}
+            {%- endif %}
+            {%- if breadcrumb.link -%}
+                <a href="{{ breadcrumb.link }}" class="{{ bc_class }}">{{ breadcrumb.text }}</a>
+            {%- else -%}
+                <span class="{{ bc_class }}">{{ breadcrumb.text }}</span>
+            {%- endif %}
+        {% endfor -%}
+    </nav>
     {% endif -%}
 </header>
-

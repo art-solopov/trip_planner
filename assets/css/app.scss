@@ -1,12 +1,6 @@
-@import "normalize.css";
-
-@import "./form.scss";
-@import "./poi-form.scss";
-@import "./show-poi.scss";
-@import "./breadcrumbs.scss";
-@import "./show.scss";
-@import "./login.css";
-@import "./trips-list.css";
+@import "./breadcrumbs";
+@import "./poi-form";
+@import "./show";
 
 $nav-padding: 0.75em;
 
@@ -15,28 +9,12 @@ body {
     font-family: 'DejaVu Sans', system-ui;
 }
 
-%link {
-    padding: 1em;
-    display: inline-block;
-}
-
-.link {
-    @extend %link;
-
-    &:hover,
-    &:focus {
-        background: #EEE;
-    }
-}
-
 .main-footer {
     box-sizing: border-box;
 
     text-align: center;
     padding: 1em;
-
-    background: #EEE;
-    color: #333;
+    margin-top: 1rem;
 }
 
 %flex {
@@ -76,35 +54,39 @@ body {
 
 nav.navbar {
     box-sizing: border-box;
-    line-height: 1;
-    background: #EEE;
+
+    @extend .flex-row;
+    justify-content: flex-start;
 
     & > .navbar-title {
         font-weight: bold;
     }
 
-    &, & > .navbar-left, & > .navbar-right {
-        @extend .flex-row
+    & > .navbar-separator {
+        margin-left: 0;
+        margin-right: auto;
     }
 
-    & > .navbar-right {
-        margin-left: auto;
+    align-items: baseline;
+
+    span, a {
+        margin-left: $nav-padding;
+        margin-right: $nav-padding;
     }
 
-    & span, & a {
-        padding: $nav-padding;
-
-    }
-
-    & a {
-        &:hover,
-        &:focus {
-            background: #CCC;
-        }
-    }
-
-    & .navbar-brand {
+    .navbar-title {
         font-size: 1.2rem;
         font-variant: small-caps;
+        margin: 0 $nav-padding;
     }
+}
+
+/* Icons */
+
+svg.icon {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    stroke: currentColor;
+    fill: currentColor;
 }

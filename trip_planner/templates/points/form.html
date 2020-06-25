@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros/forms.html" import field, errors %}
+{% from "macros/forms.html" import field, errors, submit_btn %}
 
 {% block main %}
     <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
@@ -15,7 +15,7 @@
             {{ field(form.lon) }}
         </div>
 
-        <fieldset>
+        <fieldset class="mui-panel">
             <legend>Geocoding</legend>
 
             <div>
@@ -24,21 +24,20 @@
 
                 <input name="geocode_field" type="radio" id="geocode_field_address" value="address">
                 <label for="geocode_field_address">By address</label>
-                
             </div>
 
             <div>
-                <button type="button" id="btn_geocode">Geocode</button>
+                <button type="button" id="btn_geocode" class="mui-btn mui-btn--accent">Geocode</button>
             </div>
 
-            <div class="geocode-results flex-shelf" id="geocode_results"></div>
+            <div class="geocode-results" id="geocode_results"></div>
         </fieldset>
 
         {{ field(form.type) }}
         {{ field(form.notes) }}
         {{ field(form.schedule) }}
 
-        <div><button type="submit">{{ submit_text | default('Submit') }}</button></div>
+        {{ submit_btn() }}
     </form>
 {% endblock %}
 
@@ -46,7 +45,7 @@
     <template id="geocode_result_template">
         <div class="geocode-result">
             <div>
-                <button type="button" class="gc-save">Save</button>
+                <button type="button" class="mui-btn mui-btn--raised gc-save">Save</button>
             </div>
             <div class="name"></div>
             <div class="address"></div>

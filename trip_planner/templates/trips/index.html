@@ -1,15 +1,14 @@
 {% extends "base.html" %}
+{% from "macros/icon.html" import icon %}
 
 {% block main %}
     <h1>Your trips</h1>
 
-    <a href="{{ url_for('trips.new') }}" class="link">New trip</a>
-
-    <hr>
-
     <ul class="trips">
         {%- for trip in trips %}
-            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="link">{{ trip.name }}</a></li>
+            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="mui-btn mui-btn--flat mui-btn--large">{{ trip.name }}</a></li>
         {% endfor -%}
     </ul>
+
+    <a href="{{ url_for('trips.new') }}" class="mui-btn mui-btn--fab mui-btn--primary mui--pull-right" title="Add trip">{{ icon('plus') }}</a>
 {% endblock %}

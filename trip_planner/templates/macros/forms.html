@@ -1,7 +1,7 @@
 {% macro field(field) -%}
-    <div class="field-{{ field.name }}">
-        {{ field.label }}
+    <div class="field-{{ field.name }} {{ field | mui_field_class }}">
         {{ field() }}
+        {{ field.label }}
     </div>
 {%- endmacro %}
 
@@ -16,4 +16,10 @@
             {% endfor -%}
         </ul>
     {% endif -%}
+{%- endmacro %}
+
+{% macro submit_btn(submit_text) -%}
+    <div>
+        <button type="submit" class="mui-btn mui-btn--accent">{{ submit_text | default('Submit') }}</button>
+    </div>
 {%- endmacro %}

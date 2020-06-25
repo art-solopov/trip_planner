@@ -15,6 +15,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 @csrf.exempt
 @user_required
 def geocode():
+    print(request.headers)
     form = GeocodeForm(MultiDict(request.json))
     trip_id = request.json['trip_id']
     return jsonify(data.geocode(form, trip_id))
