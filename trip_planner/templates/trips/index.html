@@ -6,7 +6,7 @@
 
     <ul class="trips">
         {%- for trip in trips %}
-            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="mui-btn mui-btn--flat">{{ trip.name }}</a></li>
+            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="mui-btn mui-btn--flat mui-btn--large">{{ trip.name }}</a></li>
         {% endfor -%}
     </ul>
 

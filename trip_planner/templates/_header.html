@@ -1,14 +1,13 @@
 <header>
     <nav class="navbar mui--bg-color-indigo-600 mui--appbar-height">
-        <span class="navbar-title mui--color-white mui--appbar-height mui--appbar-line-height">TRIP PLANNER</span>
-        <div class="navbar-right mui--appbar-height mui--appbar-line-height">
-            {% if g.user %}
-                <span class="mui--color-white">{{ g.user.username }}</span>
-                <a href="{{ url_for('auth.logout') }}" class="mui-btn mui-btn--small">Sign out</a>
-            {% else %}
-                <a href="{{ url_for('auth.login') }}" class="mui-btn mui-btn--small">Sign in</a>
-            {% endif %}
-        </div>
+        <span class="navbar-title mui--color-white mui--appbar-height mui--appbar-line-height">TRIPPLAN</span>
+        <span class="navbar-separator"></span>
+        {% if g.user %}
+            <span class="mui--color-white">{{ g.user.username }}</span>
+            <a href="{{ url_for('auth.logout') }}" class="mui-btn mui-btn--small">Sign out</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="mui-btn mui-btn--small">Sign in</a>
+        {% endif %}
     </nav>
 
     {%- if g.breadcrumbs %}

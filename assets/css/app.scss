@@ -56,23 +56,22 @@ nav.navbar {
     box-sizing: border-box;
 
     @extend .flex-row;
+    justify-content: flex-start;
 
     & > .navbar-title {
         font-weight: bold;
     }
 
-    & > .navbar-left, & > .navbar-right {
-        @extend .flex-row;
-        align-items: baseline;
-
-        span, a {
-            margin-left: $nav-padding;
-            margin-right: $nav-padding;
-        }
+    & > .navbar-separator {
+        margin-left: 0;
+        margin-right: auto;
     }
 
-    & > .navbar-right {
-        margin-left: auto;
+    align-items: baseline;
+
+    span, a {
+        margin-left: $nav-padding;
+        margin-right: $nav-padding;
     }
 
     .navbar-title {
