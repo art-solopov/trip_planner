@@ -14,6 +14,7 @@
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
     "merge-stream": "^2.0.0",
+    "muicss": "^0.10.2",
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
     "postcss-each": "^0.10.0",

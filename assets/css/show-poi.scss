@@ -22,7 +22,7 @@
 }
 
 %dow-wday-display {
-    background: black;
+    background: mui-color('black-alpha-87');
     color: white;
 }
 
@@ -42,17 +42,17 @@
     }
 
     & .fri {
-        background: navy;
+        background: $mui-accent-color-dark;
         color: white;
     }
 
     & .sat {
-        background: #fa0;
+        background: mui-color('deep-orange', '200');
         color: black;
     }
 
     & .sun {
-        background: #ffa;
+        background: mui-color('amber', '200');
         color: black;
     }
 }

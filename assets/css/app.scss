@@ -1,3 +1,17 @@
+// MUI customization
+@import "node_modules/muicss/lib/sass/mui/colors";
+
+$mui-primary-color: mui-color('indigo', '600');
+$mui-primary-color-dark: mui-color('indigo', '800');
+$mui-primary-color-light: mui-color('indigo', '50');
+
+$mui-accent-color: mui-color('teal', '700');
+$mui-accent-color-dark: mui-color('teal', '800');
+$mui-accent-color-light: mui-color('teal', 'A400');
+
+@import "node_modules/muicss/lib/sass/mui";
+// END MUI customization
+
 @import "./breadcrumbs";
 @import "./poi-form";
 @import "./show";
@@ -12,6 +26,7 @@ body {
 
 .main-footer {
     box-sizing: border-box;
+    background: mui-color('indigo', '50');
 
     text-align: center;
     padding: 1em;
@@ -55,6 +70,8 @@ body {
 
 nav.navbar {
     box-sizing: border-box;
+    color: white;
+    background: mui-color('indigo', '600');
 
     @extend .flex-row;
     justify-content: flex-start;
