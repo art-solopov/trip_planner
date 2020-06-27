@@ -20,7 +20,9 @@ class PointScheduleData:
         yield '<table class="schedule-table">'
 
         for wday in self.WEEKDAYS:
-            yield self.schedule_row(wday, self.schedule[wday])
+            weekday_data = self.schedule.get(wday)
+            if weekday_data is not None:
+                yield self.schedule_row(wday, weekday_data)
 
         yield '</table>'
 

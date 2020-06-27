@@ -37,15 +37,19 @@ class TripForm(FlaskForm):
 
 
 class ScheduleWidget:
+    input_type = 'schedule'
     html_params = staticmethod(html_params)
+
+    TABLE_CLASS = 'schedule-table'
+    FORM_CLASS = 'schedule-table-form'
 
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
         kwargs.setdefault('class_', '')
 
         html_class = set(kwargs['class_'].split(' '))
-        html_class.add('schedule-table')
-        html_class.add('schedule-table-form')
+        html_class.add(self.TABLE_CLASS)
+        html_class.add(self.FORM_CLASS)
         kwargs['class_'] = ' '.join(cls for cls in html_class if cls)
 
         return Markup(''.join(self.table_rows(field, **kwargs)))
@@ -53,13 +57,18 @@ class ScheduleWidget:
     def table_rows(self, field, **kwargs):
         yield f'<table {self.html_params(**kwargs)}>'
 
+        yield '<tr><th></th><th>From</th><th>To</th>'
+
+        cell_class = f'{self.FORM_CLASS}--input-cell'
+
         for subfield in field:
-            weekday = escape(subfield.weekday.data).capitalize()
+            weekday = escape(subfield.weekday.data)
 
             yield ('<tr>' +
-                   f'<td>{weekday}{subfield.weekday()}</td>' +
-                   f'<td>{subfield.open_from()}</td>' +
-                   f'<td>{subfield.open_to()}</td>' +
+                   f'<td class={weekday}>{weekday.capitalize()}' +
+                   f'{subfield.weekday()}</td>' +
+                   f'<td class="{cell_class}">{subfield.open_from()}</td>' +
+                   f'<td class="{cell_class}">{subfield.open_to()}</td>' +
                    '</tr>')
 
         yield '</table>'

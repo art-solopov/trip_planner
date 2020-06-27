@@ -20,4 +20,6 @@
     {% endif %}
 
     {{ data.schedule() }}
+
+    <a class="mui-btn mui-btn--accent mui-btn--fab mui--pull-right" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}</a>
 {% endblock %}

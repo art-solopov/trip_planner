@@ -39,3 +39,19 @@ $gcr-margin: 0.5rem;
         }
     }
 }
+
+.mui-custom-schedule {
+    @extend .mui-textfield;
+
+    .schedule-table-form {
+        &--input-cell {
+            @extend .mui-textfield;
+            display: table-cell;
+            margin: 0;
+
+            input {
+                width: 6em;
+            }
+        }
+    }
+}

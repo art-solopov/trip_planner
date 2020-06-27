@@ -88,6 +88,8 @@ def create_app(test_config=None, instance_path=None):
             return 'mui-textfield'
         if widget.input_type in ('textarea', 'text', 'password'):
             return 'mui-textfield'
+        if widget.input_type in ('schedule',):
+            return f"mui-custom-{widget.input_type}"
 
         return ''
 

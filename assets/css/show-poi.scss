@@ -26,10 +26,10 @@
     border-collapse: collapse;
 
     td, th {
-        border: 2px solid #777;
-        padding: 1em;
+        padding: 0.5em;
     }
 
+    margin-top: 0.5em;
     margin-bottom: 1em;
 
     @each $dow in mon, tue, wed, thu {
