@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, errors, submit_btn %}
+{% from "macros/icon.html" import icon %}
 
 {% block main %}
     <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
@@ -33,9 +34,17 @@
             <div class="geocode-results" id="geocode_results"></div>
         </fieldset>
 
+        {%- set schedule_buttons %}
+            <div id="schedule_buttons" class="schedule-buttons mui--hide mui--pull-right flex-column">
+                <button type="button" class="mui-btn mui-btn--accent btn-copy-down">{{ icon('circle-down') }}</button>
+                <button type="button" class="mui-btn mui-btn--accent btn-copy-all">{{ icon('share') }}</button>
+            </div>
+        {%- endset -%}
+
         {{ field(form.type) }}
         {{ field(form.notes) }}
-        {{ field(form.schedule) }}
+        {{ field(form.schedule, schedule_buttons) }}
+
 
         {{ submit_btn() }}
     </form>
@@ -54,5 +63,5 @@
     </template>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="/static/js/geocode.js"></script>
+    <script type="text/javascript" src="/static/js/point_form.js"></script>
 {% endblock %}

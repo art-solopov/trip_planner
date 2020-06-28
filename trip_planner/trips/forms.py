@@ -57,7 +57,9 @@ class ScheduleWidget:
     def table_rows(self, field, **kwargs):
         yield f'<table {self.html_params(**kwargs)}>'
 
-        yield '<tr><th></th><th>From</th><th>To</th>'
+        yield ('<thead>' +
+               '<tr><th></th><th>From</th><th>To</th>' +
+               "</thead>\n<tbody>")
 
         cell_class = f'{self.FORM_CLASS}--input-cell'
 
@@ -71,7 +73,7 @@ class ScheduleWidget:
                    f'<td class="{cell_class}">{subfield.open_to()}</td>' +
                    '</tr>')
 
-        yield '</table>'
+        yield "</tbody>\n</table>"
 
 
 class ScheduleSubForm(Form):
