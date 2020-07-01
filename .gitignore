@@ -122,3 +122,7 @@ trip_planner/static/js
 
 tmp
 log
+
+# ReasonML compiled files
+assets/js/**/*.bs.js
+.merlin
