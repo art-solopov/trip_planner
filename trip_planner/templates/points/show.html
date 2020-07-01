@@ -19,23 +19,7 @@
         </section>
     {% endif %}
 
-    {% if point.schedule %}
-        <table class="schedule">
-            <tbody>
-                {% for (dowfrom, dowto, timefrom, timeto) in data.schedule %}
-                    <tr>
-                        <td>
-                            {{ dowfrom | wday }}
-                            {%- if dowto -%}
-                                –{{ dowto | wday }}
-                            {% endif -%}
-                        </td>
-                        <td>{{ timefrom }}–{{ timeto }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+    {{ data.schedule() }}
 
     <a class="mui-btn mui-btn--accent mui-btn--fab mui--pull-right" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}</a>
 {% endblock %}

@@ -41,7 +41,8 @@ class Point(db.Model):
     lon = db.Column(db.Float, nullable=False)
     type = db.Column(db.String(120), nullable=False, index=True)
     notes = db.Column(db.Text)
-    schedule = db.Column(db.Text)
+    schedule_old = db.Column(db.Text)
+    schedule = db.Column(db.JSON(none_as_null=True))
 
     trip = db.relationship('Trip',
                            backref=db.backref(

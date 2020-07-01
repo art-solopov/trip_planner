@@ -2,7 +2,7 @@ $gcr-margin: 0.5rem;
 
 .geocode-results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     grid-gap: $gcr-margin;
 }
 
@@ -10,6 +10,7 @@ $gcr-margin: 0.5rem;
     box-sizing: border-box;
     border: 1px solid black;
     padding: 0.5rem;
+    width: 100%;
 
     &:last-child {
         margin-right: auto;
@@ -36,6 +37,34 @@ $gcr-margin: 0.5rem;
 
         &:not(:last-child) {
             margin-right: 0.5rem;
+        }
+    }
+}
+
+.mui-custom-schedule {
+    @extend .mui-textfield;
+
+    .schedule-table-form {
+        &--input-cell {
+            @extend .mui-textfield;
+            display: table-cell;
+            margin: 0;
+
+            input {
+                width: 6em;
+            }
+        }
+    }
+
+    .schedule-buttons {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        transition: top .3s;
+
+        button {
+            margin: 0.25rem 0;
         }
     }
 }

@@ -37,10 +37,9 @@ function css() {
 
 function js() {
     let mapScripts = src(['assets/js/map/**/*.js', 'assets/js/map.js']).pipe(concat('map.js'))
-    let geoScripts = src(['assets/js/geocode.js'])
+    let pointFormScripts = src(['assets/js/point_form/**/*.js', 'assets/js/point_form.js']).pipe(concat('point_form.js'))
 
-
-    let assets = mergeStreams(mapScripts, geoScripts)
+    let assets = mergeStreams(mapScripts, pointFormScripts)
 
     return assets.pipe(dest('trip_planner/static/js'))
 }

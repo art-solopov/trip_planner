@@ -5,6 +5,7 @@ from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
+from flask.cli import with_appcontext
 from wtforms import Field
 from wtforms import widgets as ww
 from markupsafe import Markup
@@ -87,6 +88,8 @@ def create_app(test_config=None, instance_path=None):
             return 'mui-textfield'
         if widget.input_type in ('textarea', 'text', 'password'):
             return 'mui-textfield'
+        if widget.input_type in ('schedule',):
+            return f"mui-custom-{widget.input_type}"
 
         return ''
 

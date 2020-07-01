@@ -1,7 +1,8 @@
-{% macro field(field) -%}
+{% macro field(field, extra = None) -%}
     <div class="field-{{ field.name }} {{ field | mui_field_class }}">
         {{ field() }}
         {{ field.label }}
+        {%- if extra %}{{ extra }}{% endif %}
     </div>
 {%- endmacro %}
 

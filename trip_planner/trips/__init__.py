@@ -180,6 +180,7 @@ def add_point(slug: str):
     point = Point(trip=trip)
     form = PointForm()
     if form.validate_on_submit():
+        print(form.data)
         form.populate_obj(point)
         db.session.add(point)
         db.session.commit()
@@ -211,7 +212,7 @@ def update_point(trip: Trip, point: Point):
         form.populate_obj(point)
         db.session.add(point)
         db.session.commit()
-        return redirect(url_for('.show', slug=trip.slug))
+        return redirect(url_for('.show_point', slug=trip.slug, id=point.id))
 
     title = f'Update point {point.name}'
     add_breadcrumb(title)
