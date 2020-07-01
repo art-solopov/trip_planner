@@ -4,7 +4,7 @@
   "description": "Assets for trip planner",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "parcel": "parcel"
   },
   "author": "Artemiy Solopov",
   "license": "MIT",
@@ -12,16 +12,23 @@
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "merge-stream": "^2.0.0",
     "muicss": "^0.10.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
+    "parcel-bundler": "^1.12.4",
     "postcss-each": "^0.10.0",
     "postcss-easy-import": "^3.0.0",
     "postcss-extend": "^1.0.5",
     "postcss-font-family-system-ui": "^4.2.0",
     "postcss-nesting": "^7.0.1",
     "postcss-simple-vars": "^5.0.2"
-  }
+  },
+  "browserslist": [
+    "Firefox ESR",
+    "Chrome >= 81",
+    "last 2 and_chr versions",
+    "last 2 and_ff versions"
+  ]
 }

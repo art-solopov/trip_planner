@@ -1,3 +1,5 @@
+import eventsProc from './map/events'
+
 function getDataPoints() {
     let els = Array.from(document.querySelectorAll('li.trip-point-item'))
 

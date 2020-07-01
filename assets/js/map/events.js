@@ -1,4 +1,4 @@
-var eventsProc = {
+const eventsProc = {
     dataPoints: null,
     map: null,
     mouseHandler(event) {
@@ -20,3 +20,5 @@ var eventsProc = {
 // TODO: add Babel plugin?
 eventsProc.mouseHandler = eventsProc.mouseHandler.bind(eventsProc)
 eventsProc.clickHandler = eventsProc.clickHandler.bind(eventsProc)
+
+export default eventsProc 

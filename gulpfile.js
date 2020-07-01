@@ -35,21 +35,9 @@ function css() {
         .pipe(dest('trip_planner/static/css/'))
 }
 
-function js() {
-    let mapScripts = src(['assets/js/map/**/*.js', 'assets/js/map.js']).pipe(concat('map.js'))
-    let pointFormScripts = src(['assets/js/point_form/**/*.js', 'assets/js/point_form.js']).pipe(concat('point_form.js'))
-
-    let assets = mergeStreams(mapScripts, pointFormScripts)
-
-    return assets.pipe(dest('trip_planner/static/js'))
-}
-
 function watchAssets() {
-    return watch(['assets/**/*.scss', 'assets/**/*.css', 'assets/**/*.js'], {ignoreInitial: false}, exports.default)
+    return watch(['assets/**/*.scss', 'assets/**/*.css'], {ignoreInitial: false}, exports.default)
 }
 
-exports.css = css
-exports.js = js
-
-exports.default = series(css, js)
+exports.default = css
 exports.watch = watchAssets
