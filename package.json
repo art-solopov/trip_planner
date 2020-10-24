@@ -4,12 +4,15 @@
   "description": "Assets for trip planner",
   "main": "gulpfile.js",
   "scripts": {
-    "parcel": "parcel",
-    "bsb-build": "bsb -make-world"
+    "bsb-build": "bsb -make-world",
+    "webpack-dev": "webpack --mode=development --watch",
+    "webpack-prod": "webpack",
+    "gulp": "gulp"
   },
   "author": "Artemiy Solopov",
   "license": "MIT",
   "dependencies": {
+    "bs-platform": "8.0.2",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^8.0.0",
@@ -18,19 +21,21 @@
     "muicss": "^0.10.2",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
-    "parcel-bundler": "^1.12.4",
     "postcss-each": "^0.10.0",
     "postcss-easy-import": "^3.0.0",
     "postcss-extend": "^1.0.5",
     "postcss-font-family-system-ui": "^4.2.0",
     "postcss-nesting": "^7.0.1",
     "postcss-simple-vars": "^5.0.2",
-    "bs-platform": "8.0.2"
+    "webpack": "^5.2.0"
   },
   "browserslist": [
     "Firefox ESR",
     "Chrome >= 81",
     "last 2 and_chr versions",
     "last 2 and_ff versions"
-  ]
+  ],
+  "devDependencies": {
+    "webpack-cli": "^4.1.0"
+  }
 }
