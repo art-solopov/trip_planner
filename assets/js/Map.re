@@ -2,8 +2,6 @@ include DomBinds;
 
 type point = Map__Point.t;
 
-let leaflet = Map__Leaflet.leaflet;
-
 let getDataPoints = (): array(point) => {
   let elements = {
     let els = document->querySelectorAll("li.trip-point-item");
@@ -13,10 +11,9 @@ let getDataPoints = (): array(point) => {
   elements |> Array.map(Map__Point.makeFromElement);
 };
 
-let panButtonClickHandler = (map: Map__Leaflet._leaflet_map, dp: point) => {
-  map->Map__Leaflet.panTo([|dp.data.lat, dp.data.lon|]);
-  map
-  ->Map__Leaflet.mapContainer
+let panButtonClickHandler = (map: Map__Builder.unimap, dp: point) => {
+  map.panTo(dp.data.coordinates);
+  map.container
   ->scrollIntoView(Js.Dict.fromArray([|("behavior", "smooth")|]));
 };
 
@@ -28,28 +25,35 @@ let main = () => {
     document
     ->getElementById("map_attribution")
     ->Belt.Option.mapWithDefault("", getInnerHTML);
-  let bounds = Map__Point.calculateBounds(dataPoints);
+  let bounds =
+    Map__Point.Coordinates.boundsFromCoordinates(
+      dataPoints |> Array.map((e: point) => e.data.coordinates),
+    );
   bounds |> Js.log;
+
   let map =
-    mapEl->Map__Leaflet.map(leaflet, _)->Map__Leaflet.fitBounds(bounds);
-  let tileLayer =
-    leaflet->Map__Leaflet.tileLayer(mapUrl, {"attribution": mapAttribution});
-  tileLayer->Map__Leaflet.addTileLayer(map);
+    Map__Leaflet.Builder.build(
+      mapEl,
+      Js.Dict.fromArray([|
+        ("mapUrl", mapUrl),
+        ("attribution", mapAttribution),
+      |]),
+      Array.map((e: point) => e.data, dataPoints),
+    );
 
-  Array.iter(
-    (dp: point) => {
-      Map__Leaflet.makeMarker(dp.data)->Map__Leaflet.addMarker(map);
+  map.fitBounds(bounds);
 
-      dp.el
-      ->querySelector(".pan-link")
-      ->Belt.Option.map(f =>
-          f->addClickListener(event => {
-            event->preventDefault;
-            panButtonClickHandler(map, dp);
-          })
-        )
-      ->Belt.Option.getWithDefault();
-    },
-    dataPoints,
-  );
+  dataPoints
+  |> Array.iter((dp: point) => {
+       let _ =
+         dp.el
+         ->querySelector(".pan-link")
+         ->Belt.Option.map(f => {
+             f->addClickListener(event => {
+               event->preventDefault;
+               panButtonClickHandler(map, dp);
+             })
+           });
+       ();
+     });
 };
