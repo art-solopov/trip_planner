@@ -58,10 +58,13 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          command: node_modules/.bin/gulp
+          command: npm run gulp
           name: Compile styles
       - run:
-          command: npm run parcel -- build assets/js/*.js --out-dir trip_planner/static/js
+          command: npm run bsb-build
+          name: Compile Reason
+      - run:
+          command: npm run webpack-prod
       - persist_to_workspace:
           root: .
           paths:
