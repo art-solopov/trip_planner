@@ -1,6 +1,7 @@
 include DomBinds;
 
-type point = Map__Point.t;
+// Element is a wrapper for Dom._baseClass
+type point = Map__Point.t(Dom._baseClass);
 
 let getDataPoints = (): array(point) => {
   let elements = {

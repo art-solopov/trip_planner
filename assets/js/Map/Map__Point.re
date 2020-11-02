@@ -36,13 +36,15 @@ type data = {
   category: string // TODO replace with enum?
 };
 
-type t = {
-  el: Dom.element,
+type el('a) = Dom.element_like('a);
+
+type t('a) = {
+  el: el('a),
   id: string,
   data,
 };
 
-let makeFromElement = (el: Dom.element): t => {
+let makeFromElement = (el: el('a)): t('a) => {
   let data: data = {
     let ds = el->dataset;
     let name =
