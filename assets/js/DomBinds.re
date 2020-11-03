@@ -25,15 +25,15 @@ external setDisabled: (Dom.htmlInputElement, bool) => unit = "disabled";
 external querySelectorAll: (Dom.node_like('a), string) => Dom.nodeList =
   "querySelectorAll";
 [@bs.send]
-external getElementById: (Dom.document, string) => option(Dom.element) =
+external getElementById: (Dom.document, string) => Js.Nullable.t(Dom.element) =
   "getElementById";
 [@bs.send]
 external getElementByIdInput:
-  (Dom.document, string) => option(Dom.htmlInputElement) =
+  (Dom.document, string) => Js.Nullable.t(Dom.htmlInputElement) =
   "getElementById";
 [@bs.send]
 external getElementByIdForm:
-  (Dom.document, string) => option(Dom.htmlFormElement) =
+  (Dom.document, string) => Js.Nullable.t(Dom.htmlFormElement) =
   "getElementById";
 [@bs.get_index] external get: (Dom.nodeList, int) => Dom.element;
 [@bs.get] external length: Dom.nodeList => int = "length";
@@ -41,15 +41,16 @@ external getElementByIdForm:
 external dataset: Dom.element_like('a) => Js.Dict.t(string) = "dataset";
 [@bs.get] external classList: Dom.element_like('a) => classList = "classList";
 [@bs.send]
-external querySelector: (Dom.node_like('a), string) => option(Dom.element) =
+external querySelector:
+  (Dom.node_like('a), string) => Js.Nullable.t(Dom.element) =
   "querySelector";
 [@bs.send]
 external querySelectorImage:
-  (Dom.node_like('a), string) => option(htmlImageElement) =
+  (Dom.node_like('a), string) => Js.Nullable.t(htmlImageElement) =
   "querySelector";
 [@bs.send]
 external querySelectorInput:
-  (Dom.node_like('a), string) => option(Dom.htmlInputElement) =
+  (Dom.node_like('a), string) => Js.Nullable.t(Dom.htmlInputElement) =
   "querySelector";
 [@bs.get] external getInnerText: Dom.element => string = "innerText";
 [@bs.get] external getInnerHTML: Dom.element_like('a) => string = "innerHTML";
@@ -75,6 +76,6 @@ external appendChild: (Dom.element_like('a), Dom.node_like('b)) => unit =
   "appendChild";
 [@bs.send]
 external closest:
-  (Dom.element_like('a), string) => option(Dom.element_like('b)) =
+  (Dom.element_like('a), string) => Js.Nullable.t(Dom.element_like('b)) =
   "closest";
 [@bs.send] external preventDefault: Dom.event => unit = "preventDefault";
