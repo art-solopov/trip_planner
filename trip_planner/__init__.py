@@ -10,6 +10,8 @@ from wtforms import Field
 from wtforms import widgets as ww
 from markupsafe import Markup
 
+from . import assets
+
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -97,6 +99,13 @@ def create_app(test_config=None, instance_path=None):
     def inject_icon_defs():
         with app.open_resource(f'static/icons/icon-defs.svg', 'r') as f:
             return {'icon_defs': Markup(f.read())}
+
+    @app.context_processor
+    def inject_js_chunks():
+        return {
+            'chunks': assets.chunks(app),
+            'script_tag': assets.script_tag
+        }
 
     if app.env == 'development':
         import IPython

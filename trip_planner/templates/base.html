@@ -10,6 +10,12 @@
 
         <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen">
         {%- block extra_head %}{% endblock %}
+
+        {% autoescape false %}
+            {% for chunk in chunks %}
+                {{ script_tag(chunk) }}
+            {% endfor %}
+        {% endautoescape %}
     </head>
     <body>
         {{ icon_defs }}

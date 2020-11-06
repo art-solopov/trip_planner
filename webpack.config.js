@@ -12,6 +12,16 @@ module.exports = {
     },
     devtool: 'cheap-module-source-map',
     optimization: {
-        usedExports: true
+        usedExports: true,
+        splitChunks: {
+            chunks: 'all',
+            name: 'vendor',
+            cacheGroups: {
+                bsb: {
+                    test: /\/node_modules\/bs-platform\//,
+                    name: 'vendor-bsb'
+                }
+            }
+        }
     }
 }
