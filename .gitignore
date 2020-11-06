@@ -126,3 +126,4 @@ log
 # ReasonML compiled files
 assets/js/**/*.bs.js
 .merlin
+.bsb.lock

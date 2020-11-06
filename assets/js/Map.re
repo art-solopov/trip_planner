@@ -1,6 +1,7 @@
 include DomBinds;
 
-type point = Map__Point.t;
+// Element is a wrapper for Dom._baseClass
+type point = Map__Point.t(Dom._baseClass);
 
 let getDataPoints = (): array(point) => {
   let elements = {
@@ -18,12 +19,14 @@ let panButtonClickHandler = (map: Map__Builder.unimap, dp: point) => {
 };
 
 let main = () => {
-  let mapEl = document->getElementById("map")->Belt.Option.getExn;
+  let mapEl =
+    document->getElementById("map")->Js.Nullable.toOption->Belt.Option.getExn;
   let dataPoints = getDataPoints();
   let mapUrl = mapEl->dataset->Js.Dict.unsafeGet("mapUrl");
   let mapAttribution =
     document
     ->getElementById("map_attribution")
+    ->Js.Nullable.toOption
     ->Belt.Option.mapWithDefault("", getInnerHTML);
   let bounds =
     Map__Point.Coordinates.boundsFromCoordinates(
@@ -48,6 +51,7 @@ let main = () => {
        let _ =
          dp.el
          ->querySelector(".pan-link")
+         ->Js.Nullable.toOption
          ->Belt.Option.map(f => {
              f->addClickListener(event => {
                event->preventDefault;

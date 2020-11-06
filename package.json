@@ -12,6 +12,7 @@
   "author": "Artemiy Solopov",
   "license": "MIT",
   "dependencies": {
+    "bs-axios": "0.0.43",
     "bs-platform": "8.0.2",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
