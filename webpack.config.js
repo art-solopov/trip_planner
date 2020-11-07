@@ -14,7 +14,7 @@ module.exports = {
     optimization: {
         usedExports: true,
         splitChunks: {
-            chunks: 'all',
+            chunks: 'initial',
             name: 'vendor',
             cacheGroups: {
                 bsb: {

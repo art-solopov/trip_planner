@@ -7,7 +7,6 @@ type data = Map__Point.data;
 
 module type Lib = {
   type map;
-  let scriptSrc: string;
 
   let make: (Dom.element, Js.Dict.t(string)) => Js.Promise.t(map);
   let container: map => Dom.element;
