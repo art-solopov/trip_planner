@@ -32,37 +32,27 @@ module Ext = {
   [@bs.send]
   external addMarker: (_leaflet_marker, _leaflet_map) => unit = "addTo";
 
-  let import = (): Js.Promise.t(_leaflet) => {
-    %raw
-    "import('leaflet')";
-  };
+  let import:
+    Js.Promise.t({
+      .
+      "L": _leaflet,
+      "makeMapIcon": string => _leaflet_icon,
+    }) = [%raw
+    "import('../map_helpers/leaflet')"
+  ];
+
+  let importL = import |> Js.Promise.(then_(i => resolve(i##"L")));
+
+  let makeMapIcon =
+    import |> Js.Promise.(then_(i => resolve(i##"makeMapIcon")));
 };
-
-// TODO: make it async somehow?
-%bs.raw
-{mljs|
-  import('leaflet').then(L => {
-    const MapIcon = L.Icon.extend({
-        options: {
-            iconSize: [34, 51],
-            iconAnchor: [34 / 2, 51],
-            popupAnchor: [0, -30]
-        }
-    })
-
-    window.MapIcon = MapIcon
-  })
-|mljs};
-
-[@bs.new]
-external make__MapIcon: {. "iconUrl": string} => Ext._leaflet_icon =
-  "MapIcon";
 
 module Impl: Map__Builder.Lib = {
   type map = Ext._leaflet_map;
   let container = Ext.mapContainer;
 
-  let import = Ext.import();
+  let import = Ext.importL;
+  let makeMapIcon = Ext.makeMapIcon;
 
   let make = (el: Dom.element, options: Js.Dict.t(string)) => {
     let dget = Js.Dict.unsafeGet;
@@ -92,14 +82,14 @@ module Impl: Map__Builder.Lib = {
     ();
   };
   let addMarker = (map, data: Map__Point.data) => {
-    let icon = make__MapIcon({"iconUrl": data->Map__Point.iconUrl});
+    // let icon = make__MapIcon({"iconUrl": data->Map__Point.iconUrl});
     let _ =
-      import
-      |> Js.Promise.then_(leaflet => {
+      Js.Promise.all2((import, makeMapIcon))
+      |> Js.Promise.then_(((leaflet, makeMapIcon)) => {
            leaflet
            ->Ext.marker(
                data.coordinates->Map__Point.Coordinates.toLatLon,
-               {"icon": icon},
+               {"icon": makeMapIcon(data->Map__Point.iconUrl)},
              )
            ->Ext.bindPopup(data.name)
            ->Ext.addMarker(map);
