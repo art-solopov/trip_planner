@@ -29,6 +29,7 @@ DATA_PATH = os.path.abspath(
 from .auth import auth as auth_bp  # noqa: E402
 from .trips import trips as trips_bp  # noqa: E402
 from .api import api as api_bp  # noqa: E402
+from .scripts import scripts as scripts_bp  # noqa: E402
 from .models import User  # noqa: E402
 
 
@@ -76,6 +77,7 @@ def create_app(test_config=None, instance_path=None):
     app.register_blueprint(auth_bp)
     app.register_blueprint(trips_bp)
     app.register_blueprint(api_bp)
+    app.register_blueprint(scripts_bp)
 
     @app.template_test('hidden_field')
     def is_hidden_field(field: Field) -> bool:
