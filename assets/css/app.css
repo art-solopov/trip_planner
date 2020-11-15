@@ -1,0 +1,45 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* TODO: extract into other files */
+
+.btn {
+    @apply rounded-sm transition-colors duration-150 text-gray-800;
+}
+
+.btn-small {
+    @apply px-3 py-1;
+}
+
+.btn-light {
+     background: theme('colors.gray.300');
+}
+
+.btn-light:hover,
+.btn-light:focus {
+    background: theme('colors.gray.100');
+}
+
+p {
+    @apply my-1;
+}
+
+label {
+    @apply font-bold block;
+}
+
+input:not([type=submit]), select, textarea {
+    border: 1px solid theme('colors.gray.400');
+    @apply rounded-md py-1 px-2;
+}
+
+input:not([type=submit]):not([type=radio]):not([type=checkbox]), select, textarea {
+    @apply w-full;
+}
+
+input[type=radio], input[type=checkbox] {
+    & + label {
+        display: inline-block;
+    }
+}

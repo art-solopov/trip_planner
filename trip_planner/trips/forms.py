@@ -102,7 +102,6 @@ class ScheduleField(FieldList):
             data = [{**datum, 'weekday': wday}
                     for (wday, datum) in data.items()]
 
-        print(data)
         super().process(formdata, data)
 
     def populate_obj(self, obj, name):

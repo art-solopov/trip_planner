@@ -11,9 +11,11 @@
         {{ field(form.name) }}
         {{ field(form.address) }}
 
-        <div class="flex-row lat-lon-fields">
-            {{ field(form.lat) }}
-            {{ field(form.lon) }}
+        <div class="flex flex-row lat-lon-fields">
+            {% set geo_wrapper_class='w-40' %}
+            {{ field(form.lat, wrapper_class=geo_wrapper_class) }}
+            <span class="w-2">&nbsp;</span>
+            {{ field(form.lon, wrapper_class=geo_wrapper_class) }}
         </div>
 
         <fieldset class="mui-panel">

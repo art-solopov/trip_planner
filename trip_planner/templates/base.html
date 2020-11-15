@@ -6,21 +6,19 @@
 
         <title>Trip planner</title>
 
-        <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
-
         <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen">
         {%- block extra_head %}{% endblock %}
 
-        {% autoescape false %}
-            {% for chunk in chunks %}
+        {% autoescape false -%}
+            {%- for chunk in chunks -%}
                 {{ script_tag(chunk) }}
-            {% endfor %}
-        {% endautoescape %}
+            {%- endfor -%}
+        {%- endautoescape -%}
     </head>
     <body>
         {{ icon_defs }}
 
-        <div class="layout">
+        <div class="container flex flex-col box-border mx-auto">
             {% include "_header.html" %}
             <main class="{{ view_class }}">
                 {% block main %}{% endblock %}
