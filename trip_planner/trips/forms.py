@@ -1,6 +1,5 @@
 from os.path import join as pjoin
 import json
-from collections import OrderedDict
 from copy import copy
 
 from flask_wtf import FlaskForm
@@ -8,6 +7,7 @@ from markupsafe import Markup, escape
 from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList)
 from wtforms.widgets import html_params
+from wtforms.widgets.html5 import TimeInput
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
 
@@ -78,8 +78,8 @@ class ScheduleWidget:
 
 class ScheduleSubForm(Form):
     weekday = HiddenField()
-    open_from = StringField('From', render_kw={'pattern': '\\d{1,2}:\\d{2}'})
-    open_to = StringField('To', render_kw={'pattern': '\\d{1,2}:\\d{2}'})
+    open_from = StringField('From', widget=TimeInput())
+    open_to = StringField('To', widget=TimeInput())
 
 
 class ScheduleField(FieldList):
