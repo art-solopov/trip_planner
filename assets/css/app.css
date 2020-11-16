@@ -5,7 +5,7 @@
 /* TODO: extract into other files */
 
 .btn {
-    @apply rounded-sm transition-colors duration-150 text-gray-800 no-underline
+    @apply rounded-sm transition-colors duration-150 text-gray-800 no-underline px-4 py-2;
 }
 
 .btn-small {
@@ -18,6 +18,16 @@
     &:hover,
     &:focus {
         background: theme('colors.gray.100');
+    }
+}
+
+.btn-default {
+    background: theme('colors.indigo.700');
+    color: theme('colors.white');
+
+    &:hover,
+    &:focus {
+        background: theme('colors.indigo.500');
     }
 }
 

@@ -19,7 +19,8 @@ def authenticate(username, password):
 def _render_login_form(form):
     return render_template('form.html', form=form,
                            title='Sign in',
-                           submit_text='Login')
+                           submit_text='Login',
+                           form_class='mx-auto w-64')
 
 
 @auth.route('/login', methods=('GET', 'POST'))

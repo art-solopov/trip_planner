@@ -1,5 +1,5 @@
 {% macro field(field, extra = None, wrapper_class='', field_kwargs={}) -%}
-    {%- set wrapper_base_class = "field-" + field.name -%}
+    {%- set wrapper_base_class = "field-" + field.name + ' mb-2' -%}
     <div class="{{ [wrapper_base_class, wrapper_class] | join(' ') }}">
         {{ field.label }}
         {{ field(**field_kwargs) }}
@@ -21,7 +21,7 @@
 {%- endmacro %}
 
 {% macro submit_btn(submit_text) -%}
-    <div>
-        <button type="submit" class="mui-btn mui-btn--primary">{{ submit_text | default('Submit') }}</button>
+    <div class="mt-1">
+        <button type="submit" class="btn btn-default">{{ submit_text | default('Submit') }}</button>
     </div>
 {%- endmacro %}
