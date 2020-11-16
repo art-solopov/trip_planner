@@ -2,11 +2,12 @@
     <nav class="bg-indigo-700 text-white flex flex-row items-baseline h-12">
         <a href="/" class="text-white no-underline h-full mx-2 pt-3 inline-block font-bold">TRIPPLAN</a>
         <span class="mr-auto ml-0"></span>
+        {%- set navbar_button_class = 'mx-2 btn btn-light-2 btn-small' %}
         {% if g.user %}
             <span class="mx-2">{{ g.user.username }}</span>
-            <a href="{{ url_for('auth.logout') }}" class="mx-2 btn btn-light btn-small">Sign out</a>
+            <a href="{{ url_for('auth.logout') }}" class="{{ navbar_button_class }}">Sign out</a>
         {% else %}
-            <a href="{{ url_for('auth.login') }}" class="mx-2 btn btn-light btn-small">Sign in</a>
+            <a href="{{ url_for('auth.login') }}" class="{{ navbar_button_class }}" >Sign in</a>
         {% endif %}
     </nav>
 

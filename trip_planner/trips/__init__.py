@@ -41,7 +41,9 @@ def show(slug):
     return render_template('trips/show.html', trip=trip,
                            points=points,
                            points_count=len(trip.points),
-                           view_class='show-trip',
+                           view_class=' '.join(['show-trip',
+                                                'flex flex-col md:flex-row',
+                                                'md:justify-between']),
                            map_url=g.map_data.map_url)
 
 

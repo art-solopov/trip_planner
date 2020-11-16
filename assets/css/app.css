@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 @import "./buttons";
-
+@import "./trip-show";
 
 p {
     @apply mb-2;
