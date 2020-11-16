@@ -2,13 +2,13 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <h1>Your trips</h1>
+    <h1 class="my-4 text-2xl">Your trips</h1>
+
+    <a href="{{ url_for('trips.new') }}" class="btn btn-default my-1 inline-block" title="Add trip">{{ icon('plus') }} Add trip</a>
 
     <ul class="trips">
         {%- for trip in trips %}
-            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="mui-btn mui-btn--flat mui-btn--large">{{ trip.name }}</a></li>
+            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="px-4 py-3 no-underline inline-block text-black hover:bg-gray-400 transition-colors duration-300">{{ trip.name }}</a></li>
         {% endfor -%}
     </ul>
-
-    <a href="{{ url_for('trips.new') }}" class="mui-btn mui-btn--fab mui-btn--primary mui--pull-right" title="Add trip">{{ icon('plus') }}</a>
 {% endblock %}
