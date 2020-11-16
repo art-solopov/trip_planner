@@ -1,6 +1,6 @@
 <header>
     <nav class="bg-indigo-700 text-white flex flex-row items-baseline h-12">
-        <a href="/" class="h-full mx-2 pt-3 inline-block font-bold">TRIPPLAN</a>
+        <a href="/" class="text-white no-underline h-full mx-2 pt-3 inline-block font-bold">TRIPPLAN</a>
         <span class="mr-auto ml-0"></span>
         {% if g.user %}
             <span class="mx-2">{{ g.user.username }}</span>
@@ -22,7 +22,6 @@
                 {%- set bc_class = bc_class + "" -%}
             {%- endif %}
             {%- if breadcrumb.link -%}
-                {%- set bc_class = bc_class + " text-indigo-700 hover:underline" -%}
                 <a href="{{ breadcrumb.link }}" class="{{ bc_class }}">{{ breadcrumb.text }}</a>
             {%- else -%}
                 <span class="{{ bc_class }}">{{ breadcrumb.text }}</span>

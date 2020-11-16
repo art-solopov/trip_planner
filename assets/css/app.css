@@ -5,7 +5,7 @@
 /* TODO: extract into other files */
 
 .btn {
-    @apply rounded-sm transition-colors duration-150 text-gray-800;
+    @apply rounded-sm transition-colors duration-150 text-gray-800 no-underline
 }
 
 .btn-small {
@@ -13,16 +13,16 @@
 }
 
 .btn-light {
-     background: theme('colors.gray.300');
-}
+    background: theme('colors.gray.300');
 
-.btn-light:hover,
-.btn-light:focus {
-    background: theme('colors.gray.100');
+    &:hover,
+    &:focus {
+        background: theme('colors.gray.100');
+    }
 }
 
 p {
-    @apply my-1;
+    @apply mb-2;
 }
 
 label {
@@ -41,5 +41,15 @@ input:not([type=submit]):not([type=radio]):not([type=checkbox]), select, textare
 input[type=radio], input[type=checkbox] {
     & + label {
         display: inline-block;
+    }
+}
+
+a {
+    color: theme('colors.indigo.800');
+    text-decoration: underline currentcolor dashed;
+
+    &:hover,
+    &:focus {
+        text-decoration-style: solid;
     }
 }

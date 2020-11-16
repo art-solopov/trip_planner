@@ -5,7 +5,11 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+      flex: {
+        'grow-half-1': '1 0 50%'
+      }
+    },
   },
   variants: {},
   plugins: [],
