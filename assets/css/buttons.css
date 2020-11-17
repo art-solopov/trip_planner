@@ -1,0 +1,59 @@
+.btn {
+    @apply rounded transition-colors duration-150
+    text-gray-800 no-underline px-4 py-2
+    border;
+
+    border-color: transparent;
+    /* background-origin: border-box; */
+}
+
+.btn-small {
+    @apply px-3 py-1;
+}
+
+.btn-light, .btn-light-2 {
+    @apply bg-gray-300;
+}
+
+.btn-light {
+    @apply border-gray-400;
+
+    &:hover,
+    &:focus {
+        @apply border-gray-800;
+    }
+}
+
+.btn-light-2 {
+    &:hover,
+    &:focus {
+        @apply bg-gray-400;
+    }
+}
+
+.btn-default {
+    @apply bg-indigo-700 text-white;
+
+    &:hover,
+    &:focus {
+        @apply bg-indigo-500;
+    }
+}
+
+.btn-accent {
+    @apply bg-teal-800 text-white;
+
+    &:hover,
+    &:focus {
+        @apply bg-teal-500;
+    }
+}
+
+.btn-danger {
+    @apply bg-red-800 text-white;
+
+    &:hover,
+    &:focus {
+        @apply bg-red-600;
+    }
+}
