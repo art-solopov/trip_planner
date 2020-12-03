@@ -31,35 +31,45 @@ module Ext = {
     "bindPopup";
   [@bs.send]
   external addMarker: (_leaflet_marker, _leaflet_map) => unit = "addTo";
+};
 
-  let import:
+module Import = {
+  type t =
     Js.Promise.t({
       .
-      "L": _leaflet,
-      "makeMapIcon": string => _leaflet_icon,
-    }) = [%raw
-    "import('../map_helpers/leaflet')"
-  ];
+      "L": Ext._leaflet,
+      "makeMapIcon": string => Ext._leaflet_icon,
+    });
 
-  let importL = import |> Js.Promise.(then_(i => resolve(i##"L")));
+  let lib: ref(option(t)) = ref(None);
 
-  let makeMapIcon =
-    import |> Js.Promise.(then_(i => resolve(i##"makeMapIcon")));
+  let import = (): t => {
+    switch (lib^) {
+    | None =>
+      let loaded = [%raw "import('../map_helpers/leaflet')"];
+      lib := Some(loaded);
+      loaded;
+    | Some(loaded) => loaded
+    };
+  };
 };
 
 module Impl: Map__Builder.Lib = {
   type map = Ext._leaflet_map;
   let container = Ext.mapContainer;
 
-  let import = Ext.importL;
-  let makeMapIcon = Ext.makeMapIcon;
+  // let import = Ext.importL;
+  // let makeMapIcon = Ext.makeMapIcon;
 
   let make = (el: Dom.element, options: Js.Dict.t(string)) => {
     let dget = Js.Dict.unsafeGet;
     let mapUrl = options->dget("mapUrl");
     let attribution = options->dget("attribution");
 
-    import
+    let import = Import.import;
+
+    import()
+    |> Js.Promise.(then_(i => resolve(i##"L")))
     |> Js.Promise.(
          then_(leaflet => {
            let map = Ext.(leaflet->map(el));
@@ -83,8 +93,10 @@ module Impl: Map__Builder.Lib = {
   };
   let addMarker = (map, data: Map__Point.data) => {
     // let icon = make__MapIcon({"iconUrl": data->Map__Point.iconUrl});
+    let import = Import.import;
     let _ =
-      Js.Promise.all2((import, makeMapIcon))
+      import()
+      |> Js.Promise.(then_(i => resolve((i##"L", i##"makeMapIcon"))))
       |> Js.Promise.then_(((leaflet, makeMapIcon)) => {
            leaflet
            ->Ext.marker(
