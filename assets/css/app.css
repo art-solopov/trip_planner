@@ -14,8 +14,7 @@ label {
 }
 
 input:not([type=submit]), select, textarea {
-    border: 1px solid theme('colors.gray.400');
-    @apply rounded-md py-1 px-2;
+    @apply rounded-md py-1 px-2 border border-solid border-gray-400;
 }
 
 input:not([type=submit]):not([type=radio]):not([type=checkbox]), select, textarea {
@@ -24,12 +23,12 @@ input:not([type=submit]):not([type=radio]):not([type=checkbox]), select, textare
 
 input[type=radio], input[type=checkbox] {
     & + label {
-        display: inline-block;
+        @apply inline-block;
     }
 }
 
 a {
-    color: theme('colors.indigo.800');
+    @apply text-indigo-800;
     text-decoration: underline currentcolor dashed;
 
     &:hover,
