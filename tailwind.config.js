@@ -23,6 +23,9 @@ module.exports = {
       },
       maxHeight: {
         'almost-screen': '90vh'
+      },
+      gridTemplateColumns: {
+        'auto-20rem': 'repeat(auto-fill, minmax(20rem, 1fr))'
       }
     },
   },

@@ -18,7 +18,7 @@
             {{ field(form.lon, wrapper_class=geo_wrapper_class) }}
         </div>
 
-        <fieldset class="mui-panel">
+        <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
             <legend>Geocoding</legend>
 
             <div>
@@ -29,11 +29,11 @@
                 <label for="geocode_field_address">By address</label>
             </div>
 
-            <div>
-                <button type="button" id="btn_geocode" class="mui-btn mui-btn--accent">Geocode</button>
+            <div class="my-2">
+                <button type="button" id="btn_geocode" class="btn btn-accent">Geocode</button>
             </div>
 
-            <div class="geocode-results" id="geocode_results"></div>
+            <div class="geocode-results my-2 grid grid-cols-auto-20rem gap-1.5" id="geocode_results"></div>
         </fieldset>
 
         {%- set schedule_buttons %}
@@ -54,11 +54,11 @@
 
 {% block extra_body %}
     <template id="geocode_result_template">
-        <div class="geocode-result">
+        <div class="geocode-result box-border">
             <div>
-                <button type="button" class="mui-btn mui-btn--raised gc-save">Save</button>
+                <button type="button" class="btn btn-light btn-small gc-save">Save</button>
             </div>
-            <div class="name"></div>
+            <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1"></div>
             <div class="address"></div>
             <image class="preview" />
         </div>

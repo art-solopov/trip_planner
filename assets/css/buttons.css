@@ -12,7 +12,7 @@
 }
 
 .btn-light, .btn-light-2 {
-    @apply bg-gray-300;
+    @apply bg-gray-200;
 }
 
 .btn-light {
@@ -20,7 +20,7 @@
 }
 
 .btn-light-2 {
-    @apply hover:bg-gray-400 focus:bg-gray-400;
+    @apply hover:bg-gray-300 focus:bg-gray-300;
 }
 
 .btn-default {
