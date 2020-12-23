@@ -3,6 +3,7 @@ from flask import current_app
 
 class MapData:
     MAP_BASE_URL = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11'
+    MAP_BASE_URL = 'https://api.mapbox.com/styles/v1/art-solopov/ckj1qaoa79v8419szqo9p3dqj'
     ZOOM_LEVEL = 15.5
 
     @property
