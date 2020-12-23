@@ -26,7 +26,7 @@ class TripForm(FlaskForm):
     def __init__(self,  *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.country_code.choices = self._country_code_choices()
+        self.country_code.choices = list(self._country_code_choices())
 
     def _country_code_choices(self):
         yield ('', '')
