@@ -11,7 +11,8 @@ module.exports = {
       colors: {
         teal: colors.teal,
         gray: colors.trueGray,
-        indigo: colors.indigo
+        indigo: colors.indigo,
+        orange: colors.orange  
       },
       flex: {
         'grow': '1 0 auto',
