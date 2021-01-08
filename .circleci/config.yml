@@ -61,6 +61,8 @@ jobs:
       - checkout
       - node/install-packages
       - run:
+          command: npm install --no-save webpack-cli@4
+      - run:
           command: npm run gulp
           name: Compile styles
       - run:
