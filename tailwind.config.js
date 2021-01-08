@@ -5,7 +5,10 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: [],
+  purge: [
+    'trip_planner/templates/**/*.html',
+    'trip_planner/tailwind.py'
+  ],
   theme: {
     extend: {
       colors: {

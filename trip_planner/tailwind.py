@@ -8,3 +8,7 @@ class ScheduleClasses:
 
     CELL_CLASS = 'p-2'
     COMMON_WEEKDAY_CLASS = 'font-bold'
+
+
+class ViewClasses:
+    TRIP_SHOW = 'show-trip flex flex-col md:flex-row md:justify-between'

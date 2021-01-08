@@ -4,10 +4,7 @@ from markupsafe import Markup, escape
 
 from ..data import MapData
 from ..models import Point
-from .. import tailwind as tw
-
-
-TwScheduleClasses = tw.ScheduleClasses
+from ..tailwind import ScheduleClasses as TwScheduleClasses
 
 
 class PointScheduleData:
