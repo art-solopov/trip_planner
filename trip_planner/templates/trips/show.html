@@ -2,40 +2,42 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <div class="map" id="map"
+    <div class="trip-map box-border md:order-1 md:min-w-wide md:flex-grow" id="map"
          data-map-url="{{ map_url }}"
          data-map-attribution="{{ map_attribution }}">
         <div class="extra-attribution"></div>
     </div>
-    <div class="app">
+    <div class="app box-border md:flex-shrink-trip-app md:max-h-almost-screen md:overflow-y-scroll md:pr-4">
         <header>
-            <h1>{{ trip.name }}</h1>
+            <h1 class="my-3 text-2xl">{{ trip.name }}</h1>
             <div>Count: {{ points_count }}</div>
 
-            <a href="{{ url_for('.update', slug=trip.slug) }}" class="mui-btn mui-btn--accent" title="Edit">{{ icon('pencil') }}</a>
-            <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="mui-btn mui-btn--primary" title="Add point">{{ icon('plus') }}</a>
-	    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="mui-btn mui-btn--danger" title="Delete">{{ icon('bin2') }}</a>
+            <div>
+                <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small btn-accent" title="Edit">{{ icon('pencil') }}</a>
+                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-default" title="Add point">{{ icon('plus') }}</a>
+    	        <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
+            </div>
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items">
-                <h2 class="type-name">{{ g_type | capitalize }}</h2>
-                <ul class="mui-list--unstyled">
+            <section class="trip-point-items pt-3 pb-2 border-solid border-b-2 border-gray-700">
+                <h2 class="mb-2 text-xl">{{ g_type | capitalize }}</h2>
+                <ul class="">
                     {%- for point in pts %}
-                        <li class="trip-point-item"
+                        <li class="trip-point-item my-1"
                             id="{{ point.id }}"
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
                             <div>
-                                <h3 class="item-name">{{ point.name }}</h3>
+                                <h3 class="item-name text-lg font-bold">{{ point.name }}</h3>
                                 <p class="item-address">{{ point.address }}</p>
                             </div>
-                            <div class="item-links flex-row">
-                                <a class="mui-btn mui-btn--flat pan-link" href="#" title="Center map">{{ icon('compass2') }}</a>
-                                <a class="mui-btn mui-btn--flat more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
-                                <a class="mui-btn mui-btn--flat mui-btn--accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
-				<a class="mui-btn mui-btn--flat mui-btn--danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
+                            <div class="item-links">
+                                <a class="btn btn-small btn-light pan-link" href="#" title="Center map">{{ icon('compass2') }}</a>
+                                <a class="btn btn-small btn-default more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
+                                <a class="btn btn-small btn-accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+				                <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>
                     {% endfor %}

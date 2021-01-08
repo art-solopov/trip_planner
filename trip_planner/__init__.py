@@ -83,20 +83,6 @@ def create_app(test_config=None, instance_path=None):
     def is_hidden_field(field: Field) -> bool:
         return getattr(field.widget, 'input_type', '') == 'hidden'
 
-    @app.template_filter('mui_field_class')
-    def field_class(field: Field) -> str:
-        widget = field.widget
-        if isinstance(widget, ww.Select):
-            return 'mui-select'
-        if isinstance(widget, ww.TextArea):
-            return 'mui-textfield'
-        if widget.input_type in ('textarea', 'text', 'password'):
-            return 'mui-textfield'
-        if widget.input_type in ('schedule',):
-            return f"mui-custom-{widget.input_type}"
-
-        return ''
-
     @app.context_processor
     def inject_icon_defs():
         with app.open_resource(f'static/icons/icon-defs.svg', 'r') as f:

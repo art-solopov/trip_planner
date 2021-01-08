@@ -13,6 +13,7 @@ from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
+from ..tailwind import ViewClasses as TwViewClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 
@@ -41,7 +42,7 @@ def show(slug):
     return render_template('trips/show.html', trip=trip,
                            points=points,
                            points_count=len(trip.points),
-                           view_class='show-trip',
+                           view_class=TwViewClasses.TRIP_SHOW,
                            map_url=g.map_data.map_url)
 
 

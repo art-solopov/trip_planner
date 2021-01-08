@@ -1,25 +1,26 @@
 <header>
-    <nav class="navbar mui--appbar-height">
-        <span class="navbar-title mui--color-white mui--appbar-height mui--appbar-line-height">TRIPPLAN</span>
-        <span class="navbar-separator"></span>
+    <nav class="bg-indigo-700 text-white flex flex-row items-baseline h-12">
+        <a href="/" class="text-white text-2xl no-underline h-full mx-2 pt-1.5 inline-block font-bold">TRIPPLAN</a>
+        <span class="mr-auto ml-0"></span>
+        {%- set navbar_button_class = 'mx-2 btn btn-light-2 btn-small' %}
         {% if g.user %}
-            <span class="mui--color-white">{{ g.user.username }}</span>
-            <a href="{{ url_for('auth.logout') }}" class="mui-btn mui-btn--small">Sign out</a>
+            <span class="mx-2">{{ g.user.username }}</span>
+            <a href="{{ url_for('auth.logout') }}" class="{{ navbar_button_class }}">Sign out</a>
         {% else %}
-            <a href="{{ url_for('auth.login') }}" class="mui-btn mui-btn--small">Sign in</a>
+            <a href="{{ url_for('auth.login') }}" class="{{ navbar_button_class }}" >Sign in</a>
         {% endif %}
     </nav>
 
     {%- if g.breadcrumbs %}
-    <nav class="breadcrumbs">
+    <nav class="my-2 flex flex-row items-baseline">
         {%- for breadcrumb in g.breadcrumbs %}
             {% if not loop.first -%}
-                <span class="separator">/</span>
+                <span class="">/</span>
             {%- endif -%}
 
-            {%- set bc_class = "breadcrumb-item" -%}
+            {%- set bc_class = "p-2" -%}
             {%- if loop.last -%}
-                {%- set bc_class = bc_class + " breadcrumb-item-active" -%}
+                {%- set bc_class = bc_class + "" -%}
             {%- endif %}
             {%- if breadcrumb.link -%}
                 <a href="{{ breadcrumb.link }}" class="{{ bc_class }}">{{ breadcrumb.text }}</a>

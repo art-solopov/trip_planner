@@ -1,14 +1,18 @@
-from typing import Sequence, Tuple, Dict
+from typing import Sequence, Dict
 
 from markupsafe import Markup, escape
 
 from ..data import MapData
 from ..models import Point
-from .forms import ScheduleField
+from ..tailwind import ScheduleClasses as TwScheduleClasses
 
 
 class PointScheduleData:
-    WEEKDAYS = ScheduleField.WEEKDAYS
+    WEEKDAYS = 'mon tue wed thu fri sat sun'.split()
+
+    COMMON_CELL_CLASS = TwScheduleClasses.CELL_CLASS
+    COMMON_WDAY_CLASS = TwScheduleClasses.COMMON_WEEKDAY_CLASS
+    WDAY_CLASSES = TwScheduleClasses.WEEKDAYS
 
     def __init__(self, point: Point):
         self.schedule = point.schedule
@@ -16,24 +20,37 @@ class PointScheduleData:
     def __call__(self):
         return Markup(''.join(self._schedule_rows()))
 
+    @classmethod
+    def weekday_cell(cls, day_of_week: str):
+        dow_class = ' '.join([
+            cls.COMMON_CELL_CLASS,
+            cls.COMMON_WDAY_CLASS,
+            cls.WDAY_CLASSES.get(day_of_week, cls.WDAY_CLASSES['_default'])
+        ])
+        day_of_week = escape(day_of_week).capitalize()
+        return f'<th class="{dow_class}">{day_of_week}</th>'
+
     def _schedule_rows(self):
         yield '<table class="schedule-table">'
 
         for wday in self.WEEKDAYS:
             weekday_data = self.schedule.get(wday)
             if weekday_data is not None:
-                yield self.schedule_row(wday, weekday_data)
+                yield self._schedule_row(wday, weekday_data)
 
         yield '</table>'
 
-    @staticmethod
-    def schedule_row(day_of_week: str, data: Dict[str, str]):
-        day_of_week = escape(day_of_week)
+    @classmethod
+    def _schedule_row(cls, day_of_week: str, data: Dict[str, str]):
         open_from = escape(data['open_from'])
         open_to = escape(data['open_to'])
+        if open_from and open_to:
+            schedule_text = f'{open_from}–{open_to}'
+        else:
+            schedule_text = '—'
         return ('<tr>' +
-                f'<th class="{day_of_week}">{day_of_week.capitalize()}</th>' +
-                f'<td>{open_from}–{open_to}</td>' +
+                cls.weekday_cell(day_of_week) +
+                f'<td class="{cls.COMMON_CELL_CLASS}">{schedule_text}</td>' +
                 '</tr>')
 
 

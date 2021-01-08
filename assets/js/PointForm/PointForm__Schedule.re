@@ -52,6 +52,8 @@ let default = () => {
     ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
+  Js.log(scheduleButtons);
+
   let copyDownButton =
     scheduleButtons
     ->querySelector(".btn-copy-down")
@@ -64,7 +66,7 @@ let default = () => {
     ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
-  scheduleButtons->classList->ClassList.remove("mui--hide");
+  scheduleButtons->classList->ClassList.remove("hidden");
 
   let scheduleTable =
     document

@@ -2,13 +2,14 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <figure class="map-image-container">
+    <figure class="float-right p-1 mx-9 my-4">
         <image class="map-image" src="{{ data.point_map_url }}">
     </figure>
 
-    <header>
-        <h1>{{ point.name }}</h1>
+    <header class="my-2">
+        <h1 class="text-3xl my-4">{{ point.name }}</h1>
         <p>{{ point.address }}</p>
+        <a class="btn btn-accent" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
     </header>
 
     {% if point.notes and not point.notes.isspace() %}
@@ -20,6 +21,4 @@
     {% endif %}
 
     {{ data.schedule() }}
-
-    <a class="mui-btn mui-btn--accent mui-btn--fab mui--pull-right" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}</a>
 {% endblock %}

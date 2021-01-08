@@ -54,6 +54,9 @@ jobs:
       name: node/default
       tag: "12.13"
 
+    environment:
+      NODE_ENV: production
+
     steps:
       - checkout
       - node/install-packages

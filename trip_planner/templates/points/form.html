@@ -11,12 +11,14 @@
         {{ field(form.name) }}
         {{ field(form.address) }}
 
-        <div class="flex-row lat-lon-fields">
-            {{ field(form.lat) }}
-            {{ field(form.lon) }}
+        <div class="flex flex-row lat-lon-fields">
+            {% set geo_wrapper_class='w-40' %}
+            {{ field(form.lat, wrapper_class=geo_wrapper_class) }}
+            <span class="w-2">&nbsp;</span>
+            {{ field(form.lon, wrapper_class=geo_wrapper_class) }}
         </div>
 
-        <fieldset class="mui-panel">
+        <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
             <legend>Geocoding</legend>
 
             <div>
@@ -27,23 +29,23 @@
                 <label for="geocode_field_address">By address</label>
             </div>
 
-            <div>
-                <button type="button" id="btn_geocode" class="mui-btn mui-btn--accent">Geocode</button>
+            <div class="my-2">
+                <button type="button" id="btn_geocode" class="btn btn-accent">Geocode</button>
             </div>
 
-            <div class="geocode-results" id="geocode_results"></div>
+            <div class="geocode-results my-2 grid grid-cols-auto-20rem gap-1.5" id="geocode_results"></div>
         </fieldset>
 
         {%- set schedule_buttons %}
-            <div id="schedule_buttons" class="schedule-buttons mui--hide mui--pull-right flex-column">
-                <button type="button" class="mui-btn mui-btn--accent btn-copy-down">{{ icon('circle-down') }}</button>
-                <button type="button" class="mui-btn mui-btn--accent btn-copy-all">{{ icon('share') }}</button>
+            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute">
+                <button type="button" class="btn btn-accent btn-copy-down mb-2">{{ icon('circle-down') }}</button>
+                <button type="button" class="btn btn-accent btn-copy-all">{{ icon('share') }}</button>
             </div>
         {%- endset -%}
 
         {{ field(form.type) }}
         {{ field(form.notes) }}
-        {{ field(form.schedule, schedule_buttons) }}
+        {{ field(form.schedule, schedule_buttons, wrapper_class='relative') }}
 
 
         {{ submit_btn() }}
@@ -52,11 +54,11 @@
 
 {% block extra_body %}
     <template id="geocode_result_template">
-        <div class="geocode-result">
+        <div class="geocode-result box-border">
             <div>
-                <button type="button" class="mui-btn mui-btn--raised gc-save">Save</button>
+                <button type="button" class="btn btn-light btn-small gc-save">Save</button>
             </div>
-            <div class="name"></div>
+            <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1"></div>
             <div class="address"></div>
             <image class="preview" />
         </div>

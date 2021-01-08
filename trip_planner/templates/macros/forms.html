@@ -1,7 +1,8 @@
-{% macro field(field, extra = None) -%}
-    <div class="field-{{ field.name }} {{ field | mui_field_class }}">
-        {{ field() }}
+{% macro field(field, extra = None, wrapper_class='', field_kwargs={}) -%}
+    {%- set wrapper_base_class = "field-" + field.name + ' mb-2' -%}
+    <div class="{{ [wrapper_base_class, wrapper_class] | join(' ') }}">
         {{ field.label }}
+        {{ field(**field_kwargs) }}
         {%- if extra %}{{ extra }}{% endif %}
     </div>
 {%- endmacro %}
@@ -20,7 +21,16 @@
 {%- endmacro %}
 
 {% macro submit_btn(submit_text) -%}
-    <div>
-        <button type="submit" class="mui-btn mui-btn--primary">{{ submit_text | default('Submit') }}</button>
+    <div class="mt-1">
+        <button type="submit" class="btn btn-default">{{ submit_text | default('Submit') }}</button>
     </div>
 {%- endmacro %}
+
+{% macro render_form(form, form_method, form_action, form_class) -%}
+    <form method="{{ form_method | default('POST') }}" action="{{ form_action }}" class="{{ form_class }}">
+        {{ errors(form) }}
+
+        {{ form.hidden_tag() }}
+        {{ caller() }}
+        {{ submit_btn(submit_text) }}
+{%- endmacro -%}
