@@ -4,6 +4,7 @@
 
 @import "./buttons";
 @import "./trip-show";
+@import "./point-form";
 
 p {
     @apply mb-2;

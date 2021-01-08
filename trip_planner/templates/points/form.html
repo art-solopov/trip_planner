@@ -37,15 +37,15 @@
         </fieldset>
 
         {%- set schedule_buttons %}
-            <div id="schedule_buttons" class="schedule-buttons mui--hide mui--pull-right flex-column">
-                <button type="button" class="mui-btn mui-btn--accent btn-copy-down">{{ icon('circle-down') }}</button>
-                <button type="button" class="mui-btn mui-btn--accent btn-copy-all">{{ icon('share') }}</button>
+            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute">
+                <button type="button" class="btn btn-accent btn-copy-down mb-2">{{ icon('circle-down') }}</button>
+                <button type="button" class="btn btn-accent btn-copy-all">{{ icon('share') }}</button>
             </div>
         {%- endset -%}
 
         {{ field(form.type) }}
         {{ field(form.notes) }}
-        {{ field(form.schedule, schedule_buttons) }}
+        {{ field(form.schedule, schedule_buttons, wrapper_class='relative') }}
 
 
         {{ submit_btn() }}

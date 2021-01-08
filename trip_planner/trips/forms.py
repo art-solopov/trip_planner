@@ -12,6 +12,7 @@ from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
 
 from trip_planner import DATA_PATH
+from .data import PointScheduleData
 
 
 class TripForm(FlaskForm):
@@ -42,6 +43,7 @@ class ScheduleWidget:
 
     TABLE_CLASS = 'schedule-table'
     FORM_CLASS = 'schedule-table-form'
+    CELL_CLASS = 'pl-3'
 
     def __call__(self, field, **kwargs):
         kwargs.setdefault('id', field.id)
@@ -61,16 +63,13 @@ class ScheduleWidget:
                '<tr><th></th><th>From</th><th>To</th>' +
                "</thead>\n<tbody>")
 
-        cell_class = f'{self.FORM_CLASS}--input-cell'
-
         for subfield in field:
             weekday = escape(subfield.weekday.data)
 
             yield ('<tr>' +
-                   f'<td class={weekday}>{weekday.capitalize()}' +
-                   f'{subfield.weekday()}</td>' +
-                   f'<td class="{cell_class}">{subfield.open_from()}</td>' +
-                   f'<td class="{cell_class}">{subfield.open_to()}</td>' +
+                   PointScheduleData.weekday_cell(weekday) +
+                   f'<td class="{self.CELL_CLASS}">{subfield.open_from()}</td>' +
+                   f'<td class="{self.CELL_CLASS}">{subfield.open_to()}</td>' +
                    '</tr>')
 
         yield "</tbody>\n</table>"
@@ -83,7 +82,7 @@ class ScheduleSubForm(Form):
 
 
 class ScheduleField(FieldList):
-    WEEKDAYS = 'mon tue wed thu fri sat sun'.split()
+    WEEKDAYS = PointScheduleData.WEEKDAYS
     widget = ScheduleWidget()
 
     def __init__(self, label=None, validators=None, **kwargs):
