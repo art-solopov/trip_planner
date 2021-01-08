@@ -29,7 +29,8 @@
     "postcss-nesting": "^7.0.1",
     "postcss-simple-vars": "^5.0.2",
     "tailwindcss": "^2.0.1",
-    "webpack": "^5.2.0"
+    "webpack": "^5.2.0",
+    "webpack-stream": "^6.1.1"
   },
   "browserslist": [
     "Firefox ESR",

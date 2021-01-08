@@ -61,15 +61,14 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          command: npm install --no-save webpack-cli@4
-      - run:
-          command: npm run gulp
+          command: npm run gulp css
           name: Compile styles
       - run:
           command: npm run bsb-build
           name: Compile Reason
       - run:
-          command: npm run webpack-prod
+          command: npm run gulp webpack-prod
+          name: Compile JS
       - persist_to_workspace:
           root: .
           paths:

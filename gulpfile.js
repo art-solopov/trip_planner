@@ -2,6 +2,11 @@ const { src, dest, series, watch } = require('gulp')
 const concat = require('gulp-concat')
 const postcss = require('gulp-postcss')
 const mergeStreams = require('merge-stream')
+const webpackStream = require('webpack-stream')
+
+const webpackConfig = require('./webpack.config.js')
+
+webpackConfig.mode = 'production'
 
 // const postcssPlugins = {
 //     fontFamilySystemUI: require('postcss-font-family-system-ui'),
@@ -21,9 +26,15 @@ function css() {
         .pipe(dest('trip_planner/static/css/'))
 }
 
-function watchAssets() {
-    return watch(['assets/**/*.scss', 'assets/**/*.css'], {ignoreInitial: false}, exports.default)
+function webpackProd() {
+    return webpackStream(webpackConfig)
+        .pipe(dest(webpackConfig.output.path))
 }
 
-exports.default = css
+function watchAssets() {
+    return watch(['assets/**/*.css'], {ignoreInitial: false}, css)
+}
+
+exports.css = css
+exports['webpack-prod'] = webpackProd
 exports.watch = watchAssets
