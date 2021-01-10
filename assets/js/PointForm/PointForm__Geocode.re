@@ -19,7 +19,6 @@ let displayGeocode = (container: Dom.element, data: array(datum)) => {
     let template =
       document
       ->getElementById("geocode_result_template")
-      ->Js.Nullable.toOption
       ->Belt.Option.getExn;
 
     data
@@ -28,26 +27,23 @@ let displayGeocode = (container: Dom.element, data: array(datum)) => {
            document
            ->importNode(template->getContent, true)
            ->querySelector("div")
-           ->Js.Nullable.toOption
            ->Belt.Option.getExn;
+
          let dataset = el->dataset;
          dataset->Js.Dict.set("lat", e.lat->Js.Float.toString);
          dataset->Js.Dict.set("lon", e.lon->Js.Float.toString);
 
          el
          ->querySelector(".address")
-         ->Js.Nullable.toOption
          ->Belt.Option.getExn
          ->setTextContent(e.address);
          el
          ->querySelector(".name")
-         ->Js.Nullable.toOption
          ->Belt.Option.getExn
          ->setTextContent(e.name);
 
          el
          ->querySelectorImage(".preview")
-         ->Js.Nullable.toOption
          ->Belt.Option.getExn
          ->setSrc(e.map_url);
          ();
@@ -71,7 +67,6 @@ let formValue =
 
   form
   ->querySelectorInput({j|$(selector)[name=$(field)]|j})
-  ->Js.Nullable.toOption
   ->Belt.Option.getExn
   ->getValue;
 };
@@ -87,7 +82,6 @@ let doGeocode =
       let field =
         form
         ->querySelectorInput("input[name=geocode_field]:checked")
-        ->Js.Nullable.toOption
         ->Belt.Option.map(getValue);
 
       let data = {
@@ -118,24 +112,20 @@ let resultsListener = (form: Dom.htmlFormElement, event: Dom.event_like('a)) => 
     let parent =
       target
       ->closest(".geocode-result")
-      ->Js.Nullable.toOption
       ->Belt.Option.getExn;
 
     form
     ->querySelectorInput("input[name=lat]")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn
     ->setValue(parent->dataset->Js.Dict.unsafeGet("lat"));
 
     form
     ->querySelectorInput("input[name=lon]")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn
     ->setValue(parent->dataset->Js.Dict.unsafeGet("lon"));
 
     target
     ->closest("#geocode_results")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn
     ->setInnerHTML("");
   };
@@ -145,17 +135,14 @@ let default = () => {
   let results =
     document
     ->getElementById("geocode_results")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
   let form =
     document
     ->getElementByIdForm("point_form")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
   let button =
     document
     ->getElementByIdInput("btn_geocode")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
   button->addClickListener(_event => {

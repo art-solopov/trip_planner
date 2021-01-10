@@ -32,16 +32,16 @@ external setDisabled: (Dom.htmlInputElement, bool) => unit = "disabled";
 [@bs.send]
 external querySelectorAll: (Dom.node_like('a), string) => Dom.nodeList =
   "querySelectorAll";
-[@bs.send]
-external getElementById: (Dom.document, string) => Js.Nullable.t(Dom.element) =
+[@bs.send][@bs.return nullable]
+external getElementById: (Dom.document, string) => option(Dom.element) =
   "getElementById";
-[@bs.send]
+[@bs.send][@bs.return nullable]
 external getElementByIdInput:
-  (Dom.document, string) => Js.Nullable.t(Dom.htmlInputElement) =
+  (Dom.document, string) => option(Dom.htmlInputElement) =
   "getElementById";
-[@bs.send]
+[@bs.send][@bs.return nullable]
 external getElementByIdForm:
-  (Dom.document, string) => Js.Nullable.t(Dom.htmlFormElement) =
+  (Dom.document, string) => option(Dom.htmlFormElement) =
   "getElementById";
 [@bs.get_index] external get: (Dom.nodeList, int) => Dom.element;
 [@bs.get] external length: Dom.nodeList => int = "length";
@@ -56,17 +56,17 @@ external offsetParent: Dom.element_like('a) => Dom.element = "offsetParent";
 external nextElementSibling:
   Dom.element_like('a) => Js.Nullable.t(Dom.element) =
   "nextElementSibling";
-[@bs.send]
+[@bs.send][@bs.return nullable]
 external querySelector:
-  (Dom.node_like('a), string) => Js.Nullable.t(Dom.element) =
+  (Dom.node_like('a), string) => option(Dom.element) =
   "querySelector";
-[@bs.send]
+[@bs.send][@bs.return nullable]
 external querySelectorImage:
-  (Dom.node_like('a), string) => Js.Nullable.t(htmlImageElement) =
+  (Dom.node_like('a), string) => option(htmlImageElement) =
   "querySelector";
-[@bs.send]
+[@bs.send][@bs.return nullable]
 external querySelectorInput:
-  (Dom.node_like('a), string) => Js.Nullable.t(Dom.htmlInputElement) =
+  (Dom.node_like('a), string) => option(Dom.htmlInputElement) =
   "querySelector";
 [@bs.get] external getInnerText: Dom.element => string = "innerText";
 [@bs.get] external getInnerHTML: Dom.element_like('a) => string = "innerHTML";
@@ -94,9 +94,9 @@ external scrollIntoView: (Dom.element, Js.Dict.t(string)) => unit =
 [@bs.send]
 external appendChild: (Dom.element_like('a), Dom.node_like('b)) => unit =
   "appendChild";
-[@bs.send]
+[@bs.send][@bs.return nullable]
 external closest:
-  (Dom.element_like('a), string) => Js.Nullable.t(Dom.element_like('b)) =
+  (Dom.element_like('a), string) => option(Dom.element_like('b)) =
   "closest";
 [@bs.send]
 external focus:

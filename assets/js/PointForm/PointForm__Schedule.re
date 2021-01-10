@@ -16,19 +16,17 @@ module Row = {
       openFrom:
         rowel
         ->DomBinds.querySelectorInput("input[name$=open_from]")
-        ->Js.Nullable.toOption
         ->Belt.Option.getExn,
       openTo:
         rowel
         ->DomBinds.querySelectorInput("input[name$=open_to]")
-        ->Js.Nullable.toOption
         ->Belt.Option.getExn,
     };
   };
 
   let fromInput = (input: Dom.htmlInputElement) =>
     make(
-      input->DomBinds.closest("tr")->Js.Nullable.toOption->Belt.Option.getExn,
+      input->DomBinds.closest("tr")->Belt.Option.getExn,
     );
 
   let data = (row: t) =>
@@ -49,7 +47,6 @@ let default = () => {
   let scheduleButtons =
     document
     ->getElementById("schedule_buttons")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
   Js.log(scheduleButtons);
@@ -57,13 +54,11 @@ let default = () => {
   let copyDownButton =
     scheduleButtons
     ->querySelector(".btn-copy-down")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
   let copyAllButton =
     scheduleButtons
     ->querySelector(".btn-copy-all")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
   scheduleButtons->classList->ClassList.remove("hidden");
@@ -71,7 +66,6 @@ let default = () => {
   let scheduleTable =
     document
     ->getElementById("schedule")
-    ->Js.Nullable.toOption
     ->Belt.Option.getExn;
 
   scheduleTable->addFocusinListener(event => {

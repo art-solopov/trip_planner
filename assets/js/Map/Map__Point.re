@@ -50,7 +50,6 @@ let makeFromElement = (el: el('a)): t('a) => {
     let name =
       el
       ->querySelector(".item-name")
-      ->Js.Nullable.toOption
       ->Belt.Option.map(getInnerText)
       ->Belt.Option.getExn;
     let category = ds->Js.Dict.unsafeGet("category");
