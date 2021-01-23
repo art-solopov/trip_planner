@@ -2,9 +2,9 @@ from typing import Sequence, Dict
 
 from markupsafe import Markup, escape
 
-from ..data import MapData
-from ..models import Point
-from ..tailwind import ScheduleClasses as TwScheduleClasses
+from trip_planner.data import MapData
+from trip_planner.models import Point
+from trip_planner.tailwind import ScheduleClasses as TwScheduleClasses
 
 
 class PointScheduleData:
@@ -66,3 +66,13 @@ class PointData(MapData):
     @property
     def notes_lines(self) -> Sequence[str]:
         return [l for l in self.point.notes.splitlines() if l]
+
+
+class PointPreload:
+    PARAM_NAME = 'preload_url'
+
+    def __init__(self, url: str):
+        self.url = url
+
+    def __call__(self) -> dict:
+        return {}

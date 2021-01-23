@@ -11,7 +11,7 @@ from .. import db
 from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
-from .data import PointData
+from .data import PointData, PointPreload
 from .forms import TripForm, PointForm
 from ..tailwind import ViewClasses as TwViewClasses
 
@@ -200,6 +200,16 @@ def add_point(slug: str):
         db.session.commit()
         flash(f"Point «{point.name}» added", 'success')
         return redirect(url_for('.show', slug=trip.slug))
+
+    preload_url = request.args.get(PointPreload.PARAM_NAME)
+    if preload_url:
+        # TODO: move to PointPreload somehow
+        preload = PointPreload(preload_url)
+        print(preload, preload.url)
+        preload_data = preload()
+        print(preload_data)
+        for k, v in preload_data.items():
+            form[k].data = v
 
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
