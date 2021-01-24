@@ -12,7 +12,7 @@ from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
 
 from trip_planner import DATA_PATH
-from .data import PointScheduleData, PointPreload
+from .data import PointScheduleData
 
 
 class TripForm(FlaskForm):
