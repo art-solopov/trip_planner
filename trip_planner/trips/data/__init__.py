@@ -66,13 +66,3 @@ class PointData(MapData):
     @property
     def notes_lines(self) -> Sequence[str]:
         return [l for l in self.point.notes.splitlines() if l]
-
-
-class PointPreload:
-    PARAM_NAME = 'preload_url'
-
-    def __init__(self, url: str):
-        self.url = url
-
-    def __call__(self) -> dict:
-        return {}
