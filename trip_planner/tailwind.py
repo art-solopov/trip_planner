@@ -12,3 +12,11 @@ class ScheduleClasses:
 
 class ViewClasses:
     TRIP_SHOW = 'show-trip flex flex-col md:flex-row md:justify-between'
+
+
+class FlashClasses:
+    ALL = 'rounded-md p-3 mb-1 border'
+    CATEGORIES = {
+        'error': 'border-red-700 bg-red-100',
+        'success': 'border-green-700 bg-green-100'
+    }

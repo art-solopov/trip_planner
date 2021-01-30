@@ -1,7 +1,7 @@
 from functools import wraps
 from itertools import groupby
 from operator import attrgetter
-from flask import Blueprint, g, render_template, request, redirect, url_for
+from flask import Blueprint, g, render_template, request, redirect, url_for, flash
 from flask.views import MethodView as View
 from sqlalchemy.exc import IntegrityError
 import psycopg2.errorcodes as pgerrorcodes
@@ -67,6 +67,9 @@ class TripCUView(View):
                 self.form.populate_obj(self.model)
                 db.session.add(self.model)
                 db.session.commit()
+                # Extracting the new model into the session
+                model = db.session.merge(self.model)
+                flash(self._success_flash_text(model), 'success')
                 return redirect(url_for('.index'))
             except IntegrityError as e:
                 db.session.rollback()
@@ -95,15 +98,22 @@ class TripCUView(View):
     def _add_breadcrumbs(self):
         add_breadcrumb('Trips', url_for('.index'))
 
+    def _success_flash_text(self, trip: Trip):
+        return ''
+
 
 class CreateTripView(TripCUView):
     title = 'Create trip'
+    success_flash_text = 'Trip created'
 
     def _build_form(self):
         return TripForm()
 
     def _instant_model(self):
         return Trip(author=g.user)
+
+    def _success_flash_text(self, trip: Trip):
+        return f"Trip «{trip.name}» created"
 
 
 class UpdateTripView(TripCUView):
@@ -126,6 +136,9 @@ class UpdateTripView(TripCUView):
     def _add_breadcrumbs(self):
         super()._add_breadcrumbs()
         add_breadcrumb(self.model.name, url_for('.show', slug=self.model.slug))
+
+    def _success_flash_text(self, trip: Trip):
+        return f"Trip «{trip.name}» updated"
 
 
 @trips.route('/<slug>/delete', methods=('GET', 'POST'))

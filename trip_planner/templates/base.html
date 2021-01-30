@@ -20,6 +20,15 @@
 
         <div class="container flex flex-col box-border mx-auto min-h-screen">
             {% include "_header.html" %}
+            {% with messages = get_flashed_messages(with_categories=True) -%}
+                {%- if messages %}
+                    <div class="flashes mt-3">
+                        {% for category, message in messages %}
+                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif -%}
+            {%- endwith %}
             <main class="{{ view_class }} flex-grow-half-1">
                 {% block main %}{% endblock %}
             </main>

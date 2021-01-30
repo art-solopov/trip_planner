@@ -11,6 +11,7 @@ from wtforms import widgets as ww
 from markupsafe import Markup
 
 from . import assets
+from .tailwind import FlashClasses
 
 
 db = SQLAlchemy()
@@ -93,6 +94,15 @@ def create_app(test_config=None, instance_path=None):
         return {
             'chunks': assets.chunks(app),
             'script_tag': assets.script_tag
+        }
+
+    @app.context_processor
+    def inject_tailwind_vars():
+        return {
+            'flash_classes': {
+                'all': FlashClasses.ALL,
+                'categories': FlashClasses.CATEGORIES
+            }
         }
 
     if app.env == 'development':
