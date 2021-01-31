@@ -20,3 +20,7 @@ class FlashClasses:
         'error': 'border-red-700 bg-red-100',
         'success': 'border-green-700 bg-green-100'
     }
+
+
+class FormClasses:
+    INPUT_DEFAULT = 'w-full'

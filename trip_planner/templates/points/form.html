@@ -8,14 +8,14 @@
 
         {{ form.hidden_tag() }}
 
-        {{ field(form.name) }}
-        {{ field(form.address) }}
+        {{ field(form.name, input_class=form_classes.input_default) }}
+        {{ field(form.address, input_class=form_classes.input_default) }}
 
         <div class="flex flex-row lat-lon-fields">
             {% set geo_wrapper_class='w-40' %}
-            {{ field(form.lat, wrapper_class=geo_wrapper_class) }}
+            {{ field(form.lat, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default) }}
             <span class="w-2">&nbsp;</span>
-            {{ field(form.lon, wrapper_class=geo_wrapper_class) }}
+            {{ field(form.lon, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default) }}
         </div>
 
         <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
@@ -43,8 +43,8 @@
             </div>
         {%- endset -%}
 
-        {{ field(form.type) }}
-        {{ field(form.notes) }}
+        {{ field(form.type, input_class=form_classes.input_default) }}
+        {{ field(form.notes, input_class=form_classes.input_default) }}
         {{ field(form.schedule, schedule_buttons, wrapper_class='relative') }}
 
 
@@ -60,7 +60,7 @@
             </div>
             <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1"></div>
             <div class="address"></div>
-            <image class="preview" />
+            <img class="preview">
         </div>
     </template>
 

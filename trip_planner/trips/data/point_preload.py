@@ -11,6 +11,14 @@ GMAPS_LOCATION_RE = re.compile(r'google\.com/maps/place/(?P<name>.*)/' +
                                r'(?:\d+(?:\.\d+)?\w*)/data')
 
 
+class PreloaderNotFound(Exception):
+    pass
+
+
+class PreloaderError(Exception):
+    pass
+
+
 def from_gmaps(url: str) -> dict:
     pre_response = rq.head(url)
     assert pre_response.status_code in range(300, 400)
@@ -42,7 +50,7 @@ class PointPreload:
     def __call__(self) -> dict:
         preloader = self._find_preloader()
         if preloader is None:
-            return
+            raise PreloaderNotFound
 
         data = preloader(self.url)
         for k, v in data.items():

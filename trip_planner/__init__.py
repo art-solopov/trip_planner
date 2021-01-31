@@ -11,7 +11,7 @@ from wtforms import widgets as ww
 from markupsafe import Markup
 
 from . import assets
-from .tailwind import FlashClasses
+from .tailwind import FlashClasses, FormClasses
 
 
 db = SQLAlchemy()
@@ -102,6 +102,9 @@ def create_app(test_config=None, instance_path=None):
             'flash_classes': {
                 'all': FlashClasses.ALL,
                 'categories': FlashClasses.CATEGORIES
+            },
+            'form_classes': {
+                'input_default': FormClasses.INPUT_DEFAULT
             }
         }
 
