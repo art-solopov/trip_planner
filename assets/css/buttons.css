@@ -34,3 +34,7 @@
 .btn-danger {
     @apply bg-red-800 hover:bg-red-600 focus:bg-red-600 text-white;
 }
+
+.btn-blue-outline {
+    @apply border-blue-700 hover:bg-blue-100 focus:bg-blue-100 text-blue-700;
+}

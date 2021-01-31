@@ -12,7 +12,7 @@ from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
-from .data.point_preload import PointPreload
+from .data.point_preload import PointPreload, PreloaderNotFound, PreloaderError
 from .forms import TripForm, PointForm
 from ..tailwind import ViewClasses as TwViewClasses
 
@@ -44,7 +44,8 @@ def show(slug):
                            points=points,
                            points_count=len(trip.points),
                            view_class=TwViewClasses.TRIP_SHOW,
-                           map_url=g.map_data.map_url)
+                           map_url=g.map_data.map_url,
+                           preload_param=PointPreload.PARAM_NAME)
 
 
 class TripCUView(View):
@@ -204,9 +205,13 @@ def add_point(slug: str):
 
     preload_url = request.args.get(PointPreload.PARAM_NAME)
     if preload_url:
-        preload = PointPreload(preload_url, form)
-        print(preload, preload.url)
-        preload()
+        try:
+            preload = PointPreload(preload_url, form)
+            print(preload, preload.url)
+            preload()
+        except PreloaderNotFound:
+            flash("Can't process URL", 'error')
+            return redirect(url_for('.show', slug=trip.slug))
 
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))

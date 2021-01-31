@@ -11,7 +11,7 @@ from wtforms import widgets as ww
 from markupsafe import Markup
 
 from . import assets
-from .tailwind import FlashClasses, CommonClasses
+from .tailwind import FlashClasses, CommonClasses, FormClasses
 
 
 db = SQLAlchemy()
@@ -108,6 +108,9 @@ def create_app(test_config=None, instance_path=None):
                 'h1_big': CommonClasses.TITLE_H1_BIG,
                 'navbar_text': CommonClasses.NAVBAR_TEXT,
                 'navbar_link': CommonClasses.NAVBAR_LINK,
+            },
+            'form_classes': {
+                'input_default': FormClasses.INPUT_DEFAULT
             }
         }
 
