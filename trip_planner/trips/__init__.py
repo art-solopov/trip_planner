@@ -212,6 +212,9 @@ def add_point(slug: str):
         except PreloaderNotFound:
             flash("Can't process URL", 'error')
             return redirect(url_for('.show', slug=trip.slug))
+        except PreloaderError as e:
+            flash(f"Error during preloading: {e}", 'error')
+            return redirect(url_for('.show', slug=trip.slug))
 
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))

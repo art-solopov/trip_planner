@@ -3,6 +3,7 @@ import urllib.parse as urlp
 from collections import namedtuple
 
 import requests as rq
+from bs4 import BeautifulSoup
 
 from trip_planner.trips.forms import PointForm
 
@@ -21,14 +22,32 @@ class PreloaderError(Exception):
 
 def from_gmaps(url: str) -> dict:
     pre_response = rq.head(url)
-    assert pre_response.status_code in range(300, 400)
+    if not 300 <= pre_response.status_code < 400:
+        raise PreloaderError(
+            f'Expected a redirect, got {pre_response.status_code}'
+            )
 
     new_url = urlp.unquote(pre_response.headers['Location'])
     print(new_url)
     url_match = re.search(GMAPS_LOCATION_RE, new_url)
-    assert url_match
+    if url_match is None:
+        raise PreloaderError(
+            f"Location {new_url} doesn't match expected structure"
+            )
 
-    data = {s: url_match[s] for s in 'name lat lon'.split()}
+    data = {s: url_match[s] for s in ['lat', 'lon']}
+
+    main_response = rq.get(new_url)
+    if main_response.status_code != 200:
+        raise PreloaderError(
+            f'Error getting point info: {main_response.status_code}'
+            )
+
+    soup = BeautifulSoup(main_response.text)
+    data.update({
+        'name': soup.find('meta', property='og:title')['content'],
+        'address': soup.find('meta', property='og:description')['content']
+    })
 
     return data
 
