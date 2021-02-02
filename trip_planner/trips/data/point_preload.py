@@ -1,6 +1,7 @@
 import re
 import urllib.parse as urlp
 from collections import namedtuple
+import json
 
 import requests as rq
 from bs4 import BeautifulSoup
@@ -52,10 +53,30 @@ def from_gmaps(url: str) -> dict:
     return data
 
 
+def from_yandex_maps(url: str) -> dict:
+    response = rq.get(url)
+    if response.status_code != 200:
+        raise PreloaderError(
+            f'Error getting point info: {response.status_code}'
+            )
+    soup = BeautifulSoup(response.text)
+    data_script = soup.find('script', class_='config-view',
+                            type=re.compile('json$'))
+    ya_data = json.loads(data_script.string)
+    lon, lat = ya_data['mapLocation']['center']
+    return {
+        'name': soup.find('h1', itemprop='name').text.strip(),
+        'address': soup.find('meta', itemprop='address')['content'],
+        'lon': lon,
+        'lat': lat
+        }
+
+
 Preloader = namedtuple('Preloader', ['re', 'preloader'])
 
 PRELOADERS = [
-    Preloader(re.compile(r'https://goo.gl/maps'), from_gmaps)
+    Preloader(re.compile(r'https://goo.gl/maps'), from_gmaps),
+    Preloader(re.compile(r'https://yandex.ru/maps/-/'), from_yandex_maps),
 ]
 
 
