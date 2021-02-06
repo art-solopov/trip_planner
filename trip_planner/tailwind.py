@@ -11,7 +11,9 @@ class ScheduleClasses:
 
 
 class ViewClasses:
-    TRIP_SHOW = 'show-trip flex flex-col md:flex-row md:justify-between'
+    TRIP_SHOW = ' '.join(['show-trip flex flex-col',
+                          'lg:flex-row lg:justify-between',
+                          'lg:max-h-body-sans-header'])
 
 
 class FlashClasses:

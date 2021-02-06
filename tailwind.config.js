@@ -25,8 +25,12 @@ module.exports = {
       minWidth: {
         'wide': '40rem'
       },
+      minHeight: {
+        '60vh': '60vh'
+      },
       maxHeight: {
-        'almost-screen': '90vh'
+        'body-sans-header': 'calc(100vh - 7rem)',
+        'three-quarters-screen': '75vh'
       },
       gridTemplateColumns: {
         'auto-20rem': 'repeat(auto-fill, minmax(20rem, 1fr))'

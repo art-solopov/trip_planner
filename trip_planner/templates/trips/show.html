@@ -2,12 +2,12 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <div class="trip-map box-border md:order-1 md:min-w-wide md:flex-grow" id="map"
+    <div class="trip-map box-border lg:order-1 lg:min-w-wide lg:flex-grow" id="map"
          data-map-url="{{ map_url }}"
          data-map-attribution="{{ map_attribution }}">
         <div class="extra-attribution"></div>
     </div>
-    <div class="app box-border md:flex-shrink-trip-app md:max-h-almost-screen md:overflow-y-scroll md:pr-4">
+    <div class="app box-border lg:flex-shrink-trip-app lg:overflow-y-scroll lg:pr-4">
         <header>
             <h1 class="my-3 text-2xl">{{ trip.name }}</h1>
             <div>Count: {{ points_count }}</div>

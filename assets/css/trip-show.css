@@ -1,5 +1,5 @@
 .trip-map {
-    min-height: 60vh;
+    @apply min-h-60vh lg:min-h-0;
     
     & .extra-attribution {
         position: absolute;
