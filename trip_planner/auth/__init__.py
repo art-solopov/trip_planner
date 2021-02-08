@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, session, request
+from flask import Blueprint, render_template, redirect, session, request, flash
 from passlib.hash import bcrypt
 from .forms import LoginForm
 from ..models import User
@@ -32,6 +32,7 @@ def login():
             session['user_id'] = user.id
             return redirect('/')
         else:
+            flash('Incorrect login/password', 'error')
             return _render_login_form(form)
     return _render_login_form(form)
 
