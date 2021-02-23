@@ -147,6 +147,7 @@ def delete_trip(slug: str):
     if request.method == 'POST':
         db.session.delete(trip)
         db.session.commit()
+        flash(f"Trip «{trip.name}» deleted", 'success')
         return redirect(url_for('.index'))
 
     add_breadcrumb('Trips', url_for('.index'))
@@ -194,10 +195,10 @@ def add_point(slug: str):
     point = Point(trip=trip)
     form = PointForm()
     if form.validate_on_submit():
-        print(form.data)
         form.populate_obj(point)
         db.session.add(point)
         db.session.commit()
+        flash(f"Point «{point.name}» added", 'success')
         return redirect(url_for('.show', slug=trip.slug))
 
     add_breadcrumb('Trips', url_for('.index'))
@@ -226,6 +227,7 @@ def update_point(trip: Trip, point: Point):
         form.populate_obj(point)
         db.session.add(point)
         db.session.commit()
+        flash(f"Point «{point.name}» updated", 'success')
         return redirect(url_for('.show_point', slug=trip.slug, id=point.id))
 
     title = f'Update point {point.name}'
@@ -241,6 +243,7 @@ def delete_point(trip: Trip, point: Point):
     if request.method == 'POST':
         db.session.delete(point)
         db.session.commit()
+        flash(f"Point «{point.name}» deleted", 'success')
         return redirect(url_for('.show', slug=trip.slug))
     message = f'Are you sure you want to delete {point.name}?'
     return render_template('confirm_form.html', submit_label='Delete',

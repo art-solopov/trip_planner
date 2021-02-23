@@ -30,6 +30,7 @@ def login():
         user = authenticate(form.username.data, form.password.data)
         if user is not None:
             session['user_id'] = user.id
+            flash('Login successful', 'success')
             return redirect('/')
         else:
             flash('Incorrect login/password', 'error')
