@@ -15,7 +15,7 @@ let getDataPoints = (): array(point) => {
 // TODO: extract into DOM helpers
 let _elementOnScreen = (el: Dom.element_like('a)) => {
   let rect = DomBinds.getBoundingClientRect(el);
-  rect.top >= 0.0 && rect.bottom >= 0.0;
+  rect.top >= 0.0 && rect.top <= window->getInnerHeight && rect.bottom >= 0.0;
 };
 
 let panButtonClickHandler = (map: Map__Builder.unimap, dp: point) => {
