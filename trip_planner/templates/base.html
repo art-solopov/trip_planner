@@ -22,14 +22,14 @@
             {% include "_header.html" %}
             {% with messages = get_flashed_messages(with_categories=True) -%}
                 {%- if messages %}
-                    <div class="flashes mt-3">
+                    <div class="flashes my-3">
                         {% for category, message in messages %}
                             <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}">{{ message }}</div>
                         {% endfor %}
                     </div>
                 {% endif -%}
             {%- endwith %}
-            <main class="{{ view_class }} flex-grow-half-1">
+            <main class="{{ view_class }} my-4 flex-grow-half-1 box-border">
                 {% block main %}{% endblock %}
             </main>
             <footer class="main-footer mt-4 p-4 bg-gray-200 box-border text-center">

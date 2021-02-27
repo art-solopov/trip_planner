@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <h1 class="my-4 text-3xl">Welcome to Trip Planner!</h1>
+    <h1 class="mb-5 text-3xl">Welcome to Trip Planner!</h1>
     {% if g.user %}
         <p>Greetings {{ g.user.username }}.</p>
         <p>View your trips <a href="{{ url_for('trips.index') }}">here.</a></p>

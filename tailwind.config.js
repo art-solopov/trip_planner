@@ -29,7 +29,7 @@ module.exports = {
         '60vh': '60vh'
       },
       maxHeight: {
-        'body-sans-header': 'calc(100vh - 7rem)',
+        'body-sans-header': 'calc(100vh - 8rem)',
         'three-quarters-screen': '75vh'
       },
       gridTemplateColumns: {

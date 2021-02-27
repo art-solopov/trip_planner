@@ -14,6 +14,7 @@ class ViewClasses:
     TRIP_SHOW = ' '.join(['show-trip flex flex-col',
                           'lg:flex-row lg:justify-between',
                           'lg:max-h-body-sans-header'])
+    LOGIN_FORM = 'mx-auto w-72'
 
 
 class FlashClasses:
@@ -22,3 +23,8 @@ class FlashClasses:
         'error': 'border-red-700 bg-red-100',
         'success': 'border-green-700 bg-green-100'
     }
+
+
+class CommonClasses:
+    TITLE_H1 = 'mb-4 text-2xl'
+    TITLE_H1_BIG = 'mb-4 text-3xl'

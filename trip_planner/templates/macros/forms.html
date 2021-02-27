@@ -1,6 +1,6 @@
 {% macro field(field, extra = None, wrapper_class='', field_kwargs={}) -%}
-    {%- set wrapper_base_class = "field-" + field.name + ' mb-2' -%}
-    <div class="{{ [wrapper_base_class, wrapper_class] | join(' ') }}">
+    {%- set wrapper_base_class = "field-" + field.name -%}
+    <div class="{{ ['mb-2', wrapper_base_class, wrapper_class] | join(' ') }}">
         {{ field.label }}
         {{ field(**field_kwargs) }}
         {%- if extra %}{{ extra }}{% endif %}

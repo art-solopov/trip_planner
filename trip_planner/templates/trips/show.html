@@ -9,13 +9,13 @@
     </div>
     <div class="app box-border lg:flex-shrink-trip-app lg:overflow-y-scroll lg:pr-4">
         <header>
-            <h1 class="my-3 text-2xl">{{ trip.name }}</h1>
+            <h1 class="{{ common_classes.h1 }}">{{ trip.name }}</h1>
             <div>Count: {{ points_count }}</div>
 
             <div>
                 <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small btn-accent" title="Edit">{{ icon('pencil') }}</a>
                 <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-default" title="Add point">{{ icon('plus') }}</a>
-    	        <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
+                <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
             </div>
         </header>
 
@@ -37,7 +37,7 @@
                                 <a class="btn btn-small btn-light pan-link" href="#" title="Center map">{{ icon('compass2') }}</a>
                                 <a class="btn btn-small btn-default more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
                                 <a class="btn btn-small btn-accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
-				                <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
+                                <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>
                     {% endfor %}

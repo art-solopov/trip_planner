@@ -11,7 +11,7 @@ from wtforms import widgets as ww
 from markupsafe import Markup
 
 from . import assets
-from .tailwind import FlashClasses
+from .tailwind import FlashClasses, CommonClasses
 
 
 db = SQLAlchemy()
@@ -102,6 +102,10 @@ def create_app(test_config=None, instance_path=None):
             'flash_classes': {
                 'all': FlashClasses.ALL,
                 'categories': FlashClasses.CATEGORIES
+            },
+            'common_classes': {
+                'h1': CommonClasses.TITLE_H1,
+                'h1_big': CommonClasses.TITLE_H1_BIG,
             }
         }
 

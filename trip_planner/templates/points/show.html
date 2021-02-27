@@ -6,8 +6,8 @@
         <image class="map-image" src="{{ data.point_map_url }}">
     </figure>
 
-    <header class="my-2">
-        <h1 class="text-3xl my-4">{{ point.name }}</h1>
+    <header class="mb-2">
+        <h1 class="{{ common_classes.h1 }}">{{ point.name }}</h1>
         <p>{{ point.address }}</p>
         <a class="btn btn-accent" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
     </header>
