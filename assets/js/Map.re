@@ -12,15 +12,22 @@ let getDataPoints = (): array(point) => {
   elements |> Array.map(Map__Point.makeFromElement);
 };
 
+// TODO: extract into DOM helpers
+let _elementOnScreen = (el: Dom.element_like('a)) => {
+  let rect = DomBinds.getBoundingClientRect(el);
+  rect.top >= 0.0 && rect.bottom >= 0.0;
+};
+
 let panButtonClickHandler = (map: Map__Builder.unimap, dp: point) => {
   map.panTo(dp.data.coordinates);
-  map.container
-  ->scrollIntoView(Js.Dict.fromArray([|("behavior", "smooth")|]));
+  if (!map.container->_elementOnScreen) {
+    map.container
+    ->scrollIntoView(Js.Dict.fromArray([|("behavior", "smooth")|]));
+  };
 };
 
 let main = () => {
-  let mapEl =
-    document->getElementById("map")->Belt.Option.getExn;
+  let mapEl = document->getElementById("map")->Belt.Option.getExn;
   let dataPoints = getDataPoints();
   let mapUrl = mapEl->dataset->Js.Dict.unsafeGet("mapUrl");
   let mapAttribution =

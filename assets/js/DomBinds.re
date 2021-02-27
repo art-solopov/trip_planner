@@ -29,17 +29,18 @@ external setDisabled: (Dom.htmlInputElement, bool) => unit = "disabled";
 [@bs.set] external setValue: (Dom.htmlInputElement, string) => unit = "value";
 
 [@bs.val] external document: Dom.document = "document";
+[@bs.val] external window: Dom.window = "window";
 [@bs.send]
 external querySelectorAll: (Dom.node_like('a), string) => Dom.nodeList =
   "querySelectorAll";
-[@bs.send][@bs.return nullable]
+[@bs.send] [@bs.return nullable]
 external getElementById: (Dom.document, string) => option(Dom.element) =
   "getElementById";
-[@bs.send][@bs.return nullable]
+[@bs.send] [@bs.return nullable]
 external getElementByIdInput:
   (Dom.document, string) => option(Dom.htmlInputElement) =
   "getElementById";
-[@bs.send][@bs.return nullable]
+[@bs.send] [@bs.return nullable]
 external getElementByIdForm:
   (Dom.document, string) => option(Dom.htmlFormElement) =
   "getElementById";
@@ -56,15 +57,14 @@ external offsetParent: Dom.element_like('a) => Dom.element = "offsetParent";
 external nextElementSibling:
   Dom.element_like('a) => Js.Nullable.t(Dom.element) =
   "nextElementSibling";
-[@bs.send][@bs.return nullable]
-external querySelector:
-  (Dom.node_like('a), string) => option(Dom.element) =
+[@bs.send] [@bs.return nullable]
+external querySelector: (Dom.node_like('a), string) => option(Dom.element) =
   "querySelector";
-[@bs.send][@bs.return nullable]
+[@bs.send] [@bs.return nullable]
 external querySelectorImage:
   (Dom.node_like('a), string) => option(htmlImageElement) =
   "querySelector";
-[@bs.send][@bs.return nullable]
+[@bs.send] [@bs.return nullable]
 external querySelectorInput:
   (Dom.node_like('a), string) => option(Dom.htmlInputElement) =
   "querySelector";
@@ -94,7 +94,7 @@ external scrollIntoView: (Dom.element, Js.Dict.t(string)) => unit =
 [@bs.send]
 external appendChild: (Dom.element_like('a), Dom.node_like('b)) => unit =
   "appendChild";
-[@bs.send][@bs.return nullable]
+[@bs.send] [@bs.return nullable]
 external closest:
   (Dom.element_like('a), string) => option(Dom.element_like('b)) =
   "closest";
@@ -108,3 +108,22 @@ external focus:
   unit =
   "focus";
 [@bs.send] external preventDefault: Dom.event => unit = "preventDefault";
+
+type dom_rect = {
+  left: float,
+  right: float,
+  top: float,
+  bottom: float,
+  x: float,
+  y: float,
+  width: float,
+  height: float,
+};
+
+[@bs.send]
+external getBoundingClientRect: Dom.element_like('a) => dom_rect =
+  "getBoundingClientRect";
+
+[@bs.get] external getScrollX: Dom.window => float = "scrollX";
+[@bs.get] external getScrollY: Dom.window => float = "scrollY";
+[@bs.get] external getInnerHeight: Dom.window => float = "innerHeight";
