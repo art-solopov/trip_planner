@@ -106,6 +106,8 @@ def create_app(test_config=None, instance_path=None):
             'common_classes': {
                 'h1': CommonClasses.TITLE_H1,
                 'h1_big': CommonClasses.TITLE_H1_BIG,
+                'navbar_text': CommonClasses.NAVBAR_TEXT,
+                'navbar_link': CommonClasses.NAVBAR_LINK,
             }
         }
 
