@@ -22,6 +22,17 @@ class PreloaderError(Exception):
     pass
 
 
+Preloader = namedtuple('Preloader', ['re', 'preloader'])
+
+
+class MakePreload:
+    def __init__(self, pattern: str):
+        self.re = re.compile(pattern)
+
+    def __call__(self, fn):
+        return Preloader(self.re, fn)
+
+
 def _redirect_reload_location(url: str) -> str:
     rsp = rq.head(url)
     if not 300 <= rsp.status_code < 400:
@@ -43,6 +54,7 @@ def _load_data_as_soup(url: str) -> BeautifulSoup:
     return BeautifulSoup(_load_data(url))
 
 
+@MakePreload(r'https://goo.gl/maps')
 def from_gmaps_desktop(url: str) -> dict:
     loc_url = _redirect_reload_location(url)
 
@@ -63,6 +75,7 @@ def from_gmaps_desktop(url: str) -> dict:
     return data
 
 
+@MakePreload(r'https://maps.app.goo.gl/')
 def from_gmaps_mobile(url: str) -> dict:
     loc_url = _redirect_reload_location(url)
 
@@ -80,6 +93,7 @@ def from_gmaps_mobile(url: str) -> dict:
     }
 
 
+@MakePreload(r'https://yandex.ru/maps/(-|org)/')
 def from_yandex_maps(url: str) -> dict:
     response = rq.get(url)
     if response.status_code != 200:
@@ -99,13 +113,8 @@ def from_yandex_maps(url: str) -> dict:
         }
 
 
-Preloader = namedtuple('Preloader', ['re', 'preloader'])
-
 PRELOADERS = [
-    Preloader(re.compile(r'https://goo.gl/maps'), from_gmaps_desktop),
-    Preloader(re.compile(r'https://maps.app.goo.gl/'), from_gmaps_mobile),
-    Preloader(re.compile(r'https://yandex.ru/maps/(-|org)/'),
-              from_yandex_maps),
+    from_gmaps_desktop, from_gmaps_mobile, from_yandex_maps
 ]
 
 
