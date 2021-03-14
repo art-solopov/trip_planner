@@ -11,6 +11,7 @@ from trip_planner.trips.forms import PointForm
 GMAPS_LOCATION_RE = re.compile(r'google\.com/maps/place/(?P<name>.*)/' +
                                r'@(?P<lat>\d+\.\d+),(?P<lon>\d+\.\d+),' +
                                r'(?:\d+(?:\.\d+)?\w*)/data')
+GMAPS_SHORT_LOCATION_RE = re.compile(r'google\.com/maps/place//data')
 
 
 class PreloaderNotFound(Exception):
@@ -21,36 +22,62 @@ class PreloaderError(Exception):
     pass
 
 
-def from_gmaps(url: str) -> dict:
-    pre_response = rq.head(url)
-    if not 300 <= pre_response.status_code < 400:
-        raise PreloaderError(
-            f'Expected a redirect, got {pre_response.status_code}'
-            )
+def _redirect_reload_location(url: str) -> str:
+    rsp = rq.head(url)
+    if not 300 <= rsp.status_code < 400:
+        raise PreloaderError(f'Expected a redirect, got {rsp.status_code}')
 
-    new_url = urlp.unquote(pre_response.headers['Location'])
-    print(new_url)
-    url_match = re.search(GMAPS_LOCATION_RE, new_url)
+    return urlp.unquote(rsp.headers['Location'])
+
+
+def _load_data(url: str) -> str:
+    response = rq.get(url)
+    if response.status_code != 200:
+        raise PreloaderError(
+            f'Error getting point info: {response.status_code}'
+            )
+    return response.text
+
+
+def _load_data_as_soup(url: str) -> BeautifulSoup:
+    return BeautifulSoup(_load_data(url))
+
+
+def from_gmaps_desktop(url: str) -> dict:
+    loc_url = _redirect_reload_location(url)
+
+    url_match = re.search(GMAPS_LOCATION_RE, loc_url)
     if url_match is None:
         raise PreloaderError(
-            f"Location {new_url} doesn't match expected structure"
+            f"Location {loc_url} doesn't match expected structure"
             )
 
     data = {s: url_match[s] for s in ['lat', 'lon']}
 
-    main_response = rq.get(new_url)
-    if main_response.status_code != 200:
-        raise PreloaderError(
-            f'Error getting point info: {main_response.status_code}'
-            )
-
-    soup = BeautifulSoup(main_response.text)
+    soup = _load_data_as_soup(loc_url)
     data.update({
         'name': soup.find('meta', property='og:title')['content'],
         'address': soup.find('meta', property='og:description')['content']
     })
 
     return data
+
+
+def from_gmaps_mobile(url: str) -> dict:
+    loc_url = _redirect_reload_location(url)
+
+    url_match = re.search(GMAPS_SHORT_LOCATION_RE, loc_url)
+    if url_match is None:
+        raise PreloaderError(
+            f"Location {loc_url} doesn't match expected structure"
+            )
+    soup = _load_data_as_soup(loc_url)
+    title = soup.find('meta', property='og:title')['content']
+    name, address, *_ = title.split('·')
+    return {
+        'name': name.strip(),
+        'address': address.strip()
+    }
 
 
 def from_yandex_maps(url: str) -> dict:
@@ -75,8 +102,10 @@ def from_yandex_maps(url: str) -> dict:
 Preloader = namedtuple('Preloader', ['re', 'preloader'])
 
 PRELOADERS = [
-    Preloader(re.compile(r'https://goo.gl/maps'), from_gmaps),
-    Preloader(re.compile(r'https://yandex.ru/maps/-/'), from_yandex_maps),
+    Preloader(re.compile(r'https://goo.gl/maps'), from_gmaps_desktop),
+    Preloader(re.compile(r'https://maps.app.goo.gl/'), from_gmaps_mobile),
+    Preloader(re.compile(r'https://yandex.ru/maps/(-|org)/'),
+              from_yandex_maps),
 ]
 
 
