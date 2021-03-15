@@ -25,6 +25,7 @@ requests = "*"
 python-box = "*"
 gunicorn = "*"
 beautifulsoup4 = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.7"
