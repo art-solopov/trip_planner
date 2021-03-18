@@ -2,6 +2,6 @@
 
 {% call render_form(form, form_method, form_action, form_class) %}
     {%- for f in form if f is not hidden_field %}
-        {{ field(f) }}
+        {{ field(f, input_class=form_classes.input_default) }}
     {%- endfor %}
 {% endcall %}

@@ -2,6 +2,7 @@ module ClassList = {
   type t;
   [@bs.send] external contains: (t, string) => bool = "contains";
   [@bs.send] external remove: (t, string) => unit = "remove";
+  [@bs.send] external add: (t, string) => unit = "add";
 };
 
 module Event = {
@@ -15,6 +16,7 @@ module Style = {
 
   [@bs.get] external getTop: t => string = "top";
   [@bs.set] external setTop: (t, string) => unit = "top";
+  [@bs.set] external setLeft: (t, string) => unit = "left";
 };
 
 type classList = ClassList.t;
@@ -36,7 +38,8 @@ external querySelectorAll: (Dom.node_like('a), string) => Dom.nodeList =
 [@bs.send] [@bs.return nullable]
 external getElementById: (Dom.document, string) => option(Dom.element) =
   "getElementById";
-[@bs.send] [@bs.return nullable]
+[@bs.get] external body: Dom.document => Dom.htmlElement = "body";
+[@bs.send][@bs.return nullable]
 external getElementByIdInput:
   (Dom.document, string) => option(Dom.htmlInputElement) =
   "getElementById";
@@ -53,6 +56,7 @@ external dataset: Dom.element_like('a) => Js.Dict.t(string) = "dataset";
 [@bs.get]
 external offsetParent: Dom.element_like('a) => Dom.element = "offsetParent";
 [@bs.get] external offsetTop: Dom.element_like('a) => int = "offsetTop";
+[@bs.get] external offsetLeft: Dom.element_like('a) => int = "offsetLeft";
 [@bs.get]
 external nextElementSibling:
   Dom.element_like('a) => Js.Nullable.t(Dom.element) =

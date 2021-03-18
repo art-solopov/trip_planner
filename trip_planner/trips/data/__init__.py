@@ -2,9 +2,9 @@ from typing import Sequence, Dict
 
 from markupsafe import Markup, escape
 
-from ..data import MapData
-from ..models import Point
-from ..tailwind import ScheduleClasses as TwScheduleClasses
+from trip_planner.data import MapData
+from trip_planner.models import Point
+from trip_planner.tailwind import ScheduleClasses as TwScheduleClasses
 
 
 class PointScheduleData:

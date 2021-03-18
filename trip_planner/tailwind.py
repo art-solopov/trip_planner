@@ -30,3 +30,7 @@ class CommonClasses:
     TITLE_H1_BIG = 'mb-4 text-3xl'
     NAVBAR_TEXT = 'mx-2 whitespace-nowrap'
     NAVBAR_LINK = NAVBAR_TEXT + ' btn btn-light-2 btn-small'
+
+
+class FormClasses:
+    INPUT_DEFAULT = 'w-full'
