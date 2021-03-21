@@ -1,5 +1,6 @@
-import { main } from './Map.bs.js'
-import { initAddPointButton } from './TripShow.bs.js'
+import { Application } from 'stimulus'
 
-main()
-initAddPointButton()
+import MapController from './controllers/map_controller'
+
+const app = Application.start()
+app.register('map', MapController)

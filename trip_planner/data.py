@@ -15,6 +15,16 @@ class MapData:
         return (f"{self.MAP_BASE_URL}/tiles/256/{{z}}/{{x}}/{{y}}"
                 f"?access_token={self.api_key}")
 
+    @property
+    def map_attribution(self) -> str:
+        # Taken from Mapbox website
+        return r'''
+© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>
+© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
+<strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">
+Improve this map</a></strong>
+        '''.strip()
+
     def point_map_url(self, coordinates: (float, float)) -> str:
         lat, lon = coordinates
         width, height = (400, 380)  # TODO: replace with multiple sizes

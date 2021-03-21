@@ -14,7 +14,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bs-axios": "0.0.43",
-    "bs-platform": "8.0.2",
+    "bs-platform": "^8.3.3",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^9.0.0",
@@ -28,6 +28,7 @@
     "postcss-font-family-system-ui": "^4.2.0",
     "postcss-nesting": "^7.0.1",
     "postcss-simple-vars": "^5.0.2",
+    "stimulus": "^2.0.0",
     "tailwindcss": "^2.0.1",
     "webpack": "^5.2.0",
     "webpack-stream": "^6.1.1"

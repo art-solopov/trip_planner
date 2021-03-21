@@ -44,7 +44,11 @@ def show(slug):
                            points=points,
                            points_count=len(trip.points),
                            view_class=TwViewClasses.TRIP_SHOW,
-                           map_url=g.map_data.map_url,
+                           view_attrs={
+                               'data-controller': 'map',
+                               'data-map-url-value': g.map_data.map_url,
+                               'data-map-attribution-value': g.map_data.map_attribution
+                           },
                            preload_param=PointPreload.PARAM_NAME)
 
 
