@@ -1,1 +1,0 @@
-let initAddPointButton: unit => unit;
