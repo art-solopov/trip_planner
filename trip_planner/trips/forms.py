@@ -37,44 +37,6 @@ class TripForm(FlaskForm):
                 yield (country['Code'], country['Name'])
 
 
-class ScheduleWidget:
-    input_type = 'schedule'
-    html_params = staticmethod(html_params)
-
-    TABLE_CLASS = 'schedule-table'
-    FORM_CLASS = 'schedule-table-form'
-    CELL_CLASS = 'pl-3'
-
-    def __call__(self, field, **kwargs):
-        kwargs.setdefault('id', field.id)
-        kwargs.setdefault('class_', '')
-
-        html_class = set(kwargs['class_'].split(' '))
-        html_class.add(self.TABLE_CLASS)
-        html_class.add(self.FORM_CLASS)
-        kwargs['class_'] = ' '.join(cls for cls in html_class if cls)
-
-        return Markup(''.join(self.table_rows(field, **kwargs)))
-
-    def table_rows(self, field, **kwargs):
-        yield f'<table {self.html_params(**kwargs)}>'
-
-        yield ('<thead>' +
-               '<tr><th></th><th>From</th><th>To</th>' +
-               "</thead>\n<tbody>")
-
-        for subfield in field:
-            weekday = escape(subfield.weekday.data)
-
-            yield ('<tr>' +
-                   PointScheduleData.weekday_cell(weekday) +
-                   f'<td class="{self.CELL_CLASS}">{subfield.open_from()}</td>' +
-                   f'<td class="{self.CELL_CLASS}">{subfield.open_to()}</td>' +
-                   '</tr>')
-
-        yield "</tbody>\n</table>"
-
-
 class ScheduleSubForm(Form):
     weekday = HiddenField()
     open_from = StringField('From', widget=TimeInput())
@@ -83,7 +45,6 @@ class ScheduleSubForm(Form):
 
 class ScheduleField(FieldList):
     WEEKDAYS = PointScheduleData.WEEKDAYS
-    widget = ScheduleWidget()
 
     def __init__(self, label=None, validators=None, **kwargs):
         default = [{'weekday': wday} for wday in self.WEEKDAYS]
@@ -133,12 +94,3 @@ class PointForm(FlaskForm):
     type = SelectField('Point type', choices=TYPE_CHOICES)
     notes = TextAreaField('Notes')
     schedule = ScheduleField('Schedule')
-
-    # def process(self, formdata=None, obj=None, data=None, **kwargs):
-    #     super().process(formdata, obj, data, **kwargs)
-
-    #     current_weekdays = set(x.data['weekday'] for x in self.schedule)
-    #     for wday in ScheduleSubForm.WEEKDAYS:
-    #         if wday in current_weekdays:
-    #             continue
-    #         self.schedule.append_entry({'weekday': wday})

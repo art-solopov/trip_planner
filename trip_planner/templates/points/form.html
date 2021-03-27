@@ -42,16 +42,34 @@
         </fieldset>
 
         {%- set schedule_buttons %}
-            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute">
-                <button type="button" class="btn btn-accent btn-copy-down mb-2">{{ icon('circle-down') }}</button>
-                <button type="button" class="btn btn-accent btn-copy-all">{{ icon('share') }}</button>
-            </div>
         {%- endset -%}
 
         {{ field(form.type, input_class=form_classes.input_default) }}
         {{ field(form.notes, input_class=form_classes.input_default) }}
-        {{ field(form.schedule, schedule_buttons, wrapper_class='relative') }}
-
+        <div class="mb-2 relative max-w-full lg:w-96" data-controller="point-form-schedule">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wdayform in form.schedule %}
+                        <tr>
+                            <td class="{{ wdayform.weekday.data | weekday_class }} {{ schedule_cell_class }} {{ schedule_weekday_class }}">{{ wdayform.weekday.data | capitalize }}</td>
+                            <td class="{{ schedule_cell_class }}">{{ wdayform.open_from(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}</td>
+                            <td class="{{ schedule_cell_class }}">{{ wdayform.open_to(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute" data-point-form-schedule-target="buttons">
+                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-down mb-2" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('circle-down') }}</button>
+                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
+            </div>
+        </div>
 
         {{ submit_btn() }}
     </form>
