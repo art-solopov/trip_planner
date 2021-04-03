@@ -11,10 +11,11 @@ from .. import db
 from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
-from .data import PointData
+from .data import PointData, PointScheduleData
 from .data.point_preload import PointPreload, PreloaderNotFound, PreloaderError
 from .forms import TripForm, PointForm
-from ..tailwind import ViewClasses as TwViewClasses
+from ..tailwind import (ViewClasses as TwViewClasses,
+                        ScheduleClasses as TwScheduleClasses)
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 
@@ -44,7 +45,11 @@ def show(slug):
                            points=points,
                            points_count=len(trip.points),
                            view_class=TwViewClasses.TRIP_SHOW,
-                           map_url=g.map_data.map_url,
+                           view_attrs={
+                               'data-controller': 'map',
+                               'data-map-url-value': g.map_data.map_url,
+                               'data-map-attribution-value': g.map_data.map_attribution
+                           },
                            preload_param=PointPreload.PARAM_NAME)
 
 
@@ -168,12 +173,18 @@ trips.add_url_rule('/<slug>/update',
 # Points CRUD
 
 
-def render_weekday(weekday: str) -> str:
+def weekday_class(weekday: str) -> str:
+    weekday = escape(weekday)
     wday_short = weekday[0:3]
-    return Markup(f'<span class="{wday_short.lower()}">{escape(weekday)}</span>')
+    weekday_classes = TwScheduleClasses.WEEKDAYS
+    return weekday_classes.get(wday_short, weekday_classes['_default'])
 
 
-trips.add_app_template_filter(render_weekday, 'wday')
+trips.add_app_template_filter(weekday_class, 'weekday_class')
+trips.add_app_template_global(TwScheduleClasses.CELL_CLASS,
+                              'schedule_cell_class')
+trips.add_app_template_global(TwScheduleClasses.COMMON_WEEKDAY_CLASS,
+                              'schedule_weekday_class')
 
 
 def trip_point_wrapper(f):

@@ -1,9 +1,9 @@
-import geocodeMain from './PointForm/PointForm__Geocode.bs.js';
-import scheduleMain from './PointForm/PointForm__Schedule.bs.js';
+import { Application } from 'stimulus'
 
-function main() {
-    geocodeMain()
-    scheduleMain()
-}
+import GeocodeController from './controllers/geocode_controller'
+import PointFormScheduleController from './controllers/point_form_schedule_controller'
 
-main()
+const app = Application.start()
+app.register('geocode', GeocodeController)
+app.register('point-form-schedule', PointFormScheduleController)
+

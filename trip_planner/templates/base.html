@@ -29,7 +29,7 @@
                     </div>
                 {% endif -%}
             {%- endwith %}
-            <main class="{{ view_class }} my-4 flex-grow-half-1 box-border">
+            <main class="{{ view_class }} my-4 flex-grow-half-1 box-border" {{ view_attrs | default({}) | xmlattr }}>
                 {% block main %}{% endblock %}
             </main>
             <footer class="main-footer mt-4 p-4 bg-gray-200 box-border text-center">

@@ -3,8 +3,7 @@
 
 {% block main %}
     <div class="trip-map box-border lg:order-1 lg:min-w-wide lg:flex-grow" id="map"
-         data-map-url="{{ map_url }}"
-         data-map-attribution="{{ map_attribution }}">
+         data-map-target="map">
         <div class="extra-attribution"></div>
     </div>
     <div class="app box-border lg:flex-shrink-trip-app lg:overflow-y-scroll lg:pr-4">
@@ -18,10 +17,10 @@
                 <a href="#" id="add_point_with_url_button" class="btn btn-small btn-blue-outline" title="Add point (with url)">{{ icon('plus') }}</a>
                 <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
 
-                <div id="add_point_form_container" class="hidden absolute border border-gray-400 bg-white rounded-md p-3 mt-1">
+                <div id="add_point_form_container" class="hidden absolute border border-gray-400 bg-white rounded-md p-3 mt-1 w-56 max-w-full">
                     <form method="get" action="{{ url_for('.add_point', slug=trip.slug) }}">
                         <div class="flex flex-row">
-                            <input type="text" name="{{ preload_param }}" required class="w-40 mr-2 flex-grow" />
+                            <input type="text" name="{{ preload_param }}" required class="mr-2 flex-1 min-w-0" />
                             <button type="submit" class="btn btn-small btn-default">Add</button>
                         </div>
                     </form>
@@ -36,6 +35,7 @@
                     {%- for point in pts %}
                         <li class="trip-point-item my-1"
                             id="{{ point.id }}"
+                            data-map-target="point"
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
@@ -44,7 +44,7 @@
                                 <p class="item-address">{{ point.address }}</p>
                             </div>
                             <div class="item-links">
-                                <a class="btn btn-small btn-light pan-link" href="#" title="Center map">{{ icon('compass2') }}</a>
+                                <a class="btn btn-small btn-light pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>
                                 <a class="btn btn-small btn-default more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
                                 <a class="btn btn-small btn-accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
                                 <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>

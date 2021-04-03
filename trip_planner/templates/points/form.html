@@ -3,50 +3,73 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <form id="point_form" method="POST" action="" data-trip-id="{{ point.trip.id }}">
+    <form id="point_form"
+          method="POST"
+          action=""
+          data-trip-id="{{ point.trip.id }}"
+          data-controller="geocode"
+          >
         {{ errors(form) }}
 
         {{ form.hidden_tag() }}
 
-        {{ field(form.name, input_class=form_classes.input_default) }}
-        {{ field(form.address, input_class=form_classes.input_default) }}
+        {{ field(form.name, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'name'}) }}
+        {{ field(form.address, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'address'}) }}
 
         <div class="flex flex-row lat-lon-fields">
             {% set geo_wrapper_class='w-40' %}
-            {{ field(form.lat, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default) }}
+            {{ field(form.lat, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'lat'}) }}
             <span class="w-2">&nbsp;</span>
-            {{ field(form.lon, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default) }}
+            {{ field(form.lon, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'lon'}) }}
         </div>
 
         <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
             <legend>Geocoding</legend>
 
             <div>
-                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" checked>
+                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
                 <label for="geocode_field_name">By name</label>
 
-                <input name="geocode_field" type="radio" id="geocode_field_address" value="address">
+                <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
                 <label for="geocode_field_address">By address</label>
             </div>
 
             <div class="my-2">
-                <button type="button" id="btn_geocode" class="btn btn-accent">Geocode</button>
+                <button type="button" id="btn_geocode" class="btn btn-accent" data-action="click->geocode#geocode">Geocode</button>
             </div>
 
-            <div class="geocode-results my-2 grid grid-cols-auto-20rem gap-1.5" id="geocode_results"></div>
+            <div class="geocode-results my-2 grid grid-cols-auto-20rem gap-1.5" id="geocode_results" data-geocode-target="results"></div>
         </fieldset>
 
         {%- set schedule_buttons %}
-            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute">
-                <button type="button" class="btn btn-accent btn-copy-down mb-2">{{ icon('circle-down') }}</button>
-                <button type="button" class="btn btn-accent btn-copy-all">{{ icon('share') }}</button>
-            </div>
         {%- endset -%}
 
         {{ field(form.type, input_class=form_classes.input_default) }}
         {{ field(form.notes, input_class=form_classes.input_default) }}
-        {{ field(form.schedule, schedule_buttons, wrapper_class='relative') }}
-
+        <div class="mb-2 relative max-w-full lg:w-96" data-controller="point-form-schedule">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wdayform in form.schedule %}
+                        <tr>
+                            <td class="{{ wdayform.weekday.data | weekday_class }} {{ schedule_cell_class }} {{ schedule_weekday_class }}">{{ wdayform.weekday.data | capitalize }}</td>
+                            <td class="{{ schedule_cell_class }}">{{ wdayform.open_from(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}</td>
+                            <td class="{{ schedule_cell_class }}">{{ wdayform.open_to(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute" data-point-form-schedule-target="buttons">
+                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-down mb-2" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('circle-down') }}</button>
+                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
+            </div>
+        </div>
 
         {{ submit_btn() }}
     </form>
@@ -56,7 +79,7 @@
     <template id="geocode_result_template">
         <div class="geocode-result box-border">
             <div>
-                <button type="button" class="btn btn-light btn-small gc-save">Save</button>
+                <button type="button" class="btn btn-light btn-small gc-save" data-action="click->geocode#setData">Save</button>
             </div>
             <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1"></div>
             <div class="address"></div>
