@@ -2,23 +2,21 @@ const containerId = 'add_point_form_container'
 const buttonId = 'add_point_with_url_button'
 const hiddenClass = 'hidden'
 
-function isInsideElement(target, container) {
-    return element.closest(`#${container.id}`) != null
-}
-
 export function initAddPointButton() {
     let button = document.getElementById(buttonId)
     let container = document.getElementById(containerId)
     button.addEventListener('click', (ev) => {
         ev.preventDefault()
         container.classList.toggle(hiddenClass)
-        // container.style.left = `${button.offsetLeft}px`
+        if(!container.classList.contains(hiddenClass)) {
+            container.querySelector('input[type=text]').focus()
+        }
     })
 
-    document.body.addClickListener(ev => {
+    document.body.addEventListener('click', ev => {
         let { target } = ev
-        if(!isInsideElement(target)) {
-            container.classList.remove(hiddenClass)
+        if(target.closest(`#${buttonId}`) == null && target.closest(`#${containerId}`) == null) {
+            container.classList.add(hiddenClass)
         }
     })
 }

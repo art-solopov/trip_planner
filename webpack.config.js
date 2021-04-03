@@ -17,10 +17,6 @@ module.exports = {
             chunks: 'all',
             name: 'vendor',
             cacheGroups: {
-                bsb: {
-                    test: /\/node_modules\/bs-platform\//,
-                    name: 'vendor-bsb'
-                }
             }
         }
     }

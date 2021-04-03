@@ -4,7 +4,7 @@ from flask import Flask
 
 # TODO: make it an app plugin?
 
-CHUNKS = ['vendor', 'vendor-bsb']
+CHUNKS = ['vendor']
 
 
 def chunks(app: Flask):
