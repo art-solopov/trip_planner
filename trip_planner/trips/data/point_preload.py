@@ -104,7 +104,7 @@ def from_yandex_maps(url: str) -> dict:
     data_script = soup.find('script', class_='config-view',
                             type=re.compile('json$'))
     ya_data = json.loads(data_script.string)
-    lon, lat = ya_data['mapLocation']['center']
+    lon, lat = [float(f) for f in ya_data['query']['poi']['point'].split(',')]
     return {
         'name': soup.find('h1', itemprop='name').text.strip(),
         'address': soup.find('meta', itemprop='address')['content'],

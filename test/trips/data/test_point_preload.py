@@ -35,8 +35,14 @@ success_html = '''
         <h1 itemprop="name">Title</h1>
         <script class="config-view" type="application/json">
         {
+            "query": {
+                "mode": "poi",
+                "poi": {
+                    "point": "51.5,0.1"
+                }
+            },
             "mapLocation": {
-                "center": [51.50, 0.1]
+                "center": [51.55, 0.25]
             }
         }
         </script>
