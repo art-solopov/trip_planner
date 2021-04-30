@@ -31,6 +31,7 @@ def login():
         user = authenticate(form.username.data, form.password.data)
         if user is not None:
             session['user_id'] = user.id
+            session.permanent = True
             flash('Login successful', 'success')
             return redirect('/')
         else:

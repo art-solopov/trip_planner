@@ -5,7 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 ipython = "*"
-jedi = "*"
+jedi = ">=0.18"
 flake8 = "*"
 faker = "*"
 factory-boy = "*"
