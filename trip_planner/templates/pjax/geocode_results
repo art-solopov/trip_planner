@@ -1,0 +1,10 @@
+{% for result in results %}
+    <div class="geocode-result box-border" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
+        <div>
+            <button type="button" class="btn btn-light btn-small gc-save" data-action="click->geocode#setData">Save</button>
+        </div>
+        <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1">{{ result.name }}</div>
+        <div class="address">{{ result.address }}</div>
+        <img class="preview" src="{{ result.map_url }}">
+    </div>
+{% endfor %}

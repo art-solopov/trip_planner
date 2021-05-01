@@ -13,8 +13,8 @@
 
         {{ form.hidden_tag() }}
 
-        {{ field(form.name, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'name'}) }}
-        {{ field(form.address, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'address'}) }}
+        {{ field(form.name, input_class=form_classes.input_default) }}
+        {{ field(form.address, input_class=form_classes.input_default) }}
 
         <div class="flex flex-row lat-lon-fields">
             {% set geo_wrapper_class='w-40' %}
@@ -35,7 +35,7 @@
             </div>
 
             <div class="my-2">
-                <button type="button" id="btn_geocode" class="btn btn-accent" data-action="click->geocode#geocode">Geocode</button>
+                <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', trip_id=point.trip.id) }}" hx-params="name,address,geocode_field" hx-target="#geocode_results">Geocode</button>
             </div>
 
             <div class="geocode-results my-2 grid grid-cols-auto-20rem gap-1.5" id="geocode_results" data-geocode-target="results"></div>
