@@ -1,10 +1,17 @@
-{% for result in results %}
-    <div class="geocode-result box-border" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
-        <div>
-            <button type="button" class="btn btn-light btn-small gc-save" data-action="click->geocode#setData">Save</button>
+{% if results %}
+    <div class="my-2 grid grid-cols-auto-20rem gap-1.5" id="geocode_results" data-geocode-target="results">
+    {% for result in results %}
+        <div class="geocode-result box-border" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
+            <div>
+                <button type="button" class="btn btn-light btn-small gc-save" data-action="click->geocode#setData">Save</button>
+            </div>
+            <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1">{{ result.name }}</div>
+            <div class="address">{{ result.address }}</div>
+            <img class="preview" src="{{ result.map_url }}">
         </div>
-        <div class="name box-border w-full whitespace-nowrap overflow-hidden overflow-ellipsis font-bold mb-1">{{ result.name }}</div>
-        <div class="address">{{ result.address }}</div>
-        <img class="preview" src="{{ result.map_url }}">
+    {% endfor %}
     </div>
-{% endfor %}
+{% else %}
+    <div id="geocode_results" class="my-2">Geocode results not found</div>
+{% endif %}
+
