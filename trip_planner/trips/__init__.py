@@ -11,7 +11,7 @@ from .. import db
 from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
-from .data import PointData, PointScheduleData
+from .data import PointData
 from .data.point_preload import PointPreload, PreloaderNotFound, PreloaderError
 from .forms import TripForm, PointForm
 from ..tailwind import (ViewClasses as TwViewClasses,

@@ -6,5 +6,5 @@ from wtforms.validators import Optional
 class GeocodeForm(FlaskForm):
     name = StringField(validators=[Optional()])
     address = StringField(validators=[Optional()])
-    field = RadioField(choices=[('name', 'By name'),
-                                ('address', 'By address'),])
+    geocode_field = RadioField(choices=[('name', 'By name'),
+                                        ('address', 'By address'),])

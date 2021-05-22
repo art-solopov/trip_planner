@@ -1,8 +1,3 @@
-/* .geocode-results {
-    @apply grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-} */
-
 .schedule-buttons {
     right: 0;
     top: 0;

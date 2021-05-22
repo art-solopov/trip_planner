@@ -1,5 +1,7 @@
 const path = require('path');
 
+const webpack = require('webpack');
+
 module.exports = {
     entry: {
         map: './assets/js/map.js',
@@ -19,5 +21,7 @@ module.exports = {
             cacheGroups: {
             }
         }
-    }
+    },
+    plugins: [
+    ]
 }

@@ -2,19 +2,6 @@ import { Controller } from 'stimulus'
 import axios from 'axios'
 
 class GeocodeController extends Controller {
-    geocode(_ev) {
-        let tripId = this.element.dataset.tripId
-        let name = this.nameTarget.value
-        let address = this.addressTarget.value
-        let field = this.geocodeFieldTargets.find(el => el.checked).value
-
-        let data = {"trip_id": tripId, name, address, field}
-        axios.post('/api/geocode', data).then(response => {
-            let data = response.data
-            this._displayGeocode(data)
-        })
-    }
-
     setData(ev) {
         let result = ev.target.closest('.geocode-result')
         this.latTarget.value = result.dataset.lat
