@@ -3,7 +3,7 @@ version: 2.1
 .vars:
   docker: &docker_vars
     image: artsolopov/$CIRCLE_PROJECT_REPONAME
-    tag: $CIRCLE_BRANCH
+    tag: $DOCKER_TAG
 
 orbs:
   python: circleci/python@0.2.1
@@ -79,6 +79,10 @@ jobs:
       - attach_workspace:
           at: .
       - docker/check
+      - run:
+          name: Setup branch name
+          command: |
+            echo 'export DOCKER_TAG=$(echo $CIRCLE_BRANCH | tr "/" "-")' >> $BASH_ENV
       - docker/build:
           <<: *docker_vars
           image: artsolopov/$CIRCLE_PROJECT_REPONAME
