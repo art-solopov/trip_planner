@@ -5,9 +5,7 @@ from flask import Flask, render_template, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
-from flask.cli import with_appcontext
 from wtforms import Field
-from wtforms import widgets as ww
 from markupsafe import Markup
 
 from . import assets
@@ -29,8 +27,7 @@ DATA_PATH = os.path.abspath(
 
 from .auth import auth as auth_bp  # noqa: E402
 from .trips import trips as trips_bp  # noqa: E402
-from .api import api as api_bp  # noqa: E402
-from .pjax import pjax as pjax_bp # noqa: E402
+from .pjax import pjax as pjax_bp  # noqa: E402
 from .scripts import scripts as scripts_bp  # noqa: E402
 from .models import User  # noqa: E402
 
@@ -78,7 +75,6 @@ def create_app(test_config=None, instance_path=None):
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(trips_bp)
-    app.register_blueprint(api_bp)
     app.register_blueprint(pjax_bp)
     app.register_blueprint(scripts_bp)
 
