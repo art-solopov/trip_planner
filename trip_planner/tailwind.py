@@ -18,7 +18,7 @@ class ViewClasses:
 
 
 class FlashClasses:
-    ALL = 'rounded-md p-3 mb-1 border'
+    ALL = 'rounded-md p-3 mb-1 border flex justify-between'
     CATEGORIES = {
         'error': 'border-red-700 bg-red-100',
         'success': 'border-green-700 bg-green-100'

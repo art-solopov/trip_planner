@@ -5,7 +5,8 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         map: './assets/js/map.js',
-        point_form: './assets/js/point_form.js'
+        point_form: './assets/js/point_form.js',
+        shared_app: './assets/js/shared_app.js'
     },
     output: {
         path: path.resolve(__dirname, 'trip_planner/static/js'),
@@ -17,8 +18,17 @@ module.exports = {
         usedExports: true,
         splitChunks: {
             chunks: 'all',
-            name: 'vendor',
             cacheGroups: {
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 2
+                },
+                vendor: {
+                    name: 'vendor',
+                    test: new RegExp('/node_modules/'),
+                    chunks: 'all'
+                }
             }
         }
     },

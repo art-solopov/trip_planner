@@ -22,9 +22,15 @@
             {% include "_header.html" %}
             {% with messages = get_flashed_messages(with_categories=True) -%}
                 {%- if messages %}
-                    <div class="flashes my-3">
+                    <div class="flashes my-3" data-controller="flash">
                         {% for category, message in messages %}
-                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}">{{ message }}</div>
+                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}">
+                                <span>{{ message }}</span>
+                                <button type="button"
+                                        class="text-gray-600 hover:bg-gray-300 transition-colors duration-150 w-6 rounded-full"
+                                        data-action="flash#remove"
+                                        >&#10005;</span>
+                            </div>
                         {% endfor %}
                     </div>
                 {% endif -%}
