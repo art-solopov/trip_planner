@@ -1,7 +1,9 @@
 from functools import wraps
 from itertools import groupby
 from operator import attrgetter
-from flask import Blueprint, g, render_template, request, redirect, url_for, flash
+from flask import (Blueprint, g, render_template,
+                   request, redirect, url_for, flash,
+                   make_response)
 from flask.views import MethodView as View
 from sqlalchemy.exc import IntegrityError
 import psycopg2.errorcodes as pgerrorcodes
@@ -29,7 +31,9 @@ def add_data():
 @user_required
 def index():
     trips = Trip.query.filter_by(author_id=g.user.id)
-    return render_template('trips/index.html', trips=trips)
+    response = make_response(render_template('trips/index.html', trips=trips))
+    response.add_etag()
+    return response.make_conditional(request)
 
 
 @trips.route("/<slug>")
@@ -41,16 +45,22 @@ def show(slug):
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name)
 
-    return render_template('trips/show.html', trip=trip,
-                           points=points,
-                           points_count=len(trip.points),
-                           view_class=TwViewClasses.TRIP_SHOW,
-                           view_attrs={
-                               'data-controller': 'map',
-                               'data-map-url-value': g.map_data.map_url,
-                               'data-map-attribution-value': g.map_data.map_attribution
-                           },
-                           preload_param=PointPreload.PARAM_NAME)
+    view_attrs = {
+        'data-controller': 'map',
+        'data-map-url-value': g.map_data.map_url,
+        'data-map-attribution-value': g.map_data.map_attribution
+    }
+
+    response = make_response(
+        render_template('trips/show.html', trip=trip,
+                        points=points,
+                        points_count=len(trip.points),
+                        view_class=TwViewClasses.TRIP_SHOW,
+                        view_attrs=view_attrs,
+                        preload_param=PointPreload.PARAM_NAME))
+    response.add_etag()
+
+    return response.make_conditional(request)
 
 
 class TripCUView(View):
@@ -240,8 +250,10 @@ def add_point(slug: str):
 def show_point(trip: Trip, point: Point):
     data = PointData(point)
     add_breadcrumb(point.name)
-    return render_template('points/show.html', point=point,
-                           data=data)
+    response = make_response(render_template('points/show.html', point=point,
+                             data=data))
+    response.add_etag()
+    return response.make_conditional(request)
 
 
 @trips.route("/<slug>/<int:id>/update", methods=('GET', 'POST'))
