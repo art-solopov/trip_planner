@@ -67,10 +67,13 @@ def from_gmaps_desktop(url: str) -> dict:
     data = {s: url_match[s] for s in ['lat', 'lon']}
 
     soup = _load_data_as_soup(loc_url)
-    data.update({
-        'name': soup.find('meta', property='og:title')['content'],
-        'address': soup.find('meta', property='og:description')['content']
-    })
+    try:
+        data.update({
+            'name': soup.find('meta', property='og:title')['content'],
+            'address': soup.find('meta', property='og:description')['content']
+            })
+    except TypeError:
+        raise PreloaderError('Internal error')
 
     return data
 
@@ -85,12 +88,15 @@ def from_gmaps_mobile(url: str) -> dict:
             f"Location {loc_url} doesn't match expected structure"
             )
     soup = _load_data_as_soup(loc_url)
-    title = soup.find('meta', property='og:title')['content']
-    name, address, *_ = title.split('·')
-    return {
-        'name': name.strip(),
-        'address': address.strip()
-    }
+    try:
+        title = soup.find('meta', property='og:title')['content']
+        name, address, *_ = title.split('·')
+        return {
+            'name': name.strip(),
+            'address': address.strip()
+            }
+    except TypeError:
+        raise PreloaderError('Internal error')
 
 
 @MakePreload(r'https://yandex.ru/maps/(-|org)/')
@@ -101,16 +107,19 @@ def from_yandex_maps(url: str) -> dict:
             f'Error getting point info: {response.status_code}'
             )
     soup = BeautifulSoup(response.text)
-    data_script = soup.find('script', class_='config-view',
-                            type=re.compile('json$'))
-    ya_data = json.loads(data_script.string)
-    lon, lat = [float(f) for f in ya_data['query']['poi']['point'].split(',')]
-    return {
-        'name': soup.find('h1', itemprop='name').text.strip(),
-        'address': soup.find('meta', itemprop='address')['content'],
-        'lon': lon,
-        'lat': lat
-        }
+    try:
+        data_script = soup.find('script', class_='config-view',
+                                type=re.compile('json$'))
+        ya_data = json.loads(data_script.string)
+        lon, lat = [float(f) for f in ya_data['query']['poi']['point'].split(',')]
+        return {
+            'name': soup.find('h1', itemprop='name').text.strip(),
+            'address': soup.find('meta', itemprop='address')['content'],
+            'lon': lon,
+            'lat': lat
+            }
+    except TypeError:
+        raise PreloaderError('Internal error')
 
 
 PRELOADERS = [
