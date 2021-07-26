@@ -16,4 +16,4 @@ def geocode(trip_id):
     print(request.headers)
     form = GeocodeForm(request.form)
     results = geocode_op(form, int(trip_id))
-    return render_template('pjax/geocode_results', results=results)
+    return render_template('pjax/geocode_results.html', results=results)
