@@ -1,8 +1,8 @@
 import os.path as opa
 
-from flask import Flask
+from flask import Flask, Blueprint, current_app
 
-# TODO: make it an app plugin?
+assets = Blueprint('assets', __name__)
 
 CHUNKS = ['commons', 'vendor',
           'shared_app']
@@ -19,5 +19,13 @@ def chunks(app: Flask):
             ))]
 
 
+@assets.app_template_global('script_tag')
 def script_tag(chunk: str) -> str:
     return f"<script src=\"/static/js/{chunk}.js\"></script>"
+
+
+@assets.app_context_processor
+def inject_js_chunks():
+    return {
+        'chunks': chunks(current_app)
+    }
