@@ -61,10 +61,12 @@ jobs:
       - checkout
       - node/install-packages
       - run:
+          command: npm install webpack-cli
+      - run:
           command: npm run gulp css
           name: Compile styles
       - run:
-          command: npm run gulp webpack-prod
+          command: npm run webpack-prod
           name: Compile JS
       - persist_to_workspace:
           root: .
