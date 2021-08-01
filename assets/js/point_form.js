@@ -1,4 +1,6 @@
-require('htmx.org')
+// require('htmx.org')
+import 'htmx.org/dist/htmx.js'
+
 import createApp from './utils/create_app'
 
 import GeocodeController from './controllers/geocode_controller'

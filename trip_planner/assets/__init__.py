@@ -21,7 +21,7 @@ def chunks(app: Flask):
 
 @assets.app_template_global('script_tag')
 def script_tag(chunk: str) -> str:
-    return f"<script src=\"/static/js/{chunk}.js\"></script>"
+    return f"<script type=\"module\" src=\"/static/js/{chunk}.js\"></script>"
 
 
 @assets.app_context_processor

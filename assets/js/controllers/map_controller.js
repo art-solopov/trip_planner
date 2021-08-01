@@ -5,7 +5,7 @@ function elementOnScreen(element) {
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
 
-const MapIcon = global.L.Icon.extend({
+const MapIcon = L.Icon.extend({
     options: {
         iconSize: [34, 51],
         iconAnchor: [34 / 2, 51],
@@ -35,14 +35,14 @@ class MapController extends Controller {
             [Math.max(...lats), Math.max(...lons)]
         ]
 
-        this.map = global.L.map(this.mapTarget)
+        this.map = L.map(this.mapTarget)
         this.map.fitBounds(bounds)
-        global.L.tileLayer(this.urlValue, {attribution: this.attributionValue})
+        L.tileLayer(this.urlValue, {attribution: this.attributionValue})
             .addTo(this.map)
 
         for (var point of points) {
             let icon = new MapIcon({iconUrl: `/static/icons/${point.category}.png`})
-            let marker = global.L.marker([point.lat, point.lon], {icon}).addTo(this.map)
+            let marker = L.marker([point.lat, point.lon], {icon}).addTo(this.map)
             marker.bindPopup(point.name)
         }
     }

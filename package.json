@@ -6,11 +6,15 @@
   "scripts": {
     "webpack-dev": "webpack --mode=development --watch",
     "webpack-prod": "webpack --mode=production",
+    "rollup": "rollup --config",
     "gulp": "gulp"
   },
   "author": "Artemiy Solopov",
   "license": "MIT",
   "dependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "axios": "^0.21.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
@@ -26,6 +30,9 @@
     "postcss-font-family-system-ui": "^4.2.0",
     "postcss-nesting": "^7.0.1",
     "postcss-simple-vars": "^5.0.2",
+    "rollup": "^2.55.1",
+    "rollup-plugin-output-manifest": "^2.0.0",
+    "rollup-plugin-postcss": "^4.0.0",
     "stimulus": "^2.0.0",
     "tailwindcss": "^2.0.1",
     "webpack": "^5.2.0",
