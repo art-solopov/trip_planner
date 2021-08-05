@@ -8,11 +8,10 @@ export default {
     input: {
         point_form: 'assets/js/point_form.js',
         map: 'assets/js/map.js',
-        shared_app: 'assets/js/shared_app.js',
-        app: 'assets/css/app.css'
+        app: 'assets/js/app.js',
     },
     output: {
-        dir: 'trip_planner/static/js',
+        dir: 'trip_planner/static/assets',
         entryFileNames: '[name]-[hash].js',
         assetFileNames: '[name]-[hash][extname]',
         format: 'es',
@@ -25,8 +24,7 @@ export default {
         resolve({jsnext: true, preferBuiltins: true, browser: true}),
         commonjs(),
         json(),
-        // postcss({extract: path.resolve('trip_planner/static/css/app-[hash].css')}),
         styles({mode: 'extract'}),
-        manifest({nameWithExt: false}),
+        manifest({nameWithExt: false, publicPath: 'assets/'}),
     ]
 };

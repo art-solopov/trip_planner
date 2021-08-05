@@ -6,14 +6,9 @@
 
         <title>Trip planner</title>
 
-        <link rel="stylesheet" href="/static/css/app.css" type="text/css" media="screen">
+        {{ style_tag('app') }}
+        {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}
-
-        {% autoescape false -%}
-            {%- for chunk in chunks -%}
-                {{ script_tag(chunk) }}
-            {%- endfor -%}
-        {%- endautoescape -%}
     </head>
     <body>
         {{ icon_defs }}

@@ -6,7 +6,6 @@
   "scripts": {
     "webpack-dev": "webpack --mode=development --watch",
     "webpack-prod": "webpack --mode=production",
-    "rollup": "rollup --config",
     "gulp": "gulp"
   },
   "author": "Artemiy Solopov",

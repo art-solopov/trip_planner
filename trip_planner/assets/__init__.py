@@ -1,31 +1,28 @@
 import os.path as opa
+import json
 
-from flask import Flask, Blueprint, current_app
+from flask import Blueprint, current_app, url_for, g
+from jinja2.ext import Markup
 
 assets = Blueprint('assets', __name__)
 
-CHUNKS = ['commons', 'vendor',
-          'shared_app']
-# shared_app is not really a chunk, it's an app that controls flashes etc.
-# It should be included in every page.
 
+@assets.before_app_request
+def load_manifest():
+    manifest_path = opa.join(current_app.static_folder,
+                             'assets', 'manifest.json')
 
-def chunks(app: Flask):
-    return [chunk for chunk in CHUNKS
-            if opa.exists(opa.join(
-                    app.static_folder,
-                    'js',
-                    f'{chunk}.js'
-            ))]
+    with open(manifest_path) as mff:
+        g.assets_manifest = json.load(mff)
 
 
 @assets.app_template_global('script_tag')
-def script_tag(chunk: str) -> str:
-    return f"<script type=\"module\" src=\"/static/js/{chunk}.js\"></script>"
+def script_tag(chunk_id: str) -> str:
+    url = url_for('static', filename=g.assets_manifest[chunk_id])
+    return Markup(f'<script type="module" src="{url}"></script>')
 
 
-@assets.app_context_processor
-def inject_js_chunks():
-    return {
-        'chunks': chunks(current_app)
-    }
+@assets.app_template_global('style_tag')
+def style_tag(style_name: str) -> str:
+    url = url_for('static', filename=g.assets_manifest[style_name + '.css'])
+    return Markup(f'<link rel="stylesheet" href="{url}" type="text/css">')
