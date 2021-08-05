@@ -32,7 +32,7 @@
     "postcss-simple-vars": "^5.0.2",
     "rollup": "^2.55.1",
     "rollup-plugin-output-manifest": "^2.0.0",
-    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-styles": "^3.14.1",
     "stimulus": "^2.0.0",
     "tailwindcss": "^2.0.1",
     "webpack": "^5.2.0",
