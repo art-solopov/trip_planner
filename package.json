@@ -4,9 +4,7 @@
   "description": "Assets for trip planner",
   "main": "gulpfile.js",
   "scripts": {
-    "webpack-dev": "webpack --mode=development --watch",
-    "webpack-prod": "webpack --mode=production",
-    "gulp": "gulp"
+    "rollup": "rollup --config"
   },
   "author": "Artemiy Solopov",
   "license": "MIT",

@@ -61,7 +61,7 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          command: npx run rollup --config
+          command: npm run rollup
           name: Rollup
       - persist_to_workspace:
           root: .
