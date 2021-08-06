@@ -1,8 +1,13 @@
+import process from 'process'
+
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import manifest from 'rollup-plugin-output-manifest'
 import styles from 'rollup-plugin-styles'
+import { terser } from 'rollup-plugin-terser'
+
+const isProd = (process.env.NODE_ENV == 'production')
 
 export default {
     input: {
@@ -25,6 +30,7 @@ export default {
         commonjs(),
         json(),
         styles({mode: 'extract'}),
+        isProd && terser(),
         manifest({nameWithExt: false, publicPath: 'assets/'}),
     ]
 };
