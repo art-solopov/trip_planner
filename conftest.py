@@ -1,18 +1,28 @@
+import os
+from collections import defaultdict
+from tempfile import mkdtemp
+
 import pytest
+import pytest_mock
 
 from trip_planner import db as _db
 from test import create_app, TestConfig, test_instance_dir
 
 
 @pytest.fixture(scope='session')
-def app():
-    _app = create_app(TestConfig(), instance_path=test_instance_dir)
+def app(session_mocker: pytest_mock.MockerFixture):
+    static_folder = mkdtemp(prefix='static')
+    _app = create_app(TestConfig(), instance_path=test_instance_dir,
+                      static_folder=static_folder)
     ctx = _app.app_context()
     ctx.push()
+    session_mocker.patch('trip_planner.assets.manifest',
+                         new=defaultdict(str))
 
     yield _app
 
     ctx.pop()
+    os.rmdir(static_folder)
 
 
 @pytest.fixture(scope='session')

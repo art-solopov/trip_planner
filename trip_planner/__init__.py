@@ -32,7 +32,7 @@ from .assets import assets as assets_bp  # noqa: E402
 from .models import User  # noqa: E402
 
 
-def create_app(test_config=None, instance_path=None):
+def create_app(test_config=None, instance_path=None, static_folder='static'):
     if instance_path is None:
         env_instance_path = os.getenv('INSTANCE_PATH')
         if env_instance_path:
@@ -40,7 +40,8 @@ def create_app(test_config=None, instance_path=None):
 
     app = Flask(__name__,
                 instance_path=instance_path,
-                instance_relative_config=True)
+                instance_relative_config=True,
+                static_folder=static_folder)
     if test_config is not None:
         app.config.from_object(test_config)
     else:
