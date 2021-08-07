@@ -61,16 +61,12 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          command: npm run gulp css
-          name: Compile styles
-      - run:
-          command: npm run gulp webpack-prod
-          name: Compile JS
+          command: npm run rollup
+          name: Rollup
       - persist_to_workspace:
           root: .
           paths:
-            - trip_planner/static/css
-            - trip_planner/static/js
+            - trip_planner/static/assets
 
   build-docker:
     executor: docker/machine

@@ -8,7 +8,6 @@ from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
 from markupsafe import Markup
 
-from . import assets
 from .tailwind import FlashClasses, CommonClasses, FormClasses
 
 
@@ -29,10 +28,11 @@ from .auth import auth as auth_bp  # noqa: E402
 from .trips import trips as trips_bp  # noqa: E402
 from .pjax import pjax as pjax_bp  # noqa: E402
 from .scripts import scripts as scripts_bp  # noqa: E402
+from .assets import assets as assets_bp  # noqa: E402
 from .models import User  # noqa: E402
 
 
-def create_app(test_config=None, instance_path=None):
+def create_app(test_config=None, instance_path=None, static_folder='static'):
     if instance_path is None:
         env_instance_path = os.getenv('INSTANCE_PATH')
         if env_instance_path:
@@ -40,7 +40,8 @@ def create_app(test_config=None, instance_path=None):
 
     app = Flask(__name__,
                 instance_path=instance_path,
-                instance_relative_config=True)
+                instance_relative_config=True,
+                static_folder=static_folder)
     if test_config is not None:
         app.config.from_object(test_config)
     else:
@@ -77,6 +78,7 @@ def create_app(test_config=None, instance_path=None):
     app.register_blueprint(trips_bp)
     app.register_blueprint(pjax_bp)
     app.register_blueprint(scripts_bp)
+    app.register_blueprint(assets_bp)
 
     @app.template_test('hidden_field')
     def is_hidden_field(field: Field) -> bool:
@@ -84,15 +86,8 @@ def create_app(test_config=None, instance_path=None):
 
     @app.context_processor
     def inject_icon_defs():
-        with app.open_resource(f'static/icons/icon-defs.svg', 'r') as f:
+        with app.open_resource('static/icons/icon-defs.svg', 'r') as f:
             return {'icon_defs': Markup(f.read())}
-
-    @app.context_processor
-    def inject_js_chunks():
-        return {
-            'chunks': assets.chunks(app),
-            'script_tag': assets.script_tag
-        }
 
     @app.context_processor
     def inject_tailwind_vars():
