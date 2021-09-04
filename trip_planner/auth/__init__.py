@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from flask import Blueprint, render_template, redirect, session, request, flash
 from passlib.hash import bcrypt
 from .forms import LoginForm
@@ -33,10 +35,14 @@ def login():
             session['user_id'] = user.id
             session.permanent = True
             flash('Login successful', 'success')
-            return redirect('/')
+            return redirect(form.redirect.data or '/')
         else:
             flash('Incorrect login/password', 'error')
             return _render_login_form(form)
+    try:
+        form.redirect.data = urlparse(request.args['r']).path
+    except KeyError:
+        pass  # If r is not in request args, do nothing
     return _render_login_form(form)
 
 
