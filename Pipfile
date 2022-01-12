@@ -10,6 +10,7 @@ flake8 = "*"
 faker = "*"
 factory-boy = "*"
 pytest = "*"
+python-lsp-server = "*"
 
 [packages]
 flask = "*"
