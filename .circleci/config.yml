@@ -32,10 +32,10 @@ jobs:
       - run:
           command: sudo apt-get update && sudo apt-get -y install postgresql-client-11
       - run:
-          command: pip install pipenv==2018.11.26
-          name: Install pipenv
+          command: pip install poetry
+          name: Install poetry
       - run:
-          command: pipenv lock -r > requirements.prod.txt && pipenv lock -rd > requirements.txt
+          command: poetry export -o requirements.prod.txt && poetry export --dev -o requirements.txt && cat requirements.txt
           name: Generate requirements files
       - python/load-cache
       - python/install-deps
