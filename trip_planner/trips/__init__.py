@@ -14,7 +14,6 @@ from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
-from .data.point_preload import PointPreload, PreloaderNotFound, PreloaderError
 from .forms import TripForm, PointForm
 from ..tailwind import (ViewClasses as TwViewClasses,
                         ScheduleClasses as TwScheduleClasses)
@@ -56,8 +55,7 @@ def show(slug):
                         points=points,
                         points_count=len(trip.points),
                         view_class=TwViewClasses.TRIP_SHOW,
-                        view_attrs=view_attrs,
-                        preload_param=PointPreload.PARAM_NAME))
+                        view_attrs=view_attrs))
     response.add_etag()
 
     return response.make_conditional(request)
@@ -224,24 +222,11 @@ def add_point(slug: str):
         flash(f"Point «{point.name}» added", 'success')
         return redirect(url_for('.show', slug=trip.slug))
 
-    preload_url = request.args.get(PointPreload.PARAM_NAME)
-    if preload_url:
-        try:
-            preload = PointPreload(preload_url, form)
-            print(preload, preload.url)
-            preload()
-        except PreloaderNotFound:
-            flash("Can't process URL", 'error')
-            return redirect(url_for('.show', slug=trip.slug))
-        except PreloaderError as e:
-            flash(f"Error during preloading: {e}", 'error')
-            return redirect(url_for('.show', slug=trip.slug))
-
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
     add_breadcrumb('Add point')
     return render_template('points/form.html', form=form, point=point,
-                           title=f'Add point')
+                           title='Add point')
 
 
 @trips.route("/<slug>/<int:id>")

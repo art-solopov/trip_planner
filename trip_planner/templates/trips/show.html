@@ -14,17 +14,7 @@
             <div>
                 <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small btn-accent" title="Edit">{{ icon('pencil') }}</a>
                 <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-default" title="Add point">{{ icon('plus') }}</a>
-                <a href="#" id="add_point_with_url_button" class="btn btn-small btn-blue-outline" title="Add point (with url)">{{ icon('plus') }}</a>
                 <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
-
-                <div id="add_point_form_container" class="hidden absolute border border-gray-400 bg-white rounded-md p-3 mt-1 w-56 max-w-full">
-                    <form method="get" action="{{ url_for('.add_point', slug=trip.slug) }}">
-                        <div class="flex flex-row">
-                            <input type="text" name="{{ preload_param }}" required class="mr-2 flex-1 min-w-0" />
-                            <button type="submit" class="btn btn-small btn-default">Add</button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </header>
 
