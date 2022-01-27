@@ -52,7 +52,7 @@ jobs:
   build-assets:
     executor:
       name: node/default
-      tag: "12.13"
+      tag: "16.13"
 
     environment:
       NODE_ENV: production
