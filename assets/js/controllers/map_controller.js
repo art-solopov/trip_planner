@@ -1,5 +1,8 @@
 import { Controller } from 'stimulus'
 
+import Point from './map_controller/point.js'
+import mapInit from './map_controller/map.js'
+
 function elementOnScreen(element) {
     let rect = element.getBoundingClientRect()
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
@@ -16,13 +19,15 @@ function elementOnScreen(element) {
 class MapController extends Controller {
     connect() {
         let points = this.pointTargets.map(pt => {
-            return {
+            let lat = Number(pt.dataset.lat),
+                lon = Number(pt.dataset.lon)
+            return new Point({
                 lat: Number(pt.dataset.lat),
                 lon: Number(pt.dataset.lon),
                 category: pt.dataset.category,
                 name: pt.querySelector('.item-name').innerText,
                 id: pt.id
-            }
+            })
         })
 
         this.points = new Map(points.map(p => [p.id, p]))
@@ -31,9 +36,13 @@ class MapController extends Controller {
         let lons = points.map(p => p.lon)
 
         let bounds = [
-            [Math.min(...lats), Math.min(...lons)],
-            [Math.max(...lats), Math.max(...lons)]
+            { lon: Math.min(...lons), lat: Math.min(...lats) },
+            { lon: Math.max(...lons), lat: Math.max(...lats) }
         ]
+
+        mapInit(this.mapTarget, this.apikeyValue, this.styleurlValue, points, bounds)
+            .then(map => this.map = map)
+            .then(map => window.map = map);
 
         // this.map = L.map(this.mapTarget)
         // this.map.fitBounds(bounds)
@@ -50,7 +59,7 @@ class MapController extends Controller {
     panTo(ev) {
         ev.preventDefault()
         let point = this.points.get(ev.target.closest('li').id)
-        // this.map.panTo([point.lat, point.lon])
+        this.map.panTo(point)
 
         // if (!elementOnScreen(this.mapTarget)) {
         //     this.mapTarget.scrollIntoView({behavior: "smooth"})
@@ -59,6 +68,6 @@ class MapController extends Controller {
 }
 
 MapController.targets = ['point', 'map']
-MapController.values = { url: String, attribution: String }
+MapController.values = { apikey: String, styleurl: String }
 
 export default MapController

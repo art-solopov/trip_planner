@@ -2,10 +2,7 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <div class="trip-map box-border lg:order-1 lg:min-w-wide lg:flex-grow" id="map"
-         data-map-target="map">
-        <div class="extra-attribution"></div>
-    </div>
+    <div class="trip-map box-border lg:order-1 lg:min-w-wide lg:flex-grow" id="map" data-map-target="map"></div>
     <div class="app box-border lg:flex-shrink-trip-app lg:overflow-y-scroll lg:pr-4">
         <header>
             <h1 class="{{ common_classes.h1 }}">{{ trip.name }}</h1>
@@ -47,12 +44,11 @@
     </div>
 {% endblock %}
 
-{#
 {% block extra_head %}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" type="text/css" media="screen" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin />
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin></script>
+    {# TODO: maybe install via npm #}
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
 {% endblock %}
-#}
 
 {% block extra_body %}
     <!-- <template id="map_attribution"> -->

@@ -2,28 +2,25 @@ from flask import current_app
 
 
 class MapData:
-    MAP_BASE_URL = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11'
-    MAP_BASE_URL = 'https://api.mapbox.com/styles/v1/art-solopov/ckj1qaoa79v8419szqo9p3dqj'
-    ZOOM_LEVEL = 15.5
+    # MAP_BASE_URL = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11'
+    STYLE_KEY = 'art-solopov/ckj1qaoa79v8419szqo9p3dqj'
+    MAP_BASE_URL = f'https://api.mapbox.com/styles/v1/{STYLE_KEY}'
+    MAPBOX_STYLE_URL = f'mapbox://styles/{STYLE_KEY}'
+    # ZOOM_LEVEL = 15.5
 
     @property
     def api_key(self):
         return current_app.config['MAPBOX_APIKEY']
 
-    @property
-    def map_url(self) -> str:
-        return (f"{self.MAP_BASE_URL}/tiles/256/{{z}}/{{x}}/{{y}}"
-                f"?access_token={self.api_key}")
-
-    @property
-    def map_attribution(self) -> str:
-        # Taken from Mapbox website
-        return r'''
-© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>
-© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
-<strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">
-Improve this map</a></strong>
-        '''.strip()
+    # @property
+    # def map_attribution(self) -> str:
+    #     # Taken from Mapbox website
+    #     return r'''
+# © <a href="https://www.mapbox.com/about/maps/">Mapbox</a>
+# © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
+# <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">
+# Improve this map</a></strong>
+    #     '''.strip()
 
     def point_map_url(self, coordinates: (float, float)) -> str:
         lat, lon = coordinates
