@@ -5,13 +5,13 @@ function elementOnScreen(element) {
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
 
-const MapIcon = L.Icon.extend({
-    options: {
-        iconSize: [34, 51],
-        iconAnchor: [34 / 2, 51],
-        popupAnchor: [0, -30]
-    }
-})
+// const MapIcon = L.Icon.extend({
+//     options: {
+//         iconSize: [34, 51],
+//         iconAnchor: [34 / 2, 51],
+//         popupAnchor: [0, -30]
+//     }
+// })
 
 class MapController extends Controller {
     connect() {
@@ -35,26 +35,26 @@ class MapController extends Controller {
             [Math.max(...lats), Math.max(...lons)]
         ]
 
-        this.map = L.map(this.mapTarget)
-        this.map.fitBounds(bounds)
-        L.tileLayer(this.urlValue, {attribution: this.attributionValue})
-            .addTo(this.map)
+        // this.map = L.map(this.mapTarget)
+        // this.map.fitBounds(bounds)
+        // L.tileLayer(this.urlValue, {attribution: this.attributionValue})
+        //     .addTo(this.map)
 
-        for (var point of points) {
-            let icon = new MapIcon({iconUrl: `/static/icons/${point.category}.png`})
-            let marker = L.marker([point.lat, point.lon], {icon}).addTo(this.map)
-            marker.bindPopup(point.name)
-        }
+        // for (var point of points) {
+        //     let icon = new MapIcon({iconUrl: `/static/icons/${point.category}.png`})
+        //     let marker = L.marker([point.lat, point.lon], {icon}).addTo(this.map)
+        //     marker.bindPopup(point.name)
+        // }
     }
 
     panTo(ev) {
         ev.preventDefault()
         let point = this.points.get(ev.target.closest('li').id)
-        this.map.panTo([point.lat, point.lon])
+        // this.map.panTo([point.lat, point.lon])
 
-        if (!elementOnScreen(this.mapTarget)) {
-            this.mapTarget.scrollIntoView({behavior: "smooth"})
-        }
+        // if (!elementOnScreen(this.mapTarget)) {
+        //     this.mapTarget.scrollIntoView({behavior: "smooth"})
+        // }
     }
 }
 
