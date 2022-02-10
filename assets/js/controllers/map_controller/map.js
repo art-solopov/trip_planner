@@ -1,9 +1,12 @@
+import tailwindConsts from '../../tailwind.json'
+
 export default async function mapInit(container, apiKey, style, points, bounds) {
     mapboxgl.accessToken = apiKey
 
     const map = await loadMap(container, style, bounds)
     let imgs = await addImages(map, points)
-    addPointsLayer(map, points)
+    // addPointsLayer(map, points)
+    addPointsMarkers(map, points)
 
     return map;
 }
@@ -49,6 +52,24 @@ function addImages(map, points) {
     return Promise.allSettled(promises)
 }
 
+function addPointsMarkers(map, points) {
+    for (let point of points) {
+        const popup = new mapboxgl.Popup({
+            offset: [0, -20]
+        }).setText(point.name)
+        const el = document.createElement('img')
+        el.src = `/static/icons/${point.category}.png`
+        el.classList.add(tailwindConsts.markerClass)
+
+        new mapboxgl.Marker({
+            anchor: 'bottom',
+            element: el
+        }).setLngLat(point)
+            .setPopup(popup)
+            .addTo(map)
+    }
+}
+
 function addPointsLayer(map, points) {
     let data = {
         type: 'FeatureCollection',
@@ -62,7 +83,9 @@ function addPointsLayer(map, points) {
         source: 'points',
         layout: {
             'icon-image': ['concat', 'category:', ['get', 'category']],
-            'icon-size': 0.5,
+            'icon-allow-overlap': true,
+            'icon-ignore-placement': true,
+            'icon-size': 0.4,
             'icon-anchor': 'bottom',
             'text-anchor': 'top',
             'text-field': ['get', 'name']
