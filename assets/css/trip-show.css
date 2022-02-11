@@ -1,15 +1,7 @@
 .trip-map {
     @apply min-h-60vh lg:min-h-0;
 
-    & .extra-attribution {
-        position: absolute;
-        bottom: 0;
-        left: 5px;
-        height: 24px;
-        width: 78px;
-
-        background-image: url(/static/vendor/mapbox/logo.svg);
-        background-repeat: no-repeat;
-        z-index: 500;
+    & .mapboxgl-marker {
+        height: 3.5rem;
     }
 }

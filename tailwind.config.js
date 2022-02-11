@@ -7,8 +7,7 @@ module.exports = {
   },
   purge: [
     'trip_planner/templates/**/*.html',
-    'trip_planner/tailwind.py',
-    'assets/js/tailwind.json'
+    'trip_planner/tailwind.py'
   ],
   theme: {
     extend: {

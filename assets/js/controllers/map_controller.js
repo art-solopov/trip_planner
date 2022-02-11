@@ -8,6 +8,8 @@ function elementOnScreen(element) {
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
 
+const FOCUS_ZOOM = 15.0
+
 class MapController extends Controller {
     connect() {
         let points = this.pointTargets.map(pt => {
@@ -34,13 +36,12 @@ class MapController extends Controller {
 
         mapInit(this.mapTarget, this.apikeyValue, this.styleurlValue, points, bounds)
             .then(map => this.map = map)
-            .then(map => window.map = map);
     }
 
     panTo(ev) {
         ev.preventDefault()
         let point = this.points.get(ev.target.closest('li').id)
-        this.map.panTo(point)
+        this.map.flyTo({ center: point, zoom: FOCUS_ZOOM })
 
         if (!elementOnScreen(this.mapTarget)) {
             this.mapTarget.scrollIntoView({behavior: "smooth"})

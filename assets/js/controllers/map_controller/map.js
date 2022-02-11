@@ -1,11 +1,9 @@
-import tailwindConsts from '../../tailwind.json'
-
 export default async function mapInit(container, apiKey, style, points, bounds) {
     mapboxgl.accessToken = apiKey
 
     const map = await loadMap(container, style, bounds)
-    let imgs = await addImages(map, points)
-    // addPointsLayer(map, points)
+    // await addImages(map, points)
+    addPointsLayer(map, points)
     addPointsMarkers(map, points)
 
     return map;
@@ -24,6 +22,10 @@ function loadMap(container, style, bounds) {
 
             const sc = new mapboxgl.ScaleControl();
             map.addControl(sc);
+
+            const glc = new mapboxgl.GeolocateControl();
+            map.addControl(glc);
+
             resolve(map)
         })
     })
@@ -59,7 +61,6 @@ function addPointsMarkers(map, points) {
         }).setText(point.name)
         const el = document.createElement('img')
         el.src = `/static/icons/${point.category}.png`
-        el.classList.add(tailwindConsts.markerClass)
 
         new mapboxgl.Marker({
             anchor: 'bottom',
@@ -82,13 +83,16 @@ function addPointsLayer(map, points) {
         type: 'symbol',
         source: 'points',
         layout: {
-            'icon-image': ['concat', 'category:', ['get', 'category']],
-            'icon-allow-overlap': true,
-            'icon-ignore-placement': true,
-            'icon-size': 0.4,
-            'icon-anchor': 'bottom',
             'text-anchor': 'top',
-            'text-field': ['get', 'name']
+            'text-field': ['get', 'name'],
+            'text-size': 14,
+            'text-allow-overlap': true,
+            'text-radial-offset': ['interpolate',
+                ['linear'],
+                ['zoom'],
+                12, 0,
+                14.4, 1.5
+            ]
         }
     })
 }
