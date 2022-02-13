@@ -1,5 +1,4 @@
 import { Controller } from 'stimulus'
-import axios from 'axios'
 
 class GeocodeController extends Controller {
     setData(ev) {
