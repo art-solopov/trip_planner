@@ -6,17 +6,19 @@ version: 2.1
     tag: $DOCKER_TAG
 
 orbs:
-  python: circleci/python@0.2.1
-  node: circleci/node@2.0.1
-  docker: circleci/docker@1.0.1
+  python: circleci/python@2.0.1
+  node: circleci/node@5.0.0
+  docker: circleci/docker@2.0.2
 
 jobs:
   deps-and-test:
-    executor: python/default
+    executor:
+      name: python/default
+      tag: "3.7"
 
     docker:
-      - image: circleci/python:3.7-buster
-      - image: circleci/postgres:10.11
+      - image: cimg/python:3.7
+      - image: cimg/postgres:10.19
         environment:
           POSTGRES_USER: trip_planner
           POSTGRES_DB: trip_planner_test
@@ -30,21 +32,15 @@ jobs:
     steps:
       - checkout
       - run:
-          command: sudo apt-get update && sudo apt-get -y install postgresql-client-11
+          command: sudo apt-get update && sudo apt-get -y install postgresql-client-12
+      - python/install-packages:
+          pkg-manager: poetry
       - run:
-          command: pip install poetry
-          name: Install poetry
-      - run:
-          command: poetry export -o requirements.prod.txt && poetry export --dev -o requirements.txt && cat requirements.txt
-          name: Generate requirements files
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: python -m pytest
+          command: poetry run pytest
           name: Test
       - run:
-          command: mv requirements.prod.txt requirements.txt
+          command: poetry export -o requirements.txt
+          name: Export requirements.txt
       - persist_to_workspace:
           root: .
           paths: requirements.txt
