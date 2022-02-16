@@ -1,6 +1,6 @@
 import { Controller } from 'stimulus'
 
-class GeocodeController extends Controller {
+export class GeocodeController extends Controller {
     setData(ev) {
         let result = ev.target.closest('.geocode-result')
         this.latTarget.value = result.dataset.lat
@@ -29,5 +29,3 @@ class GeocodeController extends Controller {
 }
 
 GeocodeController.targets = ['lat', 'lon', 'name', 'address', 'geocodeField', 'results']
-
-export default GeocodeController

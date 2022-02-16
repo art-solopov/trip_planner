@@ -1,6 +1,6 @@
 import { Controller } from 'stimulus'
 
-class PointFormScheduleController extends Controller {
+export class ScheduleController extends Controller {
     connect() {
         this.currentRow = null
     }
@@ -45,5 +45,3 @@ class PointFormScheduleController extends Controller {
 }
 
 PointFormScheduleController.targets = ['buttons']
-
-export default PointFormScheduleController
