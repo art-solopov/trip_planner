@@ -44,4 +44,4 @@ export class ScheduleController extends Controller {
     }
 }
 
-PointFormScheduleController.targets = ['buttons']
+ScheduleController.targets = ['buttons']
