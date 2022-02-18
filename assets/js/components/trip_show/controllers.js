@@ -1,14 +1,12 @@
 import { Controller } from 'stimulus'
 
 import Point from './func/point.js'
-import mapInit from './func/map.js'
+import { FOCUS_ZOOM, mapInit } from './func/map.js'
 
 function elementOnScreen(element) {
     let rect = element.getBoundingClientRect()
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
-
-const FOCUS_ZOOM = 15.0
 
 export class MapController extends Controller {
     connect() {
