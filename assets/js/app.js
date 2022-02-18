@@ -1,5 +1,5 @@
 import '../css/app.css'
-import createApp from './utils/create_app'
-import FlashController from './controllers/flash_controller'
+import { initComponent } from './utils'
+import Flash from './components/flash'
 
-const app = createApp([['flash', FlashController]])
+const app = initComponent(Flash)

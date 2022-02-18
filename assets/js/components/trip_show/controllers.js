@@ -1,16 +1,14 @@
 import { Controller } from 'stimulus'
 
-import Point from './map_controller/point.js'
-import mapInit from './map_controller/map.js'
+import Point from './func/point.js'
+import { FOCUS_ZOOM, mapInit } from './func/map.js'
 
 function elementOnScreen(element) {
     let rect = element.getBoundingClientRect()
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
 
-const FOCUS_ZOOM = 15.0
-
-class MapController extends Controller {
+export class MapController extends Controller {
     connect() {
         let points = this.pointTargets.map(pt => {
             let lat = Number(pt.dataset.lat),
@@ -51,5 +49,3 @@ class MapController extends Controller {
 
 MapController.targets = ['point', 'map']
 MapController.values = { apikey: String, styleurl: String }
-
-export default MapController

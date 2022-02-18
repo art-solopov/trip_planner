@@ -12,7 +12,7 @@ const isProd = (process.env.NODE_ENV == 'production')
 export default {
     input: {
         point_form: 'assets/js/point_form.js',
-        map: 'assets/js/map.js',
+        trip_show: 'assets/js/trip_show.js',
         app: 'assets/js/app.js',
     },
     output: {
