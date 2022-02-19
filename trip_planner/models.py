@@ -16,7 +16,7 @@ class Trip(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True,
                           nullable=False)
-    name = db.Column(db.String(2000), nullable=False)
+    name = db.Column(db.String(2000), nullable=False, index=True)
     country_code = db.Column(db.String(2))
     slug = db.Column(db.String(2000), nullable=False)
 
@@ -25,7 +25,8 @@ class Trip(db.Model):
                                                 order_by=lambda: Trip.name))
 
     def __repr__(self):
-        return f"<Trip {self.id} author_id={self.author_id} slug={self.slug}>"
+        return f"<Trip {self.name} [{self.id}] " \
+            f"author_id={self.author_id} slug={self.slug}>"
 
 
 db.Index('idx_trip_author_slug', Trip.author_id, Trip.slug, unique=True)
@@ -41,7 +42,6 @@ class Point(db.Model):
     lon = db.Column(db.Numeric(8, 5), nullable=False)
     type = db.Column(db.String(120), nullable=False, index=True)
     notes = db.Column(db.Text)
-    schedule_old = db.Column(db.Text)
     schedule = db.Column(db.JSON(none_as_null=True))
 
     trip = db.relationship('Trip',

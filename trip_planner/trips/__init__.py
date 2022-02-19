@@ -7,7 +7,7 @@ from flask import (Blueprint, g, render_template,
 from flask.views import MethodView as View
 from sqlalchemy.exc import IntegrityError
 import psycopg2.errorcodes as pgerrorcodes
-from markupsafe import Markup, escape
+from markupsafe import escape
 
 from .. import db
 from ..shared import user_required, add_breadcrumb
@@ -29,7 +29,7 @@ def add_data():
 @trips.route("/")
 @user_required
 def index():
-    trips = Trip.query.filter_by(author_id=g.user.id)
+    trips = g.user.trips
     response = make_response(render_template('trips/index.html', trips=trips))
     response.add_etag()
     return response.make_conditional(request)
