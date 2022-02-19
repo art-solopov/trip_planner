@@ -47,7 +47,9 @@ def show(slug):
     view_attrs = {
         'data-controller': 'map',
         'data-map-apikey-value': g.map_data.api_key,
-        'data-map-styleurl-value': g.map_data.MAPBOX_STYLE_URL
+        'data-map-styleurl-value': g.map_data.MAPBOX_STYLE_URL,
+        'data-map-centerlat-value': trip.center_lat,
+        'data-map-centerlon-value': trip.center_lon
     }
 
     response = make_response(

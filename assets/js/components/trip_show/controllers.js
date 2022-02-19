@@ -23,16 +23,9 @@ export class MapController extends Controller {
         })
 
         this.points = new Map(points.map(p => [p.id, p]))
+        const center = {lat: this.centerlatValue, lon: this.centerlonValue}
 
-        let lats = points.map(p => p.lat)
-        let lons = points.map(p => p.lon)
-
-        let bounds = [
-            { lon: Math.min(...lons), lat: Math.min(...lats) },
-            { lon: Math.max(...lons), lat: Math.max(...lats) }
-        ]
-
-        mapInit(this.mapTarget, this.apikeyValue, this.styleurlValue, points, bounds)
+        mapInit(this.mapTarget, this.apikeyValue, this.styleurlValue, points, center)
             .then(map => this.map = map)
     }
 
@@ -48,4 +41,4 @@ export class MapController extends Controller {
 }
 
 MapController.targets = ['point', 'map']
-MapController.values = { apikey: String, styleurl: String }
+MapController.values = { apikey: String, styleurl: String, centerlat: Number, centerlon: Number }
