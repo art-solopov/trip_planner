@@ -13,14 +13,14 @@
 
         {{ form.hidden_tag() }}
 
-        {{ field(form.name, input_class=form_classes.input_default) }}
-        {{ field(form.address, input_class=form_classes.input_default) }}
+        {{ field(form.name) }}
+        {{ field(form.address) }}
 
         <div class="flex flex-row lat-lon-fields">
             {% set geo_wrapper_class='w-40' %}
-            {{ field(form.lat, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'lat'}) }}
+            {{ field(form.lat, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lat'}) }}
             <span class="w-2">&nbsp;</span>
-            {{ field(form.lon, wrapper_class=geo_wrapper_class, input_class=form_classes.input_default, field_kwargs={'data-geocode-target': 'lon'}) }}
+            {{ field(form.lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon'}) }}
         </div>
 
         <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
@@ -44,8 +44,8 @@
         {%- set schedule_buttons %}
         {%- endset -%}
 
-        {{ field(form.type, input_class=form_classes.input_default) }}
-        {{ field(form.notes, input_class=form_classes.input_default) }}
+        {{ field(form.type) }}
+        {{ field(form.notes) }}
         <div class="mb-2 relative max-w-full lg:w-96" data-controller="point-form-schedule">
             <table>
                 <thead>

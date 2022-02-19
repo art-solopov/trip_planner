@@ -108,7 +108,7 @@ class TripCUView(View):
     def _default_render(self):
         self._add_breadcrumbs()
         add_breadcrumb(self.title)
-        return render_template('form.html', form=self.form,
+        return render_template('trips/form.html', form=self.form,
                                title=self.title,
                                submit_text=self.submit_text)
 

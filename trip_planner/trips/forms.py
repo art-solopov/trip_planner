@@ -3,10 +3,9 @@ import json
 from copy import copy
 
 from flask_wtf import FlaskForm
-from markupsafe import Markup, escape
 from wtforms import (Form, StringField, TextAreaField, FloatField,
-                     SelectField, HiddenField, FormField, FieldList)
-from wtforms.widgets import html_params
+                     SelectField, HiddenField, FormField, FieldList,
+                     DecimalField)
 from wtforms.widgets.html5 import TimeInput
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
@@ -19,6 +18,8 @@ class TripForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=2000)])
     country_code = SelectField('Country', choices=[],
                                validators=[Optional(strip_whitespace=True)])
+    center_lat = DecimalField('Center latitude', places=5)
+    center_lon = DecimalField('Center longitude', places=5)
     slug = StringField('Slug',
                        validators=[DataRequired(), Length(min=3, max=2000),
                                    Regexp(r'\w[\w_-]*\w'),

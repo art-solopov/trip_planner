@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "macros/forms.html" import field, errors, submit_btn %}
+{% from "macros/icon.html" import icon %}
+
+{% block main %}
+    <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
+
+    <form id="trip_form"
+          method="POST"
+          action=""
+          >
+          {{ errors(form) }}
+
+          {{ form.hidden_tag() }}
+
+          {{ field(form.name) }}
+          {{ field(form.country_code) }}
+          {{ field(form.slug) }}
+
+          <div class="flex flex-row">
+              {# TODO: extract into macros? #}
+              {% set geo_wrapper_class='w-40' %}
+              {{ field(form.center_lat, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lat'}) }}
+              <span class="w-2">&nbsp;</span>
+              {{ field(form.center_lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon'}) }}
+          </div>
+
+          {{ submit_btn() }}
+    </form>
+{% endblock %}

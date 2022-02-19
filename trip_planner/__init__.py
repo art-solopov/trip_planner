@@ -102,9 +102,7 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
                 'navbar_text': CommonClasses.NAVBAR_TEXT,
                 'navbar_link': CommonClasses.NAVBAR_LINK,
             },
-            'form_classes': {
-                'input_default': FormClasses.INPUT_DEFAULT
-            }
+            'form_classes': {}
         }
 
     if app.env == 'development':
