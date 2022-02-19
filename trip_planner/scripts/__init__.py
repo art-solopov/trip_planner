@@ -5,7 +5,7 @@ from flask import Blueprint
 import sqlalchemy as sa
 
 from .. import db
-from ..models import Point
+from ..models import Point, Trip
 
 
 scripts = Blueprint('scripts', __name__)
@@ -33,4 +33,21 @@ def reformat_schedule_dates():
                     new_schedule[wday][k] = new_time
         point.schedule = new_schedule
         db.session.add(point)
+    db.session.commit()
+
+
+@scripts.cli.command('calculate_center_coordinates')
+def calculate_center_coordinates():
+    query = Trip.query.join(Trip.points) \
+        .group_by(Trip.id) \
+        .add_columns(
+            db.func.avg(Point.lat).label('center_lat'),
+            db.func.avg(Point.lon).label('center_lon')
+            )
+    for row in query:
+        trip = row.Trip
+        trip.center_lat = row.center_lat
+        trip.center_lon = row.center_lon
+        db.session.add(trip)
+
     db.session.commit()

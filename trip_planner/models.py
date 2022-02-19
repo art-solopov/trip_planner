@@ -23,6 +23,8 @@ class Trip(db.Model):
     author = db.relationship('User',
                              backref=db.backref('trips',
                                                 order_by=lambda: Trip.name))
+    center_lat = db.Column(db.Numeric(8, 5), nullable=True)
+    center_lon = db.Column(db.Numeric(8, 5), nullable=True)
 
     def __repr__(self):
         return f"<Trip {self.name} [{self.id}] " \
