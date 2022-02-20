@@ -1,5 +1,5 @@
 import { initComponent } from './utils'
 
-import TripShow from './components/trip_show'
+import Map from './components/map'
 
-initComponent(TripShow)
+initComponent(Map)
