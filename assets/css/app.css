@@ -43,3 +43,11 @@ svg.icon {
     stroke: currentColor;
     fill: currentColor;
 }
+
+/* Collapsible */
+
+.collapsible {
+    &.collapsed .collapsible--content {
+        height: 0;
+    }
+}

@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
+{% from "macros/components.html" import collapsible %}
 
 {% block main %}
     <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
+
+    {% call collapsible("Map") %}
+        <span>TODO: replace with actual map</span>
+    {% endcall %}
 
     <form id="trip_form"
           method="POST"
