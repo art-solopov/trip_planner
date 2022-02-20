@@ -1,0 +1,23 @@
+{% macro geocode_fieldset(trip_id, field_selector) -%}
+    <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
+        <legend>Geocoding</legend>
+
+        {% if field_selector -%}
+            <div>
+                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
+                <label for="geocode_field_name">By name</label>
+
+                <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
+                <label for="geocode_field_address">By address</label>
+            </div>
+        {% else %}
+            <input name="geocode_field" type="hidden" value="name">
+        {%- endif %}
+
+        <div class="my-2">
+            <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', trip_id=trip_id) }}" hx-params="name,address,geocode_field" hx-target="#geocode_results" hx-swap="outerHTML settle:0">Geocode</button>
+        </div>
+
+        <div id="geocode_results" data-geocode-target="results"></div>
+    </fieldset>
+{%- endmacro %}

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
+{% from "macros/geocode.html" import geocode_fieldset %}
 
 {% block main %}
     <form id="point_form"
@@ -23,23 +24,7 @@
             {{ field(form.lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon'}) }}
         </div>
 
-        <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
-            <legend>Geocoding</legend>
-
-            <div>
-                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
-                <label for="geocode_field_name">By name</label>
-
-                <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
-                <label for="geocode_field_address">By address</label>
-            </div>
-
-            <div class="my-2">
-                <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', trip_id=point.trip.id) }}" hx-params="name,address,geocode_field" hx-target="#geocode_results" hx-swap="outerHTML settle:0">Geocode</button>
-            </div>
-
-            <div id="geocode_results" data-geocode-target="results"></div>
-        </fieldset>
+        {{ geocode_fieldset(point.trip_id, field_selector=True) }}
 
         {%- set schedule_buttons %}
         {%- endset -%}
