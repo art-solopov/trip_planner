@@ -13,6 +13,7 @@ export default {
     input: {
         point_form: 'assets/js/point_form.js',
         trip_show: 'assets/js/trip_show.js',
+        trip_form: 'assets/js/trip_form.js',
         app: 'assets/js/app.js',
     },
     output: {
