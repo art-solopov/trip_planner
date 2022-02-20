@@ -1,4 +1,4 @@
-{% macro geocode_fieldset(trip_id, field_selector) -%}
+{% macro geocode_fieldset(field_selector, country_code) -%}
     <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
         <legend>Geocoding</legend>
 
@@ -15,7 +15,7 @@
         {%- endif %}
 
         <div class="my-2">
-            <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', trip_id=trip_id) }}" hx-params="name,address,geocode_field" hx-target="#geocode_results" hx-swap="outerHTML settle:0">Geocode</button>
+            <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}" hx-params="name,address,geocode_field" hx-target="#geocode_results" hx-swap="outerHTML settle:0">Geocode</button>
         </div>
 
         <div id="geocode_results" data-geocode-target="results"></div>

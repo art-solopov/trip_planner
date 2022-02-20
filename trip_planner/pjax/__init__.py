@@ -9,11 +9,13 @@ from ..geocode.data import geocode as geocode_op
 pjax = Blueprint('pjax', __name__, url_prefix='/pjax')
 
 
-@pjax.route('/geocode/<trip_id>', methods=('POST',))
+@pjax.route('/geocode', methods=('POST',))
 @csrf.exempt
 @user_required
-def geocode(trip_id):
-    print(request.headers)
+def geocode():
     form = GeocodeForm(request.form)
-    results = geocode_op(form, int(trip_id))
+    results = geocode_op(
+        form,
+        country_code=request.args.get('country_code', None)
+        )
     return render_template('pjax/geocode_results.html', results=results)

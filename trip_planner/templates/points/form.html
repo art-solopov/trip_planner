@@ -24,7 +24,7 @@
             {{ field(form.lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon'}) }}
         </div>
 
-        {{ geocode_fieldset(point.trip_id, field_selector=True) }}
+        {{ geocode_fieldset(country_code=point.trip.country_code, field_selector=True) }}
 
         {%- set schedule_buttons %}
         {%- endset -%}
