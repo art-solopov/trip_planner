@@ -110,6 +110,7 @@ class TripCUView(View):
         add_breadcrumb(self.title)
         return render_template('trips/form.html', form=self.form,
                                title=self.title,
+                               view_attrs={'data-controller': 'map-pointer'},
                                submit_text=self.submit_text)
 
     def _add_breadcrumbs(self):

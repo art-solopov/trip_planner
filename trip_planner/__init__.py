@@ -9,6 +9,7 @@ from wtforms import Field
 from markupsafe import Markup
 
 from .tailwind import FlashClasses, CommonClasses, FormClasses
+from .shared import DecimalPairConverter
 
 
 db = SQLAlchemy()
@@ -53,6 +54,8 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     db.init_app(app)
     migrate.init_app(app, db)
     csrf.init_app(app)
+
+    app.url_map.converters['decimal_pair'] = DecimalPairConverter
 
     @app.before_request
     def init_breadcrumbs():

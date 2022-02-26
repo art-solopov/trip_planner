@@ -7,7 +7,7 @@
     <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
 
     {% call collapsible("Map") %}
-        <span>TODO: replace with actual map</span>
+    <div hx-get="{{ url_for('pjax.map_pointer') }}" hx-trigger="collapsible:open once from:closest .collapsible"></div>
     {% endcall %}
 
     <form id="trip_form"
@@ -32,4 +32,15 @@
 
           {{ submit_btn() }}
     </form>
+{% endblock %}
+
+{% block extra_head %}
+    {# TODO: maybe install via npm #}
+    {# TODO: duplicates trips/show.html, extract into macros? #}
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+{% endblock %}
+
+{% block extra_body %}
+    {{ script_tag('trip_form') }}
 {% endblock %}

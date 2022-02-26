@@ -1,10 +1,9 @@
 {% macro collapsible(title, collapsed=True, collapsed_class='collapsed') -%}
     <div class="collapsible {% if collapsed %}{{ collapsed_class }}{% endif %} border rounded-md" data-controller="collapsible" data-collapsible-collapsed-class="{{ collapsed_class }}">
         <div class="p-1 bg-gray-200">
-            <button type="button" class="" data-collapsible-target="button" data-action="collapsible#toggle">Toggle</button> {# TODO: replace with icon #}
-            <span>{{ title }}</span>
+            <button type="button" class="block w-full text-left" data-collapsible-target="button" data-action="collapsible#toggle"><span></span> {{ title }}</button> {# TODO: replace with icon #}
         </div>
-        <div class="collapsible--content overflow-hidden box-border">
+        <div class="collapsible--content overflow-hidden box-border p-2">
             {{ caller() }}
         </div>
     </div>

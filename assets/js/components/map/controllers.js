@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus'
+import { Controller } from '@hotwired/stimulus'
 
 import Point from './func/point.js'
 import { FOCUS_ZOOM, mapInit, addDragableMarker } from './func/map.js'
@@ -55,6 +55,14 @@ MapController.values = {...BaseController.values}
 
 export class MapPointerController extends BaseController {
     get points() { return [] }
+
+    connect() {
+        window.mpctr = this // TODO debug
+    }
+
+    mapTargetConnected(e) {
+        console.log('Got map target', e)
+    }
 
     loadMap() {
         this._mapInit().then(map => addDragableMarker(map)).then(marker => this.marker = marker)
