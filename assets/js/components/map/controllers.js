@@ -91,7 +91,6 @@ export class MapPointerController extends BaseController {
 
     _loadMap() {
         this._mapInit()
-            .then(map => map.setZoom(FOCUS_ZOOM - 1))
             .then(map => addDraggableMarker(map))
             .then(marker => marker.on('dragend', this.setCoordinates.bind(this)))
             .then(marker => { this.marker = marker })

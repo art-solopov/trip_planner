@@ -1,5 +1,5 @@
-{% macro geocode_fieldset(field_selector, country_code) -%}
-    <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border">
+{% macro geocode_fieldset(field_selector, country_code, data={}) -%}
+    <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border" {{ data | xmlattr }}>
         <legend>Geocoding</legend>
 
         {% if field_selector -%}
@@ -14,7 +14,7 @@
             <input name="geocode_field" type="hidden" value="name">
         {%- endif %}
 
-        <div class="my-2">
+        <div>
             <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}" hx-params="name,address,geocode_field" hx-target="#geocode_results" hx-swap="outerHTML settle:0">Geocode</button>
         </div>
 

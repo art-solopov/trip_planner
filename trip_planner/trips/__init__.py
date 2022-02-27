@@ -109,7 +109,7 @@ class TripCUView(View):
         self._add_breadcrumbs()
         add_breadcrumb(self.title)
         view_attrs = {
-            'data-controller': 'map-pointer',
+            'data-controller': 'map-pointer geocode',
             'data-map-pointer-apikey-value': g.map_data.api_key,
             'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL
         }
