@@ -1,3 +1,4 @@
+export const DEFAULT_ZOOM = 10
 export const FOCUS_ZOOM = 15.0
 
 export async function mapInit(container, apiKey, style, points, center) {
@@ -31,7 +32,7 @@ function calculateBounds(points) {
 function loadMap(container, style, center, bounds) {
     const map = new mapboxgl.Map({
         container, style, bounds, center,
-        zoom: 10,
+        zoom: DEFAULT_ZOOM,
         fitBoundsOptions: {
             padding: 32,
             maxZoom: FOCUS_ZOOM
