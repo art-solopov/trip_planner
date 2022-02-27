@@ -1,14 +1,14 @@
 import { Controller } from '@hotwired/stimulus'
 
 import Point from './func/point.js'
-import { FOCUS_ZOOM, mapInit, addDragableMarker } from './func/map.js'
+import { FOCUS_ZOOM, mapInit, addDraggableMarker } from './func/map.js'
 import { elementOnScreen } from '../../utils'
 
 // TODO: refactor
 class BaseController extends Controller {
     _mapInit() {
         return mapInit(this.mapTarget, this.apikeyValue, this.styleurlValue, this.points, this.center)
-            .then(map => { this.map = map })
+            .then(map => { this.map = map; return map })
     }
 
     get center() {
@@ -56,18 +56,47 @@ MapController.values = {...BaseController.values}
 export class MapPointerController extends BaseController {
     get points() { return [] }
 
-    connect() {
-        window.mpctr = this // TODO debug
+    mapTargetConnected(el) {
+        let { centerLat, centerLon } = el.dataset
+        if (centerLat != null && centerLon != null) {
+            this.centerlatValue = centerLat
+            this.centerlonValue = centerLon
+        }
+        this._loadMap()
     }
 
-    mapTargetConnected(e) {
-        console.log('Got map target', e)
+    moveMap() {
+        if(this.map == null) return;
+        this.map.easeTo({center: this.point})
+        this.marker.setLngLat(this.point)
     }
 
-    loadMap() {
-        this._mapInit().then(map => addDragableMarker(map)).then(marker => this.marker = marker)
+    setCoordinates() {
+        let {lat, lng} = this.marker.getLngLat()
+        this.latTarget.value = lat
+        this.lonTarget.value = lng
+    }
+
+    get lat() {
+        return Number(this.latTarget.value)
+    }
+
+    get lon() {
+        return Number(this.lonTarget.value)
+    }
+
+    get point() {
+        return {lat: this.lat, lon: this.lon}
+    }
+
+    _loadMap() {
+        this._mapInit()
+            .then(map => map.setZoom(FOCUS_ZOOM - 1))
+            .then(map => addDraggableMarker(map))
+            .then(marker => marker.on('dragend', this.setCoordinates.bind(this)))
+            .then(marker => { this.marker = marker })
     }
 }
 
-MapPointerController.targets = [...BaseController.targets]
+MapPointerController.targets = [...BaseController.targets, 'lat', 'lon']
 MapPointerController.values = {...BaseController.values}

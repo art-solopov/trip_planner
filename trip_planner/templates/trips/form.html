@@ -25,9 +25,9 @@
           <div class="flex flex-row">
               {# TODO: extract into macros? #}
               {% set geo_wrapper_class='w-40' %}
-              {{ field(form.center_lat, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lat'}) }}
+              {{ field(form.center_lat, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lat', 'data-map-pointer-target': 'lat', 'data-action': 'change->map-pointer#moveMap'}) }}
               <span class="w-2">&nbsp;</span>
-              {{ field(form.center_lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon'}) }}
+              {{ field(form.center_lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon', 'data-map-pointer-target': 'lon', 'data-action': 'change->map-pointer#moveMap'}) }}
           </div>
 
           {{ submit_btn() }}

@@ -11,7 +11,7 @@ export async function mapInit(container, apiKey, style, points, center) {
     return map;
 }
 
-export function addDragableMarker(map) {
+export function addDraggableMarker(map) {
     const marker = new mapboxgl.Marker({anchor: 'bottom', draggable: true})
     marker.setLngLat(map.getCenter()).addTo(map)
     return marker

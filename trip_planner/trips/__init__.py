@@ -108,9 +108,14 @@ class TripCUView(View):
     def _default_render(self):
         self._add_breadcrumbs()
         add_breadcrumb(self.title)
+        view_attrs = {
+            'data-controller': 'map-pointer',
+            'data-map-pointer-apikey-value': g.map_data.api_key,
+            'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL
+        }
         return render_template('trips/form.html', form=self.form,
                                title=self.title,
-                               view_attrs={'data-controller': 'map-pointer'},
+                               view_attrs=view_attrs,
                                submit_text=self.submit_text)
 
     def _add_breadcrumbs(self):
