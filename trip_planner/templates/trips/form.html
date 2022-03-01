@@ -6,9 +6,8 @@
 
 {% block main %}
     <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
-
     {% call collapsible("Map") %}
-    <div hx-get="{{ url_for('pjax.map_pointer') }}" hx-trigger="collapsible:open once from:closest .collapsible"></div>
+    <div hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="collapsible:open once from:closest .collapsible"></div>
     {% endcall %}
 
     <form id="trip_form"

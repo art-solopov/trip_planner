@@ -116,6 +116,7 @@ class TripCUView(View):
         return render_template('trips/form.html', form=self.form,
                                title=self.title,
                                view_attrs=view_attrs,
+                               latlon=self._latlon(),
                                submit_text=self.submit_text)
 
     def _add_breadcrumbs(self):
@@ -123,6 +124,9 @@ class TripCUView(View):
 
     def _success_flash_text(self, trip: Trip):
         return ''
+
+    def _latlon(self):
+        return None
 
 
 class CreateTripView(TripCUView):
@@ -162,6 +166,9 @@ class UpdateTripView(TripCUView):
 
     def _success_flash_text(self, trip: Trip):
         return f"Trip «{trip.name}» updated"
+
+    def _latlon(self):
+        return (self.model.center_lat, self.model.center_lon)
 
 
 @trips.route('/<slug>/delete', methods=('GET', 'POST'))

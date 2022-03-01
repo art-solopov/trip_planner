@@ -24,7 +24,7 @@ def add_breadcrumb(text, link=None):
 
 
 class DecimalPairConverter(BaseConverter):
-    regex = r'\d+(\.\d+)?,\d+(\.\d+)?'
+    regex = r'-?\d+(\.\d+)?,-?\d+(\.\d+)?'
 
     def to_python(self, value: str):
         return tuple(Decimal(cmp) for cmp in value.split(','))
