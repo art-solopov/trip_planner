@@ -1,6 +1,8 @@
-{% macro field(field, extra = None, wrapper_class='', input_class='', field_kwargs={}) -%}
+{% set default_input_class = "w-full" %}
+
+{% macro field(field, extra = None, wrapper_class='', input_class=default_input_class, field_kwargs={}) -%}
     {%- set wrapper_base_class = "field-" + field.name -%}
-    <div class="{{ ['mb-2', wrapper_base_class, wrapper_class] | join(' ') }}">
+    <div class="{{ ["mb-2", wrapper_base_class, wrapper_class] | join(' ') }}">
         {{ field.label }}
         {{ field(class_=input_class, **field_kwargs) }}
         {%- if extra %}{{ extra }}{% endif %}

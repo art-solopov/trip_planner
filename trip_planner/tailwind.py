@@ -33,4 +33,4 @@ class CommonClasses:
 
 
 class FormClasses:
-    INPUT_DEFAULT = 'w-full'
+    pass

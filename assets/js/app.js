@@ -1,5 +1,7 @@
 import '../css/app.css'
 import { initComponent } from './utils'
 import Flash from './components/flash'
+import Collapsible from './components/collapsible'
 
-const app = initComponent(Flash)
+initComponent(Flash)
+initComponent(Collapsible)

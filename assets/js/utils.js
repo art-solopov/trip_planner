@@ -1,4 +1,4 @@
-import { Application } from 'stimulus'
+import { Application } from '@hotwired/stimulus'
 
 export function createApp(controllers = []) {
     const app = Application.start()
@@ -18,4 +18,9 @@ export function initComponent(component) {
     }
 
     return app
+}
+
+export function elementOnScreen(element) {
+    let rect = element.getBoundingClientRect()
+    return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
