@@ -1,6 +1,8 @@
 from functools import wraps
 from itertools import groupby
 from operator import attrgetter
+from typing import Dict
+
 from flask import (Blueprint, g, render_template,
                    request, redirect, url_for, flash,
                    make_response)
@@ -24,6 +26,21 @@ trips = Blueprint('trips', __name__, url_prefix='/trips')
 @trips.before_request
 def add_data():
     g.map_data = MapData()
+
+
+@trips.app_template_global()
+def geocode_field_kwargs(field_name: str) -> Dict[str, str]:
+    return {'data-geocode-target': field_name,
+            'data-map-pointer-target': field_name,
+            'data-action': 'change->map-pointer#moveMap'}
+
+
+def _map_pointer_view_attrs() -> Dict[str, str]:
+    return {
+        'data-controller': 'map-pointer geocode',
+        'data-map-pointer-apikey-value': g.map_data.api_key,
+        'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL
+        }
 
 
 @trips.route("/")
@@ -108,11 +125,7 @@ class TripCUView(View):
     def _default_render(self):
         self._add_breadcrumbs()
         add_breadcrumb(self.title)
-        view_attrs = {
-            'data-controller': 'map-pointer geocode',
-            'data-map-pointer-apikey-value': g.map_data.api_key,
-            'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL
-        }
+        view_attrs = _map_pointer_view_attrs()
         return render_template('trips/form.html', form=self.form,
                                title=self.title,
                                view_attrs=view_attrs,
@@ -241,7 +254,9 @@ def add_point(slug: str):
     add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
     add_breadcrumb('Add point')
     return render_template('points/form.html', form=form, point=point,
-                           title='Add point')
+                           title='Add point',
+                           view_attrs=_map_pointer_view_attrs(),
+                           latlon=(trip.center_lat, trip.center_lon))
 
 
 @trips.route("/<slug>/<int:id>")
@@ -271,6 +286,8 @@ def update_point(trip: Trip, point: Point):
     title = f'Update point {point.name}'
     add_breadcrumb(title)
     return render_template('points/form.html', form=form, point=point,
+                           view_attrs=_map_pointer_view_attrs(),
+                           latlon=(point.lat, point.lon),
                            title=title)
 
 

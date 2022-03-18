@@ -8,3 +8,9 @@
         </div>
     </div>
 {%- endmacro %}
+
+{% macro collapsible_map(title, latlon, collapsed=True, collapsed_class='collapsed') -%}
+    {% call collapsible("Map", collapsed=collapsed, collapsed_class='collapsed') %}
+    <div hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="collapsible:open once from:closest .collapsible"></div>
+    {% endcall %}
+{%- endmacro %}
