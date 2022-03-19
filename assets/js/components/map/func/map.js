@@ -1,11 +1,15 @@
 export const DEFAULT_ZOOM = 10
 export const FOCUS_ZOOM = 15.0
+const FIT_BOUND_OPTIONS = {
+    padding: 32,
+    maxZoom: FOCUS_ZOOM
+}
 
-export async function mapInit(container, apiKey, style, points, center) {
+export async function mapInit(apiKey, points, options) {
     mapboxgl.accessToken = apiKey
 
-    const bounds = calculateBounds(points)
-    const map = await loadMap(container, style, center, bounds)
+    options.bounds = calculateBounds(points)
+    const map = await loadMap(options)
     addPointsLayer(map, points)
     addPointsMarkers(map, points)
 
@@ -29,14 +33,10 @@ function calculateBounds(points) {
     ]
 }
 
-function loadMap(container, style, center, bounds) {
+function loadMap(options) {
     const map = new mapboxgl.Map({
-        container, style, bounds, center,
-        zoom: DEFAULT_ZOOM,
-        fitBoundsOptions: {
-            padding: 32,
-            maxZoom: FOCUS_ZOOM
-        },
+        ...options,
+        fitBoundsOptions: FIT_BOUND_OPTIONS,
         attributionControl: true
     });
 
