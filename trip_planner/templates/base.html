@@ -19,7 +19,7 @@
                 {%- if messages %}
                     <div class="flashes my-3">
                         {% for category, message in messages %}
-                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }} data-controller="flash"">
+                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}" data-controller="flash">
                                 <span>{{ message }}</span>
                                 <button type="button"
                                         class="text-gray-600 hover:bg-gray-300 transition-colors duration-150 w-6 rounded-full"
