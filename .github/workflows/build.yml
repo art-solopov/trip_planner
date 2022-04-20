@@ -7,6 +7,21 @@ on:
     branches: [ master ]
 
 jobs:
+  requirements_txt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.7.7
+      - run: pip install poetry
+      - name: Export requirements
+        run: poetry export -o requirements.txt
+      - name: Store requirements.txt file
+        uses: actions/upload-artifact@v3
+        with:
+          name: requirements.txt
+          path: requirements.txt
   assets:
     runs-on: ubuntu-latest
     env:
