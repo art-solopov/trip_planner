@@ -3,8 +3,6 @@ name: Building
 on:
   push:
     branches: [ master, deploy, github-actions ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   requirements_txt:
@@ -40,5 +38,28 @@ jobs:
       with:
         name: assets
         path: trip_planner/static/assets
-      
-
+  docker:
+    runs-on: ubuntu-latest
+    needs: [requirements_txt, assets]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - uses: actions/download-artifact@v3
+      with:
+        name: assets
+        path: trip_planner/static/assets
+    - uses: actions/download-artifact@v3
+      with:
+        name: requirements.txt
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_LOGIN }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ format('{0}/trip_planner:{1}', secrets.DOCKERHUB_LOGIN, github.ref_name) }}
