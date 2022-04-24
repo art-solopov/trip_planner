@@ -1,8 +1,10 @@
-name: Building
+name: Main
 
-on:
-  push:
-    branches: [ master, deploy, github-actions ]
+on: push
+    # branches: [ master, deploy, github-actions ]
+
+env:
+  PYTHON_VERSION: 3.7.7
 
 jobs:
   requirements_txt:
@@ -11,15 +13,53 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
-          python-version: 3.7.7
+          python-version: ${{ env.PYTHON_VERSION }}
       - run: pip install poetry
       - name: Export requirements
         run: poetry export -o requirements.txt
+      - name: Export dev requirements (for tests)
+        run: poetry export --dev -o requirements.dev.txt
       - name: Store requirements.txt file
         uses: actions/upload-artifact@v3
         with:
           name: requirements.txt
           path: requirements.txt
+      - name: Store requirements.dev.txt file
+        uses: actions/upload-artifact@v3
+        with:
+          name: requirements.dev.txt
+          path: requirements.dev.txt
+  tests:
+    runs-on: ubuntu-latest
+    needs: [requirements_txt]
+    env:
+      POSTGRES_USER: trip_planner
+      POSTGRES_PASSWORD: trip_planner
+      POSTGRES_DB: trip_planner
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: requirements.dev.txt
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install -r requirements.dev.txt
+      - name: Tests
+        run: python -m pytest
+        env:
+          TESTDB: ${{ format('postgresql://{0}:{1}@localhost/{2}', env.POSTGRES_USER, env.POSTGRES_PASSWORD, env.POSTGRES_DB) }}
+    services:
+      postgres:
+        image: postgres:10
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+
   assets:
     runs-on: ubuntu-latest
     env:
@@ -40,7 +80,8 @@ jobs:
         path: trip_planner/static/assets
   docker:
     runs-on: ubuntu-latest
-    needs: [requirements_txt, assets]
+    needs: [requirements_txt, assets, tests]
+    if: github.ref_type == 'tag' || github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'deploy' || github.ref_name == 'github-actions'
     steps:
     - uses: actions/checkout@v3
     - name: Set up Docker Buildx
