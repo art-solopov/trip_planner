@@ -102,6 +102,12 @@ export class MapPointerController extends BaseController {
         return {lat: this.lat, lon: this.lon}
     }
 
+    get center() {
+        let point = this.point
+        if(point.lat) { return point }
+        return super.center
+    }
+
     _loadMap() {
         this._mapInit()
             .then(map => addDraggableMarker(map))
