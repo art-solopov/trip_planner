@@ -1,14 +1,25 @@
 import { Controller } from '@hotwired/stimulus'
 
 import Point from './func/point.js'
-import { FOCUS_ZOOM, mapInit, addDraggableMarker } from './func/map.js'
+import { DEFAULT_ZOOM, FOCUS_ZOOM, mapInit, addDraggableMarker } from './func/map.js'
 import { elementOnScreen } from '../../utils'
 
 // TODO: refactor
 class BaseController extends Controller {
+    static zoom = DEFAULT_ZOOM
+
     _mapInit() {
-        return mapInit(this.mapTarget, this.apikeyValue, this.styleurlValue, this.points, this.center)
+        return mapInit(this.apikeyValue, this.points, this.mapOptions)
             .then(map => { this.map = map; return map })
+    }
+
+    get mapOptions() {
+        return {
+            container: this.mapTarget,
+            style: this.styleurlValue,
+            center: this.center,
+            zoom: this.constructor.zoom
+        }
     }
 
     get center() {
@@ -54,6 +65,8 @@ MapController.targets = [...BaseController.targets, 'point']
 MapController.values = {...BaseController.values}
 
 export class MapPointerController extends BaseController {
+    static zoom = FOCUS_ZOOM
+
     get points() { return [] }
 
     mapTargetConnected(el) {
@@ -87,6 +100,12 @@ export class MapPointerController extends BaseController {
 
     get point() {
         return {lat: this.lat, lon: this.lon}
+    }
+
+    get center() {
+        let point = this.point
+        if(point.lat) { return point }
+        return super.center
     }
 
     _loadMap() {

@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
-{% from "macros/components.html" import collapsible %}
+{% from "macros/components.html" import collapsible_map %}
 {% from "macros/geocode.html" import geocode_fieldset %}
 
 {% block main %}
     <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
-    {% call collapsible("Map") %}
-    <div hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="collapsible:open once from:closest .collapsible"></div>
-    {% endcall %}
+    {{ collapsible_map('Map', latlon) }}
 
     <form id="trip_form"
           method="POST"
@@ -23,9 +21,9 @@
           <div class="flex flex-row">
               {# TODO: extract into macros? #}
               {% set geo_wrapper_class='w-40' %}
-              {{ field(form.center_lat, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lat', 'data-map-pointer-target': 'lat', 'data-action': 'change->map-pointer#moveMap'}) }}
+              {{ field(form.center_lat, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
               <span class="w-2">&nbsp;</span>
-              {{ field(form.center_lon, wrapper_class=geo_wrapper_class, field_kwargs={'data-geocode-target': 'lon', 'data-map-pointer-target': 'lon', 'data-action': 'change->map-pointer#moveMap'}) }}
+              {{ field(form.center_lon, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
           </div>
         
           {{ geocode_fieldset(field_selector=False, country_code='', data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
