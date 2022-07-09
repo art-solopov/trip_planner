@@ -126,4 +126,24 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 AUTH_USER_MODEL = 'trips.User'
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'db_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'log/db.log'
+            }
+        },
+
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['db_file'],
+            'level': 'DEBUG'
+            }
+        }
+    }
+
