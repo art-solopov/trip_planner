@@ -1,0 +1,5 @@
+static/**/*.js
+static/**/*.map
+static/**/*.css
+!static/vendor/**
+manifest.json
