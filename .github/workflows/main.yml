@@ -4,7 +4,7 @@ on: push
     # branches: [ master, deploy, github-actions ]
 
 env:
-  PYTHON_VERSION: 3.7.7
+  PYTHON_VERSION: 3.10.5
 
 jobs:
   requirements_txt:

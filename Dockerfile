@@ -1,8 +1,8 @@
-FROM python:3.7-buster
+FROM python:3.10-bullseye
 
 ARG uid=1100
 
-RUN apt-get update && apt-get -y install postgresql-client-11 rsync
+RUN apt-get update && apt-get -y install postgresql-client-13 rsync
 
 RUN useradd -u $uid -s /bin/bash -m trip_planner
 
