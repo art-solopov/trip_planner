@@ -1,6 +1,13 @@
+@use "variables/colors" as colors;
+
+@import "components/buttons";
+
 $body-font-size: 16px;
 
 body {
   font-size: $body-font-size;
   font-family: system-ui;
+
+  background-color: colors.$body-bg;
+  color: colors.$body-text;
 }
