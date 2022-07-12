@@ -15,7 +15,7 @@ def _read_manifest():
         return json.load(f)
 
 
-if settings.DEBUG:
+if not settings.DEBUG:
     _read_manifest = cache(_read_manifest)
 
 
@@ -31,3 +31,10 @@ def asset_script_tag(name: str, is_module: bool = True):
 def asset_style_tag(name: str):
     style_path = _read_manifest()[name + '.css']
     return format_html('<link rel="stylesheet" href="{}">', style_path)
+
+
+@register.simple_tag
+def htmx_tag():
+    version = settings.HTMX_VERSION
+    path = f"{settings.STATIC_URL}vendor/htmx-{version}.min.js"
+    return format_html('<script src="{}"></script>', path)

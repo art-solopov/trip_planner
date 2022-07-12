@@ -1,3 +1,4 @@
+{% load static %}
 {% load assets %}
 
 <!DOCTYPE html>
@@ -10,8 +11,7 @@
 
         {% asset_style_tag 'app' %}
         {% asset_script_tag 'app' %}
-
-        <script src="/static/vendor/htmx.min.js"></script>
+        {% htmx_tag %}
 
         {% block extra_head %}{% endblock %}
     </head>
