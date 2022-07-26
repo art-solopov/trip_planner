@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% regroup city_list by country as cities_list %}
+    {% for country, cities in cities_list %}
+        <h2>{{ country.name }}</h2>
+        <ul>
+            {% for city in cities %}
+            <li>{{ city.name }} — <a href="{% url 'city-detail' city.country city.slug %}">View</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}

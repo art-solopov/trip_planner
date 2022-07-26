@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ point.name }}</h1>
+
+<p>{{ point.get_type_display }}</p>
+<p>{{ point.address }}</p>
+<p>{{ point.lat }},{{ point.lon }}</p>
+<p>{{ point.schedule | pprint }}</p>
+{% endblock %}

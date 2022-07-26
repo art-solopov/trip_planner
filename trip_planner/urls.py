@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path
 
 from .home_views import home
+from locations import views as locations_views
 
 urlpatterns = [
     path('', home),
+    path('cities', locations_views.CitiesList.as_view(), name="cities-list"),
+    path('cities/<str:country>/<slug:slug>', locations_views.CityDetail.as_view(), name="city-detail"),
+    path('points/<int:pk>', locations_views.PointOfInterestDetail.as_view(), name='point-detail'),
     path('admin/', admin.site.urls),
 ]

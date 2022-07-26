@@ -13,10 +13,18 @@ class GeoPoint(models.Model):
         abstract = True
 
 
+class CityManager(models.Manager):
+    def available_for_view(self):
+        points_subq = PointOfInterest.objects.filter(city=models.OuterRef('pk'))
+        return self.filter(models.Exists(points_subq))
+
+
 class City(GeoPoint, models.Model):
     name = models.CharField(max_length=500, db_index=True)
     country = CountryField()
     slug = models.SlugField(max_length=500, unique=True)
+
+    objects = CityManager()
 
     def __str__(self):
         return f'{self.name} {self.country.code}'

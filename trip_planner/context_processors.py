@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 
 NAVIGATION = [
-    ('/', 'Cities')
+    (reverse_lazy('cities-list'), 'Cities')
 ]
 
 
