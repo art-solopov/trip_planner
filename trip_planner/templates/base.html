@@ -9,6 +9,7 @@
 
         <title>Trip planner</title>
 
+	{% normalize_css_tag %}
         {% asset_style_tag 'app' %}
         {% asset_script_tag 'app' %}
         {% htmx_tag %}
@@ -16,6 +17,14 @@
         {% block extra_head %}{% endblock %}
     </head>
     <body>
-        {% block content %}{% endblock %}
+	<header>
+	    <!-- TODO: insert header -->
+	</header>
+	<main>
+            {% block content %}{% endblock %}
+	</main>
+	<footer>
+	    <!-- TODO: insert footer -->
+	</footer>
     </body>
 </html>

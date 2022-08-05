@@ -5,6 +5,9 @@ from django import template
 from django.conf import settings
 from django.utils.html import format_html
 
+HTMX_VERSION = '1.7.0'
+NORMALIZE_CSS_VERSION = '8.0.1'
+
 register = template.Library()
 
 
@@ -35,6 +38,11 @@ def asset_style_tag(name: str):
 
 @register.simple_tag
 def htmx_tag():
-    version = settings.HTMX_VERSION
-    path = f"{settings.STATIC_URL}vendor/htmx-{version}.min.js"
+    path = f"{settings.STATIC_URL}vendor/htmx-{HTMX_VERSION}.min.js"
     return format_html('<script src="{}"></script>', path)
+
+
+@register.simple_tag
+def normalize_css_tag():
+    path = f"{settings.STATIC_URL}vendor/normalize-{NORMALIZE_CSS_VERSION}.css"
+    return format_html('<link rel="stylesheet" href={}>', path)
