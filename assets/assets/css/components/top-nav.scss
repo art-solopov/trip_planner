@@ -24,7 +24,6 @@
     span, a {
 	display: block;
 	padding: $padding-base $padding-sides;
-	box-sizing: border-box;
     }
 
     a {
@@ -33,7 +32,7 @@
 
 	&.active {
 	    color: colors.$body-text;
-	    border-bottom: 2px solid map.get(colors.$accent, "main");
+	    box-shadow: 0 -0.25rem map.get(colors.$accent, "main") inset;
 	}
 
 	&:hover,

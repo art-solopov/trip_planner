@@ -1,7 +1,10 @@
 <nav class="top-nav">
     <a href="/" class="top-nav__brand">Tp</a>
     <div class="top-nav-left">
-	<a href="#">Cities</a>
+	{# <a href="#">Cities</a> #}
+	{% for url, text in navigation %}
+	    <a href="{{url}}" class="{% if url == request.path %}active{% endif %}">{{text}}</a>
+	{% endfor %}
 	<span title="Coming soon">Trips</span>
     </div>
 </nav>
