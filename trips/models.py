@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 
 from locations.models import City, PointOfInterest
@@ -27,6 +28,11 @@ class Trip(models.Model):
             models.Index(fields=['author', 'name']),
             models.Index(fields=['author', 'slug'])
             ]
+
+    @property
+    @admin.display(ordering=['author__username', 'slug'])
+    def full_slug(self):
+        return f"{self.author.username}/{self.slug}"
 
 
 class TripLeg(models.Model):
