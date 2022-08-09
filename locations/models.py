@@ -1,3 +1,46 @@
 from django.db import models
 
-# Create your models here.
+from django_countries.fields import CountryField
+
+
+class GeoPoint(models.Model):
+    lat = models.DecimalField(verbose_name="latitude",
+                              max_digits=8, decimal_places=5)
+    lon = models.DecimalField(verbose_name="longitude",
+                              max_digits=8, decimal_places=5)
+
+    class Meta:
+        abstract = True
+
+
+class City(GeoPoint, models.Model):
+    name = models.CharField(max_length=500, db_index=True)
+    country = CountryField()
+    slug = models.SlugField(max_length=500, unique=True)
+
+
+class PointOfInterest(GeoPoint, models.Model):
+    POINT_TYPES = [
+        ('museum', 'Museum'),
+        ('sight', 'Sight'),
+        ('entertainment', 'Entertainment'),
+        ('food', 'Food'),
+        ('accomodation', 'Accomodation'),
+        ('transport', 'Transport'),
+        ('shop', 'Shop'),
+        ('other', 'Other'),
+        ]
+
+    city = models.ForeignKey(City, on_delete=models.PROTECT)
+    name = models.CharField(max_length=500)
+    address = models.TextField()
+    notes = models.TextField()
+    slug = models.SlugField(max_length=500)
+    type = models.CharField(max_length=255, choices=POINT_TYPES)
+    schedule = models.JSONField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['city', 'name']),
+            models.Index(fields=['city', 'slug'])
+            ]
