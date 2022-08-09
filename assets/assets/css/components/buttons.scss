@@ -1,0 +1,12 @@
+@use "sass:list";
+@use "sass:map";
+
+@use "../variables/colors" as colors;
+
+.button {
+    @each $brand in colors.$brands {
+	&.#{$brand} {
+	    @include colors.brand-solid($brand);
+	}
+    }
+}

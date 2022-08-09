@@ -1,0 +1,24 @@
+@use "../variables/breakpoints" as bp;
+
+body {
+    display: flex;
+    flex-flow: column;
+
+    min-height: 90vh;
+
+    & > main {
+	flex: 1 0 auto;
+    }
+
+    $large-screen: 1200px;
+    $huge-screen: bp.$huge;
+
+    @media(min-width: bp.$big) {
+	width: clamp(bp.$big, 90%, $large-screen);
+	margin: 0 auto;
+    }
+
+    @media(min-width: bp.$huge) {
+	width: clamp($large-screen, 90%, $huge-screen);
+    }
+}

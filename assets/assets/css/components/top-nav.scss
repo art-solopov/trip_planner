@@ -1,0 +1,51 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:color";
+@use "../variables/colors" as colors;
+
+.top-nav {
+    $color-left: colors.$crayola-green;
+    $color-mid-1: list.nth(colors.$crayola-green-cooler, 2);
+    $color-mid-2: list.nth(colors.$crayola-green-cooler, 5);
+    $color-right: list.nth(colors.$denim-blue-neon, 2);
+    $padding-base: 1rem;
+    $padding-sides: 0.75rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    background-image: linear-gradient(to right, $color-left, $color-mid-1, $color-mid-2, $color-right);
+    color: color.adjust(colors.$body-text, $alpha: -0.4);
+
+    &-left {
+	display: flex;
+	flex-flow: row nowrap;
+    }
+
+    span, a {
+	display: block;
+	padding: $padding-base $padding-sides;
+	box-sizing: border-box;
+    }
+
+    a {
+	color: inherit;
+	text-decoration: none;
+
+	&.active {
+	    color: colors.$body-text;
+	    border-bottom: 2px solid map.get(colors.$accent, "main");
+	}
+
+	&:hover,
+	&:focus {
+	    text-decoration: underline;
+	}
+    }
+
+    & &__brand {
+	color: colors.$body-text;
+	$brand-font-size: 1.2;
+	font-size: calc($brand-font-size * 1rem);
+	padding: calc((2 - $brand-font-size) * $padding-base) $padding-base $padding-base;
+    }
+}

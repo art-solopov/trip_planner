@@ -1,0 +1,92 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:list";
+
+/* === Base colours === */
+
+$rich-black: hsl(216, 100%, 4%);
+
+$crayola-green: hsl(94, 69%, 73%);
+$denim-blue: hsl(214, 70%, 43%);
+$fiery-rose: hsl(356, 82%, 66%);
+
+/* === Palettes ===
+  Generated with https://fffuel.co/pppalette/
+*/
+
+$crayola-green-earth: (
+hsl(94, 40%, 66%),
+hsl(94, 40%, 60%),
+hsl(94, 40%, 54%),
+hsl(94, 40%, 47%),
+hsl(94, 40%, 42%),
+hsl(94, 40%, 36%),
+);
+
+$crayola-green-cooler: (
+hsl(94, 69%, 73%),
+hsl(141, 71%, 73%),
+hsl(166, 74%, 65%),
+hsl(181, 73%, 61%),
+hsl(190, 85%, 67%),
+hsl(201, 89%, 74%),
+);
+
+$fiery-rose-analogous: (
+hsl(356, 81%, 36%),
+hsl(356, 81%, 66%),
+hsl(356, 81%, 79%),
+hsl(328, 81%, 79%),
+hsl(328, 81%, 66%),
+hsl(328, 81%, 34%),
+);
+
+$denim-blue-neon: (
+hsl(214, 90%, 70%),
+hsl(214, 90%, 65%),
+hsl(214, 90%, 60%),
+hsl(214, 90%, 55%),
+hsl(214, 90%, 50%),
+hsl(214, 90%, 45%),
+);
+
+
+// "Brand" colours
+// Generated from base colours
+$primary: (
+  "main": $crayola-green,
+  "text": white,
+  "border": list.nth($crayola-green-earth, 6)
+);
+
+$accent: (
+  "main": $denim-blue,
+  "text": white,
+  "border": list.nth($denim-blue-neon, 5)
+);
+
+$brand-colors: (
+  "primary": $primary,
+  "accent": $accent,
+);
+
+$brands: map.keys($brand-colors);
+
+@mixin brand-solid($key) {
+  $col: map.get($brand-colors, $key);
+  background-color: map.get($col, "main");
+  color: map.get($col, "text");
+  border-color: map.get($col, "border");
+}
+
+@mixin brand-border($key) {
+    $col: map.get($brand-colors, $key);
+    color: map.get($col, "main");
+    border-color: map.get($col, "main");
+}
+
+$body-text: $rich-black;
+$body-bg: white;
+
+
+@debug $brand-colors;
