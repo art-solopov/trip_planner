@@ -1,30 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ city.name }}</h1>
+    <h1>{{ city.name }}</h1>
 
-{% regroup points by get_type_display as points_list %}
 
-<table>
-    {% for type, pts in points_list %}
-    <tbody>
-        <tr>
-            <td colspan="5">{{ type }}</td>
-        </tr>
-
-        {% for point in pts %}
-        <tr>
-            <td>{{ point.name}}</td>
-            <td>{{ point.address }}</td>
-            <td>{{ point.lat }}</td>
-            <td>{{ point.lon }}</td>
-            <td>
-                <a href="{% url 'point-detail' point.pk %}">View</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+    {% for type, points in grouped_points %}
+	<section class="points-list-{{ type }}">
+	    <h2>{{ points.0.get_type_display }}</h2>
+	    <ul>
+		{% for point in points %}
+		    <li>
+			<div>
+			    <h3>{{ point.name }}</h3>
+			    <p>{{ point.address }}</p>
+			    <a href="{% url 'point-detail' point.pk %}">View</a>
+			</div>
+		    </li>
+		{% endfor %}
+	    </ul>
+	</section>
     {% endfor %}
-</table>
 
 {% endblock %}

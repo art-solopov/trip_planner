@@ -1,5 +1,4 @@
 from django.db import models
-
 from django_countries.fields import CountryField
 
 
@@ -15,7 +14,8 @@ class GeoPoint(models.Model):
 
 class CityManager(models.Manager):
     def available_for_view(self):
-        points_subq = PointOfInterest.objects.filter(city=models.OuterRef('pk'))
+        points_subq = PointOfInterest.objects.filter(
+            city=models.OuterRef('pk'))
         return self.filter(models.Exists(points_subq))
 
 

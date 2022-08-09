@@ -1,6 +1,7 @@
 import django.views.generic as v
 
 from .models import City, PointOfInterest
+from . import queries as q
 
 
 class CitiesList(v.ListView):
@@ -17,12 +18,13 @@ class CityDetail(v.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['points'] = self._get_points()
+        context['grouped_points'] = self._get_points()
         return context
 
     def _get_points(self):
         city = self.get_object()
-        return city.pointofinterest_set.order_by('type', 'name')
+        query = q.PointsForCity()
+        return query(city)
 
 
 class PointOfInterestDetail(v.DetailView):
