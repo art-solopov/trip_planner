@@ -19,7 +19,7 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(PointOfInterest)
 class PointOfInterestAdmin(admin.ModelAdmin):
-    list_display = ('name', 'city_name', 'city_country')
+    list_display = ('name', 'type', 'city_name', 'city_country')
     list_select_related = ('city',)
     prepopulated_fields = {'slug': ('name',)}
 

@@ -3,6 +3,8 @@
 @import "components/buttons";
 @import "components/layout";
 @import "components/top-nav";
+@import "components/color-vars";
+@import "components/points-list";
 
 $body-font-size: 16px;
 
@@ -12,4 +14,10 @@ body {
 
   background-color: colors.$body-bg;
   color: colors.$body-text;
+}
+
+.subtitle {
+    font-size: 75%;
+    font-style: italic;
+    color: colors.$body-text-faded;
 }

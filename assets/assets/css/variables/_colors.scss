@@ -2,7 +2,7 @@
 @use "sass:map";
 @use "sass:list";
 
-/* === Base colours === */
+// === Base colours ===
 
 $rich-black: hsl(216, 100%, 4%);
 
@@ -10,9 +10,8 @@ $crayola-green: hsl(94, 69%, 73%);
 $denim-blue: hsl(214, 70%, 43%);
 $fiery-rose: hsl(356, 82%, 66%);
 
-/* === Palettes ===
-  Generated with https://fffuel.co/pppalette/
-*/
+// === Palettes ===
+// Generated with https://fffuel.co/pppalette/
 
 $crayola-green-earth: (
 hsl(94, 40%, 66%),
@@ -86,7 +85,5 @@ $brands: map.keys($brand-colors);
 }
 
 $body-text: $rich-black;
+$body-text-faded: color.adjust($body-text, $alpha: -0.4);
 $body-bg: white;
-
-
-@debug $brand-colors;

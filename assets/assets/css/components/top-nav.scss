@@ -14,7 +14,7 @@
     display: flex;
     flex-flow: row nowrap;
     background-image: linear-gradient(to right, $color-left, $color-mid-1, $color-mid-2, $color-right);
-    color: color.adjust(colors.$body-text, $alpha: -0.4);
+    color: colors.$body-text-faded;
 
     &-left {
 	display: flex;

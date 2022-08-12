@@ -1,0 +1,39 @@
+.points-list {
+    h2 {
+	background: linear-gradient(to right, var(--category-color), transparent);
+	color: var(--category-text-color);
+	padding: 0.25rem;
+	margin: 0.5rem 0 0;
+    }
+
+    ul {
+	margin: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	list-style: none;
+	padding: 0.5rem 0;
+	overflow-x: scroll;
+    }
+
+    li {
+	margin: 0;
+	flex: 0 0 10rem;
+	display: flex;
+	flex-flow: column;
+	$border: 2px solid dimgray;
+	border-left: $border;
+	padding: 0 0.5rem;
+
+	&:last-child {
+	    border-right: $border;
+	}
+
+	.points-list-actions {
+	    margin-top: auto;
+	}
+	
+	h3 {
+	    margin: 0;
+	}
+    }
+}

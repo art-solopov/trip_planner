@@ -1,0 +1,22 @@
+@use "sass:list";
+@use "sass:map";
+
+@use "../variables/colors";
+
+$category-colors: (
+    "museum": (list.nth(colors.$denim-blue-neon, 6), white),
+    "entertainment": (list.nth(colors.$fiery-rose-analogous, 3), colors.$rich-black),
+    "sight": (list.nth(colors.$crayola-green-cooler, 3), colors.$rich-black),
+    "food": (brown, white),
+    "accomodation": (list.nth(colors.$fiery-rose-analogous, 6), colors.$rich-black),
+    "transport": (colors.$crayola-green, colors.$rich-black),
+    "shop": (list.nth(colors.$denim-blue-neon, 1), colors.$rich-black),
+    "other": (dimgray, white),
+);
+
+@each $cat, $cols in $category-colors {
+    .is-#{$cat} {
+	--category-color: #{list.nth($cols, 1)};
+	--category-text-color: #{list.nth($cols, 2)};
+    }
+}
