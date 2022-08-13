@@ -1,0 +1,18 @@
+{% if schedule %}
+    <table class="point-detail-schedule">
+	<tbody>
+	    {% for wd, day_schedule in schedule %}
+		<tr>
+		    <th class="{{ wd }}">{{ wd | capfirst }}</th>
+		    <td>
+			{% if day_schedule %}
+			    <span>{{ day_schedule.open_from }}</span>
+			    <span>–</span>
+			    <span>{{ day_schedule.open_to }}</span>
+			{% endif %}
+		    </td>
+		</tr>
+	    {% endfor %}
+	</tbody>
+    </table>
+{% endif %}
