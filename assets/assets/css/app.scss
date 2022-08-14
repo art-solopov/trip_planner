@@ -5,6 +5,7 @@
 @import "components/top-nav";
 @import "components/color-vars";
 @import "components/points-list";
+@import "components/point-detail";
 
 $body-font-size: 16px;
 
@@ -15,6 +16,8 @@ body {
   background-color: colors.$body-bg;
   color: colors.$body-text;
 }
+
+// TODO: extract utils into a separate file
 
 .subtitle {
     font-size: 75%;

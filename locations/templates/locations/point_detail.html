@@ -2,11 +2,15 @@
 {% load point_data %}
 
 {% block content %}
+    <figure class="point-detail-map" style="--img-height: {{ map_height }}px; --img-width: {{ map_width }}px;">
+	<img src="{{ map_url }}">
+    </figure>
+    
     <h1>
 	<div>{{ point.name }}</div>
 	<div class="subtitle">{{ point.city.name }}</div>
     </h1>
 
-<p class="point-detail-address">{{ point.address }}</p>
-{% render_schedule point %}
+    <p class="point-detail-address">{{ point.address }}</p>
+    {% render_schedule point %}
 {% endblock %}

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from os import getenv
 
@@ -151,3 +152,5 @@ LOGGING = {
             }
         }
     }
+
+MAPBOX_API_KEY = os.environ['MAPBOX_API_KEY']

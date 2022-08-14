@@ -5,7 +5,7 @@
 		<tr>
 		    <th class="{{ wd }}">{{ wd | capfirst }}</th>
 		    <td>
-			{% if day_schedule %}
+			{% if day_schedule and day_schedule.open_from and day_schedule.open_to %}
 			    <span>{{ day_schedule.open_from }}</span>
 			    <span>–</span>
 			    <span>{{ day_schedule.open_to }}</span>

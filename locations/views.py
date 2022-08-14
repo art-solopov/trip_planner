@@ -1,7 +1,8 @@
 import django.views.generic as v
 
+import trip_planner.home_views as hv
 from .models import City, PointOfInterest
-from . import queries as q
+from . import queries as q, helpers
 
 
 class CitiesList(v.ListView):
@@ -27,7 +28,17 @@ class CityDetail(v.DetailView):
         return query(city)
 
 
-class PointOfInterestDetail(v.DetailView):
+class PointOfInterestDetail(hv.WithMainClassMixin, v.DetailView):
     model = PointOfInterest
     context_object_name = 'point'
     template_name = 'locations/point_detail.html'
+    main_class = 'point-detail'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        point = self.get_object()
+        map_data = helpers.MapData()
+        context['map_url'] = map_data.static_map_url(point.lat, point.lon)
+        context['map_height'] = map_data.IMG_HEIGHT
+        context['map_width'] = map_data.IMG_WIDTH
+        return context

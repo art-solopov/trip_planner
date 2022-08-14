@@ -1,0 +1,22 @@
+@use "../variables/breakpoints";
+
+.point-detail {
+    &-map {
+	margin: 1rem 0;
+	padding: 0.25rem;
+	width: min(100%, var(--img-width));
+	img {
+	    width: 100%;
+	    height: var(--img-height);
+	    object-fit: cover;
+	}
+
+	@media(min-width: breakpoints.$big) {
+	    float: right;
+	}
+
+	@media(min-width: breakpoints.$huge) {
+	    margin-right: 10%;
+	}
+    }
+}
