@@ -1,8 +1,10 @@
+import itertools as it
+
 import django.views.generic as v
 
 import trip_planner.home_views as hv
 from .models import City, PointOfInterest
-from . import queries as q, helpers
+from . import queries as q, map_data
 
 
 class CitiesList(v.ListView):
@@ -19,7 +21,10 @@ class CityDetail(v.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['grouped_points'] = self._get_points()
+        points = self._get_points()
+        context['grouped_points'] = points
+        context['flat_points'] = [map_data.point_data(pt)
+                                  for pt in it.chain(*(l for _, _, l in points))]
         return context
 
     def _get_points(self):

@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+    {{ flat_points | json_script:"points_data" }}
+{% endblock %}
+
 {% block content %}
     <h1>
 	<div>{{ city.name }}</div>
@@ -7,9 +11,9 @@
     </h1>
 
 
-    {% for type, points in grouped_points %}
+    {% for type, type_display, points in grouped_points %}
 	<section class="points-list is-{{ type }}">
-	    <h2>{{ points.0.get_type_display }}</h2>
+	    <h2>{{ type_display }}</h2>
 	    <ul>
 		{% for point in points %}
 		    <li>
@@ -23,5 +27,4 @@
 	    </ul>
 	</section>
     {% endfor %}
-
 {% endblock %}
