@@ -11,6 +11,18 @@ const isProd = (process.env.NODE_ENV == 'production')
 
 const COMPONENT_REGEXP = /components\/([a-z_]+)/
 
+let outputConfig = {
+    dir: 'assets/static',
+    assetFileNames: '[name][extname]',
+    format: 'es',
+    sourcemap: true
+}
+
+if(isProd) {
+    outputConfig.entryFileNames = '[name]-[hash].js'
+    outputConfig.assetFileNames = '[name]-[hash][extname]'
+}
+
 export default {
     input: {
         // point_form: 'assets/js/point_form.js',
@@ -18,13 +30,7 @@ export default {
         // trip_form: 'assets/js/trip_form.js',
         app: 'assets/assets/js/app.js',
     },
-    output: {
-        dir: 'assets/static',
-        entryFileNames: '[name]-[hash].js',
-        assetFileNames: '[name]-[hash][extname]',
-        format: 'es',
-        sourcemap: true
-    },
+    output: outputConfig,
     manualChunks(id, {getModuleInfo}) {
         if(id.includes('node_modules')) { return 'vendor' }
         let comp_match = COMPONENT_REGEXP.exec(id)
