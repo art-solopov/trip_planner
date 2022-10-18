@@ -29,6 +29,7 @@ export default {
         // trip_show: 'assets/js/trip_show.js',
         // trip_form: 'assets/js/trip_form.js',
         app: 'assets/assets/js/app.js',
+        locations: 'assets/assets/js/locations.js'
     },
     output: outputConfig,
     manualChunks(id, {getModuleInfo}) {

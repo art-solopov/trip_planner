@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load assets %}
 
 {% block extra_head %}
     {{ flat_points | json_script:"points_data" }}
@@ -27,4 +28,8 @@
 	    </ul>
 	</section>
     {% endfor %}
+{% endblock %}
+
+{% block extra_body %}
+    {% asset_script_tag 'locations' %}
 {% endblock %}
