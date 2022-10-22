@@ -11,23 +11,27 @@
 	<div class="subtitle">{{ city.country.name }}</div>
     </h1>
 
+    <div class="points-groups">
+        {% for type, type_display, points in grouped_points %}
+	    <section class="points-list is-{{ type }}">
+	        <h2>{{ type_display }}</h2>
+	        <ul>
+		        {% for point in points %}
+		        <li data-slug="{{ point.slug }}">
+			        <h3 class="points-list-name">{{ point.name }}</h3>
+			        <p class="points-list-address">{{ point.address }}</p>
+			        <div class="points-list-actions">
+			            <a href="{% url 'point-detail' point.pk %}">View</a>
+			        </div>
+		        </li>
+		        {% endfor %}
+	        </ul>
+	    </section>
+        {% endfor %}
+    </div>
 
-    {% for type, type_display, points in grouped_points %}
-	<section class="points-list is-{{ type }}">
-	    <h2>{{ type_display }}</h2>
-	    <ul>
-		{% for point in points %}
-		    <li>
-			<h3 class="points-list-name">{{ point.name }}</h3>
-			<p class="points-list-address">{{ point.address }}</p>
-			<div class="points-list-actions">
-			    <a href="{% url 'point-detail' point.pk %}">View</a>
-			</div>
-		    </li>
-		{% endfor %}
-	    </ul>
-	</section>
-    {% endfor %}
+    <section class="points-map">
+    </section>
 {% endblock %}
 
 {% block extra_body %}

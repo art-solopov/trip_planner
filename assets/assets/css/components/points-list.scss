@@ -1,39 +1,62 @@
+.city-detail {
+  height: 90vh;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "points-list map";
+
+  & > h1 {
+    grid-area: header;
+  }
+
+  .points-groups {
+    grid-area: points-list;
+    overflow-y: scroll;
+  }
+
+  .points-map {
+    grid-area: map;
+  }
+}
+
 .points-list {
-    h2 {
-	background: linear-gradient(to right, var(--category-color), transparent);
-	color: var(--category-text-color);
-	padding: 0.25rem;
-	margin: 0.5rem 0 0;
+  h2 {
+    background: linear-gradient(to right, var(--category-color), transparent);
+    color: var(--category-text-color);
+    padding: 0.25rem;
+    margin: 0.5rem 0 0;
+  }
+
+  ul {
+    margin: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    list-style: none;
+    padding: 0.5rem 0;
+    overflow-x: scroll;
+  }
+
+  li {
+    margin: 0;
+    flex: 0 0 10rem;
+    display: flex;
+    flex-flow: column;
+    $border: 2px solid dimgray;
+    border-left: $border;
+    padding: 0 0.5rem;
+
+    &:last-child {
+      border-right: $border;
     }
 
-    ul {
-	margin: 0;
-	display: flex;
-	flex-flow: row nowrap;
-	list-style: none;
-	padding: 0.5rem 0;
-	overflow-x: scroll;
+    .points-list-actions {
+      margin-top: auto;
     }
 
-    li {
-	margin: 0;
-	flex: 0 0 10rem;
-	display: flex;
-	flex-flow: column;
-	$border: 2px solid dimgray;
-	border-left: $border;
-	padding: 0 0.5rem;
-
-	&:last-child {
-	    border-right: $border;
-	}
-
-	.points-list-actions {
-	    margin-top: auto;
-	}
-	
-	h3 {
-	    margin: 0;
-	}
+    h3 {
+      margin: 0;
     }
+  }
 }

@@ -5,10 +5,10 @@ const FIT_BOUND_OPTIONS = {
     maxZoom: FOCUS_ZOOM
 }
 
-export async function mapInit(apiKey, points, options) {
+export async function mapInit(apiKey, options) {
     mapboxgl.accessToken = apiKey
 
-    options.bounds = calculateBounds(points)
+    // options.bounds = calculateBounds(points)
     const map = await loadMap(options)
     addPointsLayer(map, points)
     addPointsMarkers(map, points)
@@ -17,12 +17,12 @@ export async function mapInit(apiKey, points, options) {
 }
 
 export function addDraggableMarker(map) {
-    const marker = new mapboxgl.Marker({anchor: 'bottom', draggable: true})
+    const marker = new mapboxgl.Marker({ anchor: 'bottom', draggable: true })
     marker.setLngLat(map.getCenter()).addTo(map)
     return marker
 }
 
-function calculateBounds(points) {
+export function calculateBounds(points) {
     if (points.length == 0) return undefined;
 
     let lats = points.map(p => p.lat)
@@ -63,7 +63,7 @@ function addImages(map, points) {
         let ctt = ct
         let promise = new Promise((resolve, reject) => {
             map.loadImage(`/static/icons/${ctt}.png`, (error, img) => {
-                if(error) {
+                if (error) {
                     reject(error);
                     return
                 }
@@ -102,7 +102,7 @@ function addPointsLayer(map, points) {
         features: points.map(pt => pt.toGeoJsonFeature())
     }
 
-    map.addSource('points', {type: 'geojson', data})
+    map.addSource('points', { type: 'geojson', data })
     map.addLayer({
         id: 'points',
         type: 'symbol',

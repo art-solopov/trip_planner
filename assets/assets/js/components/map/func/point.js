@@ -1,5 +1,5 @@
-export default class Point {
-    constructor({id, name, category, lat, lon}) {
+export class Point {
+    constructor({ id, name, category, lat, lon }) {
         this.id = id
         this.name = name
         this.category = category
@@ -21,4 +21,18 @@ export default class Point {
             }
         }
     }
+}
+
+export function loadFromScript(script_id) {
+    const scriptData = JSON.parse(document.getElementById(script_id).innerText)
+    return scriptData.map(pt => {
+        let lat = Number(pt.lat),
+            lon = Number(pt.lon)
+        return new Point({
+            ...pt,
+            lat,
+            lon,
+            id: pt.slug
+        })
+    })
 }

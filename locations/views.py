@@ -12,8 +12,9 @@ class CitiesList(v.ListView):
     queryset = City.objects.available_for_view().order_by('country', 'name')
 
 
-class CityDetail(v.DetailView):
+class CityDetail(hv.WithMainClassMixin, v.DetailView):
     model = City
+    main_class = 'city-detail'
 
     def get_queryset(self):
         qs = super().get_queryset()

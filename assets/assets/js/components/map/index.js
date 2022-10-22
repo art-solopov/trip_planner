@@ -1,8 +1,7 @@
-import { MapController, MapPointerController } from './controllers.js'
+import { CityMapController } from './controllers.js'
 
 export default {
     controllers: [
-        ['map', MapController],
-        ['map-pointer', MapPointerController]
+        ['city-map', CityMapController]
     ]
 }
