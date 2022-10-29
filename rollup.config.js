@@ -11,6 +11,18 @@ const isProd = (process.env.NODE_ENV == 'production')
 
 const COMPONENT_REGEXP = /components\/([a-z_]+)/
 
+let outputConfig = {
+    dir: 'trip_planner/static/assets',
+    assetFileNames: '[name][extname]',
+    format: 'es',
+    sourcemap: true
+}
+
+if (isProd) {
+    outputConfig.entryFileNames = '[name]-[hash].js'
+    outputConfig.assetFileNames = '[name]-[hash][extname]'
+}
+
 export default {
     input: {
         point_form: 'assets/js/point_form.js',
@@ -18,17 +30,11 @@ export default {
         trip_form: 'assets/js/trip_form.js',
         app: 'assets/js/app.js',
     },
-    output: {
-        dir: 'trip_planner/static/assets',
-        entryFileNames: '[name]-[hash].js',
-        assetFileNames: '[name]-[hash][extname]',
-        format: 'es',
-        sourcemap: true
-    },
-    manualChunks(id, {getModuleInfo}) {
-        if(id.includes('node_modules')) { return 'vendor' }
+    output: outputConfig,
+    manualChunks(id, { getModuleInfo }) {
+        if (id.includes('node_modules')) { return 'vendor' }
         let comp_match = COMPONENT_REGEXP.exec(id)
-        if(comp_match) {
+        if (comp_match) {
             let modinfo = getModuleInfo(id)
             if (modinfo.importers.length + modinfo.dynamicImporters.length > 1) {
                 console.log(`${id} => ${comp_match[1]}`)
@@ -37,11 +43,11 @@ export default {
         }
     },
     plugins: [
-        resolve({jsnext: true, preferBuiltins: true, browser: true}),
+        resolve({ jsnext: true, preferBuiltins: true, browser: true }),
         commonjs(),
         json(),
-        styles({mode: 'extract'}),
+        styles({ mode: 'extract' }),
         isProd && terser(),
-        manifest({nameWithExt: false, publicPath: 'assets/'}),
+        manifest({ nameWithExt: false, publicPath: 'assets/' }),
     ]
 };
