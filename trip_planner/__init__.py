@@ -9,6 +9,7 @@ from wtforms import Field
 from markupsafe import Markup
 
 from .tailwind import FlashClasses, CommonClasses, FormClasses
+from . import color_scheme
 from .shared import DecimalPairConverter
 
 
@@ -106,6 +107,13 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
                 'navbar_link': CommonClasses.NAVBAR_LINK,
             },
             'form_classes': {}
+        }
+
+    @app.context_processor
+    def inject_color_scheme():
+        return {
+            'color_brands': color_scheme.brand_palettes,
+            'color_exposed': color_scheme.exposed
         }
 
     if app.env == 'development':

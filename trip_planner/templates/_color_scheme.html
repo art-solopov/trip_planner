@@ -1,0 +1,15 @@
+<style>
+    {% for name, brand in color_brands.items() %}
+        .is-{{ name }} {
+            {% for col_name, col_val in brand.items() -%}
+                --color-{{ col_name }}: {{ col_val }};
+            {% endfor %}
+        }
+    {% endfor %}
+
+    :root {
+        {% for name, col_val in color_exposed.items() -%}
+            --palette-{{ name }}: {{ col_val }};
+        {% endfor %}
+    }
+</style>
