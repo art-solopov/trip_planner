@@ -11,5 +11,17 @@
         {% for name, col_val in color_exposed.items() -%}
             --palette-{{ name }}: {{ col_val }};
         {% endfor %}
+
+
+        {% for point_type, col_val in color_point_types.items() -%}
+            --point-type-{{ point_type }}: {{ col_val }};
+        {% endfor %}
     }
+
+    {% for point_type in color_point_types -%}
+        .point-type-{{ point_type }} {
+            --point-color: var(--point-type-{{ point_type }});
+        }
+    {% endfor %}
+
 </style>

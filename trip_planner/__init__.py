@@ -113,7 +113,8 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     def inject_color_scheme():
         return {
             'color_brands': color_scheme.brand_palettes,
-            'color_exposed': color_scheme.exposed
+            'color_exposed': color_scheme.exposed,
+            'color_point_types': color_scheme.point_type_colors
         }
 
     if app.env == 'development':

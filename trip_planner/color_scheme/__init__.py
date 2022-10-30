@@ -67,6 +67,16 @@ _accent = {
 brand_palettes = dict(primary=_represent_palette(_primary),
                       accent=_represent_palette(_accent))
 
+point_type_colors = {
+    'museum': denim_blue_neon[4],
+    'sight': denim_blue_neon[1],
+    'transport': crayola_green_earth[3],
+    'accomodation': fiery_rose_analogous[4],
+    'food': 'brown',  # TODO replace with something from scheme
+    'entertainment': fiery_rose_analogous[1],
+    'shop': crayola_green_cooler[0]
+    }
+
 # Exposed colors
 
 exposed = _represent_palette({**base_colors})
