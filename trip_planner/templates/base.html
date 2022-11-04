@@ -8,7 +8,7 @@
         {# Emoji icon #}
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
 
-        {# TODO: probably extract into separate script tag #}
+        {# TODO: probably extract into separate style tag #}
         {% include "_color_scheme.html" %}
 
         {{ style_tag('app') }}
@@ -18,16 +18,16 @@
     <body>
         {{ icon_defs }}
 
-        <div class="container flex flex-col box-border mx-auto min-h-screen">
+        <div class="container">
             {% include "_header.html" %}
             {% with messages = get_flashed_messages(with_categories=True) -%}
                 {%- if messages %}
-                    <div class="flashes my-3">
+                    <div class="flashes">
                         {% for category, message in messages %}
-                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}" data-controller="flash">
+                            <div class="flash-message flash-{{ category }}" data-controller="flash">
                                 <span>{{ message }}</span>
                                 <button type="button"
-                                        class="text-gray-600 hover:bg-gray-300 transition-colors duration-150 w-6 rounded-full"
+                                        class="flash-remove-button"
                                         data-action="flash#remove"
                                         >&#10005;</span>
                             </div>
@@ -35,10 +35,10 @@
                     </div>
                 {% endif -%}
             {%- endwith %}
-            <main class="{{ view_class }} my-4 flex-grow-half-1 box-border" {{ view_attrs | default({}) | xmlattr }}>
+            <main class="{{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
                 {% block main %}{% endblock %}
             </main>
-            <footer class="main-footer mt-4 p-4 bg-gray-200 box-border text-center">
+            <footer class="main-footer">
                 <p>© Artemiy Solopov, 2019</p>
                 <p>All map data © OpenStreetMaps</p>
                 <p>Icons are based on icons from <a href="https://icomoon.io/">Icomoon</a></p>

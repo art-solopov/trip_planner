@@ -1,5 +1,5 @@
 .trip-map {
-    @apply min-h-60vh lg:min-h-0;
+    /* @apply min-h-60vh lg:min-h-0; */
 
     & .mapboxgl-marker {
         height: 3.5rem;

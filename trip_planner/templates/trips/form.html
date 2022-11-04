@@ -5,7 +5,7 @@
 {% from "macros/geocode.html" import geocode_fieldset %}
 
 {% block main %}
-    <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
+    <h1>{{ title }}</h1>
     {{ collapsible_map('Map', latlon) }}
 
     <form id="trip_form"
@@ -18,11 +18,11 @@
 
           {{ field(form.name, wrapper_class="lg:w-100") }}
 
-          <div class="flex flex-row">
+          <div class="">
               {# TODO: extract into macros? #}
-              {% set geo_wrapper_class='w-40' %}
+              {% set geo_wrapper_class='' %}
               {{ field(form.center_lat, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
-              <span class="w-2">&nbsp;</span>
+              <span class="">&nbsp;</span>
               {{ field(form.center_lon, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
           </div>
         

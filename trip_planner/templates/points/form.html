@@ -5,7 +5,7 @@
 {% from "macros/components.html" import collapsible_map %}
 
 {% block main %}
-    <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
+    <h1>{{ title }}</h1>
     {{ collapsible_map('Map', latlon) }}
 
     <form id="point_form"

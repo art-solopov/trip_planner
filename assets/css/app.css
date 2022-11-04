@@ -1,31 +1,27 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
 @import "./buttons";
 @import "./trip-show";
 @import "./point-form";
 
 p {
-    @apply mb-2;
+    /* @apply mb-2; */
 }
 
 label {
-    @apply font-bold block;
+    /* @apply font-bold block; */
 }
 
 input:not([type=submit]), select, textarea {
-    @apply rounded-md py-1 px-2 border border-solid border-gray-400;
+    /* @apply rounded-md py-1 px-2 border border-solid border-gray-400; */
 }
 
 input[type=radio], input[type=checkbox] {
     & + label {
-        @apply inline-block;
+        /* @apply inline-block; */
     }
 }
 
 a {
-    @apply text-indigo-800;
+    /* @apply text-indigo-800; */
     text-decoration: underline currentcolor dashed;
 
     &:hover,
