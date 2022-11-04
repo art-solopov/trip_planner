@@ -114,7 +114,8 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
         return {
             'color_brands': color_scheme.brand_palettes,
             'color_exposed': color_scheme.exposed,
-            'color_point_types': color_scheme.point_type_colors
+            'color_point_types': color_scheme.point_type_colors,
+            'color_gradients': color_scheme.gradients
         }
 
     if app.env == 'development':

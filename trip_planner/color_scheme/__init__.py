@@ -80,3 +80,11 @@ point_type_colors = {
 # Exposed colors
 
 exposed = _represent_palette({**base_colors})
+
+# Gradients
+
+gradients = {
+    'top-nav': ('right',
+                (base_colors['crayola_green'], crayola_green_cooler[1],
+                 crayola_green_cooler[4], denim_blue_neon[1]))
+    }

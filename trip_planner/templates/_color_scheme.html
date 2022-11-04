@@ -16,6 +16,12 @@
         {% for point_type, col_val in color_point_types.items() -%}
             --point-type-{{ point_type }}: {{ col_val }};
         {% endfor %}
+
+
+        {% for name, (direction, colors) in color_gradients.items() -%}
+            --gradient-{{ name }}: linear-gradient(to {{ direction }}, {{ colors | join(', ') }})
+        {% endfor %}
+
     }
 
     {% for point_type in color_point_types -%}
