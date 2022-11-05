@@ -64,8 +64,21 @@ _accent = {
     'border': denim_blue_neon[4]
     }
 
+_danger = {
+    'main': fiery_rose_analogous[0],
+    'text': 'white',
+    'border': base_colors['fiery_rose']
+    }
+
+_light = {
+    'main': 'transparent',
+    'text': base_colors['rich_black'],
+    'border': crayola_green_earth[5]
+    }
+
 brand_palettes = dict(primary=_represent_palette(_primary),
-                      accent=_represent_palette(_accent))
+                      accent=_represent_palette(_accent),
+                      danger=_represent_palette(_danger))
 
 point_type_colors = {
     'museum': denim_blue_neon[4],
