@@ -4,12 +4,17 @@ def _represent_palette(palette, prefix=''):
             for name, color in palette.items()}
 
 
-base_colors = dict(
-    rich_black='hsl(216, 100%, 4%)',
-    crayola_green='hsl(94, 69%, 73%)',
-    denim_blue='hsl(214, 70%, 43%)',
-    fiery_rose='hsl(356, 82%, 66%)'
-    )
+rich_black = 'hsl(216, 100%, 4%)'
+crayola_green = 'hsl(94, 69%, 73%)'
+denim_blue = 'hsl(214, 70%, 43%)'
+fiery_rose = 'hsl(356, 82%, 66%)'
+
+base_colors = {
+    'rich_black': rich_black,
+    'crayola_green': crayola_green,
+    'denim_blue': denim_blue,
+    'fiery_rose': fiery_rose,
+    }
 
 # === Palettes ===
 # Generated with https://fffuel.co/pppalette/
@@ -53,13 +58,13 @@ denim_blue_neon = [
 # "Brand" palettes
 
 _primary = {
-    'main': base_colors['crayola_green'],
+    'main': crayola_green_earth[4],
     'text': 'white',
     'border': crayola_green_earth[5]
     }
 
 _accent = {
-    'main': base_colors['denim_blue'],
+    'main': denim_blue,
     'text': 'white',
     'border': denim_blue_neon[4]
     }
@@ -67,12 +72,12 @@ _accent = {
 _danger = {
     'main': fiery_rose_analogous[0],
     'text': 'white',
-    'border': base_colors['fiery_rose']
+    'border': fiery_rose
     }
 
 _light = {
     'main': 'transparent',
-    'text': base_colors['rich_black'],
+    'text': rich_black,
     'border': crayola_green_earth[5]
     }
 
@@ -98,6 +103,6 @@ exposed = _represent_palette({**base_colors})
 
 gradients = {
     'top-nav': ('right',
-                (base_colors['crayola_green'], crayola_green_cooler[1],
+                (crayola_green, crayola_green_cooler[1],
                  crayola_green_cooler[4], denim_blue_neon[1]))
     }
