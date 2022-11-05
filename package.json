@@ -13,8 +13,6 @@
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
-    "htmx.org": "^1.7.0",
-    "normalize.css": "^8.0.1",
     "postcss": "^8.2.10",
     "postcss-each": "^0.10.0",
     "postcss-easy-import": "^3.0.0",
