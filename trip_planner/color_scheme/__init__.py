@@ -6,6 +6,7 @@ def _represent_palette(palette, prefix=''):
 
 rich_black = 'hsl(216, 100%, 4%)'
 crayola_green = 'hsl(94, 69%, 73%)'
+crayola_orange = 'hsl(16, 100%, 60%)'
 denim_blue = 'hsl(214, 70%, 43%)'
 fiery_rose = 'hsl(356, 82%, 66%)'
 
@@ -53,6 +54,15 @@ denim_blue_neon = [
     'hsl(214, 90%, 55%)',
     'hsl(214, 90%, 50%)',
     'hsl(214, 90%, 45%)',
+    ]
+
+crayola_orange_analogous = [
+    'hsl(16, 100%, 60%)',
+    'hsl(16, 100%, 72%)',
+    'hsl(16, 100%, 78%)',
+    'hsl(347, 100%, 78%)',
+    'hsl(347, 100%, 72%)',
+    'hsl(347, 100%, 60%)',
     ]
 
 # "Brand" palettes
