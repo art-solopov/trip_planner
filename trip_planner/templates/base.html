@@ -12,9 +12,6 @@
         <link rel="stylesheet" type="" href="https://unpkg.com/modern-normalize@1.1.0/modern-normalize.css">
         <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
 
-        {# TODO: probably extract into separate style tag #}
-        {% include "_color_scheme.html" %}
-
         {{ style_tag('app') }}
         {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}
