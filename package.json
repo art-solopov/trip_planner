@@ -4,7 +4,8 @@
   "description": "Assets for trip planner",
   "main": "gulpfile.js",
   "scripts": {
-    "rollup": "rollup --config"
+    "rollup": "rollup --config",
+    "rollup-dev": "rollup --config -w"
   },
   "author": "Artemiy Solopov",
   "license": "MIT",

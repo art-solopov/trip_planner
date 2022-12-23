@@ -1,3 +1,7 @@
+@use "colors" as c;
+
+@use "palette";
+
 @import "./buttons";
 @import "./trip-show";
 @import "./point-form";
@@ -48,4 +52,8 @@ svg.icon {
         padding-top: 0;
         padding-bottom: 0;
     }
+}
+
+body {
+    color: c.$Gray-600
 }
