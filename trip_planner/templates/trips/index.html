@@ -4,11 +4,11 @@
 {% block main %}
     <h1 class="">Your trips</h1>
 
-    <a href="{{ url_for('trips.new') }}" class="btn is-default" title="Add trip">{{ icon('plus') }} Add trip</a>
+    <a href="{{ url_for('trips.new') }}" class="btn btn-info" role="button" title="Add trip">{{ icon('plus') }} Add trip</a>
 
     <ul class="trips">
         {%- for trip in trips %}
-            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="px-4 py-3 no-underline inline-block text-black hover:bg-gray-200 transition-colors duration-300">{{ trip.name }}</a></li>
+            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="px-4 py-3">{{ trip.name }}</a></li>
         {% endfor -%}
     </ul>
 {% endblock %}

@@ -5,6 +5,9 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+@import "icons";
+@import "trips-index";
+
 .main-footer {
     background-color: c.$Gray-50;
     color: c.$Gray-400;

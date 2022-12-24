@@ -1,0 +1,17 @@
+@use "colors" as c;
+
+ul.trips {
+  list-style: none;
+  padding: 0;
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: c.$Gray-50;
+    }
+  }
+}
