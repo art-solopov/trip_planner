@@ -15,12 +15,12 @@
         {%- endif %}
 
         <div>
-            <button type="button" id="btn_geocode" class="btn is-accent" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
-                                                                          hx-params="name,address,geocode_field"
-                                                                          hx-target="#geocode_results"
-                                                                          hx-swap="outerHTML settle:0"
-                                                                          hx-indicator="#geocode_indicator"
-                                                                          >Geocode</button>
+            <button type="button" id="btn_geocode" class="btn btn-secondary" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
+                                                                             hx-params="name,address,geocode_field"
+                                                                             hx-target="#geocode_results"
+                                                                             hx-swap="outerHTML settle:0"
+                                                                             hx-indicator="#geocode_indicator"
+                                                                             >Geocode</button>
         </div>
 
         <div id="geocode_indicator" class="htmx-indicator">Loading…</div> {# TODO: replace with better indicator #}
