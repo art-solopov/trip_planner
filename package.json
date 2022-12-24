@@ -11,9 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "@hotwired/stimulus": "^3.0.1",
+    "@popperjs/core": "^2.11.6",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
+    "bootstrap": "^5.2.0",
     "postcss": "^8.2.10",
     "postcss-easy-import": "^4.0.0",
     "postcss-font-family-system-ui": "^5.0.0",
