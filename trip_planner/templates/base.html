@@ -18,8 +18,8 @@
     <body>
         {{ icon_defs }}
 
+        {% include "_header.html" %}
         <div class="container">
-            {% include "_header.html" %}
             {% with messages = get_flashed_messages(with_categories=True) -%}
                 {%- if messages %}
                     <div class="flashes">
