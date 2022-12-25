@@ -19,6 +19,7 @@ from .data import PointData
 from .forms import TripForm, PointForm
 from ..tailwind import (ViewClasses as TwViewClasses,
                         ScheduleClasses as TwScheduleClasses)
+from ..bs_classes import ViewClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 
@@ -73,7 +74,7 @@ def show(slug):
         render_template('trips/show.html', trip=trip,
                         points=points,
                         points_count=len(trip.points),
-                        view_class=TwViewClasses.TRIP_SHOW,
+                        view_class=ViewClasses.TRIP_SHOW,
                         view_attrs=view_attrs))
     response.add_etag()
 

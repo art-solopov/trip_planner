@@ -2,22 +2,22 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <div class="trip-map" id="map" data-map-target="map"></div>
+    <div class="trip-map" id="map" data-map-target="map" aria-label="Map"></div>
     <div class="app">
         <header>
             <h1>{{ trip.name }}</h1>
             <div>Count: {{ points_count }}</div>
 
-            <div>
-                <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small is-accent" title="Edit">{{ icon('pencil') }}</a>
-                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small is-default" title="Add point">{{ icon('plus') }}</a>
-                <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small is-danger" title="Delete">{{ icon('bin2') }}</a>
+            <div class="btn-group" role="group" aria-label="Trip controls">
+                <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small btn-info" title="Edit">{{ icon('pencil') }}</a>
+                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-success" title="Add point">{{ icon('plus') }}</a>
+                <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
             </div>
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items">
-                <h2 class="">{{ g_type | capitalize }}</h2>
+            <section class="trip-point-items trip-points--{{ g_type | lower }}">
+                <h2 class="h4">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
                         <li class="trip-point-item"
@@ -27,14 +27,14 @@
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
                             <div>
-                                <h3 class="item-name">{{ point.name }}</h3>
+                                <h3 class="h5 item-name">{{ point.name }}</h3>
                                 <p class="item-address">{{ point.address }}</p>
                             </div>
-                            <div class="item-links">
-                                <a class="btn btn-small is-light pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>
-                                <a class="btn btn-small is-default more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
-                                <a class="btn btn-small is-accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
-                                <a class="btn btn-small is-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
+                            <div class="item-links btn-group" role="group" aria-label="Point controls">
+                                <a class="btn btn-small btn-secondary pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>
+                                <a class="btn btn-small btn-primary more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
+                                <a class="btn btn-small btn-info edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+                                <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>
                     {% endfor %}
@@ -48,6 +48,8 @@
     {# TODO: maybe install via npm #}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+    {# TODO: maybe join with app.css? #}
+    {{ style_tag('trip_show') }}
 {% endblock %}
 
 {% block extra_body %}
