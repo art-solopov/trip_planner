@@ -1,0 +1,17 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/variables";
+
+.geocode-results {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: $spacer;
+
+  .result {
+    img.preview {
+      width: 100%;
+    }
+  }
+}
+

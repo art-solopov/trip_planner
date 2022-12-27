@@ -1,9 +1,9 @@
 {% if results %}
-    <div class="" id="geocode_results" data-geocode-target="results">
+    <div class="geocode-results" id="geocode_results" data-geocode-target="results">
     {% for result in results %}
-        <div class="geocode-result" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
+        <div class="result" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
             <div>
-                <button type="button" class="btn is-light" data-action="click->geocode#setData">Save</button>
+                <button type="button" class="btn btn-info" data-action="click->geocode#setData">Save</button>
             </div>
             <div class="name">{{ result.name }}</div>
             <div class="address">{{ result.address }}</div>
