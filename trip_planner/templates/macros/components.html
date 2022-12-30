@@ -1,16 +1,22 @@
-{% macro collapsible(title, collapsed=True, collapsed_class='collapsed') -%}
-    <div class="collapsible {% if collapsed %}{{ collapsed_class }}{% endif %}" data-controller="collapsible" data-collapsible-collapsed-class="{{ collapsed_class }}">
-        <div class="">
-            <button type="button" class="" data-collapsible-target="button" data-action="collapsible#toggle"><span></span> {{ title }}</button> {# TODO: replace with icon #}
-        </div>
-        <div class="collapsible--content">
-            {{ caller() }}
-        </div>
+{%- set uncollapsed_class = "show" -%}
+
+{% macro collapsible(title, el_id, collapsed=True) -%}
+    <div class="">
+        <button type="button" class="btn btn-secondary"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#{{ el_id }}"
+                              aria-expanded="false"
+                              aria-controls="{{ el_id }}">
+            <span>▸</span> {{ title }} {# TODO: replace with icon #}
+        </button>
+    </div>
+    <div id="{{ el_id }}" class="collapse py-2 {% if not collapsed %}{{ uncollapsed_class }}{% endif %}">
+        {{ caller() }}
     </div>
 {%- endmacro %}
 
-{% macro collapsible_map(title, latlon, collapsed=True, collapsed_class='collapsed') -%}
-    {% call collapsible("Map", collapsed=collapsed, collapsed_class='collapsed') %}
-    <div hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="collapsible:open once from:closest .collapsible"></div>
+{% macro collapsible_map(title, el_id, latlon, collapsed=True) -%}
+    {% call collapsible("Map", el_id=el_id, collapsed=collapsed) %}
+    <div class="collapsible-map" hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="shown.bs.collapse once from:closest .collapse"></div>
     {% endcall %}
 {%- endmacro %}

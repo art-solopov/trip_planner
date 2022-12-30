@@ -6,7 +6,7 @@
 
 {% block main %}
     <h1>{{ title }}</h1>
-    {{ collapsible_map('Map', latlon) }}
+    {{ collapsible_map('Map', 'trip_form_map', latlon) }}
 
     <form id="trip_form"
           method="POST"
