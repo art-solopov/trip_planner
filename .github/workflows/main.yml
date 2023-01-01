@@ -71,8 +71,8 @@ jobs:
       with:
         node-version: 16.13
         cache: 'npm'
-    - run: npm install
-    - run: npm run rollup
+    - run: yarn install --immutable --check-cache
+    - run: yarn rollup
     - name: Store compiled assets
       uses: actions/upload-artifact@v3
       with:
