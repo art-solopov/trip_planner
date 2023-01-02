@@ -4,15 +4,15 @@ from markupsafe import Markup, escape
 
 from trip_planner.data import MapData
 from trip_planner.models import Point
-from trip_planner.tailwind import ScheduleClasses as TwScheduleClasses
+from trip_planner.bs_classes import ScheduleClasses
 
 
 class PointScheduleData:
     WEEKDAYS = 'mon tue wed thu fri sat sun'.split()
 
-    COMMON_CELL_CLASS = TwScheduleClasses.CELL_CLASS
-    COMMON_WDAY_CLASS = TwScheduleClasses.COMMON_WEEKDAY_CLASS
-    WDAY_CLASSES = TwScheduleClasses.WEEKDAYS
+    COMMON_CELL_CLASS = ScheduleClasses.CELL_CLASS
+    COMMON_WDAY_CLASS = ScheduleClasses.COMMON_WEEKDAY_CLASS
+    WDAY_CLASSES = ScheduleClasses.WEEKDAYS
 
     def __init__(self, point: Point):
         self.schedule = point.schedule

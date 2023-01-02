@@ -9,7 +9,7 @@
     <header class="mb-2">
         <h1>{{ point.name }}</h1>
         <p>{{ point.address }}</p>
-        <a class="btn btn-accent" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
+        <a class="btn btn-info" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
     </header>
 
     {% if point.notes and not point.notes.isspace() %}
