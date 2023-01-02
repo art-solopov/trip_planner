@@ -7,11 +7,5 @@
 
   grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
   gap: $spacer;
-
-  .result {
-    img.preview {
-      width: 100%;
-    }
-  }
 }
 

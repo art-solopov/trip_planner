@@ -1,5 +1,5 @@
 {% macro geocode_fieldset(field_selector, country_code, data={}) -%}
-    <fieldset class="" {{ data | xmlattr }}>
+    <fieldset class="border rounded p-3" {{ data | xmlattr }}>
         <legend>Geocoding</legend>
 
         {% if field_selector -%}

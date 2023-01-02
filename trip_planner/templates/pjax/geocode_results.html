@@ -1,13 +1,15 @@
 {% if results %}
-    <div class="geocode-results" id="geocode_results" data-geocode-target="results">
+    <div class="geocode-results" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
     {% for result in results %}
-        <div class="result" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
-            <div>
+        <div class="result card" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
+            <div class="card-header">
                 <button type="button" class="btn btn-info" data-action="click->geocode#setData">Save</button>
             </div>
-            <div class="name">{{ result.name }}</div>
-            <div class="address">{{ result.address }}</div>
-            <img class="preview" src="{{ result.map_url }}">
+            <div class="card-body">
+                <h3 class="name h5">{{ result.name }}</h3>
+                <div class="address">{{ result.address }}</div>
+            </div>
+            <img class="preview card-img-bottom" src="{{ result.map_url }}">
         </div>
     {% endfor %}
     </div>
