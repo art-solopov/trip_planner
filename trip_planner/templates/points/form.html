@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
-{% from "macros/geocode.html" import geocode_fieldset %}
+{% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
 {% from "macros/components.html" import collapsible_map %}
 
 {% block main %}
@@ -21,12 +21,7 @@
         {{ field(form.name) }}
         {{ field(form.address) }}
 
-        <div class="flex flex-row lat-lon-fields">
-            {% set geo_wrapper_class='w-40' %}
-            {{ field(form.lat, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
-            <span class="w-2">&nbsp;</span>
-            {{ field(form.lon, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
-        </div>
+        {{ latlon_fields(form.lat, form.lon) }}
 
         {{ geocode_fieldset(country_code=point.trip.country_code, field_selector=True, data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
 

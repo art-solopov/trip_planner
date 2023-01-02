@@ -4,4 +4,6 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/variables";
 
+$break-sm: map.get($grid-breakpoints, "sm");
+$break-md: map.get($grid-breakpoints, "md");
 $break-lg: map.get($grid-breakpoints, "lg");
