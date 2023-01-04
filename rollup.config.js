@@ -1,5 +1,6 @@
 import process from 'process'
 
+import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
@@ -32,7 +33,11 @@ export default {
     },
     output: outputConfig,
     manualChunks(id, { getModuleInfo }) {
-        if (id.includes('node_modules')) { return 'vendor' }
+        if (id.includes('node_modules')) {
+            if (isProd) return 'vendor';
+            let comp_match = /node_modules(\/@[a-z_]+)?\/([a-z_]+)/.exec(id)
+            return `node_modules/${comp_match[1] || ''}/${comp_match[2]}`
+        }
         let comp_match = COMPONENT_REGEXP.exec(id)
         if (comp_match) {
             let modinfo = getModuleInfo(id)
@@ -43,6 +48,9 @@ export default {
         }
     },
     plugins: [
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
         resolve({ jsnext: true, preferBuiltins: true, browser: true }),
         commonjs(),
         json(),
