@@ -17,3 +17,14 @@ $weekday-colors: (
     color: $fg;
   }
 }
+
+.field-schedule {
+  width: min(22rem, 100%);
+}
+
+.schedule-buttons {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-flow: column;
+}

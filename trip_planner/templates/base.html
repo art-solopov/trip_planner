@@ -24,12 +24,9 @@
                 {%- if messages %}
                     <div class="flashes">
                         {% for category, message in messages %}
-                            <div class="flash-message flash-{{ category }}" data-controller="flash">
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                                 <span>{{ message }}</span>
-                                <button type="button"
-                                        class="flash-remove-button"
-                                        data-action="flash#remove"
-                                        >&#10005;</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></span>
                             </div>
                         {% endfor %}
                     </div>

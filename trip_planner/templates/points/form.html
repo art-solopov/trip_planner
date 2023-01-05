@@ -30,7 +30,7 @@
 
         {{ field(form.type) }}
         {{ field(form.notes) }}
-        <div class="mb-2 relative max-w-full lg:w-96" data-controller="point-form-schedule">
+        <div class="mb-2 position-relative field-schedule" data-controller="point-form-schedule">
             <table>
                 <thead>
                     <tr>
@@ -49,9 +49,9 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute" data-point-form-schedule-target="buttons">
-                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-down mb-2" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('circle-down') }}</button>
-                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
+            <div id="schedule_buttons" class="invisible schedule-buttons" data-point-form-schedule-target="buttons">
+                <button type="button" class="btn btn-info btn-copy-down mb-1" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('circle-down') }}</button>
+                <button type="button" class="btn btn-info btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
             </div>
         </div>
 

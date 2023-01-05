@@ -15,3 +15,13 @@
     background-color: c.$Gray-50;
     color: c.$Gray-400;
 }
+
+// Link colors
+
+.link-secondary {
+  color: c.$Gray-400 !important; // TODO: remove !important after removing Bootstrap's link utility classes
+
+  &:hover, &:focus {
+    color: c.$Gray-600 !important;
+  }
+}

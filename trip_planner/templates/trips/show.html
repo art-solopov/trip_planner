@@ -5,13 +5,20 @@
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map"></div>
     <div class="app">
         <header>
-            <h1>{{ trip.name }}</h1>
-            <div>Count: {{ points_count }}</div>
+            <div class="d-flex align-items-center">
+                <h1>{{ trip.name }}</h1>
+                <div class="ms-auto">
+                    <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil') }}</a>
+                    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-danger" title="Delete">{{ icon('bin2') }}</a>
+                </div>
+            </div>
+            <!-- <div>Count: {{ points_count }}</div> -->
+
+            <div>
+                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-success" title="Add point">{{ icon('plus') }} Add point</a>
+            </div>
 
             <div class="btn-group" role="group" aria-label="Trip controls">
-                <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small btn-info" title="Edit">{{ icon('pencil') }}</a>
-                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-success" title="Add point">{{ icon('plus') }}</a>
-                <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
             </div>
         </header>
 

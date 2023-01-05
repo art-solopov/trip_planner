@@ -7,7 +7,7 @@
 .geocode-results {
   display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
   gap: $spacer;
 }
 

@@ -13,6 +13,7 @@
 
     @media(min-width: $break-lg) {
         flex-flow: row nowrap;
+        gap: 0.5rem;
 
         .app {
             flex-grow: 1;
