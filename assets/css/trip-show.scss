@@ -3,8 +3,13 @@
 .trip-map {
     min-height: 60vh;
 
-    & .mapboxgl-marker {
+    .mapboxgl-marker {
         height: 3.5rem;
+    }
+
+    .trip-title {
+        display: flex;
+        align-items: center;
     }
 }
 

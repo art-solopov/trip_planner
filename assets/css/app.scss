@@ -1,9 +1,7 @@
 @use "colors" as c;
 
-@import "palette";
-
-@import "~bootstrap/scss/bootstrap";
-
+// @import "~bootstrap/scss/bootstrap";
+@import "bootstrap-custom";
 @import "buttons";
 @import "layout";
 @import "icons";

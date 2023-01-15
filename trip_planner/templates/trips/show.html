@@ -5,7 +5,7 @@
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map"></div>
     <div class="app">
         <header>
-            <div class="d-flex align-items-center">
+            <div class="trip-title">
                 <h1>{{ trip.name }}</h1>
                 <div class="ms-auto">
                     <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil') }}</a>
@@ -16,9 +16,6 @@
 
             <div>
                 <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-success" title="Add point">{{ icon('plus') }} Add point</a>
-            </div>
-
-            <div class="btn-group" role="group" aria-label="Trip controls">
             </div>
         </header>
 
