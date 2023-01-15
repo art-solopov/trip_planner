@@ -9,11 +9,15 @@
 }
 
 .show-trip {
+    display: flex;
     flex-flow: column;
 
     @media(min-width: $break-lg) {
         flex-flow: row nowrap;
         gap: 0.5rem;
+
+        // Height hack, TODO rework later 
+        height: calc(100vh - 9rem);
 
         .app {
             flex-grow: 1;
@@ -23,5 +27,16 @@
             order: 1;
             flex-basis: 60%;
         }
+    }
+
+    .app {
+        overflow-y: scroll;
+    }
+}
+
+.trip-point-items {
+    ul {
+        list-style: none;
+        padding-left: 0;
     }
 }

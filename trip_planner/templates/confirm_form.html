@@ -9,8 +9,8 @@
 	{%- endif -%}
 
         <div>
-            <button class="btn is-danger" type="submit">{{ submit_label | default('Yes') }}</button>
-            <a class="btn is-accent" href="{{ request.referrer | default('/', true) }}">Back</a>
+            <button class="btn btn-danger" type="submit">{{ submit_label | default('Yes') }}</button>
+            <a class="btn btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
         </div>
     </form>
 {% endblock %}

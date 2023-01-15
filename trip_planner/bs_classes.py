@@ -12,4 +12,4 @@ class ScheduleClasses:
 
 
 class ViewClasses:
-    TRIP_SHOW = 'show-trip d-flex'
+    TRIP_SHOW = 'show-trip'
