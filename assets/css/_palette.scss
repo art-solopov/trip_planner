@@ -1,9 +1,9 @@
 @use "colors" as c;
 
 .is-primary {
-    --color-base: #{c.$Pink-50};
-    --color-text: #{c.$Pink-600};
-    --color-border: #{c.$Pink-700};
+    --color-base: #{c.$Red-50};
+    --color-text: #{c.$Red-600};
+    --color-border: #{c.$Red-700};
 }
 
 .is-secondary {
@@ -25,7 +25,18 @@
 }
 
 .is-danger {
-    --color-base: #{c.$Pink-350};
+    --color-base: #{c.$Red-350};
     --color-text: white;
-    --color-border: #{c.$Pink-500};
+    --color-border: #{c.$Red-500};
 }
+
+$type-colors: (
+  "museum": c.$Blue-400,
+  "sight": c.$Blue-300,
+  "transport": c.$Green-400,
+  "accomodation": c.$Fuchsia-300,
+  "food": c.$Peach-500,
+  "entertainment": c.$Lavender-Pink-300,
+  "shop": c.$Lavender-300,
+  "other": c.$Gray-400
+);
