@@ -13,32 +13,13 @@ $link-hover-color: c.$Blue-600;
 
 $component-active-bg: c.$Blue-100;
 
-// .is-primary {
-//     --color-base: #{c.$Pink-50};
-//     --color-text: #{c.$Pink-600};
-//     --color-border: #{c.$Pink-700};
-// }
-//
-// .is-secondary {
-//     --color-base: #{c.$Gray-50};
-//     --color-text: black;
-//     --color-border: #{c.$Gray-500};
-// }
-//
-// .is-success {
-//     --color-base: #{c.$Green-350};
-//     --color-text: white;
-//     --color-border: #{c.$Green-700};
-// }
-//
-// .is-warning {
-//     --color-base: #{c.$Yellow-100};
-//     --color-text: black;
-//     --color-border: #{c.$Yellow-500};
-// }
-//
-// .is-danger {
-//     --color-base: #{c.$Pink-350};
-//     --color-text: white;
-//     --color-border: #{c.$Pink-500};
-// }
+$type-colors: (
+  "museum": c.$Blue-400,
+  "sight": c.$Blue-300,
+  "transport": c.$Green-400,
+  "accomodation": c.$Fuchsia-300,
+  "food": c.$Peach-500,
+  "entertainment": c.$Lavender-Pink-300,
+  "shop": c.$Lavender-300,
+  "other": c.$Gray-400
+);
