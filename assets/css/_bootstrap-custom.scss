@@ -52,6 +52,6 @@ $utilities: map.remove($utilities, "display", "flex", "flex-direction", "flex-gr
   "justify-content", "align-self", "align-items", "align-content", "order",
   "bg-opacity");
 
-// Utilities
+/* Utilities */
 @import "~bootstrap/scss/utilities/api";
 
