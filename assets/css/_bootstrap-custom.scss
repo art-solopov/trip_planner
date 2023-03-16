@@ -50,7 +50,18 @@
 
 $utilities: map.remove($utilities, "display", "flex", "flex-direction", "flex-grow", "flex-shrink", "flex-wrap",
   "justify-content", "align-self", "align-items", "align-content", "order",
-  "bg-opacity");
+  "opacity", "bg-opacity",
+  "float",
+  "gap", "row-gap", "column-gap");
+$utilities: map.merge($utilities, (
+  "padding": map.merge(map.get($utilities, "padding"), (responsive: false)),
+  "padding-x": map.merge(map.get($utilities, "padding-x"), (responsive: false)),
+  "padding-y": map.merge(map.get($utilities, "padding-y"), (responsive: false)),
+  "padding-top": map.merge(map.get($utilities, "padding-top"), (responsive: false)),
+  "padding-bottom": map.merge(map.get($utilities, "padding-bottom"), (responsive: false)),
+  "padding-start": map.merge(map.get($utilities, "padding-start"), (responsive: false)),
+  "padding-end": map.merge(map.get($utilities, "padding-end"), (responsive: false)),
+  ));
 
 /* Utilities */
 @import "~bootstrap/scss/utilities/api";

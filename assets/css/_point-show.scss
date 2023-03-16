@@ -1,0 +1,16 @@
+.show-point {
+  & > header {
+    display: flex;
+    flex-flow: row wrap;
+    gap: $spacer;
+
+    .point-title {
+      flex-grow: 9999;
+    }
+
+    figure {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+}

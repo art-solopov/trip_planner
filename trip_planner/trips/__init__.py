@@ -269,7 +269,7 @@ def show_point(trip: Trip, point: Point):
     data = PointData(point)
     add_breadcrumb(point.name)
     response = make_response(render_template('points/show.html', point=point,
-                             data=data))
+                             data=data, view_class=ViewClasses.POINT_SHOW))
     response.add_etag()
     return response.make_conditional(request)
 

@@ -13,3 +13,4 @@ class ScheduleClasses:
 
 class ViewClasses:
     TRIP_SHOW = 'show-trip'
+    POINT_SHOW = 'show-point'
