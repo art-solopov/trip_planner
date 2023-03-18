@@ -7,7 +7,8 @@
         <header>
             <div class="trip-title">
                 <h1>{{ trip.name }}</h1>
-                <div class="ms-auto">
+                <div class="ms-auto buttons">
+                    <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-success" title="Add point">{{ icon('plus') }}</a>
                     <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil') }}</a>
                     <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-danger" title="Delete">{{ icon('bin2') }}</a>
                 </div>
@@ -15,12 +16,11 @@
             <!-- <div>Count: {{ points_count }}</div> -->
 
             <div>
-                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-success" title="Add point">{{ icon('plus') }} Add point</a>
             </div>
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items trip-points--{{ g_type | lower }}">
+            <section class="trip-point-items trip-point-items--{{ g_type | lower }}">
                 <h2 class="h4">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
@@ -31,8 +31,8 @@
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
                             <div>
-                                <h3 class="h5 item-name">{{ point.name }}</h3>
-                                <p class="item-address">{{ point.address }}</p>
+                                <h3 class="h5 m-0 item-name">{{ point.name }}</h3>
+                                <address class="item-address">{{ point.address }}</address>
                             </div>
                             <div class="item-links btn-group" role="group" aria-label="Point controls">
                                 <a class="btn btn-small btn-secondary pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>

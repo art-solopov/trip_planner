@@ -1,3 +1,5 @@
+@use "palette";
+
 @import "./breakpoints";
 
 .trip-map {
@@ -9,7 +11,7 @@
 
     .trip-title {
         display: flex;
-        align-items: center;
+        align-items: baseline;
     }
 }
 
@@ -17,7 +19,7 @@
     display: flex;
     flex-flow: column;
 
-    @media(min-width: $break-lg) {
+    @include media-breakpoint-up(lg) {
         flex-flow: row nowrap;
         gap: 0.5rem;
 
@@ -37,11 +39,45 @@
     .app {
         overflow-y: scroll;
     }
+
+    .trip-title {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: baseline;
+    }
 }
 
 .trip-point-items {
+    & > * {
+        padding-inline: 1rem;
+    }
+
     ul {
         list-style: none;
-        padding-left: 0;
     }
+
+    h2 {
+        margin-bottom: 0.5em;
+    }
+
+    @each $name, $color in palette.$type-colors {
+        &--#{$name} {
+            border-left: 4px solid $color;
+
+            h2 {
+                border-bottom: 6px solid;
+                border-image: linear-gradient(to right, $color, $color 30%, transparent 100%) 1;
+            }
+        }
+    }
+}
+
+.trip-point-item {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.25em;
+    margin-bottom: 0.25em;
+    border-bottom: 2px dotted palette.$border-color;
 }
