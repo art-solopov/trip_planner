@@ -3,15 +3,21 @@
 ul.trips {
   list-style: none;
   padding: 0;
+  column-width: 20ch;
 
   a {
-    display: inline-block;
-    text-decoration: none;
-    transition: background-color 0.2s;
+    display: block;
+    $shadow-color: c.$Fuchsia-200;
+    // --hover-shadow: 0.25em 0.25em 0.5em #{c.$Fuchsia-400};
+
+    box-shadow: none;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    border: 3px solid transparent;
 
     &:hover,
     &:focus {
-      background-color: c.$Gray-50;
+      box-shadow: 0.25em 0.25em 0.5em $shadow-color;
+      border-color: $shadow-color;
     }
   }
 }
