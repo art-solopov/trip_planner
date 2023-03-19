@@ -1,7 +1,8 @@
+@use "sass:color";
 @use "colors" as c;
 
 $primary: c.$Peach-50;
-$secondary: c.$Fuchsia-50;
+$secondary: c.$Lavender-50;
 $success: c.$Green-350;
 $warning: c.$Yellow-100;
 $danger: c.$Red-350;

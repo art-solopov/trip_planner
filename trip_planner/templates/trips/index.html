@@ -4,7 +4,7 @@
 {% block main %}
     <h1 class="">Your trips</h1>
 
-    <a href="{{ url_for('trips.new') }}" class="btn btn-info" role="button" title="Add trip">{{ icon('plus') }} Add trip</a>
+    <a href="{{ url_for('trips.new') }}" class="btn btn-primary" role="button" title="Add trip">{{ icon('plus') }} Add trip</a>
 
     <ul class="trips">
         {%- for trip in trips %}
