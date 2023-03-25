@@ -1,0 +1,17 @@
+@use "colors" as c;
+
+body > header {
+  margin-bottom: 0.5rem;
+}
+
+.top-navbar {
+  background-image: linear-gradient(to right, c.$Peach-50, c.$Lavender-Pink-50);
+
+  box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
+}
+
+.top-breadcrumbs {
+  .breadcrumb {
+    margin: 0;
+  }
+}
