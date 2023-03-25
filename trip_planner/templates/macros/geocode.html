@@ -1,5 +1,7 @@
+{% from "macros/forms.html" import field %}
+
 {% macro geocode_fieldset(field_selector, country_code, data={}) -%}
-    <fieldset class="border-2 rounded-lg border-indigo-800 p-3 box-border" {{ data | xmlattr }}>
+    <fieldset class="border rounded p-3" {{ data | xmlattr }}>
         <legend>Geocoding</legend>
 
         {% if field_selector -%}
@@ -15,16 +17,26 @@
         {%- endif %}
 
         <div>
-            <button type="button" id="btn_geocode" class="btn btn-accent" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
-                                                                          hx-params="name,address,geocode_field"
-                                                                          hx-target="#geocode_results"
-                                                                          hx-swap="outerHTML settle:0"
-                                                                          hx-indicator="#geocode_indicator"
-                                                                          >Geocode</button>
+            <button type="button" id="btn_geocode" class="btn btn-info" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
+                                                                             hx-params="name,address,geocode_field"
+                                                                             hx-target="#geocode_results"
+                                                                             hx-swap="outerHTML settle:0"
+                                                                             hx-indicator="#geocode_indicator"
+                                                                             >Geocode</button>
         </div>
 
-        <div id="geocode_indicator" class="htmx-indicator">Loading…</div> {# TODO: replace with better indicator #}
+        <!-- <div id="geocode_indicator" class="htmx-indicator">Loading…</div> --> {# TODO: replace with better indicator #} 
+        {# Temporarily removed because of htmx indicator class issues #}
 
         <div id="geocode_results" data-geocode-target="results"></div>
     </fieldset>
+{%- endmacro %}
+
+{% macro latlon_fields(lat_field, lon_field) -%}
+    <div class="lat-lon-fields">
+        {% set geo_wrapper_class='field' %}
+        {{ field(lat_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
+        <span class="ws">&nbsp;</span>
+        {{ field(lon_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
+    </div>
 {%- endmacro %}

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
-{% from "macros/geocode.html" import geocode_fieldset %}
+{% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
 {% from "macros/components.html" import collapsible_map %}
 
 {% block main %}
-    <h1 class="{{ common_classes.h1 }}">{{ title }}</h1>
-    {{ collapsible_map('Map', latlon) }}
+    <h1>{{ title }}</h1>
+    {{ collapsible_map('Map', 'point_form_map', latlon) }}
 
     <form id="point_form"
           method="POST"
@@ -21,12 +21,7 @@
         {{ field(form.name) }}
         {{ field(form.address) }}
 
-        <div class="flex flex-row lat-lon-fields">
-            {% set geo_wrapper_class='w-40' %}
-            {{ field(form.lat, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
-            <span class="w-2">&nbsp;</span>
-            {{ field(form.lon, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
-        </div>
+        {{ latlon_fields(form.lat, form.lon) }}
 
         {{ geocode_fieldset(country_code=point.trip.country_code, field_selector=True, data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
 
@@ -35,13 +30,13 @@
 
         {{ field(form.type) }}
         {{ field(form.notes) }}
-        <div class="mb-2 relative max-w-full lg:w-96" data-controller="point-form-schedule">
+        <div class="mb-2 position-relative field-schedule" data-controller="point-form-schedule">
             <table>
                 <thead>
                     <tr>
                         <th></th>
-                        <th>From</th>
-                        <th>To</th>
+                        <th class="{{ schedule_header_cell_class }}">From</th>
+                        <th class="{{ schedule_header_cell_class }}">To</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,9 +49,9 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div id="schedule_buttons" class="hidden schedule-buttons flex flex-col absolute" data-point-form-schedule-target="buttons">
-                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-down mb-2" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('circle-down') }}</button>
-                <button type="button" class="btn btn-small text-xl btn-accent btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
+            <div id="schedule_buttons" class="invisible schedule-buttons" data-point-form-schedule-target="buttons">
+                <button type="button" class="btn btn-info btn-copy-down mb-1" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('circle-down') }}</button>
+                <button type="button" class="btn btn-info btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
             </div>
         </div>
 
@@ -69,6 +64,7 @@
     {# TODO: duplicates trips/show.html, extract into macros? #}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+    {{ style_tag('geocode') }}
 {% endblock %}
 
 {% block extra_body %}

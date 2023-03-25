@@ -9,7 +9,6 @@ from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
 from markupsafe import Markup
 
-from .tailwind import FlashClasses, CommonClasses, FormClasses
 from .shared import DecimalPairConverter
 
 
@@ -92,22 +91,6 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     def inject_icon_defs():
         with app.open_resource('static/icons/icon-defs.svg', 'r') as f:
             return {'icon_defs': Markup(f.read())}
-
-    @app.context_processor
-    def inject_tailwind_vars():
-        return {
-            'flash_classes': {
-                'all': FlashClasses.ALL,
-                'categories': FlashClasses.CATEGORIES
-            },
-            'common_classes': {
-                'h1': CommonClasses.TITLE_H1,
-                'h1_big': CommonClasses.TITLE_H1_BIG,
-                'navbar_text': CommonClasses.NAVBAR_TEXT,
-                'navbar_link': CommonClasses.NAVBAR_LINK,
-            },
-            'form_classes': {}
-        }
 
     if app.env == 'development':
         import IPython

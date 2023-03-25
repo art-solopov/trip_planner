@@ -19,6 +19,7 @@ from .data import PointData
 from .forms import TripForm, PointForm
 from ..tailwind import (ViewClasses as TwViewClasses,
                         ScheduleClasses as TwScheduleClasses)
+from ..bs_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 
@@ -73,7 +74,7 @@ def show(slug):
         render_template('trips/show.html', trip=trip,
                         points=points,
                         points_count=len(trip.points),
-                        view_class=TwViewClasses.TRIP_SHOW,
+                        view_class=ViewClasses.TRIP_SHOW,
                         view_attrs=view_attrs))
     response.add_etag()
 
@@ -212,14 +213,16 @@ trips.add_url_rule('/<slug>/update',
 def weekday_class(weekday: str) -> str:
     weekday = escape(weekday)
     wday_short = weekday[0:3]
-    weekday_classes = TwScheduleClasses.WEEKDAYS
+    weekday_classes = ScheduleClasses.WEEKDAYS
     return weekday_classes.get(wday_short, weekday_classes['_default'])
 
 
 trips.add_app_template_filter(weekday_class, 'weekday_class')
-trips.add_app_template_global(TwScheduleClasses.CELL_CLASS,
+trips.add_app_template_global(ScheduleClasses.CELL_CLASS,
                               'schedule_cell_class')
-trips.add_app_template_global(TwScheduleClasses.COMMON_WEEKDAY_CLASS,
+trips.add_app_template_global(ScheduleClasses.HEADER_CELL_CLASS,
+                              'schedule_header_cell_class')
+trips.add_app_template_global(ScheduleClasses.COMMON_WEEKDAY_CLASS,
                               'schedule_weekday_class')
 
 
@@ -266,7 +269,7 @@ def show_point(trip: Trip, point: Point):
     data = PointData(point)
     add_breadcrumb(point.name)
     response = make_response(render_template('points/show.html', point=point,
-                             data=data))
+                             data=data, view_class=ViewClasses.POINT_SHOW))
     response.add_etag()
     return response.make_conditional(request)
 

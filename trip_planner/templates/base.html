@@ -8,6 +8,9 @@
         {# Emoji icon #}
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
 
+        {# TODO: replace CDNs with proper vendoring #}
+        <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
+
         {{ style_tag('app') }}
         {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}
@@ -15,27 +18,24 @@
     <body>
         {{ icon_defs }}
 
-        <div class="container flex flex-col box-border mx-auto min-h-screen">
-            {% include "_header.html" %}
+        {% include "_header.html" %}
+        <div class="container">
             {% with messages = get_flashed_messages(with_categories=True) -%}
                 {%- if messages %}
-                    <div class="flashes my-3">
+                    <div class="flashes">
                         {% for category, message in messages %}
-                            <div class="{{ flash_classes.all }} {{ flash_classes.categories[category] }}" data-controller="flash">
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                                 <span>{{ message }}</span>
-                                <button type="button"
-                                        class="text-gray-600 hover:bg-gray-300 transition-colors duration-150 w-6 rounded-full"
-                                        data-action="flash#remove"
-                                        >&#10005;</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></span>
                             </div>
                         {% endfor %}
                     </div>
                 {% endif -%}
             {%- endwith %}
-            <main class="{{ view_class }} my-4 flex-grow-half-1 box-border" {{ view_attrs | default({}) | xmlattr }}>
+            <main class="{{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
                 {% block main %}{% endblock %}
             </main>
-            <footer class="main-footer mt-4 p-4 bg-gray-200 box-border text-center">
+            <footer class="main-footer py-2 px-3 mt-2 text-center">
                 <p>© Artemiy Solopov, 2019</p>
                 <p>All map data © OpenStreetMaps</p>
                 <p>Icons are based on icons from <a href="https://icomoon.io/">Icomoon</a></p>

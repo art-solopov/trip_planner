@@ -1,0 +1,33 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/variables";
+
+@import "./breakpoints";
+
+.geocode-results {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+  gap: $spacer;
+}
+
+.lat-lon-fields {
+  display: flex;
+  flex-flow: column;
+
+  .ws { display: none; }
+
+  @media(width >= $break-sm) {
+    flex-flow: row nowrap;
+
+    .field {
+      flex: 0 1 40%;
+      max-width: 15rem;
+    }
+
+    .ws {
+      display: inline;
+      flex: 0 0 1rem;
+    }
+  }
+}

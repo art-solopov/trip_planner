@@ -1,12 +1,17 @@
-{% set default_input_class = "w-full" %}
+{% set default_input_class = "form-control" %}
+{% set wrapper_base_class = "mb-2" %}
 
 {% macro field(field, extra = None, wrapper_class='', input_class=default_input_class, field_kwargs={}) -%}
-    {%- set wrapper_base_class = "field-" + field.name -%}
-    <div class="{{ ["mb-2", wrapper_base_class, wrapper_class] | join(' ') }}">
-        {{ field.label }}
+    {%- set wrapper_field_class = "field-" + field.name -%}
+    <div class="{{ [wrapper_base_class, wrapper_field_class, wrapper_class] | join(' ') }}">
+        {{ field.label(class="form-label") }}
         {{ field(class_=input_class, **field_kwargs) }}
         {%- if extra %}{{ extra }}{% endif %}
     </div>
+{%- endmacro %}
+
+{% macro field_select(f, extra=None, wrapper_class='') %}
+    {{ field(f, extra=extra, wrapper_class=wrapper_class, input_class='form-select') }}
 {%- endmacro %}
 
 {% macro errors(form) -%}
@@ -22,9 +27,9 @@
     {% endif -%}
 {%- endmacro %}
 
-{% macro submit_btn(submit_text) -%}
-    <div class="mt-1">
-        <button type="submit" class="btn btn-default">{{ submit_text | default('Submit') }}</button>
+{% macro submit_btn(submit_text, submit_class="success") -%}
+    <div class="{{ wrapper_base_class }}">
+        <button type="submit" class="btn btn-{{ submit_class }}">{{ submit_text | default('Submit') }}</button>
     </div>
 {%- endmacro %}
 

@@ -1,0 +1,30 @@
+@use "sass:list";
+
+@use "colors" as c;
+
+$weekday-colors: (
+  "default": (c.$Gray-600, white),
+  "fri": (c.$Blue-500, white),
+  "sat": (c.$Fuchsia-100, c.$Fuchsia-700),
+  "sun": (c.$Yellow-100, black),
+);
+
+@each $name, $colors in $weekday-colors {
+  $bg: list.nth($colors, 1);
+  $fg: list.nth($colors, 2);
+  .wday-#{$name} {
+    background-color: $bg;
+    color: $fg;
+  }
+}
+
+.field-schedule {
+  width: min(22rem, 100%);
+}
+
+.schedule-buttons {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-flow: column;
+}

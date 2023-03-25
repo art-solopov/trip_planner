@@ -1,33 +1,42 @@
 <header>
-    <nav class="bg-indigo-700 text-white flex flex-row items-baseline h-12">
-        <a href="/" class="text-white text-2xl no-underline h-full mx-2 pt-1.5 inline-block font-bold">TRIPPLAN</a>
-        <span class="mr-auto ml-0"></span>
-        {%- set navbar_button_class = 'mx-2 btn btn-light-2 btn-small' %}
-        {% if g.user %}
-            <span class="{{ common_classes.navbar_text }} flex-shrink overflow-hidden overflow-ellipsis">{{ g.user.username }}</span>
-            <a href="{{ url_for('auth.logout') }}" class="{{ common_classes.navbar_link }}">Sign out</a>
-        {% else %}
-            <a href="{{ url_for('auth.login') }}" class="{{ common_classes.navbar_link }}" >Sign in</a>
-        {% endif %}
+    <nav class="navbar navbar-expand-sm top-navbar mb-2">
+        <div class="container">
+            <a href="/" class="navbar-brand">TRIPPLAN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggler" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar_toggler">
+                {% if g.user %}
+                    <span class="nav-text ms-auto">{{ g.user.username }}</span>
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="{{ url_for('auth.logout') }}" class="nav-link">Sign out</a></li>
+                    </ul>
+                {% else %}
+                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a href="{{ url_for('auth.login') }}" class="nav-link">Sign in</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
     </nav>
 
     {%- if g.breadcrumbs %}
-    <nav class="my-2 flex flex-row items-baseline">
-        {%- for breadcrumb in g.breadcrumbs %}
-            {% if not loop.first -%}
-                <span class="">/</span>
-            {%- endif -%}
-
-            {%- set bc_class = "p-2" -%}
-            {%- if loop.last -%}
-                {%- set bc_class = bc_class + "" -%}
-            {%- endif %}
-            {%- if breadcrumb.link -%}
-                <a href="{{ breadcrumb.link }}" class="{{ bc_class }}">{{ breadcrumb.text }}</a>
-            {%- else -%}
-                <span class="{{ bc_class }}">{{ breadcrumb.text }}</span>
-            {%- endif %}
-        {% endfor -%}
+    <nav aria-label="breadcrumb" class="container top-breadcrumbs">
+        <ol class="breadcrumb">
+            {%- for breadcrumb in g.breadcrumbs %}
+                {%- set bc_class = "breadcrumb-item" -%}
+                {%- if loop.last -%}
+                    {%- set bc_class = bc_class + " active" -%}
+                {%- endif %}
+                <li class="{{ bc_class }}">
+                    {%- if breadcrumb.link -%}
+                        <a href="{{ breadcrumb.link }}">{{ breadcrumb.text }}</a>
+                    {%- else -%}
+                        {{ breadcrumb.text }}
+                    {%- endif %}
+                </li>
+            {% endfor %}
+        </ol>
     </nav>
     {% endif -%}
 </header>

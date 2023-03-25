@@ -2,38 +2,42 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <div class="trip-map box-border lg:order-1 lg:min-w-wide lg:flex-grow" id="map" data-map-target="map"></div>
-    <div class="app box-border lg:flex-shrink-trip-app lg:overflow-y-scroll lg:pr-4">
+    <div class="trip-map" id="map" data-map-target="map" aria-label="Map"></div>
+    <div class="app">
         <header>
-            <h1 class="{{ common_classes.h1 }}">{{ trip.name }}</h1>
-            <div>Count: {{ points_count }}</div>
+            <div class="trip-title">
+                <h1>{{ trip.name }}</h1>
+                <div class="ms-auto buttons">
+                    <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-primary" title="Add point">{{ icon('plus') }}</a>
+                    <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil') }}</a>
+                    <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-danger" title="Delete">{{ icon('bin2') }}</a>
+                </div>
+            </div>
+            <!-- <div>Count: {{ points_count }}</div> -->
 
             <div>
-                <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-small btn-accent" title="Edit">{{ icon('pencil') }}</a>
-                <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-small btn-default" title="Add point">{{ icon('plus') }}</a>
-                <a href="{{ url_for('.delete_trip', slug=trip.slug) }}" class="btn btn-small btn-danger" title="Delete">{{ icon('bin2') }}</a>
             </div>
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items pt-3 pb-2 border-solid border-b-2 border-gray-700">
-                <h2 class="mb-2 text-xl">{{ g_type | capitalize }}</h2>
+            <section class="trip-point-items trip-point-items--{{ g_type | lower }}">
+                <h2 class="h4">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
-                        <li class="trip-point-item my-1"
+                        <li class="trip-point-item"
                             id="{{ point.id }}"
                             data-map-target="point"
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
                             <div>
-                                <h3 class="item-name text-lg font-bold">{{ point.name }}</h3>
-                                <p class="item-address">{{ point.address }}</p>
+                                <h3 class="h5 m-0 item-name">{{ point.name }}</h3>
+                                <address class="item-address">{{ point.address }}</address>
                             </div>
-                            <div class="item-links">
+                            <div class="item-links btn-group" role="group" aria-label="Point controls">
                                 <a class="btn btn-small btn-light pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>
-                                <a class="btn btn-small btn-default more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
-                                <a class="btn btn-small btn-accent edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+                                <a class="btn btn-small btn-info more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
+                                <a class="btn btn-small btn-secondary edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
                                 <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>
@@ -48,6 +52,8 @@
     {# TODO: maybe install via npm #}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+    {# TODO: maybe join with app.css? #}
+    {{ style_tag('trip_show') }}
 {% endblock %}
 
 {% block extra_body %}

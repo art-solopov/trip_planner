@@ -1,0 +1,11 @@
+@use "sass:map";
+
+.btn-success {
+    @include button-variant($success, $success, $color: white)
+}
+
+.buttons {
+    display: flex;
+
+    gap: map.get($spacers, 2);
+}

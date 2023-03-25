@@ -1,5 +1,4 @@
-// require('htmx.org')
-import 'htmx.org/dist/htmx.js'
+import '../../../css/geocode.scss';
 
 import { GeocodeController } from './controllers.js'
 

@@ -1,7 +1,3 @@
-import '../css/app.css'
-import { initComponent } from './utils'
-import Flash from './components/flash'
-import Collapsible from './components/collapsible'
+import './bootstrap_custom'
 
-initComponent(Flash)
-initComponent(Collapsible)
+import '../css/app.scss'
