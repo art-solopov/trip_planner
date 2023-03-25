@@ -6,7 +6,7 @@
         <div class="point-title">
             <h1>{{ point.name }}</h1>
             <address>{{ point.address }}</address>
-            <a class="btn btn-info" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
+            <a class="btn btn-secondary" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
         </div>
 
         <figure class="figure">

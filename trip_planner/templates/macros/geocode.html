@@ -17,7 +17,7 @@
         {%- endif %}
 
         <div>
-            <button type="button" id="btn_geocode" class="btn btn-secondary" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
+            <button type="button" id="btn_geocode" class="btn btn-info" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
                                                                              hx-params="name,address,geocode_field"
                                                                              hx-target="#geocode_results"
                                                                              hx-swap="outerHTML settle:0"
@@ -25,7 +25,8 @@
                                                                              >Geocode</button>
         </div>
 
-        <div id="geocode_indicator" class="htmx-indicator">Loading…</div> {# TODO: replace with better indicator #}
+        <!-- <div id="geocode_indicator" class="htmx-indicator">Loading…</div> --> {# TODO: replace with better indicator #} 
+        {# Temporarily removed because of htmx indicator class issues #}
 
         <div id="geocode_results" data-geocode-target="results"></div>
     </fieldset>

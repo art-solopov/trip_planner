@@ -35,9 +35,9 @@
                                 <address class="item-address">{{ point.address }}</address>
                             </div>
                             <div class="item-links btn-group" role="group" aria-label="Point controls">
-                                <a class="btn btn-small btn-secondary pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>
-                                <a class="btn btn-small btn-primary more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
-                                <a class="btn btn-small btn-info edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+                                <a class="btn btn-small btn-light pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass2') }}</a>
+                                <a class="btn btn-small btn-info more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('file-text2') }}</a>
+                                <a class="btn btn-small btn-secondary edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
                                 <a class="btn btn-small btn-danger delete-link" href="{{ url_for('.delete_point', slug=trip.slug, id=point.id ) }}" title="Delete">{{ icon('bin2') }}</a>
                             </div>
                         </li>

@@ -1,12 +1,13 @@
 @use "sass:color";
 @use "colors" as c;
 
-$primary: c.$Peach-50;
-$secondary: c.$Lavender-50;
+$primary: c.$Lavender-Pink-100;
+$secondary: c.$Peach-50;
 $success: c.$Green-350;
 $warning: c.$Yellow-100;
 $danger: c.$Red-350;
 $info: c.$Blue-100;
+$light: c.$Gray-100;
 $dark: c.$Gray-600;
 
 $body-color: c.$Gray-600;

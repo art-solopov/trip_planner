@@ -1,5 +1,5 @@
 {% if results %}
-    <div class="geocode-results" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
+    <div class="geocode-results mt-2" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
     {% for result in results %}
         <div class="result card" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
             <div class="card-header">
