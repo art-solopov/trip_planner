@@ -85,7 +85,7 @@ function addPointsMarkers(map, points) {
             offset: [0, -20]
         }).setText(point.name)
         const el = document.createElement('img')
-        el.src = `/static/icons/${point.category}.png`
+        import(`./icons/${point.category}.png`).then(imgmod => el.src = imgmod.default)
 
         new mapboxgl.Marker({
             anchor: 'bottom',

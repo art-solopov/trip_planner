@@ -119,10 +119,8 @@ node_modules
 
 trip_planner/static/css
 trip_planner/static/js
-trip_planner/static/assets/**/*.css
-trip_planner/static/assets/**/*.js
-trip_planner/static/assets/**/*.map
-trip_planner/static/assets/manifest.json
+trip_planner/static/assets
+trip_planner/static/assets
 
 tmp
 log

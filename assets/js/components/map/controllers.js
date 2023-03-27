@@ -37,8 +37,7 @@ export class MapController extends BaseController {
             let lat = Number(pt.dataset.lat),
                 lon = Number(pt.dataset.lon)
             return new Point({
-                lat: Number(pt.dataset.lat),
-                lon: Number(pt.dataset.lon),
+                lat, lon,
                 category: pt.dataset.category,
                 name: pt.querySelector('.item-name').innerText,
                 id: pt.id
