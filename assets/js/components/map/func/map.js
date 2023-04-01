@@ -1,3 +1,5 @@
+import styles from './marker-styles.module.scss'
+
 export const DEFAULT_ZOOM = 10
 export const FOCUS_ZOOM = 15.0
 const FIT_BOUND_OPTIONS = {
@@ -7,6 +9,7 @@ const FIT_BOUND_OPTIONS = {
 
 export async function mapInit(apiKey, points, options) {
     mapboxgl.accessToken = apiKey
+    console.log(styles)
 
     options.bounds = calculateBounds(points)
     const map = await loadMap(options)
@@ -80,6 +83,8 @@ function addImages(map, points) {
 }
 
 function addPointsMarkers(map, points) {
+    // import('./marker-styles.module.scss').then(mod => console.log(mod))
+
     for (let point of points) {
         const popup = new mapboxgl.Popup({
             offset: [0, -20]

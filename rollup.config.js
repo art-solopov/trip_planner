@@ -59,7 +59,7 @@ export default {
         resolve({ jsnext: true, preferBuiltins: true, browser: true }),
         commonjs(),
         json(),
-        styles({ mode: 'extract' }),
+        styles({ mode: ['extract', 'app.css'], autoModules: true }),
         isProd && terser(),
         url({limit: 2048, publicPath: '/static/assets/'}),
         dynamicImportVars(),

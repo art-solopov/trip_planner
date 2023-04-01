@@ -1,0 +1,7 @@
+@use "../../../../css/palette";
+
+@each $type, $color in palette.$type-colors {
+  .#{$type} {
+    background: $color;
+  }
+}
