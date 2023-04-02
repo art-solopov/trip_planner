@@ -2,7 +2,7 @@ import os
 import os.path
 import json
 
-from flask import Flask, render_template, session, g
+from flask import Flask, render_template, session, g, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
@@ -86,11 +86,6 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     @app.template_test('hidden_field')
     def is_hidden_field(field: Field) -> bool:
         return getattr(field.widget, 'input_type', '') == 'hidden'
-
-    @app.context_processor
-    def inject_icon_defs():
-        with app.open_resource('static/icons/icon-defs.svg', 'r') as f:
-            return {'icon_defs': Markup(f.read())}
 
     if app.env == 'development':
         import IPython

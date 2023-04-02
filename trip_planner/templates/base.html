@@ -16,8 +16,6 @@
         {%- block extra_head %}{% endblock %}
     </head>
     <body>
-        {{ icon_defs }}
-
         {% include "_header.html" %}
         <div class="container">
             {% with messages = get_flashed_messages(with_categories=True) -%}
