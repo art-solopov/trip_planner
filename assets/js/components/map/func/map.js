@@ -7,6 +7,18 @@ const FIT_BOUND_OPTIONS = {
     maxZoom: FOCUS_ZOOM
 }
 
+// TODO: maybe inject from backend
+const ICONS = {
+    museum: 'easel',
+    sight: 'star',
+    transport: 'train-front',
+    accomodation: 'house',
+    food: 'cup-hot',
+    entertainment: 'dpad',
+    shop: 'basket3',
+    other: 'pentagon'
+}
+
 export async function mapInit(apiKey, points, options) {
     mapboxgl.accessToken = apiKey
     console.log(styles)
@@ -83,14 +95,26 @@ function addImages(map, points) {
 }
 
 function addPointsMarkers(map, points) {
-    // import('./marker-styles.module.scss').then(mod => console.log(mod))
-
     for (let point of points) {
+        const el = document.createElement('div')
+        el.className = `${styles.marker} ${styles[point.category]}`
+        const iconsUrl = document.querySelector('meta[name="js:icons_url"]').content
+        const icon = ICONS[point.category]
+
+        el.innerHTML = `
+            <svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>
+            <svg class=${styles.markerIcon}><use xlink:href="${iconsUrl}#${icon}-fill"></svg>
+        `
+
         const popup = new mapboxgl.Popup({
             offset: [0, -20]
-        }).setText(point.name)
-        const el = document.createElement('img')
-        import(`./icons/${point.category}.png`).then(imgmod => el.src = imgmod.default)
+        }).setHTML(`
+            <p>${point.name}</p>
+            <p>
+                <a href="${point.links.more}">More</a>
+                <a href="${point.links.edit}">Edit</a>
+            </p>
+            `)
 
         new mapboxgl.Marker({
             anchor: 'bottom',

@@ -1,10 +1,11 @@
 export default class Point {
-    constructor({id, name, category, lat, lon}) {
+    constructor({id, name, category, lat, lon, links}) {
         this.id = id
         this.name = name
         this.category = category
         this.lat = lat
         this.lon = lon
+        this.links = links
     }
 
     toGeoJsonFeature() {

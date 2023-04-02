@@ -40,7 +40,11 @@ export class MapController extends BaseController {
                 lat, lon,
                 category: pt.dataset.category,
                 name: pt.querySelector('.item-name').innerText,
-                id: pt.id
+                id: pt.id,
+                links: {
+                    more: pt.querySelector('a.more-link').href,
+                    edit: pt.querySelector('a.edit-link').href
+                }
             })
         })
 
