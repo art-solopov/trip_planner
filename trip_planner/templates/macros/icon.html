@@ -1,5 +1,5 @@
 {% macro icon(name) -%}
     <svg class="icon icon-{{ name }}">
-        <use xlink:href="#icon-{{ name }}">
+        <use xlink:href="{{url_for('static', filename='vendor/bootstrap-icons.svg')}}#{{ name }}">
     </svg>
 {%- endmacro %}

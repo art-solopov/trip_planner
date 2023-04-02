@@ -4,6 +4,8 @@ import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import url from '@rollup/plugin-url'
+import dynamicImportVars from '@rollup/plugin-dynamic-import-vars'
 import manifest from 'rollup-plugin-output-manifest'
 import styles from 'rollup-plugin-styles'
 import { terser } from 'rollup-plugin-terser'
@@ -38,6 +40,9 @@ export default {
             let comp_match = /node_modules(\/@[a-z_]+)?\/([a-z_]+)/.exec(id)
             return `node_modules/${comp_match[1] || ''}/${comp_match[2]}`
         }
+        if(id.endsWith('.png') && id.includes('icons')) {
+            return 'images/icons'
+        }
         let comp_match = COMPONENT_REGEXP.exec(id)
         if (comp_match) {
             let modinfo = getModuleInfo(id)
@@ -54,8 +59,10 @@ export default {
         resolve({ jsnext: true, preferBuiltins: true, browser: true }),
         commonjs(),
         json(),
-        styles({ mode: 'extract' }),
+        styles({ mode: ['extract', 'app.css'], autoModules: true }),
         isProd && terser(),
+        url({limit: 2048, publicPath: '/static/assets/'}),
+        dynamicImportVars(),
         manifest({ nameWithExt: false, publicPath: 'assets/' }),
     ]
 };
