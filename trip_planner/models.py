@@ -1,4 +1,18 @@
+import enum
 from . import db
+
+
+class PrivacyStatusEnum(enum.Enum):
+    private = 'private'
+    public = 'public'
+
+
+class WithPrivacyOptions:
+    privacy_status = db.Column(db.Enum(PrivacyStatusEnum, native_enum=False, length=255,
+                                       values_callable=(lambda x: [e.value for e in x])),
+                               default=PrivacyStatusEnum.private,
+                               server_default=PrivacyStatusEnum.private.value,
+                               nullable=False)
 
 
 class User(db.Model):
@@ -12,7 +26,7 @@ class User(db.Model):
         return f"<User {self.username}>"
 
 
-class Trip(db.Model):
+class Trip(WithPrivacyOptions, db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True,
                           nullable=False)
@@ -34,7 +48,7 @@ class Trip(db.Model):
 db.Index('idx_trip_author_slug', Trip.author_id, Trip.slug, unique=True)
 
 
-class Point(db.Model):
+class Point(WithPrivacyOptions, db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     trip_id = db.Column(db.BigInteger, db.ForeignKey('trip.id'), index=True,
                         nullable=False)
