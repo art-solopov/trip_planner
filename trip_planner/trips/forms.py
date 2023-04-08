@@ -5,16 +5,29 @@ from copy import copy
 from flask_wtf import FlaskForm
 from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList,
-                     DecimalField)
+                     DecimalField, RadioField)
 from wtforms.widgets.html5 import TimeInput
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
+from ..models import PrivacyStatusEnum
 
 
-class TripForm(FlaskForm):
+class WithPrivacyOptions:
+    privacy_status = RadioField('Privacy status',
+                                default=PrivacyStatusEnum.private.value,
+                                validators=[DataRequired()],
+                                coerce=(lambda d: d.value if isinstance(d, PrivacyStatusEnum) else d),
+                                choices=[(e.value, e.value.capitalize()) for e in PrivacyStatusEnum])
+
+    def populate_obj(self, obj):
+        super().populate_obj(obj)
+        obj.privacy_status = PrivacyStatusEnum(self.privacy_status.data)
+
+
+class TripForm(WithPrivacyOptions, FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=2000)])
     country_code = SelectField('Country', choices=[],
                                validators=[Optional(strip_whitespace=True)])
@@ -76,7 +89,7 @@ class ScheduleField(FieldList):
         return (weekday, dct)
 
 
-class PointForm(FlaskForm):
+class PointForm(WithPrivacyOptions, FlaskForm):
     TYPE_CHOICES = [
         ('museum', 'Museum'),
         ('sight', 'Sight'),

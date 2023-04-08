@@ -14,6 +14,19 @@
     {{ field(f, extra=extra, wrapper_class=wrapper_class, input_class='form-select') }}
 {%- endmacro %}
 
+{% macro field_radio(f, wrapper_class='') %}
+    {%- set wrapper_field_class = "field-" + field.name -%}
+    <div class="{{ [wrapper_base_class, wrapper_field_class, wrapper_class] | join(' ') }}">
+        {{ f.label(class="form-label") }}
+        {% for subfield in f %}
+            <div class="form-check">
+                {{ subfield(class_='form-check-input') }}
+                {{ subfield.label(class_='form-check-label') }}
+            </div>
+        {%- endfor %}
+    </div>
+{%- endmacro %}
+
 {% macro errors(form) -%}
     {%- if form.errors %}
         <ul class="form-errors">

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros/forms.html" import field, field_select, errors, submit_btn %}
+{% from "macros/forms.html" import field, field_select, field_radio, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
 {% from "macros/components.html" import collapsible_map %}
 {% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
@@ -13,7 +13,7 @@
 
         {{ form.hidden_tag() }}
 
-        {{ field(form.name, wrapper_class="lg:w-100") }}
+        {{ field(form.name, wrapper_class="") }}
 
         {{ latlon_fields(form.center_lat, form.center_lon) }}
 
@@ -21,6 +21,7 @@
 
         {{ field_select(form.country_code) }}
         {{ field(form.slug) }}
+        {{ field_radio(form.privacy_status) }}
 
         {{ submit_btn() }}
     </form>
