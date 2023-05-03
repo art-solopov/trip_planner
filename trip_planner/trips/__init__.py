@@ -5,7 +5,7 @@ from typing import Dict
 
 from flask import (Blueprint, g, render_template,
                    request, redirect, url_for, flash,
-                   make_response)
+                   make_response, abort)
 from flask.views import MethodView as View
 from sqlalchemy.exc import IntegrityError
 import psycopg2.errorcodes as pgerrorcodes
@@ -13,7 +13,7 @@ from markupsafe import escape
 
 from .. import db
 from ..shared import user_required, add_breadcrumb
-from ..models import Trip, Point
+from ..models import Trip, Point, User
 from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
@@ -52,12 +52,20 @@ def index():
     return response.make_conditional(request)
 
 
-@trips.route("/<slug>")
+@trips.route("/-/<slug>", defaults={'author_id': None})
+@trips.route("/<author_id>/<slug>")
 @user_required
-def show(slug):
-    g.policy = Policy(g.user)
-    trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
-    points = groupby([PointData(point) for point in trip.points],
+def show(author_id, slug):
+    policy = Policy(g.user)
+    if author_id:
+        author = User.query.filter_by(username=author_id).first_or_404()
+    else:
+        author = g.user
+    trip = Trip.query.filter_by(author_id=author.id, slug=slug).first_or_404()
+    if not policy.can_see_trip(trip):
+        abort(403)
+    points = policy.trip_points_query(trip)
+    points = groupby([PointData(point) for point in points],
                      attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
@@ -70,6 +78,7 @@ def show(slug):
         'data-map-centerlat-value': trip.center_lat,
         'data-map-centerlon-value': trip.center_lon
     }
+    g.policy = policy
 
     response = make_response(
         render_template('trips/show.html', trip=trip,
@@ -188,7 +197,7 @@ class UpdateTripView(TripCUView):
 
 @trips.route('/<slug>/delete', methods=('GET', 'POST'))
 def delete_trip(slug: str):
-    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    trip = Trip.query.filter_by(author=g.user, slug=slug).first_or_404()
     if request.method == 'POST':
         db.session.delete(trip)
         db.session.commit()
@@ -230,7 +239,7 @@ trips.add_app_template_global(ScheduleClasses.COMMON_WEEKDAY_CLASS,
 def trip_point_wrapper(f):
     @wraps(f)
     def handler(slug: str, id: int):
-        trip = Trip.query.filter_by(slug=slug).first_or_404()
+        trip = Trip.query.filter_by(author=g.user, slug=slug).first_or_404()
         point = Point.query.filter(Point.trip == trip, Point.id == id)\
                            .first_or_404()
 
@@ -244,7 +253,7 @@ def trip_point_wrapper(f):
 @trips.route("/<slug>/add-point", methods=('GET', 'POST'))
 @user_required
 def add_point(slug: str):
-    trip = Trip.query.filter_by(slug=slug).first_or_404()
+    trip = Trip.query.filter_by(author=g.user, slug=slug).first_or_404()
     point = Point(trip=trip)
     form = PointForm()
     if form.validate_on_submit():

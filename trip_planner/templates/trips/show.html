@@ -10,11 +10,13 @@
         <header>
             <div class="trip-title">
                 <h1>{{ trip.name }}</h1>
-                <div class="ms-auto buttons">
-                    <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-primary" title="Add point">{{ icon('plus-lg') }}</a>
-                    <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil-square') }}</a>
-                    <a class="btn btn-danger" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', slug=trip.slug)) }}>{{ icon('trash-fill') }}</a>
-                </div>
+                {% if g.policy.is_own_trip(trip) %}
+                    <div class="ms-auto buttons">
+                        <a href="{{ url_for('.add_point', slug=trip.slug) }}" class="btn btn-primary" title="Add point">{{ icon('plus-lg') }}</a>
+                        <a href="{{ url_for('.update', slug=trip.slug) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil-square') }}</a>
+                        <a class="btn btn-danger" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', slug=trip.slug)) }}>{{ icon('trash-fill') }}</a>
+                    </div>
+                {% endif %}
             </div>
             <!-- <div>Count: {{ points_count }}</div> -->
 
@@ -47,8 +49,10 @@
                             <div class="item-links btn-group" role="group" aria-label="Point controls">
                                 <a class="btn btn-small btn-light pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass') }}</a>
                                 <a class="btn btn-small btn-info more-link" href="{{ url_for('.show_point', slug=trip.slug, id=point.id) }}" title="More">{{ icon('arrow-up-right-square') }}</a>
-                                <a class="btn btn-small btn-secondary edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
-                                <a class="btn btn-small btn-danger delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', slug=trip.slug, id=point.id)) }}>{{ icon('trash-fill') }}</a>
+                                {% if g.policy.is_own_trip(trip) %}
+                                    <a class="btn btn-small btn-secondary edit-link" href="{{ url_for('.update_point', slug=trip.slug, id=point.id) }}" title="Edit">{{ icon('pencil') }}</a>
+                                    <a class="btn btn-small btn-danger delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', slug=trip.slug, id=point.id)) }}>{{ icon('trash-fill') }}</a>
+                                {% endif %}
                             </div>
                         </li>
                     {% endfor %}

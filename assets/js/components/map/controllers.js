@@ -43,7 +43,7 @@ export class MapController extends BaseController {
                 id: pt.id,
                 links: {
                     more: pt.querySelector('a.more-link').href,
-                    edit: pt.querySelector('a.edit-link').href
+                    // edit: pt.querySelector('a.edit-link').href
                 }
             })
         })
