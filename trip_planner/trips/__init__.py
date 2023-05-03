@@ -17,6 +17,7 @@ from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
+from .policy import Policy
 from ..bs_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
@@ -54,8 +55,10 @@ def index():
 @trips.route("/<slug>")
 @user_required
 def show(slug):
+    g.policy = Policy(g.user)
     trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
-    points = groupby(trip.points, attrgetter('type'))
+    points = groupby([PointData(point) for point in trip.points],
+                     attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name)

@@ -34,7 +34,14 @@
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
                             <div>
-                                <h3 class="h5 m-0 item-name">{{ point.name }}</h3>
+                                <h3 class="h5 m-0 item-name">
+                                    {%- if g.policy.is_own_trip(trip) -%}
+                                        <span title="{{ point.privacy_status.title }}">
+                                            {{ icon(point.privacy_status.icon) }}
+                                        </span>
+                                    {%- endif -%}
+                                    {{ point.name }}
+                                </h3>
                                 <address class="item-address">{{ point.address }}</address>
                             </div>
                             <div class="item-links btn-group" role="group" aria-label="Point controls">

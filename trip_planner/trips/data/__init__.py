@@ -3,7 +3,7 @@ from typing import Sequence, Dict
 from markupsafe import Markup, escape
 
 from trip_planner.data import MapData
-from trip_planner.models import Point
+from trip_planner.models import Point, PrivacyStatusEnum
 from trip_planner.bs_classes import ScheduleClasses
 
 
@@ -54,10 +54,35 @@ class PointScheduleData:
                 '</tr>')
 
 
+class PrivacyStatusPresenter:
+    # TODO: replace with i18n
+    TITLES = {
+            PrivacyStatusEnum.private: 'Private',
+            PrivacyStatusEnum.public: 'Public'
+            }
+
+    ICONS = {
+            PrivacyStatusEnum.private: 'eye-slash',
+            PrivacyStatusEnum.public: 'eye'
+            }
+
+    def __init__(self, privacy_status: PrivacyStatusEnum):
+        self.privacy_status = privacy_status
+
+    @property
+    def title(self):
+        return self.TITLES[self.privacy_status]
+
+    @property
+    def icon(self):
+        return self.ICONS[self.privacy_status]
+
+
 class PointData(MapData):
     def __init__(self, point: Point):
         self.point = point
         self.schedule = PointScheduleData(point)
+        self.privacy_status = PrivacyStatusPresenter(point.privacy_status)
 
     @property
     def point_map_url(self) -> str:
@@ -66,3 +91,6 @@ class PointData(MapData):
     @property
     def notes_lines(self) -> Sequence[str]:
         return [l for l in self.point.notes.splitlines() if l]
+
+    def __getattr__(self, name):
+        return getattr(self.point, name)
