@@ -2,25 +2,27 @@
 {% from "macros/icon.html" import icon %}
 
 {% block main %}
-    <header class="mb-2">
+    <header>
         <div class="point-title">
             <h1>{{ point.name }}</h1>
             <address>{{ point.address }}</address>
+        </div>
+        <div class="buttons">
             <a class="btn btn-secondary" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}">{{ icon('pencil') }}&nbsp;Edit</a>
         </div>
-
-        <figure class="figure">
-            <img class="figure-img map-image" src="{{ data.point_map_url }}">
-        </figure>
     </header>
 
-    {% if point.notes and not point.notes.isspace() %}
-        <section>
+    <figure class="figure">
+        <img class="figure-img map-image" src="{{ data.point_map_url }}">
+    </figure>
+
+    <section class="body">
+        {% if point.notes and not point.notes.isspace() %}
             {%- for note_line in data.notes_lines %}
                 <p>{{ note_line }}</p>
             {% endfor -%}
-        </section>
-    {% endif %}
+        {% endif %}
 
-    {{ data.schedule() }}
+        {{ data.schedule() }}
+    </section>
 {% endblock %}
