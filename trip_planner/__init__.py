@@ -46,7 +46,9 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     if test_config is not None:
         app.config.from_object(test_config)
     else:
-        app.config.from_object(f'trip_planner.config.{app.env.capitalize()}')
+        # TODO: probably replace with something better?
+        app_env = os.getenv('FLASK_ENV') or 'production'
+        app.config.from_object(f'trip_planner.config.{app_env.capitalize()}')
 
     secrets_path = app.config['SECRETS_PATH']
     app.config.from_file(secrets_path, load=json.load) #  TODO: replace with TOML?
@@ -87,7 +89,7 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     def is_hidden_field(field: Field) -> bool:
         return getattr(field.widget, 'input_type', '') == 'hidden'
 
-    if app.env == 'development':
+    if app.debug:
         import IPython
 
         @app.cli.command('ishell')
