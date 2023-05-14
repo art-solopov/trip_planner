@@ -40,22 +40,9 @@ def db(app):
 
 @pytest.fixture(scope='function', autouse=True)
 def db_session(db):
-    connection = db.engine.connect()
-    transaction = connection.begin()
+    yield db.session
 
-    session = db.create_scoped_session()
-    db.session = session
-
-    # Honestly I'm not sure how to make it more DRY
-    # Maybe when I remove Flask-SQLAlchemy
-    for factory in [fc.TripFactory, fc.UserFactory, fc.PointFactory]:
-        factory._meta.sqlalchemy_session = session
-
-    yield session
-
-    transaction.rollback()
-    connection.close()
-    session.remove()
+    db.session.remove()
 
 
 @pytest.fixture(scope='session')
