@@ -1,4 +1,5 @@
 @use "colors" as c;
+@use "sass:color";
 
 // @import "~bootstrap/scss/bootstrap";
 @import "bootstrap-custom";
@@ -29,4 +30,27 @@
   &:hover, &:focus {
     color: c.$Gray-600 !important;
   }
+}
+
+dialog {
+  padding: 0;
+  border: $border-width $border-style $border-color;
+  border-radius: $border-radius-lg;
+
+  &::backdrop {
+    background-color: color.change(c.$Gray-600, $alpha: 0.7);
+  }
+  & > * {
+    padding: $spacer (2 * $spacer);
+  }
+
+  // Animation
+  &[open] {
+    animation: dialogFadeIn 0.2s ease normal;
+  }
+}
+
+@keyframes dialogFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

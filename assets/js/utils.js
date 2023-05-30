@@ -12,9 +12,13 @@ export function createApp(controllers = []) {
 }
 
 export function initComponent(component) {
-    let app = {}
+    let app = { init: [] }
     if (component.controllers) {
         app.stimulusApp = createApp(component.controllers)
+    }
+    if (component.init) {
+        component.init()
+        app.init.push(component.init)
     }
 
     return app

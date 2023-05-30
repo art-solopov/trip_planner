@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends form_base_template %}
 
 {% block main %}
-    <form method="POST">
+    <form method="POST" action="{{ request.base_url }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
 	{%- if message -%}
@@ -10,7 +10,11 @@
 
         <div>
             <button class="btn btn-danger" type="submit">{{ submit_label | default('Yes') }}</button>
-            <a class="btn btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
+            {% if rendering_for_dialog -%}
+                <button class="btn btn-secondary" formmethod="dialog">Back</button>
+            {%- else -%}
+                <a class="btn btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
+            {% endif %}
         </div>
     </form>
 {% endblock %}

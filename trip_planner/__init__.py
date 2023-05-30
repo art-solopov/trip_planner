@@ -2,7 +2,7 @@ import os
 import os.path
 import json
 
-from flask import Flask, render_template, session, g, url_for
+from flask import Flask, render_template, request, session, g, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
@@ -88,6 +88,12 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     @app.template_test('hidden_field')
     def is_hidden_field(field: Field) -> bool:
         return getattr(field.widget, 'input_type', '') == 'hidden'
+
+    @app.context_processor
+    def inject_form_base_template():
+        flag = ('true' in request.args.getlist('for_dialog'))
+        tmpl = 'form_bare.html' if flag else 'base.html'
+        return dict(form_base_template=tmpl, rendering_for_dialog=flag)
 
     if app.debug:
         import IPython
