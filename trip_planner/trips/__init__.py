@@ -17,8 +17,6 @@ from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
-from ..tailwind import (ViewClasses as TwViewClasses,
-                        ScheduleClasses as TwScheduleClasses)
 from ..bs_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')

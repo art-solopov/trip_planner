@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, redirect, session, request, flash
 from passlib.hash import bcrypt
 from .forms import LoginForm
 from ..models import User
-from ..tailwind import ViewClasses as TwViewClasses
+from ..bs_classes import ViewClasses
 
 auth = Blueprint('auth', __name__)
 
@@ -23,7 +23,7 @@ def _render_login_form(form):
     return render_template('form.html', form=form,
                            title='Sign in',
                            submit_text='Login',
-                           form_class=TwViewClasses.LOGIN_FORM)
+                           form_class=ViewClasses.LOGIN_FORM)
 
 
 @auth.route('/login', methods=('GET', 'POST'))
