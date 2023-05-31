@@ -1,0 +1,6 @@
+{% macro hx_dialog_attrs(href) -%}
+    href="{{ href }}"
+    hx-get="{{ href }}"
+    hx-vals='{"for_dialog": true}'
+    hx-target="#form_dialog"
+{%- endmacro %}
