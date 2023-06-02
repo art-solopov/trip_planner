@@ -15,7 +15,7 @@ from .. import db
 from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point, User
 from ..data import MapData
-from .data import PointData
+from .data import PointData, TripData
 from .forms import TripForm, PointForm
 from .policy import Policy
 from ..bs_classes import ViewClasses, ScheduleClasses
@@ -62,6 +62,7 @@ def show(author_id, slug):
     else:
         author = g.user
     trip = Trip.query.filter_by(author_id=author.id, slug=slug).first_or_404()
+    trip = TripData(trip)
     if not policy.can_see_trip(trip):
         abort(403)
     points = policy.trip_points_query(trip)

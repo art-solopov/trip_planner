@@ -1,9 +1,9 @@
-from typing import Sequence, Dict
+from typing import Sequence, Dict, Generic, TypeVar
 
 from markupsafe import Markup, escape
 
 from trip_planner.data import MapData
-from trip_planner.models import Point, PrivacyStatusEnum
+from trip_planner.models import Point, Trip, PrivacyStatusEnum, WithPrivacyOptions
 from trip_planner.bs_classes import ScheduleClasses
 
 
@@ -62,7 +62,7 @@ class PrivacyStatusPresenter:
             }
 
     ICONS = {
-            PrivacyStatusEnum.private: 'eye-slash',
+            PrivacyStatusEnum.private: 'file-lock-fill',
             PrivacyStatusEnum.public: 'eye'
             }
 
@@ -78,11 +78,22 @@ class PrivacyStatusPresenter:
         return self.ICONS[self.privacy_status]
 
 
-class PointData(MapData):
+T = TypeVar('T', bound=WithPrivacyOptions)
+
+
+class BaseData(Generic[T]):
+    def __init__(self, obj: T):
+        self._object = obj
+        self.privacy_status = PrivacyStatusPresenter(obj.privacy_status)
+
+    def __getattr__(self, name):
+        return getattr(self._object, name)
+
+
+class PointData(MapData, BaseData[Point]):
     def __init__(self, point: Point):
-        self.point = point
+        super().__init__(point)
         self.schedule = PointScheduleData(point)
-        self.privacy_status = PrivacyStatusPresenter(point.privacy_status)
 
     @property
     def point_map_url(self) -> str:
@@ -92,5 +103,6 @@ class PointData(MapData):
     def notes_lines(self) -> Sequence[str]:
         return [l for l in self.point.notes.splitlines() if l]
 
-    def __getattr__(self, name):
-        return getattr(self.point, name)
+
+class TripData(BaseData[Trip]):
+    pass
