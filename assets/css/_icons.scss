@@ -2,7 +2,11 @@ svg.icon {
     display: inline-block;
     height: 1em;
     width: 1em;
-    stroke: currentColor;
     fill: currentColor;
     margin-top: -0.2em;
+
+    .btn > & {
+      // Make button icons a bit larger for better visibility
+      scale: 1.2;
+    }
 }
