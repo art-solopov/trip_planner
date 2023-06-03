@@ -52,7 +52,6 @@ def index():
     return response.make_conditional(request)
 
 
-@trips.route("/-/<slug>", defaults={'author_id': None})
 @trips.route("/<author_id>/<slug>")
 @user_required
 def show(author_id, slug):
@@ -187,7 +186,7 @@ class UpdateTripView(TripCUView):
 
     def _add_breadcrumbs(self):
         super()._add_breadcrumbs()
-        add_breadcrumb(self.model.name, url_for('.show', slug=self.model.slug))
+        add_breadcrumb(self.model.name, url_for('.show', slug=self.model.slug, author_id=self.model.author.username))
 
     def _success_flash_text(self, trip: Trip):
         return f"Trip «{trip.name}» updated"
@@ -241,11 +240,13 @@ def trip_point_wrapper(f):
     @wraps(f)
     def handler(slug: str, id: int):
         trip = Trip.query.filter_by(author=g.user, slug=slug).first_or_404()
+        trip = TripData(trip)
         point = Point.query.filter(Point.trip == trip, Point.id == id)\
                            .first_or_404()
+        point = point
 
         add_breadcrumb('Trips', url_for('.index'))
-        add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+        add_breadcrumb(trip.name_for(g.user), url_for('.show', slug=trip.slug, author_id=trip.author.username))
 
         return f(trip, point)
     return handler

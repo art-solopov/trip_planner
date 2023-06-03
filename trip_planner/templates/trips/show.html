@@ -33,7 +33,7 @@
 
         {%- for g_type, pts in points %}
             <section class="trip-point-items trip-point-items--{{ g_type | lower }}">
-                <h2 class="h4">{{ g_type | capitalize }}</h2>
+                <h2 class="h3">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
                         <li class="trip-point-item"
@@ -43,12 +43,10 @@
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}">
                             <div>
-                                <h3 class="h5 m-0 item-name">
+                                <h3 class="h4 m-0 item-name">
                                     {{ point.name }}
-                                    {%- if g.policy.is_own_trip(trip) -%}
-                                        <span title="{{ point.privacy_status.title }}">
-                                            {{ icon(point.privacy_status.icon) }}
-                                        </span>
+                                    {% if g.policy.is_own_trip(trip) -%}
+                                        <span title="{{ point.privacy_status.title }}">{{ icon(point.privacy_status.icon) }}</span>
                                     {%- endif -%}
                                 </h3>
                                 <address class="item-address">{{ point.address }}</address>

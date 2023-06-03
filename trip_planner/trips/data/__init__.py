@@ -3,7 +3,7 @@ from typing import Sequence, Dict, Generic, TypeVar
 from markupsafe import Markup, escape
 
 from trip_planner.data import MapData
-from trip_planner.models import Point, Trip, PrivacyStatusEnum, WithPrivacyOptions
+from trip_planner.models import Point, Trip, User, PrivacyStatusEnum, WithPrivacyOptions
 from trip_planner.bs_classes import ScheduleClasses
 
 
@@ -66,6 +66,11 @@ class PrivacyStatusPresenter:
             PrivacyStatusEnum.public: 'eye'
             }
 
+    ACTION_ICONS = {
+        'make_private': ICONS[PrivacyStatusEnum.private],
+        'make_public': ICONS[PrivacyStatusEnum.public]
+    }
+
     def __init__(self, privacy_status: PrivacyStatusEnum):
         self.privacy_status = privacy_status
 
@@ -105,4 +110,8 @@ class PointData(MapData, BaseData[Point]):
 
 
 class TripData(BaseData[Trip]):
-    pass
+    def name_for(self, user: User):
+        if(self._object.author.id == user.id):
+            return self._object.name
+        else:
+            return f"{self._object.author.username}/{self._object.name}"
