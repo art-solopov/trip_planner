@@ -4,17 +4,16 @@ from os import path as path
 from flask.ctx import AppContext
 from flask.wrappers import Response
 from flask.testing import FlaskClient
-from passlib.hash import bcrypt
 
-from trip_planner import create_app
+from trip_planner import create_app, db
 from trip_planner.config import Config
-from trip_planner.models import User
 
 
 class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
     SECRET_KEY = 'testsecret'
+    SERVER_NAME = 'test.test'  # For url_for generation
 
     def __init__(self):
         self.SQLALCHEMY_DATABASE_URI = getenv(

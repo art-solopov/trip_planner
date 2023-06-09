@@ -4,8 +4,10 @@ from tempfile import mkdtemp
 
 import pytest
 import pytest_mock
+from passlib.hash import bcrypt
 
 from trip_planner import db as _db
+from trip_planner.models import User
 from test import create_app, TestConfig, test_instance_dir
 
 
@@ -36,19 +38,19 @@ def db(app):
 
 @pytest.fixture(scope='function', autouse=True)
 def db_session(db):
-    connection = db.engine.connect()
-    transaction = connection.begin()
+    yield db.session
 
-    session = db.create_scoped_session()
-    db.session = session
-
-    yield session
-
-    transaction.rollback()
-    connection.close()
-    session.remove()
+    db.session.remove()
 
 
 @pytest.fixture(scope='session')
 def app_client(app):
     return app.test_client()
+
+
+@pytest.fixture(scope='function')
+def session_user(db_session):
+    user = User(username='username',
+                password_digest=bcrypt.hash('password'))
+    db_session.add(user)
+    return user
