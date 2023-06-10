@@ -51,3 +51,12 @@ def calculate_center_coordinates():
         db.session.add(trip)
 
     db.session.commit()
+
+
+@scripts.cli.command('add_key_to_trips')
+def add_key_to_trips():
+    query = Trip.query.filter_by(key=None)
+    for trip in query:
+        trip.key = Trip.generate_key()
+        db.session.add(trip)
+    db.session.commit()
