@@ -1,3 +1,5 @@
+from secrets import token_urlsafe
+
 from . import db
 
 
@@ -13,18 +15,23 @@ class User(db.Model):
 
 
 class Trip(db.Model):
+    @staticmethod
+    def generate_key():
+        return token_urlsafe(10)
+
     id = db.Column(db.BigInteger, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True,
                           nullable=False)
     name = db.Column(db.String(2000), nullable=False, index=True)
     country_code = db.Column(db.String(2))
-    slug = db.Column(db.String(2000), nullable=False)
+    slug = db.Column(db.String(2000), nullable=True)
 
     author = db.relationship('User',
                              backref=db.backref('trips',
                                                 order_by=lambda: Trip.name))
     center_lat = db.Column(db.Numeric(8, 5), nullable=True)
     center_lon = db.Column(db.Numeric(8, 5), nullable=True)
+    key = db.Column(db.String(200), nullable=True, index=True, default=generate_key, unique=True)
 
     def __repr__(self):
         return f"<Trip {self.name} [{self.id}] " \
