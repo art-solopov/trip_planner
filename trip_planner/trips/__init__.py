@@ -51,10 +51,10 @@ def index():
     return response.make_conditional(request)
 
 
-@trips.route("/<slug>")
+@trips.route("/<key>")
 @user_required
-def show(slug):
-    trip = Trip.query.filter_by(author_id=g.user.id, slug=slug).first_or_404()
+def show(key):
+    trip = Trip.query.filter_by(author_id=g.user.id, key=key).first_or_404()
     points = groupby(trip.points, attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
@@ -160,8 +160,8 @@ class UpdateTripView(TripCUView):
     def title(self):
         return f"Updating {self.model.name}"
 
-    def dispatch_request(self, slug):
-        self.slug = slug
+    def dispatch_request(self, key):
+        self.key = key
         return super().dispatch_request()
 
     def _build_form(self):
@@ -169,12 +169,12 @@ class UpdateTripView(TripCUView):
 
     def _instant_model(self):
         return Trip.query\
-                   .filter_by(slug=self.slug, author=g.user)\
+                   .filter_by(key=self.key, author=g.user)\
                    .first_or_404()
 
     def _add_breadcrumbs(self):
         super()._add_breadcrumbs()
-        add_breadcrumb(self.model.name, url_for('.show', slug=self.model.slug))
+        add_breadcrumb(self.model.name, url_for('.show', key=self.model.key))
 
     def _success_flash_text(self, trip: Trip):
         return f"Trip «{trip.name}» updated"
@@ -183,9 +183,9 @@ class UpdateTripView(TripCUView):
         return (self.model.center_lat, self.model.center_lon)
 
 
-@trips.route('/<slug>/delete', methods=('GET', 'POST'))
-def delete_trip(slug: str):
-    trip = Trip.query.filter_by(slug=slug).first_or_404()
+@trips.route('/<key>/delete', methods=('GET', 'POST'))
+def delete_trip(key: str):
+    trip = Trip.query.filter_by(key=key).first_or_404()
     if request.method == 'POST':
         db.session.delete(trip)
         db.session.commit()
@@ -193,7 +193,7 @@ def delete_trip(slug: str):
         return redirect(url_for('.index'))
 
     add_breadcrumb('Trips', url_for('.index'))
-    add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+    add_breadcrumb(trip.name, url_for('.show', key=trip.key))
     add_breadcrumb('Delete')
     message = (f'Are you sure you want to delete trip {trip.name} ' +
                'and all its points?')
@@ -202,7 +202,7 @@ def delete_trip(slug: str):
 
 
 trips.add_url_rule('/new', view_func=CreateTripView.as_view('new'))
-trips.add_url_rule('/<slug>/update',
+trips.add_url_rule('/<key>/update',
                    view_func=UpdateTripView.as_view('update'))
 
 # Points CRUD
@@ -226,22 +226,22 @@ trips.add_app_template_global(ScheduleClasses.COMMON_WEEKDAY_CLASS,
 
 def trip_point_wrapper(f):
     @wraps(f)
-    def handler(slug: str, id: int):
-        trip = Trip.query.filter_by(slug=slug).first_or_404()
+    def handler(key: str, id: int):
+        trip = Trip.query.filter_by(key=key).first_or_404()
         point = Point.query.filter(Point.trip == trip, Point.id == id)\
                            .first_or_404()
 
         add_breadcrumb('Trips', url_for('.index'))
-        add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+        add_breadcrumb(trip.name, url_for('.show', key=trip.key))
 
         return f(trip, point)
     return handler
 
 
-@trips.route("/<slug>/add-point", methods=('GET', 'POST'))
+@trips.route("/<key>/add-point", methods=('GET', 'POST'))
 @user_required
-def add_point(slug: str):
-    trip = Trip.query.filter_by(slug=slug).first_or_404()
+def add_point(key: str):
+    trip = Trip.query.filter_by(key=key).first_or_404()
     point = Point(trip=trip)
     form = PointForm()
     if form.validate_on_submit():
@@ -249,10 +249,10 @@ def add_point(slug: str):
         db.session.add(point)
         db.session.commit()
         flash(f"Point «{point.name}» added", 'success')
-        return redirect(url_for('.show', slug=trip.slug))
+        return redirect(url_for('.show', key=trip.key))
 
     add_breadcrumb('Trips', url_for('.index'))
-    add_breadcrumb(trip.name, url_for('.show', slug=trip.slug))
+    add_breadcrumb(trip.name, url_for('.show', key=trip.key))
     add_breadcrumb('Add point')
     return render_template('points/form.html', form=form, point=point,
                            title='Add point',
@@ -260,7 +260,7 @@ def add_point(slug: str):
                            latlon=(trip.center_lat, trip.center_lon))
 
 
-@trips.route("/<slug>/<int:id>")
+@trips.route("/<key>/<int:id>")
 @user_required
 @trip_point_wrapper
 def show_point(trip: Trip, point: Point):
@@ -272,7 +272,7 @@ def show_point(trip: Trip, point: Point):
     return response.make_conditional(request)
 
 
-@trips.route("/<slug>/<int:id>/update", methods=('GET', 'POST'))
+@trips.route("/<key>/<int:id>/update", methods=('GET', 'POST'))
 @user_required
 @trip_point_wrapper
 def update_point(trip: Trip, point: Point):
@@ -282,7 +282,7 @@ def update_point(trip: Trip, point: Point):
         db.session.add(point)
         db.session.commit()
         flash(f"Point «{point.name}» updated", 'success')
-        return redirect(url_for('.show_point', slug=trip.slug, id=point.id))
+        return redirect(url_for('.show_point', key=trip.key, id=point.id))
 
     title = f'Update point {point.name}'
     add_breadcrumb(title)
@@ -292,7 +292,7 @@ def update_point(trip: Trip, point: Point):
                            title=title)
 
 
-@trips.route("/<slug>/<int:id>/delete", methods=('GET', 'POST'))
+@trips.route("/<key>/<int:id>/delete", methods=('GET', 'POST'))
 @user_required
 @trip_point_wrapper
 def delete_point(trip: Trip, point: Point):
@@ -300,7 +300,7 @@ def delete_point(trip: Trip, point: Point):
         db.session.delete(point)
         db.session.commit()
         flash(f"Point «{point.name}» deleted", 'success')
-        return redirect(url_for('.show', slug=trip.slug))
+        return redirect(url_for('.show', key=trip.key))
     message = f'Are you sure you want to delete {point.name}?'
     return render_template('confirm_form.html', submit_label='Delete',
                            message=message)

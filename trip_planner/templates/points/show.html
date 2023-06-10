@@ -8,7 +8,7 @@
             <address>{{ point.address }}</address>
         </div>
         <div class="buttons">
-            <a class="btn btn-secondary" href="{{ url_for('.update_point', slug=point.trip.slug, id=point.id) }}" hx-boost="true">{{ icon('pencil') }}&nbsp;Edit</a>
+            <a class="btn btn-secondary" href="{{ url_for('.update_point', key=point.trip.key, id=point.id) }}" hx-boost="true">{{ icon('pencil') }}&nbsp;Edit</a>
         </div>
     </header>
 
