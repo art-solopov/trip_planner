@@ -144,6 +144,7 @@ class TripCUView(View):
 class CreateTripView(TripCUView):
     title = 'Create trip'
     success_flash_text = 'Trip created'
+    submit_text = 'Create trip'
 
     def _build_form(self):
         return TripForm()
@@ -155,10 +156,12 @@ class CreateTripView(TripCUView):
         return f"Trip «{trip.name}» created"
 
 
-class UpdateTripView(TripCUView):
+class EditTripView(TripCUView):
+    submit_text = 'Save changes'
+
     @property
     def title(self):
-        return f"Updating {self.model.name}"
+        return f"Editing {self.model.name}"
 
     def dispatch_request(self, key):
         self.key = key
@@ -202,8 +205,8 @@ def delete_trip(key: str):
 
 
 trips.add_url_rule('/new', view_func=CreateTripView.as_view('new'))
-trips.add_url_rule('/<key>/update',
-                   view_func=UpdateTripView.as_view('update'))
+trips.add_url_rule('/<key>/edit',
+                   view_func=EditTripView.as_view('edit'))
 
 # Points CRUD
 
@@ -272,10 +275,10 @@ def show_point(trip: Trip, point: Point):
     return response.make_conditional(request)
 
 
-@trips.route("/<key>/<int:id>/update", methods=('GET', 'POST'))
+@trips.route("/<key>/<int:id>/edit", methods=('GET', 'POST'))
 @user_required
 @trip_point_wrapper
-def update_point(trip: Trip, point: Point):
+def edit_point(trip: Trip, point: Point):
     form = PointForm(obj=point)
     if form.validate_on_submit():
         form.populate_obj(point)
@@ -284,7 +287,7 @@ def update_point(trip: Trip, point: Point):
         flash(f"Point «{point.name}» updated", 'success')
         return redirect(url_for('.show_point', key=trip.key, id=point.id))
 
-    title = f'Update point {point.name}'
+    title = f'Edit point {point.name}'
     add_breadcrumb(title)
     return render_template('points/form.html', form=form, point=point,
                            view_attrs=_map_pointer_view_attrs(),
