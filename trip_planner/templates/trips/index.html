@@ -9,7 +9,7 @@
 
     <ul class="trips">
         {%- for trip in trips %}
-            <li><a href="{{ url_for('trips.show', slug=trip.slug) }}" class="px-4 py-3">{{ trip.name }}</a></li>
+            <li><a href="{{ url_for('trips.show', key=trip.key) }}" class="px-4 py-3">{{ trip.name }}</a></li>
         {% endfor -%}
     </ul>
 {% endblock %}
