@@ -96,22 +96,13 @@ class TripCUView(View):
     def post(self):
         self.form = TripForm()
         if self.form.validate():
-            try:
-                self.form.populate_obj(self.model)
-                db.session.add(self.model)
-                db.session.commit()
-                # Extracting the new model into the session
-                model = db.session.merge(self.model)
-                flash(self._success_flash_text(model), 'success')
-                return redirect(url_for('.index'))
-            except IntegrityError as e:
-                db.session.rollback()
-                if (e.orig.pgcode == pgerrorcodes.UNIQUE_VIOLATION):
-                    self.form.errors.setdefault('slug', [])
-                    self.form.errors['slug'].append('Already exists')
-                    return self._default_render()
-                else:
-                    raise e
+            self.form.populate_obj(self.model)
+            db.session.add(self.model)
+            db.session.commit()
+            # Extracting the new model into the session
+            model = db.session.merge(self.model)
+            flash(self._success_flash_text(model), 'success')
+            return redirect(url_for('.index'))
         db.session.rollback()
         return self._default_render()
 

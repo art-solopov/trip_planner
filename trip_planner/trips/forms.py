@@ -8,7 +8,7 @@ from wtforms import (Form, StringField, TextAreaField, FloatField,
                      DecimalField)
 from wtforms.widgets.html5 import TimeInput
 from wtforms.utils import unset_value
-from wtforms.validators import DataRequired, Length, Optional, Regexp, NoneOf
+from wtforms.validators import DataRequired, Length, Optional, Regexp
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
@@ -20,10 +20,6 @@ class TripForm(FlaskForm):
                                validators=[Optional(strip_whitespace=True)])
     center_lat = DecimalField('Center latitude', places=5)
     center_lon = DecimalField('Center longitude', places=5)
-    slug = StringField('Slug',
-                       validators=[DataRequired(), Length(min=3, max=2000),
-                                   Regexp(r'\w[\w_-]*\w'),
-                                   NoneOf(['new', 'update', 'delete'])])
 
     def __init__(self,  *args, **kwargs):
         super().__init__(*args, **kwargs)
