@@ -7,9 +7,8 @@ from flask import (Blueprint, g, render_template,
                    request, redirect, url_for, flash,
                    make_response)
 from flask.views import MethodView as View
-from sqlalchemy.exc import IntegrityError
-import psycopg2.errorcodes as pgerrorcodes
 from markupsafe import escape
+from werkzeug.local import LocalProxy
 
 from .. import db
 from ..shared import user_required, add_breadcrumb
@@ -17,14 +16,26 @@ from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
+from .policy import Policy
 from ..bs_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 
 
+# TODO: rewrite into local proxy maybe
 @trips.before_request
 def add_data():
     g.map_data = MapData()
+
+
+def _get_policy():
+    if 'policy' not in g:
+        if g.user:
+            g.policy = Policy(g.user)
+    return g.policy
+
+
+policy: Policy = LocalProxy(_get_policy)
 
 
 @trips.app_template_global()
@@ -45,7 +56,7 @@ def _map_pointer_view_attrs() -> Dict[str, str]:
 @trips.route("/")
 @user_required
 def index():
-    trips = g.user.trips
+    trips = policy.trips_query().order_by(Trip.name)
     response = make_response(render_template('trips/index.html', trips=trips))
     response.add_etag()
     return response.make_conditional(request)
@@ -54,7 +65,7 @@ def index():
 @trips.route("/<key>")
 @user_required
 def show(key):
-    trip = Trip.query.filter_by(author_id=g.user.id, key=key).first_or_404()
+    trip = policy.trips_query().filter_by(key=key).first_or_404()
     points = groupby(trip.points, attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
@@ -162,9 +173,9 @@ class EditTripView(TripCUView):
         return TripForm(obj=self.model)
 
     def _instant_model(self):
-        return Trip.query\
-                   .filter_by(key=self.key, author=g.user)\
-                   .first_or_404()
+        trip = Trip.query.filter_by(author=g.user, key=self.key).first_or_404()
+        policy.authorize('edit_trip', trip)
+        return trip
 
     def _add_breadcrumbs(self):
         super()._add_breadcrumbs()
@@ -179,7 +190,8 @@ class EditTripView(TripCUView):
 
 @trips.route('/<key>/delete', methods=('GET', 'POST'))
 def delete_trip(key: str):
-    trip = Trip.query.filter_by(key=key).first_or_404()
+    trip = Trip.query.filter_by(author=g.user, key=key).first_or_404()
+    policy.authorize('delete_trip', trip)
     if request.method == 'POST':
         db.session.delete(trip)
         db.session.commit()
@@ -221,9 +233,8 @@ trips.add_app_template_global(ScheduleClasses.COMMON_WEEKDAY_CLASS,
 def trip_point_wrapper(f):
     @wraps(f)
     def handler(key: str, id: int):
-        trip = Trip.query.filter_by(key=key).first_or_404()
-        point = Point.query.filter(Point.trip == trip, Point.id == id)\
-                           .first_or_404()
+        trip = policy.trips_query().filter_by(key=key).first_or_404()
+        point = policy.points_query(trip).filter_by(id=id).first_or_404()
 
         add_breadcrumb('Trips', url_for('.index'))
         add_breadcrumb(trip.name, url_for('.show', key=trip.key))
@@ -235,7 +246,8 @@ def trip_point_wrapper(f):
 @trips.route("/<key>/add-point", methods=('GET', 'POST'))
 @user_required
 def add_point(key: str):
-    trip = Trip.query.filter_by(key=key).first_or_404()
+    trip = policy.trips_query().filter_by(key=key).first_or_404()
+    policy.authorize('add_point', trip)
     point = Point(trip=trip)
     form = PointForm()
     if form.validate_on_submit():
@@ -270,6 +282,7 @@ def show_point(trip: Trip, point: Point):
 @user_required
 @trip_point_wrapper
 def edit_point(trip: Trip, point: Point):
+    policy.authorize('edit_point', point)
     form = PointForm(obj=point)
     if form.validate_on_submit():
         form.populate_obj(point)
@@ -290,6 +303,7 @@ def edit_point(trip: Trip, point: Point):
 @user_required
 @trip_point_wrapper
 def delete_point(trip: Trip, point: Point):
+    policy.authorize('delete_point', point)
     if request.method == 'POST':
         db.session.delete(point)
         db.session.commit()
