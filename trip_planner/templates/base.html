@@ -6,7 +6,7 @@
 
         <title>Trip planner</title>
         {# Emoji icon #}
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
 
         {# TODO: replace CDNs with proper vendoring #}
         <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
