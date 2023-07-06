@@ -86,12 +86,18 @@ jobs:
     - run: mkdir -p tmp
     - name: Make apple-touch icon
       run: inkscape -w 180 -h 180 trip_planner/static/favicon.svg -o tmp/apple-touch-icon.png
+    - name: Make Android 192x192 icon
+      run: inkscape -w 192 -h 192 trip_planner/static/favicon.svg -o tmp/icon-192.png
+    - name: Make Android 512x512 icon
+      run: inkscape -w 512 -h 512 trip_planner/static/favicon.svg -o tmp/icon-512.png
     - name: Store compiled assets
       uses: actions/upload-artifact@v3
       with:
         name: favicons
         path: |
           tmp/apple-touch-icon.png
+          tmp/icon-192.png
+          tmp/icon-512.png
   docker:
     runs-on: ubuntu-latest
     needs: [requirements_txt, assets, tests]
