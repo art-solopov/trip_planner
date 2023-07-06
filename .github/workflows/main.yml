@@ -83,6 +83,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: sudo apt-get update && sudo apt-get install -y inkscape imagemagick
+    - run: mkdir -p tmp
+    - name: Make apple-touch icon
+      run: inkscape -w 180 -h 180 trip_planner/static/favicon.svg -o tmp/apple-touch-icon.png
+    - name: Store compiled assets
+      uses: actions/upload-artifact@v3
+      with:
+        name: favicons
+        path: |
+          tmp/apple-touch-icon.png
   docker:
     runs-on: ubuntu-latest
     needs: [requirements_txt, assets, tests]
