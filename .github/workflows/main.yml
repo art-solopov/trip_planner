@@ -78,6 +78,11 @@ jobs:
       with:
         name: assets
         path: trip_planner/static/assets
+  favicons:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: sudo apt-get update && sudo apt-get install -y inkscape imagemagick
   docker:
     runs-on: ubuntu-latest
     needs: [requirements_txt, assets, tests]
