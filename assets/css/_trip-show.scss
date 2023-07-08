@@ -1,13 +1,10 @@
 @use "palette";
+@use "colors" as c;
 
 @import "./breakpoints";
 
 .trip-map {
     min-height: 60vh;
-
-    // .mapboxgl-marker {
-    //     height: 3.5rem;
-    // }
 
     .trip-title {
         display: flex;
@@ -44,6 +41,17 @@
         display: flex;
         flex-flow: row nowrap;
         align-items: baseline;
+
+        & > h1 .trip-title-author {
+          font-size: 65%;
+          font-style: italic;
+          color: c.$Gray-400;
+          margin-left: 0.5em;
+
+          .you {
+            text-decoration: underline dotted 2px;
+          }
+        }
     }
 }
 

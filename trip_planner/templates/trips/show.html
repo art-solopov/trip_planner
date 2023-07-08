@@ -9,7 +9,17 @@
     <div class="app">
         <header>
             <div class="trip-title">
-                <h1>{{ trip.name }}</h1>
+                <h1>
+                    <div>{{ trip.name }}</div>
+                    <div class="trip-title-author">
+                        by
+                        {% if trip.belongs_to_current_user %}
+                            <abbr class="you" title="{{ g.user.username }}">you</abbr>
+                        {% else %}
+                            {{ trip.author.username }}
+                        {% endif %}
+                    </div>
+                </h1>
                 <div class="ms-auto buttons">
                     <a href="{{ url_for('.add_point', key=trip.key) }}" class="btn btn-primary" title="Add point">{{ icon('plus-circle-fill') }}</a>
                     <a href="{{ url_for('.edit', key=trip.key) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil-fill') }}</a>

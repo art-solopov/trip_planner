@@ -17,6 +17,7 @@ from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
 from .policy import Policy
+from .presenters import TripPresenter
 from ..bs_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
@@ -66,6 +67,7 @@ def index():
 @user_required
 def show(key):
     trip = policy.trips_query().filter_by(key=key).first_or_404()
+    trip = TripPresenter(trip)
     points = groupby(trip.points, attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
