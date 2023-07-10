@@ -19,16 +19,20 @@ const ICONS = {
     other: 'pentagon'
 }
 
-export async function mapInit(apiKey, points, options) {
+export async function mapInit(apiKey, options) {
     mapboxgl.accessToken = apiKey
-    console.log(styles)
 
-    options.bounds = calculateBounds(points)
+    // options.bounds = calculateBounds(points)
     const map = await loadMap(options)
-    addPointsLayer(map, points)
-    addPointsMarkers(map, points)
+    // addPointsLayer(map, points)
+    // addPointsMarkers(map, points)
 
     return map;
+}
+
+export function addPoints(map, points) {
+    addPointsLayer(map, points)
+    addPointsMarkers(map, points)
 }
 
 export function addDraggableMarker(map) {
@@ -37,7 +41,7 @@ export function addDraggableMarker(map) {
     return marker
 }
 
-function calculateBounds(points) {
+export function calculateBounds(points) {
     if (points.length == 0) return undefined;
 
     let lats = points.map(p => p.lat)
@@ -69,29 +73,6 @@ function loadMap(options) {
             resolve(map)
         })
     })
-}
-
-function addImages(map, points) {
-    const categories = new Set(points.map(pt => pt.category))
-    const promises = [];
-    for (let ct of categories) {
-        let ctt = ct
-        let promise = new Promise((resolve, reject) => {
-            map.loadImage(`/static/icons/${ctt}.png`, (error, img) => {
-                if(error) {
-                    reject(error);
-                    return
-                }
-
-                let imageId = `category:${ctt}`
-                map.addImage(imageId, img);
-                resolve(imageId)
-            })
-        })
-        promises.push(promise)
-    }
-
-    return Promise.allSettled(promises)
 }
 
 function addPointsMarkers(map, points) {
