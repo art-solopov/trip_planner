@@ -20,7 +20,6 @@
         {{ geocode_fieldset(field_selector=False, country_code='', data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
 
         {{ field_select(form.country_code) }}
-        {{ field(form.slug) }}
 
         {{ submit_btn(submit_text) }}
     </form>
