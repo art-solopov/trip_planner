@@ -90,8 +90,15 @@ export class MapPointerController extends BaseController {
         this.marker.setLngLat(this.point)
     }
 
-    setCoordinates() {
-        let {lat, lng} = this.marker.getLngLat()
+    setCoordinates(event) {
+        let coordinatesSource = event.params.source
+
+        let lat, lng
+        if(coordinatesSource == 'map') {
+            ({lat, lng} = this.map.getCenter())
+        } else {
+            ({lat, lng} = this.marker.getLngLat())
+        }
         this.latTarget.value = lat
         this.lonTarget.value = lng
     }
@@ -117,7 +124,7 @@ export class MapPointerController extends BaseController {
     _loadMap() {
         this._mapInit()
             .then(map => addDraggableMarker(map))
-            .then(marker => marker.on('dragend', this.setCoordinates.bind(this)))
+            .then(marker => marker.on('dragend', () => this.setCoordinates({params: {source: 'marker'}}) ))
             .then(marker => { this.marker = marker })
     }
 }

@@ -28,3 +28,5 @@ export function elementOnScreen(element) {
     let rect = element.getBoundingClientRect()
     return rect.top >= 0 && rect.top <= window.innerHeight && rect.bottom >= 0
 }
+
+export const iconsUrl = document.querySelector('meta[name="js:icons_url"]').content

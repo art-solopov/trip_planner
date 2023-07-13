@@ -1,3 +1,7 @@
+import {iconsUrl} from '../../../utils'
+
+import MoveMarkerControl from './move-marker-control'
+
 import styles from './marker-styles.module.scss'
 
 export const DEFAULT_ZOOM = 10
@@ -38,6 +42,9 @@ export function addPoints(map, points) {
 export function addDraggableMarker(map) {
     const marker = new mapboxgl.Marker({anchor: 'bottom', draggable: true})
     marker.setLngLat(map.getCenter()).addTo(map)
+
+    map.addControl(new MoveMarkerControl(marker), 'bottom-right')
+
     return marker
 }
 
@@ -79,7 +86,6 @@ function addPointsMarkers(map, points) {
     for (let point of points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} ${styles[point.category]}`
-        const iconsUrl = document.querySelector('meta[name="js:icons_url"]').content
         const icon = ICONS[point.category]
 
         el.innerHTML = `
