@@ -5,6 +5,7 @@ import MoveMarkerControl from './move-marker-control'
 import styles from './marker-styles.module.scss'
 
 export const DEFAULT_ZOOM = 10
+export const CITY_ZOOM = 11.5
 export const FOCUS_ZOOM = 15.0
 const FIT_BOUND_OPTIONS = {
     padding: 32,

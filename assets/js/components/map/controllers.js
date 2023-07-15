@@ -1,12 +1,11 @@
 import { Controller } from '@hotwired/stimulus'
 
 import Point from './point.js'
-import { DEFAULT_ZOOM, FOCUS_ZOOM, mapInit, addPoints, calculateBounds, addDraggableMarker } from './map'
-import { elementOnScreen } from '../../utils'
+import { DEFAULT_ZOOM, FOCUS_ZOOM, CITY_ZOOM, mapInit, addPoints, calculateBounds, addDraggableMarker } from './map'
+import { elementOnScreen, debounce } from '../../utils'
 
 // TODO: refactor
 class BaseController extends Controller {
-    static zoom = DEFAULT_ZOOM
     static targets = ['map']
     static values = { apikey: String, styleurl: String, centerlat: Number, centerlon: Number }
 
@@ -16,12 +15,16 @@ class BaseController extends Controller {
         return map
     }
 
+    get zoom() {
+        return DEFAULT_ZOOM
+    }
+
     get mapOptions() {
         return {
             container: this.mapTarget,
             style: this.styleurlValue,
             center: this.center,
-            zoom: this.constructor.zoom
+            zoom: this.zoom
         }
     }
 
@@ -71,8 +74,8 @@ export class MapController extends BaseController {
 }
 
 export class MapPointerController extends BaseController {
-    static zoom = FOCUS_ZOOM
     static targets = ['lat', 'lon']
+    static values = { mode: String }
 
     mapTargetConnected(el) {
         let { centerLat, centerLon } = el.dataset
@@ -114,6 +117,11 @@ export class MapPointerController extends BaseController {
         return {lat: this.lat, lon: this.lon}
     }
 
+    get zoom() {
+        if(this.modeValue == 'point') { return FOCUS_ZOOM }
+        else { return CITY_ZOOM }
+    }
+
     get center() {
         let point = this.point
         if(point.lat) { return point }
@@ -122,8 +130,16 @@ export class MapPointerController extends BaseController {
 
     async _loadMap() {
         const map = await this._mapInit()
-        const marker = addDraggableMarker(map)
-        marker.on('dragend', () => this.setCoordinates({params: {source: 'marker'}}) )
-        this.marker = marker
+
+        if (this.modeValue == 'point') {
+            const marker = addDraggableMarker(map)
+            marker.on('dragend', () => this.setCoordinates({params: {source: 'marker'}}) )
+            this.marker = marker
+        }
+
+        if (this.modeValue == 'city') {
+            map.on('moveend', () => this.setCoordinates({params: {source: 'map'}}))
+            map.on('moveend', debounce(() => map.zoomTo(this.zoom), 2500))
+        }
     }
 }
