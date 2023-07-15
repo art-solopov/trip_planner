@@ -7,6 +7,8 @@ import { elementOnScreen } from '../../utils'
 // TODO: refactor
 class BaseController extends Controller {
     static zoom = DEFAULT_ZOOM
+    static targets = ['map']
+    static values = { apikey: String, styleurl: String, centerlat: Number, centerlon: Number }
 
     async _mapInit() {
         let map = await mapInit(this.apikeyValue, this.mapOptions)
@@ -28,11 +30,10 @@ class BaseController extends Controller {
     }
 }
 
-BaseController.targets = ['map']
-BaseController.values = { apikey: String, styleurl: String, centerlat: Number, centerlon: Number }
-
 // TODO: rename?
 export class MapController extends BaseController {
+    static targets = ['point']
+
     connect() {
         this.points = this.pointTargets.map(pt => {
             let lat = Number(pt.dataset.lat),
@@ -69,11 +70,9 @@ export class MapController extends BaseController {
     }
 }
 
-MapController.targets = [...BaseController.targets, 'point']
-MapController.values = {...BaseController.values}
-
 export class MapPointerController extends BaseController {
     static zoom = FOCUS_ZOOM
+    static targets = ['lat', 'lon']
 
     mapTargetConnected(el) {
         let { centerLat, centerLon } = el.dataset
@@ -121,13 +120,10 @@ export class MapPointerController extends BaseController {
         return super.center
     }
 
-    _loadMap() {
-        this._mapInit()
-            .then(map => addDraggableMarker(map))
-            .then(marker => marker.on('dragend', () => this.setCoordinates({params: {source: 'marker'}}) ))
-            .then(marker => { this.marker = marker })
+    async _loadMap() {
+        const map = await this._mapInit()
+        const marker = addDraggableMarker(map)
+        marker.on('dragend', () => this.setCoordinates({params: {source: 'marker'}}) )
+        this.marker = marker
     }
 }
-
-MapPointerController.targets = [...BaseController.targets, 'lat', 'lon']
-MapPointerController.values = {...BaseController.values}

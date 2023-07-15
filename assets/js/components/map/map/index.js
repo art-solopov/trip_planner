@@ -26,11 +26,7 @@ const ICONS = {
 export async function mapInit(apiKey, options) {
     mapboxgl.accessToken = apiKey
 
-    // options.bounds = calculateBounds(points)
     const map = await loadMap(options)
-    // addPointsLayer(map, points)
-    // addPointsMarkers(map, points)
-
     return map;
 }
 
