@@ -143,7 +143,8 @@ class TripCUView(View):
         return ''
 
     def _latlon(self):
-        return None
+        # TODO: extract into constant
+        return (51.48, 0)
 
 
 class CreateTripView(TripCUView):
