@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 
 import Point from './point.js'
-import { DEFAULT_ZOOM, FOCUS_ZOOM, CITY_ZOOM, mapInit, addPoints, calculateBounds, addDraggableMarker } from './map'
+import { DEFAULT_ZOOM, FOCUS_ZOOM, CITY_ZOOM, mapInit, addPoints, calculateBounds, addDraggableMarker } from './lib'
 import { elementOnScreen, debounce } from '../../utils'
 
 // TODO: refactor
