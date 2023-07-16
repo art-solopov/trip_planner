@@ -14,20 +14,27 @@
 .lat-lon-fields {
   display: flex;
   flex-flow: column;
+  gap: 0;
 
-  .ws { display: none; }
+  .fields-hint {
+    color: c.$Gray-350;
+    font-size: 200%;
+    order: -1;
+    align-self: flex-end;
+  }
 
   @media(width >= $break-sm) {
     flex-flow: row nowrap;
+    gap: 1rem;
 
     .field {
       flex: 0 1 40%;
       max-width: 15rem;
     }
 
-    .ws {
-      display: inline;
-      flex: 0 0 1rem;
+    .fields-hint {
+      order: unset;
+      align-self: flex-start;
     }
   }
 }

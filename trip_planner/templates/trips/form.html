@@ -18,7 +18,7 @@
 
         {{ field(form.name, wrapper_class="lg:w-100") }}
 
-        {{ latlon_fields(form.center_lat, form.center_lon) }}
+        {{ latlon_fields(form.center_lat, form.center_lon, 'These coordinates determine how the trip is displayed with no points') }}
 
         {{ geocode_fieldset(field_selector=False, country_code='', data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
 
