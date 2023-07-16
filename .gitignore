@@ -138,3 +138,6 @@ assets/js/**/*.bs.js
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Assets de-ignoring
+!assets/js/**/lib

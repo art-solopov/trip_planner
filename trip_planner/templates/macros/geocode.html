@@ -34,7 +34,7 @@
 {%- endmacro %}
 
 {% macro latlon_fields(lat_field, lon_field, hint=None) -%}
-    <div class="lat-lon-fields">
+    <div class="lat-lon-fields {%- if hint %} lat-lon-fields-with-hint{% endif %}">
         {% set geo_wrapper_class='field' %}
         {{ field(lat_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
         <!-- <span class="ws">&nbsp;</span> -->
