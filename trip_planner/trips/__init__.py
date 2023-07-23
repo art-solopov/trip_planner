@@ -46,11 +46,12 @@ def geocode_field_kwargs(field_name: str) -> Dict[str, str]:
             'data-action': 'change->map-pointer#moveMap'}
 
 
-def _map_pointer_view_attrs() -> Dict[str, str]:
+def _map_pointer_view_attrs(map_pointer_mode) -> Dict[str, str]:
     return {
         'data-controller': 'map-pointer geocode',
         'data-map-pointer-apikey-value': g.map_data.api_key,
-        'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL
+        'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL,
+        'data-map-pointer-mode-value': map_pointer_mode,
         }
 
 
@@ -128,7 +129,7 @@ class TripCUView(View):
     def _default_render(self):
         self._add_breadcrumbs()
         add_breadcrumb(self.title)
-        view_attrs = _map_pointer_view_attrs()
+        view_attrs = _map_pointer_view_attrs('city')
         return render_template('trips/form.html', form=self.form,
                                title=self.title,
                                view_attrs=view_attrs,
@@ -142,7 +143,8 @@ class TripCUView(View):
         return ''
 
     def _latlon(self):
-        return None
+        # TODO: extract into constant
+        return (51.48, 0)
 
 
 class CreateTripView(TripCUView):
@@ -264,7 +266,7 @@ def add_point(key: str):
     add_breadcrumb('Add point')
     return render_template('points/form.html', form=form, point=point,
                            title='Add point',
-                           view_attrs=_map_pointer_view_attrs(),
+                           view_attrs=_map_pointer_view_attrs('point'),
                            latlon=(trip.center_lat, trip.center_lon))
 
 
@@ -296,7 +298,7 @@ def edit_point(trip: Trip, point: Point):
     title = f'Edit point {point.name}'
     add_breadcrumb(title)
     return render_template('points/form.html', form=form, point=point,
-                           view_attrs=_map_pointer_view_attrs(),
+                           view_attrs=_map_pointer_view_attrs('point'),
                            latlon=(point.lat, point.lon),
                            title=title)
 

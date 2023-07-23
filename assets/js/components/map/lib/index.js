@@ -1,6 +1,11 @@
+import {iconsUrl} from '../../../utils'
+
+import MoveMarkerControl from './move-marker-control'
+
 import styles from './marker-styles.module.scss'
 
 export const DEFAULT_ZOOM = 10
+export const CITY_ZOOM = 11.5
 export const FOCUS_ZOOM = 15.0
 const FIT_BOUND_OPTIONS = {
     padding: 32,
@@ -19,25 +24,28 @@ const ICONS = {
     other: 'pentagon'
 }
 
-export async function mapInit(apiKey, points, options) {
+export async function mapInit(apiKey, options) {
     mapboxgl.accessToken = apiKey
-    console.log(styles)
 
-    options.bounds = calculateBounds(points)
     const map = await loadMap(options)
+    return map;
+}
+
+export function addPoints(map, points) {
     addPointsLayer(map, points)
     addPointsMarkers(map, points)
-
-    return map;
 }
 
 export function addDraggableMarker(map) {
     const marker = new mapboxgl.Marker({anchor: 'bottom', draggable: true})
     marker.setLngLat(map.getCenter()).addTo(map)
+
+    map.addControl(new MoveMarkerControl(marker), 'bottom-right')
+
     return marker
 }
 
-function calculateBounds(points) {
+export function calculateBounds(points) {
     if (points.length == 0) return undefined;
 
     let lats = points.map(p => p.lat)
@@ -71,34 +79,10 @@ function loadMap(options) {
     })
 }
 
-function addImages(map, points) {
-    const categories = new Set(points.map(pt => pt.category))
-    const promises = [];
-    for (let ct of categories) {
-        let ctt = ct
-        let promise = new Promise((resolve, reject) => {
-            map.loadImage(`/static/icons/${ctt}.png`, (error, img) => {
-                if(error) {
-                    reject(error);
-                    return
-                }
-
-                let imageId = `category:${ctt}`
-                map.addImage(imageId, img);
-                resolve(imageId)
-            })
-        })
-        promises.push(promise)
-    }
-
-    return Promise.allSettled(promises)
-}
-
 function addPointsMarkers(map, points) {
     for (let point of points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} ${styles[point.category]}`
-        const iconsUrl = document.querySelector('meta[name="js:icons_url"]').content
         const icon = ICONS[point.category]
 
         el.innerHTML = `

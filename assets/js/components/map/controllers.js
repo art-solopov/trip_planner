@@ -1,16 +1,22 @@
 import { Controller } from '@hotwired/stimulus'
 
-import Point from './func/point.js'
-import { DEFAULT_ZOOM, FOCUS_ZOOM, mapInit, addDraggableMarker } from './func/map.js'
-import { elementOnScreen } from '../../utils'
+import Point from './point.js'
+import { DEFAULT_ZOOM, FOCUS_ZOOM, CITY_ZOOM, mapInit, addPoints, calculateBounds, addDraggableMarker } from './lib'
+import { elementOnScreen, debounce } from '../../utils'
 
 // TODO: refactor
 class BaseController extends Controller {
-    static zoom = DEFAULT_ZOOM
+    static targets = ['map']
+    static values = { apikey: String, styleurl: String, centerlat: Number, centerlon: Number }
 
-    _mapInit() {
-        return mapInit(this.apikeyValue, this.points, this.mapOptions)
-            .then(map => { this.map = map; return map })
+    async _mapInit() {
+        let map = await mapInit(this.apikeyValue, this.mapOptions)
+        this.map = map
+        return map
+    }
+
+    get zoom() {
+        return DEFAULT_ZOOM
     }
 
     get mapOptions() {
@@ -18,7 +24,7 @@ class BaseController extends Controller {
             container: this.mapTarget,
             style: this.styleurlValue,
             center: this.center,
-            zoom: this.constructor.zoom
+            zoom: this.zoom
         }
     }
 
@@ -27,11 +33,10 @@ class BaseController extends Controller {
     }
 }
 
-BaseController.targets = ['map']
-BaseController.values = { apikey: String, styleurl: String, centerlat: Number, centerlon: Number }
-
 // TODO: rename?
 export class MapController extends BaseController {
+    static targets = ['point']
+
     connect() {
         this.points = this.pointTargets.map(pt => {
             let lat = Number(pt.dataset.lat),
@@ -50,7 +55,11 @@ export class MapController extends BaseController {
 
         this.pointsMap = new Map(this.points.map(p => [p.id, p]))
 
-        this._mapInit()
+        this._mapInit().then(map => addPoints(map, this.points))
+    }
+
+    get mapOptions() {
+        return Object.assign(super.mapOptions,  {bounds: calculateBounds(this.points)})
     }
 
     panTo(ev) {
@@ -64,13 +73,9 @@ export class MapController extends BaseController {
     }
 }
 
-MapController.targets = [...BaseController.targets, 'point']
-MapController.values = {...BaseController.values}
-
 export class MapPointerController extends BaseController {
-    static zoom = FOCUS_ZOOM
-
-    get points() { return [] }
+    static targets = ['lat', 'lon']
+    static values = { mode: String }
 
     mapTargetConnected(el) {
         let { centerLat, centerLon } = el.dataset
@@ -87,8 +92,15 @@ export class MapPointerController extends BaseController {
         this.marker.setLngLat(this.point)
     }
 
-    setCoordinates() {
-        let {lat, lng} = this.marker.getLngLat()
+    setCoordinates(event) {
+        let coordinatesSource = event.params.source
+
+        let lat, lng
+        if(coordinatesSource == 'map') {
+            ({lat, lng} = this.map.getCenter())
+        } else {
+            ({lat, lng} = this.marker.getLngLat())
+        }
         this.latTarget.value = lat
         this.lonTarget.value = lng
     }
@@ -105,19 +117,29 @@ export class MapPointerController extends BaseController {
         return {lat: this.lat, lon: this.lon}
     }
 
+    get zoom() {
+        if(this.modeValue == 'point') { return FOCUS_ZOOM }
+        else { return CITY_ZOOM }
+    }
+
     get center() {
         let point = this.point
         if(point.lat) { return point }
         return super.center
     }
 
-    _loadMap() {
-        this._mapInit()
-            .then(map => addDraggableMarker(map))
-            .then(marker => marker.on('dragend', this.setCoordinates.bind(this)))
-            .then(marker => { this.marker = marker })
+    async _loadMap() {
+        const map = await this._mapInit()
+
+        if (this.modeValue == 'point') {
+            const marker = addDraggableMarker(map)
+            marker.on('dragend', () => this.setCoordinates({params: {source: 'marker'}}) )
+            this.marker = marker
+        }
+
+        if (this.modeValue == 'city') {
+            map.on('dragend', () => this.setCoordinates({params: {source: 'map'}}))
+            map.on('moveend', debounce(() => map.zoomTo(this.zoom), 2500))
+        }
     }
 }
-
-MapPointerController.targets = [...BaseController.targets, 'lat', 'lon']
-MapPointerController.values = {...BaseController.values}

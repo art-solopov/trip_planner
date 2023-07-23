@@ -1,1 +1,3 @@
-<div class="" data-map-pointer-target="map" data-center-lat="{{ center_lat }}" data-center-lon="{{ center_lon }}"></div>
+{%- from "macros/components.html" import map_pointer_mount -%}
+
+{{map_pointer_mount(center_lat, center_lon)}}

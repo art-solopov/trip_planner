@@ -12,7 +12,7 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 
-// Layout & components
+// === Layout & components ===
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
@@ -38,16 +38,17 @@
 @import "~bootstrap/scss/close";
 // @import "~bootstrap/scss/toasts";
 // @import "~bootstrap/scss/modal";
-// @import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/tooltip";
 // @import "~bootstrap/scss/popover";
 // @import "~bootstrap/scss/carousel";
 // @import "~bootstrap/scss/spinners";
 // @import "~bootstrap/scss/offcanvas";
 @import "~bootstrap/scss/placeholders";
 
-// Helpers
+// === Helpers ===
 @import "~bootstrap/scss/helpers";
 
+/* === Utilities === */
 $utilities: map.remove($utilities, "display", "flex", "flex-direction", "flex-grow", "flex-shrink", "flex-wrap",
   "justify-content", "align-self", "align-items", "align-content", "order",
   "opacity", "bg-opacity",
@@ -63,6 +64,5 @@ $utilities: map.merge($utilities, (
   "padding-end": map.merge(map.get($utilities, "padding-end"), (responsive: false)),
   ));
 
-/* Utilities */
 @import "~bootstrap/scss/utilities/api";
 

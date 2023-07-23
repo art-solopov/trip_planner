@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% from "macros/forms.html" import field, field_select, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
-{% from "macros/components.html" import collapsible_map %}
+{% from "macros/components.html" import collapsible_map, map_pointer_mount %}
 {% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
 
 {% block main %}
     <h1>{{ title }}</h1>
-    {{ collapsible_map('Map', 'trip_form_map', latlon) }}
+    {% set center_lat, center_lon = latlon %}
+    <div class="map-with-coords">
+        {{ map_pointer_mount(center_lat, center_lon) }}
+    </div>
 
     <form id="trip_form" method="POST" action="">
         {{ errors(form) }}
@@ -15,7 +18,7 @@
 
         {{ field(form.name, wrapper_class="lg:w-100") }}
 
-        {{ latlon_fields(form.center_lat, form.center_lon) }}
+        {{ latlon_fields(form.center_lat, form.center_lon, 'These coordinates determine how the trip is displayed with no points') }}
 
         {{ geocode_fieldset(field_selector=False, country_code='', data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
 

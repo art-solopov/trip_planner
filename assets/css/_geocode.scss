@@ -12,22 +12,32 @@
 }
 
 .lat-lon-fields {
-  display: flex;
-  flex-flow: column;
+  display: grid;
+  column-gap: 0.5em;
 
-  .ws { display: none; }
+  .fields-hint {
+    color: c.$Gray-350;
+    font-size: 200%;
+  }
 
-  @media(width >= $break-sm) {
-    flex-flow: row nowrap;
+  &:where(&-with-hint) {
+    grid-template-columns: auto 1fr;
 
-    .field {
-      flex: 0 1 40%;
-      max-width: 15rem;
+    .fields-hint {
+      grid-area: 1 / 1 / span 2;
     }
 
-    .ws {
-      display: inline;
-      flex: 0 0 1rem;
+    .field {
+      grid-column: 2;
+    }
+  }
+
+  @media(width >= $break-sm) {
+    column-gap: 1rem;
+    grid-template-columns: min(40%, 15rem) min(40%, 15rem) auto;
+
+    .fields-hint, .field {
+      grid-area: unset;
     }
   }
 }
