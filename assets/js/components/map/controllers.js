@@ -138,7 +138,7 @@ export class MapPointerController extends BaseController {
         }
 
         if (this.modeValue == 'city') {
-            map.on('moveend', () => this.setCoordinates({params: {source: 'map'}}))
+            map.on('dragend', () => this.setCoordinates({params: {source: 'map'}}))
             map.on('moveend', debounce(() => map.zoomTo(this.zoom), 2500))
         }
     }
