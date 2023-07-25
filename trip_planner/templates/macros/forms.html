@@ -6,6 +6,9 @@
     <div class="{{ [wrapper_base_class, wrapper_field_class, wrapper_class] | join(' ') }}">
         {{ field.label(class="form-label") }}
         {{ field(class_=input_class, **field_kwargs) }}
+        {% if field.description %}
+        <div class="form-text">{{ field.description }}</div>
+        {% endif %}
         {%- if extra %}{{ extra }}{% endif %}
     </div>
 {%- endmacro %}
@@ -16,7 +19,7 @@
 
 {% macro errors(form) -%}
     {%- if form.errors %}
-        <ul class="form-errors">
+        <ul class="form-errors alert alert-danger">
             {%- for fname, errors in form.errors.items() %}
                 {% set field_name = form[fname].label.text %}
                 {%- for err in errors %}
@@ -33,7 +36,7 @@
     </div>
 {%- endmacro %}
 
-{% macro render_form(form, form_method, form_action, form_class) -%}
+{% macro render_form(form, form_method, form_action, form_class, submit_text) -%}
     <form method="{{ form_method | default('POST') }}" action="{{ form_action }}" class="{{ form_class }}">
         {{ errors(form) }}
 
