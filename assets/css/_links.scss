@@ -1,10 +1,2 @@
 @use "sass:color";
 
-.nav-link {
-  transition: text-shadow 0.1s;
-
-  &:hover,
-  &:focus {
-    text-shadow: color.change($navbar-light-color, $alpha: 0.3) 0 0.1em 0.25em;
-  }
-}
