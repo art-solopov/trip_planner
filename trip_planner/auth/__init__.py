@@ -1,6 +1,9 @@
 from urllib.parse import urlparse
+import string
+import random
 
 from flask import Blueprint, render_template, redirect, session, request, flash, g
+import click
 from passlib.context import CryptContext
 from .forms import LoginForm, PasswordChangeForm
 from .. import db
@@ -59,7 +62,7 @@ def logout():
                            submit_label='Sign out')
 
 
-def update_password(user, password):
+def _update_password(user, password):
     user.password_digest = _passlib_context.hash(password)
     db.session.add(user)
 
@@ -74,7 +77,7 @@ def change_password():
     form = PasswordChangeForm()
     if form.validate_on_submit():
         if _passlib_context.verify(form.current_password.data, g.user.password_digest):
-            update_password(g.user, form.new_password.data)
+            _update_password(g.user, form.new_password.data)
             db.session.commit()
             flash('Password changed', 'success')
             return redirect('/')
@@ -83,3 +86,20 @@ def change_password():
             return _render_password_change_form(form)
     else:
         return _render_password_change_form(form)
+
+
+def _gen_password():
+    yield random.choice(string.ascii_uppercase)
+    yield from random.sample(string.digits, 2)
+    yield from random.sample(string.ascii_lowercase, 3)
+    yield from random.sample(string.ascii_letters, 4)
+
+
+@auth.cli.command('makeuser')
+@click.argument('username')
+def makeuser(username):
+    user = User(username=username)
+    password = ''.join(_gen_password())
+    _update_password(user, password)
+    db.session.commit()
+    print(f"Created user with username={username}; password={password}")
