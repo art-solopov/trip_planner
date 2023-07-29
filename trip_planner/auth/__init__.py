@@ -30,7 +30,7 @@ def _render_login_form(form):
     return render_template('form.html', form=form,
                            title='Sign in',
                            submit_text='Login',
-                           form_class=ViewClasses.LOGIN_FORM)
+                           form_class=ViewClasses.AUTH_FORM)
 
 
 @auth.route('/login', methods=('GET', 'POST'))
@@ -68,7 +68,8 @@ def _update_password(user, password):
 
 
 def _render_password_change_form(form):
-    return render_template('form.html', form=form, title='Change password',
+    return render_template('form.html', form=form, form_class=ViewClasses.AUTH_FORM,
+                           title='Change password',
                            submit_text='Change password')
 
 
