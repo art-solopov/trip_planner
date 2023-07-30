@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use "colors" as c;
 
 body > header {
@@ -11,6 +13,24 @@ body > header {
 
   .navbar-brand > img {
     height: 2.5rem;
+  }
+
+  %nav-link {
+    transition: text-shadow 0.1s;
+
+    &:hover,
+    &:focus {
+      text-shadow: color.change($navbar-light-color, $alpha: 0.3) 0 0.1em 0.25em;
+    }
+  }
+
+  .nav-link {
+    @extend %nav-link;
+  }
+
+  .user-dropdown > [data-bs-toggle="dropdown"] {
+    @extend %nav-link;
+    color: $body-color;
   }
 }
 

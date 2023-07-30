@@ -1,6 +1,6 @@
 {% from "macros/forms.html" import render_form, field %}
 
-{% call render_form(form, form_method, form_action, form_class) %}
+{% call render_form(form, form_method, form_action, form_class, submit_text) %}
     {%- for f in form if f is not hidden_field %}
         {{ field(f) }}
     {%- endfor %}
