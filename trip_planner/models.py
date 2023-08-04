@@ -1,5 +1,7 @@
 from secrets import token_urlsafe
 
+from sqlalchemy.dialects.postgresql import ARRAY
+
 from . import db
 
 
@@ -52,6 +54,7 @@ class Point(db.Model):
     type = db.Column(db.String(120), nullable=False, index=True)
     notes = db.Column(db.Text)
     schedule = db.Column(db.JSON(none_as_null=True))
+    websites = db.Column(ARRAY(db.String(2000)), nullable=True)
 
     trip = db.relationship('Trip',
                            backref=db.backref(

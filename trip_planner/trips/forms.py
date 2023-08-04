@@ -8,7 +8,7 @@ from wtforms import (Form, StringField, TextAreaField, FloatField,
                      DecimalField)
 from wtforms.widgets import TimeInput
 from wtforms.utils import unset_value
-from wtforms.validators import DataRequired, Length, Optional, Regexp
+from wtforms.validators import DataRequired, Length, Optional
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
@@ -89,5 +89,6 @@ class PointForm(FlaskForm):
     lat = FloatField('Latitude', validators=[DataRequired()])
     lon = FloatField('Longitude', validators=[DataRequired()])
     type = SelectField('Point type', choices=TYPE_CHOICES)
+    websites = FieldList(StringField('Website'), min_entries=1, max_entries=100)
     notes = TextAreaField('Notes')
     schedule = ScheduleField('Schedule')
