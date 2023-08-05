@@ -1,3 +1,5 @@
+{% from "macros/icon.html" import icon %}
+
 {% set default_input_class = "form-control" %}
 {% set wrapper_base_class = "mb-2" %}
 
@@ -33,6 +35,17 @@
         </ul>
     {% endif -%}
 {%- endmacro %}
+
+{% macro repeatable_field(field) %}
+<fieldset class="repeatable-field">
+    {{ field.label }}
+    {% for subfield in field -%}
+        {{ input(subfield) }}
+        <button type="button" class="btn btn-danger remove-button" title="Remove">{{ icon('x-lg') }}</button>
+    {%- endfor %}
+    <button type="button" class="btn btn-success add-button" title="Add">{{ icon('plus-lg') }}</button>
+</fieldset>
+{% endmacro %}
 
 {% macro submit_btn(submit_text, submit_class="success") -%}
     <div class="{{ wrapper_base_class }}">
