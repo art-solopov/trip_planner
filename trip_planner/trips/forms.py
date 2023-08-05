@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList,
                      DecimalField)
-from wtforms.widgets.html5 import TimeInput
+from wtforms.widgets import TimeInput
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional, Regexp
 
