@@ -72,6 +72,16 @@ class ScheduleField(FieldList):
         return (weekday, dct)
 
 
+class RejectEmptyFieldList(FieldList):
+    def process(self, formdata, data=unset_value):
+        super().process(formdata, data)
+
+        # Not recommended to do by documentation
+        # but so far there's no other choice.
+        self.entries = [e for e in self.entries if e.data]
+        self.last_index = len(self.entries) - 1
+
+
 class PointForm(FlaskForm):
     TYPE_CHOICES = [
         ('museum', 'Museum'),
@@ -89,6 +99,6 @@ class PointForm(FlaskForm):
     lat = FloatField('Latitude', validators=[DataRequired()])
     lon = FloatField('Longitude', validators=[DataRequired()])
     type = SelectField('Point type', choices=TYPE_CHOICES)
-    websites = FieldList(StringField('Website'), min_entries=1, max_entries=100)
+    websites = RejectEmptyFieldList(StringField('Website'), min_entries=1, max_entries=100)
     notes = TextAreaField('Notes')
     schedule = ScheduleField('Schedule')
