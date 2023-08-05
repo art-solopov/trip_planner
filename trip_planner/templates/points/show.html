@@ -15,8 +15,14 @@
     <figure class="figure">
         <img class="figure-img map-image" src="{{ data.point_map_url }}">
     </figure>
-
+    
     <section class="body">
+        {% if point.websites %}
+            <ul class="list-group list-group-flush">
+                {% for website in point.websites %}<li class="list-group-item"><a href="{{ webite }}">{{ website }}</a></li>{% endfor %}
+            </ul>
+        {% endif %}
+
         {% if point.notes and not point.notes.isspace() %}
             {%- for note_line in data.notes_lines %}
                 <p>{{ note_line }}</p>
