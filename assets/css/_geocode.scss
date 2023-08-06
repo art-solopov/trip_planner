@@ -18,6 +18,8 @@
   .fields-hint {
     color: c.$Gray-350;
     font-size: 200%;
+    align-self: start;
+    justify-self: start;
   }
 
   &:where(&-with-hint) {

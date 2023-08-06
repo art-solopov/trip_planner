@@ -3,6 +3,6 @@ import Tooltip from 'bootstrap/js/dist/tooltip';
 
 export class BSTooltipController extends Controller {
     connect() {
-        Tooltip(this.element)
+        this.bstooltip = new Tooltip(this.element)
     }
 }
