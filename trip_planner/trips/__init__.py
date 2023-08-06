@@ -58,7 +58,7 @@ def _map_pointer_view_attrs(map_pointer_mode) -> Dict[str, str]:
 @trips.route("/")
 @user_required
 def index():
-    trips = policy.trips_query().order_by(Trip.name)
+    trips = db.session.scalars(policy.trips_query().order_by(Trip.name))
     response = make_response(render_template('trips/index.html', trips=trips))
     response.add_etag()
     return response.make_conditional(request)
@@ -67,7 +67,7 @@ def index():
 @trips.route("/<key>")
 @user_required
 def show(key):
-    trip = policy.trips_query().filter_by(key=key).first_or_404()
+    trip = db.first_or_404(policy.trips_query().filter_by(key=key))
     trip = TripPresenter(trip)
     points = groupby(trip.points, attrgetter('type'))
 
@@ -177,7 +177,7 @@ class EditTripView(TripCUView):
         return TripForm(obj=self.model)
 
     def _instant_model(self):
-        trip = Trip.query.filter_by(author=g.user, key=self.key).first_or_404()
+        trip = db.first_or_404(db.select(Trip).filter_by(author=g.user, key=self.key))
         policy.authorize('edit_trip', trip)
         return trip
 
@@ -194,7 +194,7 @@ class EditTripView(TripCUView):
 
 @trips.route('/<key>/delete', methods=('GET', 'POST'))
 def delete_trip(key: str):
-    trip = Trip.query.filter_by(author=g.user, key=key).first_or_404()
+    trip = db.first_or_404(db.select(Trip).filter_by(author=g.user, key=key))
     policy.authorize('delete_trip', trip)
     if request.method == 'POST':
         db.session.delete(trip)
@@ -237,8 +237,8 @@ trips.add_app_template_global(ScheduleClasses.COMMON_WEEKDAY_CLASS,
 def trip_point_wrapper(f):
     @wraps(f)
     def handler(key: str, id: int):
-        trip = policy.trips_query().filter_by(key=key).first_or_404()
-        point = policy.points_query(trip).filter_by(id=id).first_or_404()
+        trip = db.first_or_404(policy.trips_query().filter_by(key=key))
+        point = db.first_or_404(policy.points_query(trip).filter_by(id=id))
 
         add_breadcrumb('Trips', url_for('.index'))
         add_breadcrumb(trip.name, url_for('.show', key=trip.key))
@@ -250,7 +250,7 @@ def trip_point_wrapper(f):
 @trips.route("/<key>/add-point", methods=('GET', 'POST'))
 @user_required
 def add_point(key: str):
-    trip = policy.trips_query().filter_by(key=key).first_or_404()
+    trip = db.first_or_404(policy.trips_query().filter_by(key=key))
     policy.authorize('add_point', trip)
     point = Point(trip=trip)
     form = PointForm()

@@ -9,7 +9,7 @@ class Policy:
         self.user = user
 
     def trips_query(self):
-        return Trip.query.filter_by(author=self.user)
+        return db.select(Trip).filter_by(author=self.user)
 
     def points_query(self, trip: Trip):
         q = Point.query
