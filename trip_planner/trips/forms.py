@@ -54,7 +54,7 @@ class ScheduleField(FieldList):
             **kwargs
         )
 
-    def process(self, formdata, data=unset_value):
+    def process(self, formdata, data=unset_value, extra_filters=None):
         if isinstance(data, dict):
             data = [{**datum, 'weekday': wday}
                     for (wday, datum) in data.items()]
