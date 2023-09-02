@@ -37,7 +37,7 @@
 {%- endmacro %}
 
 {% macro repeatable_field(field) %}
-<fieldset class="repeatable-field" data-controller="repeatable-field" data-repeatable-field-count-value="{{field|length}}">
+<fieldset class="repeatable-field" data-controller="repeatable-field" data-repeatable-field-count-value="{{field|length}}" data-repeatable-field-max-entries-value="{{field.max_entries}}">
     {{ field.label }}
     {% for subfield in field -%}
         {{ input(subfield, field_kwargs={'data-repeatable-field-target': 'control' }) }}

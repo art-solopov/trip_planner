@@ -5,7 +5,7 @@ from copy import copy
 from flask_wtf import FlaskForm
 from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList,
-                     DecimalField)
+                     DecimalField, URLField)
 from wtforms.widgets import TimeInput
 from wtforms.utils import unset_value
 from wtforms.validators import DataRequired, Length, Optional
@@ -89,6 +89,6 @@ class PointForm(FlaskForm):
     lat = FloatField('Latitude', validators=[DataRequired()])
     lon = FloatField('Longitude', validators=[DataRequired()])
     type = SelectField('Point type', choices=TYPE_CHOICES)
-    websites = FieldList(StringField('Website'), min_entries=1, max_entries=100)
+    websites = FieldList(URLField('Website'), min_entries=1, max_entries=20)
     notes = TextAreaField('Notes')
     schedule = ScheduleField('Schedule')

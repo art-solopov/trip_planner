@@ -8,7 +8,8 @@ function replaceVal(s, num) {
 export class RepeatableFieldController extends Controller {
     static targets = ['control', 'removeButton', 'addButton']
     static values = {
-        count: Number
+        count: Number,
+        maxEntries: Number
     }
 
     addField() {
@@ -24,6 +25,7 @@ export class RepeatableFieldController extends Controller {
         this.addButtonTarget.insertAdjacentElement('beforebegin', control)
         this.addButtonTarget.insertAdjacentElement('beforebegin', removeButton)
         this.countValue = count
+        this._toggleAddButton()
     }
 
     removeField(event) {
@@ -32,5 +34,10 @@ export class RepeatableFieldController extends Controller {
         
         control.remove()
         removeButton.remove()
+        this._toggleAddButton()
+    }
+
+    _toggleAddButton() {
+        this.addButtonTarget.disabled = this.countValue >= this.maxEntriesValue
     }
 }
