@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros/forms.html" import field, field_select, errors, submit_btn %}
+{% from "macros/forms.html" import field, repeatable_field, field_select, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
 {% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
 {% from "macros/components.html" import collapsible_map %}
@@ -29,6 +29,9 @@
         {%- endset -%}
 
         {{ field_select(form.type) }}
+
+        {{ repeatable_field(form.websites) }}
+
         {{ field(form.notes) }}
         <div class="mb-2 position-relative field-schedule" data-controller="point-form-schedule">
             <table>

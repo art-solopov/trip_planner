@@ -1,4 +1,50 @@
+@use "sass:map";
+
 form.narrow-form {
   max-width: 36em;
   margin-inline: auto;
+}
+
+.repeatable-field {
+  display: grid;
+  gap: map.get($spacers, 2);
+
+  grid-template-columns: 1fr auto;
+
+  & > label {
+    grid-area: 1 / 1 / 1 / -1;
+  }
+
+  & > .form-control {
+    grid-column: 1;
+  }
+
+  & > .remove-button { 
+    grid-column: 2;
+  }
+
+  & > .add-button {
+    grid-column: 1 / -1;
+  }
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: auto 1fr auto auto;
+
+    & > label {
+      grid-area: 1 / 1 / 1 / 1;
+    }
+
+    & > .form-control {
+      grid-column: 2;
+    }
+
+    & > .remove-button {
+      grid-column: 3;
+    }
+
+    & > .add-button {
+      grid-column: 4;
+    }
+  }
+
 }

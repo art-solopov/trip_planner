@@ -1,11 +1,17 @@
+{% from "macros/icon.html" import icon %}
+
 {% set default_input_class = "form-control" %}
 {% set wrapper_base_class = "mb-2" %}
+
+{% macro input(field, input_class=default_input_class, field_kwargs={}) %}
+    {{ field(class_=input_class, **field_kwargs) }}
+{%- endmacro %}
 
 {% macro field(field, extra = None, wrapper_class='', input_class=default_input_class, field_kwargs={}) -%}
     {%- set wrapper_field_class = "field-" + field.name -%}
     <div class="{{ [wrapper_base_class, wrapper_field_class, wrapper_class] | join(' ') }}">
         {{ field.label(class="form-label") }}
-        {{ field(class_=input_class, **field_kwargs) }}
+        {{ input(field, input_class, field_kwargs) }}
         {% if field.description %}
         <div class="form-text">{{ field.description }}</div>
         {% endif %}
@@ -29,6 +35,17 @@
         </ul>
     {% endif -%}
 {%- endmacro %}
+
+{% macro repeatable_field(field) %}
+<fieldset class="repeatable-field" data-controller="repeatable-field" data-repeatable-field-count-value="{{field|length}}" data-repeatable-field-max-entries-value="{{field.max_entries}}">
+    {{ field.label }}
+    {% for subfield in field -%}
+        {{ input(subfield, field_kwargs={'data-repeatable-field-target': 'control' }) }}
+        <button type="button" class="btn btn-danger remove-button" title="Remove" data-repeatable-field-target="removeButton" data-target-id="{{subfield.id}}" data-action="repeatable-field#removeField">{{ icon('x-lg') }}</button>
+    {%- endfor %}
+    <button type="button" class="btn btn-success add-button" title="Add" data-action="repeatable-field#addField" data-repeatable-field-target="addButton">{{ icon('plus-lg') }}</button>
+</fieldset>
+{% endmacro %}
 
 {% macro submit_btn(submit_text, submit_class="success") -%}
     <div class="{{ wrapper_base_class }}">

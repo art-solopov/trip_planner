@@ -31,4 +31,18 @@
   & > .body {
     grid-area: body;
   }
+
+  .websites {
+    display: flex;
+    flex-flow: row wrap;
+
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $spacer;
+
+    li:not(:last-child)::after {
+      content: '|';
+      color: $light;
+    }
+  }
 }

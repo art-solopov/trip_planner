@@ -6,6 +6,12 @@
         <div class="point-title">
             <h1>{{ point.name }}</h1>
             <address>{{ point.address }}</address>
+
+            {% if point.websites %}
+                <ul class="websites">
+                    {% for website in point.websites %}<li><a class="btn btn-link" href="{{ website }}" target="_blank">{{ website }}&nbsp;{{icon('box-arrow-up-right')}}</a></li>{% endfor %}
+                </ul>
+            {% endif %}
         </div>
         <div class="buttons">
             <a class="btn btn-secondary" href="{{ url_for('.edit_point', key=point.trip.key, id=point.id) }}" hx-boost="true">{{ icon('pencil') }}&nbsp;Edit</a>
@@ -15,7 +21,7 @@
     <figure class="figure">
         <img class="figure-img map-image" src="{{ data.point_map_url }}">
     </figure>
-
+    
     <section class="body">
         {% if point.notes and not point.notes.isspace() %}
             {%- for note_line in data.notes_lines %}
