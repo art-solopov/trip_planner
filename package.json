@@ -19,7 +19,7 @@
     "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-url": "^8.0.1",
     "bootstrap": "^5.2.0",
-    "postcss": "^8.2.10",
+    "postcss": "^8.4.31",
     "postcss-easy-import": "^4.0.0",
     "postcss-font-family-system-ui": "^5.0.0",
     "postcss-nesting": "^10.2.0",
