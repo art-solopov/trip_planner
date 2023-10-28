@@ -35,7 +35,7 @@ class BaseController extends Controller {
 
 // TODO: rename?
 export class MapController extends BaseController {
-    static targets = ['point']
+    static targets = ['point', 'marker', 'buttonRow']
 
     connect() {
         this.points = this.pointTargets.map(pt => {
@@ -48,7 +48,8 @@ export class MapController extends BaseController {
                 id: pt.id,
                 links: {
                     more: pt.querySelector('a.more-link').href,
-                    edit: pt.querySelector('a.edit-link').href
+                    edit: pt.querySelector('a.edit-link').href,
+                    buttonsRow: pt.dataset.buttonsRowLink
                 }
             })
         })
@@ -70,6 +71,13 @@ export class MapController extends BaseController {
         if (!elementOnScreen(this.mapTarget)) {
             this.mapTarget.scrollIntoView({behavior: "smooth"})
         }
+    }
+
+    activateMarker(ev) {
+        ev.preventDefault()
+        // this.buttonRowTarget.attributes['hx-get'] = ev.params.buttonsRowUrl
+        // this.buttonRowTarget.setAttribute('hx-get', ev.params.buttonsRowUrl)
+        // this.buttonRowTarget.dispatchEvent(new CustomEvent('reload-data'))
     }
 }
 

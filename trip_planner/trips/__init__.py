@@ -316,3 +316,10 @@ def delete_point(trip: Trip, point: Point):
     message = f'Are you sure you want to delete {point.name}?'
     return render_template('confirm_form.html', submit_label='Delete',
                            message=message)
+
+
+@trips.route("/<key>/<int:id>/buttons_row", methods=('GET',))
+@user_required
+@trip_point_wrapper
+def buttons_row(trip: Trip, point: Point):
+    return render_template('points/button_row.html', trip=trip, point=point)

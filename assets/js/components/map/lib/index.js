@@ -83,6 +83,11 @@ function addPointsMarkers(map, points) {
     for (let point of points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} ${styles[point.category]}`
+        el.dataset.mapTarget = 'marker'
+        // el.dataset.action = 'click->map#activateMarker'
+        // el.dataset.mapButtonsRowUrlParam = point.links.buttonsRow
+        el.setAttribute('hx-get', point.links.buttonsRow)
+        el.setAttribute('hx-target', '#buttons_row')
         const icon = ICONS[point.category]
 
         el.innerHTML = `
@@ -90,22 +95,13 @@ function addPointsMarkers(map, points) {
             <svg class=${styles.markerIcon}><use xlink:href="${iconsUrl}#${icon}-fill"></svg>
         `
 
-        const popup = new mapboxgl.Popup({
-            offset: [0, -20]
-        }).setHTML(`
-            <p>${point.name}</p>
-            <p>
-                <a href="${point.links.more}">More</a>
-                <a href="${point.links.edit}">Edit</a>
-            </p>
-            `)
-
         new mapboxgl.Marker({
             anchor: 'bottom',
             element: el
         }).setLngLat(point)
-            .setPopup(popup)
             .addTo(map)
+
+        htmx.process(el) // Needed for the HTMX attributes to work
     }
 }
 

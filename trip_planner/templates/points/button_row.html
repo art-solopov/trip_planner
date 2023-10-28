@@ -1,0 +1,10 @@
+{% from "macros/icon.html" import icon %}
+{% from "macros/buttons.html" import hx_dialog_attrs %}
+
+<h4>{{ point.name }}</h4>
+
+<ul>
+    <li><a class="btn" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">More</a></li>
+    <li><a class="btn" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">Edit</a></li>
+    <li><a class="btn" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', key=trip.key, id=point.id)) }}>Delete</a></li>
+</ul>
