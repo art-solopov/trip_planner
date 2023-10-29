@@ -20,7 +20,6 @@
         bottom: 0;
         z-index: 5;
 
-        -webkit-backdrop-filter: blur(7px);
         backdrop-filter: blur(7px);
         border-top: 2px solid c.$Gray-200;
 
@@ -47,7 +46,6 @@
             a {
                 $c: color.change(c.$Gray-400, $alpha: 0.2);
                 border: 2px solid $c;
-                -webkit-backdrop-filter: blur(15px); //TODO autoprefixer
                 backdrop-filter: blur(15px);
                 border-radius: 2em;
 

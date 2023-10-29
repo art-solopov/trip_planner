@@ -2,6 +2,7 @@ module.exports = {
     plugins: {
         "postcss-easy-import": {},
         "postcss-nesting": {},
-        "postcss-font-family-system-ui": {}
+        "postcss-font-family-system-ui": {},
+        "autoprefixer": {}
     }
 }
