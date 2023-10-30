@@ -74,6 +74,8 @@ function loadMap(options) {
             const glc = new mapboxgl.GeolocateControl();
             map.addControl(glc);
 
+            map.on('click', (ev) => console.log(ev))
+
             resolve(map)
         })
     })
@@ -85,11 +87,9 @@ function addPointsMarkers(map, points) {
         el.className = `${styles.marker} ${styles[point.category]}`
         el.dataset.mapTarget = 'marker'
         el.dataset.action = 'click->map#activateMarker'
-        // el.dataset.mapButtonsRowUrlParam = point.links.buttonsRow
         el.setAttribute('role', 'button')
         el.setAttribute('hx-get', point.links.buttonsRow)
         el.setAttribute('hx-target', '#buttons_row')
-        // el.setAttribute('hx-trigget', 'click delay:1s')
         const icon = ICONS[point.category]
 
         el.innerHTML = `
