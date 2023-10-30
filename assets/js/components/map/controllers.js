@@ -73,11 +73,16 @@ export class MapController extends BaseController {
         }
     }
 
-    activateMarker(ev) {
-        ev.preventDefault()
+    activateMarker(_ev) {
+        this.buttonRowTarget.classList.remove('active')
+        // ev.preventDefault()
         // this.buttonRowTarget.attributes['hx-get'] = ev.params.buttonsRowUrl
         // this.buttonRowTarget.setAttribute('hx-get', ev.params.buttonsRowUrl)
         // this.buttonRowTarget.dispatchEvent(new CustomEvent('reload-data'))
+    }
+
+    postActivateMarker() {
+        this.buttonRowTarget.classList.add('active')
     }
 }
 

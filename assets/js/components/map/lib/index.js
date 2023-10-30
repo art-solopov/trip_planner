@@ -84,10 +84,12 @@ function addPointsMarkers(map, points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} ${styles[point.category]}`
         el.dataset.mapTarget = 'marker'
-        // el.dataset.action = 'click->map#activateMarker'
+        el.dataset.action = 'click->map#activateMarker'
         // el.dataset.mapButtonsRowUrlParam = point.links.buttonsRow
+        el.setAttribute('role', 'button')
         el.setAttribute('hx-get', point.links.buttonsRow)
         el.setAttribute('hx-target', '#buttons_row')
+        // el.setAttribute('hx-trigget', 'click delay:1s')
         const icon = ICONS[point.category]
 
         el.innerHTML = `

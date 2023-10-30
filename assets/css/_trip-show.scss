@@ -23,6 +23,12 @@
         backdrop-filter: blur(7px);
         border-top: 2px solid c.$Gray-200;
 
+        transition: 0.25s transform;
+
+        &:not(.active) {
+          transform: translateY(100%);
+        }
+
         h4 {
             font-size: 1rem;
             text-align: center;

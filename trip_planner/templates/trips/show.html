@@ -6,7 +6,7 @@
 
 {% block main %}
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
-        <div id="buttons_row" class="buttons-row" data-map-target="buttonRow"></div>
+        <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>
     </div>
     <div class="app">
         <header>
