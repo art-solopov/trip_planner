@@ -73,6 +73,16 @@ export class MapController extends BaseController {
         }
     }
 
+    markerTargetConnected(el) {
+        const point = this.pointsMap.get(el.dataset.pointId)
+
+        el.setAttribute('role', 'button')
+        el.setAttribute('hx-get', point.links.buttonsRow)
+        el.setAttribute('hx-target', '#buttons_row')
+
+        htmx.process(el) // Needed for the HTMX attributes to work
+    }
+
     activateMarker(_ev) {
         this.buttonRowTarget.classList.remove('active')
     }

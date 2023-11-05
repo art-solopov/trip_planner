@@ -87,9 +87,7 @@ function addPointsMarkers(map, points) {
         el.className = `${styles.marker} ${styles[point.category]}`
         el.dataset.mapTarget = 'marker'
         el.dataset.action = 'click->map#activateMarker'
-        el.setAttribute('role', 'button')
-        el.setAttribute('hx-get', point.links.buttonsRow)
-        el.setAttribute('hx-target', '#buttons_row')
+        el.dataset.pointId = point.id
         const icon = ICONS[point.category]
 
         el.innerHTML = `
@@ -102,8 +100,6 @@ function addPointsMarkers(map, points) {
             element: el
         }).setLngLat(point)
             .addTo(map)
-
-        htmx.process(el) // Needed for the HTMX attributes to work
     }
 }
 
