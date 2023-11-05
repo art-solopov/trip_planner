@@ -18,6 +18,7 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-url": "^8.0.1",
+    "autoprefixer": "^10.4.16",
     "bootstrap": "^5.2.0",
     "postcss": "^8.4.31",
     "postcss-easy-import": "^4.0.0",
@@ -30,9 +31,7 @@
     "sass": "^1.57.1"
   },
   "browserslist": [
-    "Firefox ESR",
-    "Chrome >= 81",
-    "last 2 and_chr versions",
-    "last 2 and_ff versions"
+    "defaults",
+    "Firefox ESR"
   ]
 }

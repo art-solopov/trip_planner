@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use "palette";
 @use "colors" as c;
 
@@ -9,6 +11,62 @@
     .trip-title {
         display: flex;
         align-items: baseline;
+    }
+
+    .buttons-row {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+
+        backdrop-filter: blur(7px);
+        border-top: 2px solid c.$Gray-200;
+
+        transition: 0.25s transform;
+
+        &:not(.active) {
+          transform: translateY(100%);
+        }
+
+        .btn-close {
+          float: right;
+          margin-right: 0.25rem;
+          margin-top: 0.25rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+            text-align: center;
+            margin: 0.25rem 0;
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            margin: 0;
+            padding: 0.5em;
+            gap: 0.5em;
+
+            li {
+                margin: 0;
+                padding: 0;
+            }
+
+            a {
+                $c: color.change(c.$Gray-400, $alpha: 0.2);
+                border: 2px solid $c;
+                backdrop-filter: blur(15px);
+                border-radius: 2em;
+
+                &:hover,
+                &:focus {
+                    background-color: $c;
+                }
+            }
+        }
     }
 }
 

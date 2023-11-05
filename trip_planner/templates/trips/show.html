@@ -5,7 +5,9 @@
 
 
 {% block main %}
-    <div class="trip-map" id="map" data-map-target="map" aria-label="Map"></div>
+    <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
+        <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>
+    </div>
     <div class="app">
         <header>
             <div class="trip-title">
@@ -42,7 +44,8 @@
                             data-map-target="point"
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
-                            data-category="{{ point.type }}">
+                            data-category="{{ point.type }}"
+                            data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
                             <div>
                                 <h3 class="h5 m-0 item-name">{{ point.name }}</h3>
                                 <address class="item-address">{{ point.address }}</address>

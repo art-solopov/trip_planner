@@ -35,7 +35,7 @@ class BaseController extends Controller {
 
 // TODO: rename?
 export class MapController extends BaseController {
-    static targets = ['point']
+    static targets = ['point', 'marker', 'buttonRow']
 
     connect() {
         this.points = this.pointTargets.map(pt => {
@@ -48,7 +48,8 @@ export class MapController extends BaseController {
                 id: pt.id,
                 links: {
                     more: pt.querySelector('a.more-link').href,
-                    edit: pt.querySelector('a.edit-link').href
+                    edit: pt.querySelector('a.edit-link').href,
+                    buttonsRow: pt.dataset.buttonsRowLink
                 }
             })
         })
@@ -70,6 +71,28 @@ export class MapController extends BaseController {
         if (!elementOnScreen(this.mapTarget)) {
             this.mapTarget.scrollIntoView({behavior: "smooth"})
         }
+    }
+
+    markerTargetConnected(el) {
+        const point = this.pointsMap.get(el.dataset.pointId)
+
+        el.setAttribute('role', 'button')
+        el.setAttribute('hx-get', point.links.buttonsRow)
+        el.setAttribute('hx-target', '#buttons_row')
+
+        htmx.process(el) // Needed for the HTMX attributes to work
+    }
+
+    activateMarker(_ev) {
+        this.buttonRowTarget.classList.remove('active')
+    }
+
+    postActivateMarker() {
+        this.buttonRowTarget.classList.add('active')
+    }
+
+    dismissButtonRow() {
+        this.buttonRowTarget.classList.remove('active')
     }
 }
 
