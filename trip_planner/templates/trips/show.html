@@ -2,8 +2,6 @@
 {% from "macros/icon.html" import icon %}
 {% from "macros/buttons.html" import hx_dialog_attrs %}
 
-
-
 {% block main %}
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
         <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>
@@ -68,6 +66,10 @@
     {# TODO: maybe install via npm #}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+
+    <script type="application/json" id="point_colors">
+        {{ points_colors_map | tojson }}
+    </script>
 {% endblock %}
 
 {% block extra_body %}

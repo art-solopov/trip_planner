@@ -32,8 +32,9 @@ export async function mapInit(apiKey, options) {
 }
 
 export function addPoints(map, points) {
+    const pointColors = JSON.parse(document.getElementById('point_colors').innerText)
     addPointsLayer(map, points)
-    addPointsMarkers(map, points)
+    addPointsMarkers(map, points, pointColors)
 }
 
 export function addDraggableMarker(map) {
@@ -81,13 +82,14 @@ function loadMap(options) {
     })
 }
 
-function addPointsMarkers(map, points) {
+function addPointsMarkers(map, points, colors) {
     for (let point of points) {
         const el = document.createElement('div')
-        el.className = `${styles.marker} ${styles[point.category]}`
+        el.className = `${styles.marker}`
         el.dataset.mapTarget = 'marker'
         el.dataset.action = 'click->map#activateMarker'
         el.dataset.pointId = point.id
+        el.style.setProperty('--marker-body-color', colors[point.category])
         const icon = ICONS[point.category]
 
         el.innerHTML = `

@@ -87,6 +87,7 @@ def show(key):
         render_template('trips/show.html', trip=trip,
                         points=points,
                         points_count=len(trip.points),
+                        points_colors_map=PointPresenter.point_colors_map(),
                         view_class=ViewClasses.TRIP_SHOW,
                         view_attrs=view_attrs))
     response.add_etag()
