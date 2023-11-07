@@ -12,6 +12,7 @@ from wtforms.validators import DataRequired, Length, Optional
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
+from ..models import PointTypes
 
 
 class TripForm(FlaskForm):
@@ -73,16 +74,7 @@ class ScheduleField(FieldList):
 
 
 class PointForm(FlaskForm):
-    TYPE_CHOICES = [
-        ('museum', 'Museum'),
-        ('sight', 'Sight'),
-        ('transport', 'Transport'),
-        ('accomodation', 'Accomodation'),
-        ('food', 'Food'),
-        ('entertainment', 'Entertainment'),
-        ('shop', 'Shop'),
-        ('other', 'Other'),
-    ]
+    TYPE_CHOICES = [(p.value, p.value.capitalize()) for p in PointTypes]
 
     name = StringField('Name', validators=[DataRequired(), Length(max=2000)])
     address = TextAreaField('Address')
