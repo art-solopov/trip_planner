@@ -12,16 +12,15 @@ const FIT_BOUND_OPTIONS = {
     maxZoom: FOCUS_ZOOM
 }
 
-// TODO: maybe inject from backend
 const ICONS = {
-    museum: 'easel',
-    sight: 'star',
-    transport: 'train-front',
-    accomodation: 'house',
-    food: 'cup-hot',
-    entertainment: 'dpad',
-    shop: 'basket3',
-    other: 'pentagon'
+    museum: 'museum',
+    sight: 'castle',
+    transport: 'rail-light',
+    accomodation: 'home',
+    food: 'restaurant',
+    entertainment: 'amusement-park',
+    shop: 'grocery',
+    other: 'triangle-stroked'
 }
 
 export async function mapInit(apiKey, options) {
@@ -83,6 +82,8 @@ function loadMap(options) {
 }
 
 function addPointsMarkers(map, points, colors) {
+    console.log(ic)
+
     for (let point of points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} is-${point.category}`
@@ -92,10 +93,13 @@ function addPointsMarkers(map, points, colors) {
         // el.style.setProperty('--marker-body-color', colors[point.category])
         const icon = ICONS[point.category]
 
-        el.innerHTML = `
-            <svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>
-            <svg class=${styles.markerIcon}><use xlink:href="${iconsUrl}#${icon}-fill"></svg>
-        `
+        import(`../icons/${icon}.svg`).then(i => {
+            el.innerHTML = `
+                <svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>
+                <img class=${styles.markerIcon} src=${i.default}></img>
+            `
+        })
+
 
         new mapboxgl.Marker({
             anchor: 'bottom',
