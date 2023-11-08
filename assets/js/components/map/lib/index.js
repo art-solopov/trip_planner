@@ -85,11 +85,11 @@ function loadMap(options) {
 function addPointsMarkers(map, points, colors) {
     for (let point of points) {
         const el = document.createElement('div')
-        el.className = `${styles.marker}`
+        el.className = `${styles.marker} is-${point.category}`
         el.dataset.mapTarget = 'marker'
         el.dataset.action = 'click->map#activateMarker'
         el.dataset.pointId = point.id
-        el.style.setProperty('--marker-body-color', colors[point.category])
+        // el.style.setProperty('--marker-body-color', colors[point.category])
         const icon = ICONS[point.category]
 
         el.innerHTML = `

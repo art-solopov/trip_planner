@@ -88,6 +88,7 @@ def show(key):
                         points=points,
                         points_count=len(trip.points),
                         points_colors_map=PointPresenter.point_colors_map(),
+                        points_colors_css=PointPresenter.point_colors_css(),
                         view_class=ViewClasses.TRIP_SHOW,
                         view_attrs=view_attrs))
     response.add_etag()

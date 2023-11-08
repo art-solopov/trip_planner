@@ -78,7 +78,7 @@
         flex-flow: row nowrap;
         gap: 0.5rem;
 
-        // Height hack, TODO rework later 
+        // Height hack, TODO rework later
         height: calc(100vh - 9rem);
 
         .app {
@@ -126,15 +126,12 @@
         margin-bottom: 0.5em;
     }
 
-    @each $name, $color in palette.$type-colors {
-        &--#{$name} {
-            border-left: 4px solid $color;
+    --decoration-color: var(--type-color, #aaa);
 
-            h2 {
-                border-bottom: 6px solid;
-                border-image: linear-gradient(to right, $color, $color 30%, transparent 100%) 1;
-            }
-        }
+    border-left: 4px solid var(--decoration-color);
+    h2 {
+        border-bottom: 6px solid;
+        border-image: linear-gradient(to right, var(--decoration-color), var(--decoration-color) 30%, transparent 100%) 1;
     }
 }
 

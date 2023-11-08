@@ -33,7 +33,7 @@
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items trip-point-items--{{ g_type | lower }}">
+            <section class="trip-point-items is-{{ g_type | lower }} trip-point-items--{{ g_type | lower }}">
                 <h2 class="h4">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
@@ -70,6 +70,9 @@
     <script type="application/json" id="point_colors">
         {{ points_colors_map | tojson }}
     </script>
+    <style>
+        {{ points_colors_css }}
+    </style>
 {% endblock %}
 
 {% block extra_body %}

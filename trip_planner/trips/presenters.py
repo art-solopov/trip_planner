@@ -16,19 +16,24 @@ class TripPresenter:
 
 class PointPresenter:
     POINT_COLORS = {
-        PointTypes.MUSEUM: '#be3e66',
-        PointTypes.SIGHT: '#5c0d74',
-        PointTypes.TRANSPORT: '#5b6b34',
-        PointTypes.ACCOMODATION: '#eba92b',
-        PointTypes.FOOD: '#65b0aa',
-        PointTypes.ENTERTAINMENT: '#a284a0',
-        PointTypes.SHOP: '#982c24',
+        PointTypes.MUSEUM: 'hsl(225, 100%, 60%)',
+        PointTypes.SIGHT: 'hsl(194, 71%, 52%)',
+        PointTypes.TRANSPORT: 'hsl(130, 67%, 40%)',
+        PointTypes.ACCOMODATION: 'hsl(335, 64%, 53%)',
+        PointTypes.FOOD: 'hsl(11, 100%, 18%)',
+        PointTypes.ENTERTAINMENT: 'hsl(40, 71%, 60%)',
+        PointTypes.SHOP: 'hsl(288, 59%, 49%)',
         PointTypes.OTHER: '#aaa'
     }
 
     @staticmethod
     def point_colors_map():
         return {k.value: v for k, v in PointPresenter.POINT_COLORS.items()}
+
+    @staticmethod
+    def point_colors_css():
+        return "\n".join(f".is-{k.value} {'{'} --type-color: {v}; {'}'}"
+                         for k, v in PointPresenter.POINT_COLORS.items())
 
     def __init__(self, point: Point):
         self.point = point
