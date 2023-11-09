@@ -82,8 +82,6 @@ function loadMap(options) {
 }
 
 function addPointsMarkers(map, points, colors) {
-    console.log(ic)
-
     for (let point of points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} is-${point.category}`
@@ -93,10 +91,10 @@ function addPointsMarkers(map, points, colors) {
         // el.style.setProperty('--marker-body-color', colors[point.category])
         const icon = ICONS[point.category]
 
-        import(`../icons/${icon}.svg`).then(i => {
+        import(`./icons`).then(i => {
             el.innerHTML = `
                 <svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>
-                <img class=${styles.markerIcon} src=${i.default}></img>
+                <img class=${styles.markerIcon} src=${i.default[point.category]}></img>
             `
         })
 
