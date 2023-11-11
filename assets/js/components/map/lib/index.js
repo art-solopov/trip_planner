@@ -21,9 +21,8 @@ export async function mapInit(apiKey, options) {
 }
 
 export function addPoints(map, points) {
-    const pointColors = JSON.parse(document.getElementById('point_colors').innerText)
     addPointsLayer(map, points)
-    addPointsMarkers(map, points, pointColors)
+    addPointsMarkers(map, points)
 }
 
 export function addDraggableMarker(map) {
@@ -71,7 +70,7 @@ function loadMap(options) {
     })
 }
 
-function addPointsMarkers(map, points, colors) {
+function addPointsMarkers(map, points) {
     for (let point of points) {
         const el = document.createElement('div')
         el.className = `${styles.marker} is-${point.category}`

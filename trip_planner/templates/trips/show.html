@@ -33,7 +33,7 @@
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items is-{{ g_type | lower }} trip-point-items--{{ g_type | lower }}">
+            <section class="trip-point-items is-{{ g_type | lower }}">
                 <h2 class="h4">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
