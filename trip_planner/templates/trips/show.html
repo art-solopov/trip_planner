@@ -2,8 +2,6 @@
 {% from "macros/icon.html" import icon %}
 {% from "macros/buttons.html" import hx_dialog_attrs %}
 
-
-
 {% block main %}
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
         <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>
@@ -35,7 +33,7 @@
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items trip-point-items--{{ g_type | lower }}">
+            <section class="trip-point-items is-{{ g_type | lower }}">
                 <h2 class="h4">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
@@ -68,6 +66,13 @@
     {# TODO: maybe install via npm #}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+
+    <script type="application/json" id="point_colors">
+        {{ points_colors_map | tojson }}
+    </script>
+    <style>
+        {{ points_colors_css }}
+    </style>
 {% endblock %}
 
 {% block extra_body %}

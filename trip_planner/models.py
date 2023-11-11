@@ -1,3 +1,4 @@
+import enum
 from secrets import token_urlsafe
 
 from sqlalchemy.orm import validates
@@ -44,6 +45,17 @@ class Trip(db.Model):
 db.Index('idx_trip_author_slug', Trip.author_id, Trip.slug, unique=True)
 
 
+class PointTypes(enum.Enum):
+    MUSEUM = 'museum'
+    SIGHT = 'sight'
+    TRANSPORT = 'transport'
+    ACCOMODATION = 'accomodation'
+    FOOD = 'food'
+    ENTERTAINMENT = 'entertainment'
+    SHOP = 'shop'
+    OTHER = 'other'
+
+
 class Point(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     trip_id = db.Column(db.BigInteger, db.ForeignKey('trip.id'), index=True,
@@ -52,7 +64,11 @@ class Point(db.Model):
     address = db.Column(db.Text)
     lat = db.Column(db.Numeric(8, 5), nullable=False)
     lon = db.Column(db.Numeric(8, 5), nullable=False)
-    type = db.Column(db.String(120), nullable=False, index=True)
+    type = db.Column(db.Enum(PointTypes,
+                             native_enum=False,
+                             length=120,
+                             values_callable=lambda x: [i.value for i in x]),
+                     nullable=False, index=True)
     notes = db.Column(db.Text)
     schedule = db.Column(db.JSON(none_as_null=True))
     websites = db.Column(ARRAY(db.String(2000)), nullable=True)

@@ -17,7 +17,7 @@ from ..data import MapData
 from .data import PointData
 from .forms import TripForm, PointForm
 from .policy import Policy
-from .presenters import TripPresenter
+from .presenters import TripPresenter, PointPresenter
 from ..bs_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
@@ -69,7 +69,8 @@ def index():
 def show(key):
     trip = db.first_or_404(policy.trips_query().filter_by(key=key))
     trip = TripPresenter(trip)
-    points = groupby(trip.points, attrgetter('type'))
+    points = [PointPresenter(p) for p in trip.points]
+    points = groupby(points, attrgetter('type'))
 
     add_breadcrumb('Trips', url_for('.index'))
     add_breadcrumb(trip.name)
@@ -86,6 +87,8 @@ def show(key):
         render_template('trips/show.html', trip=trip,
                         points=points,
                         points_count=len(trip.points),
+                        points_colors_map=PointPresenter.point_colors_map(),
+                        points_colors_css=PointPresenter.point_colors_css(),
                         view_class=ViewClasses.TRIP_SHOW,
                         view_attrs=view_attrs))
     response.add_etag()
