@@ -1,5 +1,3 @@
-@use "../../../../css/palette";
-
 .marker {
   $size: 3.5rem;
   $icon-size: 0.5 * $size;
@@ -23,16 +21,6 @@
 
     top: 0.15 * $size;
     left: 0.5 * ($size - $icon-size);
-  }
-
-  @each $type, $color in palette.$type-colors {
-    &.#{$type} {
-      // background: $color;
-
-      .markerBody {
-        fill: $color;
-      }
-    }
   }
 }
 
