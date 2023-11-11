@@ -61,7 +61,13 @@ export default {
         json(),
         styles({ mode: ['extract', 'app.css'], autoModules: true }),
         isProd && terser(),
-        url({limit: 2048, publicPath: '/static/assets/'}),
+        url({limit: 2048, publicPath: '/static/assets/', exclude: ['assets/js/**/icons/*.svg']}),
+        url({
+            limit: 0,
+            fileName: 'icons/[name]-[hash][extname]',
+            publicPath: '/static/assets/',
+            include: ['assets/js/**/icons/*.svg']
+        }),
         dynamicImportVars(),
         manifest({ nameWithExt: false, publicPath: 'assets/' }),
     ]

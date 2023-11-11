@@ -3,6 +3,7 @@ import {iconsUrl} from '../../../utils'
 import MoveMarkerControl from './move-marker-control'
 
 import styles from './marker-styles.module.scss'
+import icons from './icons'
 
 export const DEFAULT_ZOOM = 10
 export const CITY_ZOOM = 11.5
@@ -10,17 +11,6 @@ export const FOCUS_ZOOM = 15.0
 const FIT_BOUND_OPTIONS = {
     padding: 32,
     maxZoom: FOCUS_ZOOM
-}
-
-const ICONS = {
-    museum: 'museum',
-    sight: 'castle',
-    transport: 'rail-light',
-    accomodation: 'home',
-    food: 'restaurant',
-    entertainment: 'amusement-park',
-    shop: 'grocery',
-    other: 'triangle-stroked'
 }
 
 export async function mapInit(apiKey, options) {
@@ -88,15 +78,11 @@ function addPointsMarkers(map, points, colors) {
         el.dataset.mapTarget = 'marker'
         el.dataset.action = 'click->map#activateMarker'
         el.dataset.pointId = point.id
-        // el.style.setProperty('--marker-body-color', colors[point.category])
-        const icon = ICONS[point.category]
 
-        import(`./icons`).then(i => {
-            el.innerHTML = `
-                <svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>
-                <img class=${styles.markerIcon} src=${i.default[point.category]}></img>
-            `
-        })
+        el.innerHTML = [
+            `<svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>`,
+            `<img class=${styles.markerIcon} src=${icons[point.category]}></img>`
+        ].join("\n")
 
 
         new mapboxgl.Marker({
