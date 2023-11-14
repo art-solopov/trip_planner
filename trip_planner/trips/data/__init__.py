@@ -4,7 +4,7 @@ from markupsafe import Markup, escape
 
 from trip_planner.data import MapData
 from trip_planner.models import Point
-from trip_planner.bs_classes import ScheduleClasses
+from trip_planner.view_classes import ScheduleClasses
 
 
 class PointScheduleData:

@@ -18,7 +18,7 @@ from .data import PointData
 from .forms import TripForm, PointForm
 from .policy import Policy
 from .presenters import TripPresenter, PointPresenter
-from ..bs_classes import ViewClasses, ScheduleClasses
+from ..view_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
 

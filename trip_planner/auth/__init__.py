@@ -8,7 +8,7 @@ from passlib.context import CryptContext
 from .forms import LoginForm, PasswordChangeForm
 from .. import db
 from ..models import User
-from ..bs_classes import ViewClasses
+from ..view_classes import ViewClasses
 
 auth = Blueprint('auth', __name__)
 
