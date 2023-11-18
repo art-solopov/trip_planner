@@ -1,0 +1,13 @@
+@use "colors" as c;
+@use "palette" as pl;
+
+:root {
+  --pm-primary-color: #{pl.$primary};
+  --pm-secondary-color: #{pl.$secondary};
+  --pm-color-success: #{pl.$success};
+  --pm-color-error: #{pl.$danger};
+  --pm-color-warning: #{pl.$warning};
+  --pm-color-info: #{pl.$info};
+
+  --pm-button-border-radius: 0.7em;
+}
