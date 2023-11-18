@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-flow: column;
 
-    & > .container {
+    & > .pm-container {
         flex-grow: 1;
         display: flex;
         flex-flow: column;

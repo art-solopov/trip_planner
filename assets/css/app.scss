@@ -5,7 +5,7 @@
 // @import "bootstrap-custom";
 // @import "buttons";
 // @import "links";
-// @import "layout";
+@import "layout";
 // @import "icons";
 // @import "flashes";
 // @import "top-header";
@@ -16,6 +16,10 @@
 // @import "trip-show";
 // @import "point-schedule";
 // @import "point-show";
+
+body {
+  margin: 0;
+}
 
 .main-footer {
     background-color: c.$Gray-50;
