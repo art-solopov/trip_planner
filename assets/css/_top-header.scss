@@ -1,36 +1,73 @@
 @use "sass:color";
 
+@use "palette" as pl;
 @use "colors" as c;
 
 body > header {
   margin-bottom: 0.5rem;
 }
 
-.top-navbar {
-  background-image: linear-gradient(to right, $primary, $secondary);
+%nav-link {
+  $navbar-shadow: c.$Gray-600;
+  transition: text-shadow 0.1s, box-shadow 0.1s;
 
-  box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
-
-  .navbar-brand > img {
-    height: 2.5rem;
-  }
-
-  %nav-link {
-    transition: text-shadow 0.1s;
-
+  &:not(.disabled) {
     &:hover,
     &:focus {
-      text-shadow: color.change($navbar-light-color, $alpha: 0.3) 0 0.1em 0.25em;
+      color: inherit;
+      text-shadow: color.change($navbar-shadow, $alpha: 0.3) 0 0.2em 0.25em;
+      box-shadow: 0 -0.2em $navbar-shadow inset;
+    }
+  }
+}
+
+.top-navbar {
+  background-image: linear-gradient(to right, pl.$primary-light, pl.$secondary-light);
+  box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
+
+  &, & > .pm-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .navbar-brand {
+    align-self: stretch;
+  }
+
+  .navbar-brand > img {
+    height: 3rem;
+  }
+
+  a.navbar-brand {
+    padding-top: 0.2rem;
+  }
+
+  .navbar-list {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row nowrap;
+
+    li {
+      margin: 0;
+    }
+
+    span {
+      @extend %nav-element;
+    }
+
+    a {
+      @extend %nav-element;
+      @extend %nav-link;
     }
   }
 
-  .nav-link {
-    @extend %nav-link;
-  }
-
-  .user-dropdown > [data-bs-toggle="dropdown"] {
-    @extend %nav-link;
-    color: $body-color;
+  %nav-element {
+    color: var(--pm-app-text-color);
+    padding: 0.7em 1em;
+    display: inline-block;
   }
 }
 
