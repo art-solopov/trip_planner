@@ -504,15 +504,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.2.0":
-  version: 5.2.3
-  resolution: "bootstrap@npm:5.2.3"
-  peerDependencies:
-    "@popperjs/core": ^2.11.6
-  checksum: 0211805dec6a190c0911d142966df30fdb4b4139a04cc6c23dd83c6045ea3cb0a966b360ab2e701e7b3ad96ff01e05fdc0914be97b41bd876b11e457a8bdc6a3
-  languageName: node
-  linkType: hard
-
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -2033,6 +2024,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"plume-css@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "plume-css@npm:1.0.13"
+  checksum: a22dcf88c46e606c17bfa4fd05a2bddc2fa81d8a3bae3e206de7af6c12d246912a32ca133946d8a81d8f65821e23b38072248443d355636e0cbb4847b8a71f75
+  languageName: node
+  linkType: hard
+
 "postcss-calc@npm:^8.2.3":
   version: 8.2.4
   resolution: "postcss-calc@npm:8.2.4"
@@ -2974,7 +2972,7 @@ __metadata:
     "@rollup/plugin-replace": ^5.0.2
     "@rollup/plugin-url": ^8.0.1
     autoprefixer: ^10.4.16
-    bootstrap: ^5.2.0
+    plume-css: ^1.0.13
     postcss: ^8.4.31
     postcss-easy-import: ^4.0.0
     postcss-font-family-system-ui: ^5.0.0

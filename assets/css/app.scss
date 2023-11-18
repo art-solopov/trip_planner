@@ -2,20 +2,20 @@
 @use "sass:color";
 
 // @import "~bootstrap/scss/bootstrap";
-@import "bootstrap-custom";
-@import "buttons";
-@import "links";
-@import "layout";
-@import "icons";
-@import "flashes";
-@import "top-header";
-@import "forms";
-@import "map-with-coords";
-@import "geocode";
-@import "trips-index";
-@import "trip-show";
-@import "point-schedule";
-@import "point-show";
+// @import "bootstrap-custom";
+// @import "buttons";
+// @import "links";
+// @import "layout";
+// @import "icons";
+// @import "flashes";
+// @import "top-header";
+// @import "forms";
+// @import "map-with-coords";
+// @import "geocode";
+// @import "trips-index";
+// @import "trip-show";
+// @import "point-schedule";
+// @import "point-show";
 
 .main-footer {
     background-color: c.$Gray-50;
@@ -34,14 +34,14 @@
 
 dialog {
   padding: 0;
-  border: $border-width $border-style $border-color;
-  border-radius: $border-radius-lg;
+  // border: $border-width $border-style $border-color;
+  // border-radius: $border-radius-lg;
 
   &::backdrop {
     background-color: color.change(c.$Gray-600, $alpha: 0.7);
   }
   & > * {
-    padding: $spacer (2 * $spacer);
+    // padding: $spacer (2 * $spacer);
   }
 
   // Animation
