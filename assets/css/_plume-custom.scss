@@ -9,6 +9,19 @@
   --pm-color-warning: #{pl.$warning};
   --pm-color-info: #{pl.$info};
   --pm-app-text-color: #{pl.$body-color};
+  --pm-link-color: #{pl.$link-color};
 
   --pm-button-border-radius: 0.7em;
+  --pm-button-margin-bottom: 0;
+  --pm-button-min-width: 0;
+  --pm-button-min-height: 0;
+
+  --pm-button-primary-text-color: var(--pm-app-text-color);
+
+  --pm-h1-font-size:2.5em;
+  --pm-h2-font-size:2em;
+  --pm-h3-font-size:1.8em;
+  --pm-h4-font-size:1.5em;
+  --pm-h5-font-size:1.2em;
+  --pm-h6-font-size:1.1em;
 }

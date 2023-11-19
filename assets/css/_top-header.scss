@@ -7,22 +7,22 @@ body > header {
   margin-bottom: 0.5rem;
 }
 
-%nav-link {
-  $navbar-shadow: c.$Gray-600;
-  transition: text-shadow 0.1s, box-shadow 0.1s;
+.top-navbar {
+  %nav-link {
+    $navbar-shadow: c.$Gray-600;
+    transition: text-shadow 0.1s, box-shadow 0.1s;
 
-  &:not(.disabled) {
-    &:hover,
-    &:focus {
-      color: inherit;
-      text-shadow: color.change($navbar-shadow, $alpha: 0.3) 0 0.2em 0.25em;
-      box-shadow: 0 -0.2em $navbar-shadow inset;
+    &:not(.disabled) {
+      &:hover,
+      &:focus {
+        color: inherit;
+        text-shadow: color.change($navbar-shadow, $alpha: 0.3) 0 0.2em 0.25em;
+        box-shadow: 0 -0.2em $navbar-shadow inset;
+      }
     }
   }
-}
 
-.top-navbar {
-  background-image: linear-gradient(to right, pl.$primary-light, pl.$secondary-light);
+  background-image: linear-gradient(to right, pl.$primary, pl.$secondary);
   box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
 
   &, & > .pm-container {
@@ -72,7 +72,8 @@ body > header {
 }
 
 .top-breadcrumbs {
-  .breadcrumb {
-    margin: 0;
-  }
+  margin-top: 0.5rem;
+  // .breadcrumb {
+  //   margin: 0;
+  // }
 }

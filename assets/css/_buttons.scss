@@ -1,11 +1,25 @@
 @use "sass:map";
 
-.btn-success {
-    @include button-variant($success, $success, $color: white)
+// .btn-success {
+//     @include button-variant($success, $success, $color: white)
+// }
+
+// Button selector taken from Plume.CSS
+// and modified slightly for prefix
+
+button, .pm-button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[class*="pm-btn-"] {
+  .icon {
+    scape: 1.2;
+    margin-right: 0.5ch;
+  }
 }
 
 .buttons {
     display: flex;
 
-    gap: map.get($spacers, 2);
+    gap: 2em;
 }

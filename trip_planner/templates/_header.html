@@ -17,22 +17,18 @@
     </nav>
 
     {%- if g.breadcrumbs %}
-    <nav aria-label="breadcrumb" class="container top-breadcrumbs">
-        <ol class="breadcrumb">
-            {%- for breadcrumb in g.breadcrumbs %}
-                {%- set bc_class = "breadcrumb-item" -%}
-                {%- if loop.last -%}
-                    {%- set bc_class = bc_class + " active" -%}
-                {%- endif %}
-                <li class="{{ bc_class }}">
-                    {%- if breadcrumb.link -%}
-                        <a href="{{ breadcrumb.link }}">{{ breadcrumb.text }}</a>
-                    {%- else -%}
-                        {{ breadcrumb.text }}
-                    {%- endif %}
-                </li>
-            {% endfor %}
-        </ol>
+    <nav aria-label="breadcrumb" class="pm-container top-breadcrumbs">
+        {%- for breadcrumb in g.breadcrumbs %}
+            {%- set bc_class = "" -%}
+            {%- if loop.last -%}
+                {%- set bc_class = bc_class + "active" -%}
+            {%- endif %}
+            {%- if breadcrumb.link -%}
+                <a href="{{ breadcrumb.link }}" class="{{ bc_class }}">{{ breadcrumb.text }}</a>
+            {%- else -%}
+                <span>{{ breadcrumb.text }}</span>
+            {%- endif %}
+        {% endfor %}
     </nav>
     {% endif -%}
 </header>
