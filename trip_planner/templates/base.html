@@ -19,7 +19,7 @@
     </head>
     <body>
         {% include "_header.html" %}
-        <div class="plume pm-container">
+        <div class="container">
             {% with messages = get_flashed_messages(with_categories=True) -%}
                 {%- if messages %}
                     <div class="flashes">

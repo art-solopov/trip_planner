@@ -2,8 +2,7 @@
 
 @use "palette";
 @use "colors" as c;
-
-@import "./breakpoints";
+@use "breakpoints";
 
 .trip-map {
     min-height: 60vh;
@@ -74,7 +73,7 @@
     display: flex;
     flex-flow: column;
 
-    @include media-breakpoint-up(lg) {
+    @media (width >= breakpoints.$lg) {
         flex-flow: row nowrap;
         gap: 0.5rem;
 
