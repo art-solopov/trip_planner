@@ -12,12 +12,10 @@ input[type="button"],
 input[type="submit"],
 input[type="reset"],
 [class*="pm-btn-"] {
+  gap: 0.5ch;
+
   .icon {
     scale: 1.2;
-
-    &:not(:only-child) {
-      margin-right: 0.5ch;
-    }
   }
 }
 
@@ -34,4 +32,29 @@ input[type="reset"],
   color: black;
   background-color: var(--pm-color-info);
   border-color: var(--pm-color-info);
+}
+
+:root {
+  --btn-close-font-size: 1.5rem;
+  --btn-close-padding: 0.5rem;
+}
+
+.btn-close {
+  border: none;
+  background: none;
+  font-size: var(--btn-close-font-size);
+  color: var(--pm-app-text-color);
+  padding: var(--btn-close-padding);
+
+  opacity: 0.8;
+  transition: opacity 0.15s;
+
+  &:is(button) {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
 }

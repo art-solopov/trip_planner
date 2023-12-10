@@ -1,3 +1,43 @@
+@use "sass:color";
+@use "./colors" as c;
+
+:root {
+  --flash-bg: #{c.$Gray-50};
+  --flash-color: #{c.$Gray-500};
+  --flash-padding: 1rem;
+}
+
 .flashes {
   margin-block: 0.5rem;
+  font-family: var(--pm-font-family-primary);
+
+  .flash {
+    background-color: var(--flash-bg);
+    color: var(--flash-color);
+    border: 1px solid var(--flash-color);
+    border-radius: calc(0.75 * var(--flash-padding));
+
+    padding-block: var(--flash-padding);
+    padding-left: var(--flash-padding);
+    padding-right: calc(var(--btn-close-padding) + var(--btn-close-font-size) + var(--flash-padding));
+
+    position: relative;
+
+    .btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  }
+
+  .flash-success {
+    --flash-bg: #{color.mix(c.$Green-50, white)};
+    --flash-color: #{c.$Green-500};
+  }
+
+  .flash-danger {
+    --flash-bg: #{c.$Red-50};
+    --flash-color: #{c.$Red-500};
+  }
 }
