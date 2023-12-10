@@ -5,13 +5,14 @@
 {% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
 
 {% block main %}
-    <h1>{{ title }}</h1>
+    <div class="plume"><h1>{{ title }}</h1></div>
+
     {% set center_lat, center_lon = latlon %}
     <div class="map-with-coords">
         {{ map_pointer_mount(center_lat, center_lon) }}
     </div>
 
-    <form id="trip_form" method="POST" action="">
+    <form id="trip_form" method="POST" action="" class="plume">
         {{ errors(form) }}
 
         {{ form.hidden_tag() }}

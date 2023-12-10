@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <h1>{{ title }}</h1>
+    <div class="plume">
+        <h1>{{ title }}</h1>
 
-    {% include "_form.html" with context %}
+        {% include "_form.html" with context %}
+    </div>
 {% endblock %}

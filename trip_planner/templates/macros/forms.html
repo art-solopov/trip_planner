@@ -1,7 +1,8 @@
 {% from "macros/icon.html" import icon %}
 
 {% set default_input_class = "form-control" %}
-{% set wrapper_base_class = "mb-2" %}
+{% set wrapper_base_class = "pm-field" %}
+{% set label_base_class = "" %}
 
 {% macro input(field, input_class=default_input_class, field_kwargs={}) %}
     {{ field(class_=input_class, **field_kwargs) }}
@@ -10,7 +11,11 @@
 {% macro field(field, extra = None, wrapper_class='', input_class=default_input_class, field_kwargs={}) -%}
     {%- set wrapper_field_class = "field-" + field.name -%}
     <div class="{{ [wrapper_base_class, wrapper_field_class, wrapper_class] | join(' ') }}">
-        {{ field.label(class="form-label") }}
+        {%- set label_class = label_base_class -%}
+        {%- if field.flags.required -%}
+            {%- set label_class = label_class + " pm-required" -%}
+        {%- endif -%}
+        {{ field.label(class=label_class) }}
         {{ input(field, input_class, field_kwargs) }}
         {% if field.description %}
         <div class="form-text">{{ field.description }}</div>
@@ -49,7 +54,7 @@
 
 {% macro submit_btn(submit_text, submit_class="success") -%}
     <div class="{{ wrapper_base_class }}">
-        <button type="submit" class="btn btn-{{ submit_class }}">{{ submit_text | default('Submit') }}</button>
+        <button type="submit" class="pm-btn-{{ submit_class }}">{{ submit_text | default('Submit') }}</button>
     </div>
 {%- endmacro %}
 

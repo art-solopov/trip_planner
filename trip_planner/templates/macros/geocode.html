@@ -18,7 +18,7 @@
         {%- endif %}
 
         <div>
-            <button type="button" id="btn_geocode" class="btn btn-info" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
+            <button type="button" id="btn_geocode" class="pm-btn-info" hx-post="{{ url_for('pjax.geocode', country_code=country_code) }}"
                                                                              hx-params="name,address,geocode_field"
                                                                              hx-target="#geocode_results"
                                                                              hx-swap="outerHTML settle:0"
