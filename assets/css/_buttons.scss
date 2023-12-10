@@ -13,13 +13,25 @@ input[type="submit"],
 input[type="reset"],
 [class*="pm-btn-"] {
   .icon {
-    scape: 1.2;
-    margin-right: 0.5ch;
+    scale: 1.2;
+
+    &:not(:only-child) {
+      margin-right: 0.5ch;
+    }
   }
 }
 
 .buttons {
     display: flex;
+    gap: 0.5rem;
+}
 
-    gap: 2em;
+.btn-small {
+  --pm-button-rounded-size: 42px;
+}
+
+.pm-btn-info {
+  color: black;
+  background-color: var(--pm-color-info);
+  border-color: var(--pm-color-info);
 }

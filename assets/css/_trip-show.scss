@@ -99,16 +99,24 @@
         flex-flow: row nowrap;
         align-items: baseline;
 
-        & > h1 .trip-title-author {
-          font-size: 65%;
-          font-style: italic;
-          color: c.$Gray-400;
-          margin-left: 0.5em;
-
-          .you {
-            text-decoration: underline dotted 2px;
-          }
+        > .buttons {
+          margin-left: auto;
         }
+
+        > h1 {
+          margin-bottom: 0;
+
+          .trip-title-author {
+            font-size: 65%;
+            font-style: italic;
+            color: c.$Gray-400;
+            margin-left: 0.5em;
+
+            .you {
+              text-decoration: underline dotted 2px;
+            }
+        } 
+      }
     }
 }
 
@@ -142,4 +150,8 @@
     padding-bottom: 0.25em;
     margin-bottom: 0.25em;
     border-bottom: 2px dotted palette.$border-color;
+
+    h3.item-name {
+      margin: 0;
+    }
 }
