@@ -6,12 +6,16 @@
         <legend>Geocoding</legend>
 
         {% if field_selector -%}
-            <div>
-                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
-                <label for="geocode_field_name">By name</label>
+            <div class="pm-field">
+                <label for="geocode_field_name" data-pm-holder>
+                    <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
+                    By name
+                </label>
 
-                <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
-                <label for="geocode_field_address">By address</label>
+                <label for="geocode_field_address" data-pm-holder>
+                    <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
+                    By address
+                </label>
             </div>
         {% else %}
             <input name="geocode_field" type="hidden" value="name">

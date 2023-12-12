@@ -6,7 +6,8 @@ export class ScheduleController extends Controller {
     }
 
     shiftScheduleButtons(ev) {
-        this.buttonsTarget.classList.remove('invisible')
+        // this.buttonsTarget.classList.remove('invisible')
+        this.buttonsTarget.removeAttribute('hidden')
         let currentRow = ev.target.closest('tr')
         this.currentRow = currentRow
         this.buttonsTarget.style.top = `${currentRow.offsetTop}px`

@@ -17,12 +17,14 @@
   @import "forms";
   @import "map-with-coords";
   @import "geocode";
+  @import "collapsible";
 }
 
 @layer pages {
   @import "trips-index";
   @import "trip-show";
-  // @import "point-schedule";
+  // @import "point-form";
+  @import "point-schedule";
   // @import "point-show";
 }
 

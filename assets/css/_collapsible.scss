@@ -1,0 +1,24 @@
+// Old collapsible  
+// Kept for maybe future
+// .collapsible {
+//   display: grid;
+//   grid-template-rows: auto 0fr;
+//   transition: grid-template-rows 0.2s;
+//
+//   & > * {
+//     overflow-y: hidden;
+//   }
+//
+//   &.open {
+//     grid-template-rows: auto 1fr;
+//   }
+// }
+
+.collapsible {
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  margin-bottom: var(--pm-form-field-margin-bottom);
+}

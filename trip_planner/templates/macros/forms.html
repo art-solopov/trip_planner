@@ -46,9 +46,9 @@
     {{ field.label }}
     {% for subfield in field -%}
         {{ input(subfield, field_kwargs={'data-repeatable-field-target': 'control' }) }}
-        <button type="button" class="btn btn-danger remove-button" title="Remove" data-repeatable-field-target="removeButton" data-target-id="{{subfield.id}}" data-action="repeatable-field#removeField">{{ icon('x-lg') }}</button>
+        <button type="button" class="btn pm-btn-danger remove-button" title="Remove" data-repeatable-field-target="removeButton" data-target-id="{{subfield.id}}" data-action="repeatable-field#removeField">{{ icon('x-lg') }}</button>
     {%- endfor %}
-    <button type="button" class="btn btn-success add-button" title="Add" data-action="repeatable-field#addField" data-repeatable-field-target="addButton">{{ icon('plus-lg') }}</button>
+    <button type="button" class="btn pm-btn-success add-button" title="Add" data-action="repeatable-field#addField" data-repeatable-field-target="addButton">{{ icon('plus-lg') }}</button>
 </fieldset>
 {% endmacro %}
 

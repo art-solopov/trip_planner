@@ -20,6 +20,15 @@ $weekday-colors: (
 
 .field-schedule {
   width: min(22rem, 100%);
+  position: relative;
+
+  th {
+    font-size: initial;
+  }
+
+  td, th {
+    padding: 0.5em;
+  }
 }
 
 .schedule-buttons {
@@ -27,4 +36,13 @@ $weekday-colors: (
   right: 0;
   display: flex;
   flex-flow: column;
+  gap: 0.5em;
+
+  button {
+    // FIXME: remove later
+    min-width: auto;
+    min-height: auto;
+    display: block;
+    padding: 0.5em;
+  }
 }

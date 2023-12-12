@@ -6,8 +6,8 @@ class ScheduleClasses:
         'sun': 'wday-sun'
     }
 
-    CELL_CLASS = 'p-2'
-    HEADER_CELL_CLASS = f"{CELL_CLASS} fw-bold text-center"
+    CELL_CLASS = ''
+    HEADER_CELL_CLASS = f"{CELL_CLASS} pm-text-center"
     COMMON_WEEKDAY_CLASS = 'fw-bold'
 
 

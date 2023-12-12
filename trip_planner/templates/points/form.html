@@ -5,7 +5,7 @@
 {% from "macros/components.html" import collapsible_map %}
 
 {% block main %}
-    <h1>{{ title }}</h1>
+    <div class="plume"><h1>{{ title }}</h1></div>
     {{ collapsible_map('Map', 'point_form_map', latlon) }}
 
     <form id="point_form"
@@ -13,6 +13,7 @@
           action=""
           data-trip-id="{{ point.trip.id }}"
           data-controller="geocode"
+          class="plume"
           >
         {{ errors(form) }}
 
@@ -33,7 +34,7 @@
         {{ repeatable_field(form.websites) }}
 
         {{ field(form.notes) }}
-        <div class="mb-2 position-relative field-schedule" data-controller="point-form-schedule">
+        <div class="pm-field field-schedule" data-controller="point-form-schedule">
             <table>
                 <thead>
                     <tr>
@@ -52,9 +53,9 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div id="schedule_buttons" class="invisible schedule-buttons" data-point-form-schedule-target="buttons">
-                <button type="button" class="btn btn-info btn-copy-down mb-1" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('arrow-bar-down') }}</button>
-                <button type="button" class="btn btn-info btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
+            <div id="schedule_buttons" class="schedule-buttons" data-point-form-schedule-target="buttons" hidden>
+                <button type="button" class="pm-btn-info btn-copy-down" data-action="point-form-schedule#copyNext" title="Copy to the next row">{{ icon('arrow-bar-down') }}</button>
+                <button type="button" class="pm-btn-info btn-copy-all" data-action="point-form-schedule#copyAll" title="Copy to all rows">{{ icon('share') }}</button>
             </div>
         </div>
 
