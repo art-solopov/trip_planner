@@ -24,9 +24,9 @@
                 {%- if messages %}
                     <div class="flashes">
                         {% for category, message in messages %}
-                            <div class="flash flash-{{ category }}" role="alert">
+                            <div class="flash flash-{{ category }}" role="alert" data-controller="flash">
                                 <span>{{ message }}</span>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close">&times;</span>
+                                <button type="button" class="btn-close" aria-label="close" data-action="flash#close">&times;</span>
                             </div>
                         {% endfor %}
                     </div>
