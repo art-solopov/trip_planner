@@ -3,9 +3,31 @@
 
 .geocode-results {
   display: grid;
-
   grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
-  gap: 1eml
+  gap: 1em;
+
+  margin-top: 1em;
+
+  .result {
+    //TODO: maybe extract into card component
+    padding: 0.5em;
+    border: 1px solid var(--pm-primary-color);
+    border-radius: 1em;
+
+    display: flex;
+    flex-flow: column;
+    height: calc(15rem + 35vh);
+
+    .name {
+      margin-bottom: 0.5em;
+    }
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+  }
 }
 
 .lat-lon-fields {
