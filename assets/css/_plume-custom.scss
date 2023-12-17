@@ -19,12 +19,13 @@
   --pm-button-primary-text-color: var(--pm-app-text-color);
   --pm-button-secondary-text-color: var(--pm-app-text-color);
 
-  --pm-h1-font-size:2.5em;
-  --pm-h2-font-size:2em;
-  --pm-h3-font-size:1.8em;
-  --pm-h4-font-size:1.5em;
-  --pm-h5-font-size:1.2em;
-  --pm-h6-font-size:1.1em;
+  --pm-app-base-font-size: 1rem;
+  --pm-h1-font-size:2.5rem;
+  --pm-h2-font-size:2rem;
+  --pm-h3-font-size:1.8rem;
+  --pm-h4-font-size:1.5rem;
+  --pm-h5-font-size:1.2rem;
+  --pm-h6-font-size:1.1rem;
   --pm-headings-margin: 0 0 calc(0.2em + 0.5rem + 0.5vh) 0;
 
   --pm-form-field-margin-bottom: 0.7em;
