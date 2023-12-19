@@ -15,6 +15,7 @@
   --pm-button-margin-bottom: 0;
   // --pm-button-min-width: 0;
   // --pm-button-min-height: 0;
+  --pm-list-item-margin-bottom: 0;
 
   --pm-button-primary-text-color: var(--pm-app-text-color);
   --pm-button-secondary-text-color: var(--pm-app-text-color);
@@ -26,7 +27,7 @@
   --pm-h4-font-size:1.5rem;
   --pm-h5-font-size:1.2rem;
   --pm-h6-font-size:1.1rem;
-  --pm-headings-margin: 0 0 calc(0.2em + 0.5rem + 0.5vh) 0;
+  --pm-headings-margin: 0 0 calc(0.1em + 0.2rem + 0.2vh) 0;
 
   --pm-form-field-margin-bottom: 0.7em;
   --pm-label-margin-bottom: 0.25em;

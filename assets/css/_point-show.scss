@@ -1,10 +1,13 @@
+@use "breakpoints";
+@use "colors" as c;
+
 .show-point {
   display: grid;
   grid-template-rows: auto auto 1fr;
   grid-template-areas: "header" "figure" "body";
-  gap: 0.5 * $spacer;
+  gap: 0.5em;
 
-  @include media-breakpoint-up(lg) {
+  @media (width >= breakpoints.$lg) {
     grid-template-rows: auto 1fr;
     grid-template-columns: 1fr auto;
     grid-template-areas: "header figure" "body figure";
@@ -38,11 +41,11 @@
 
     list-style: none;
     padding: 0;
-    margin: 0 0 $spacer;
+    margin: 0 0 1em;
 
     li:not(:last-child)::after {
       content: '|';
-      color: $light;
+      color: c.$Gray-200;
     }
   }
 }

@@ -46,7 +46,7 @@
                 <tbody>
                     {% for wdayform in form.schedule %}
                         <tr>
-                            <td class="{{ wdayform.weekday.data | weekday_class }} {{ schedule_cell_class }} {{ schedule_weekday_class }}">{{ wdayform.weekday.data | capitalize }}</td>
+                            <th class="{{ wdayform.weekday.data | weekday_class }} {{ schedule_cell_class }} {{ schedule_weekday_class }}">{{ wdayform.weekday.data | capitalize }}</th>
                             <td class="{{ schedule_cell_class }}">{{ wdayform.open_from(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}</td>
                             <td class="{{ schedule_cell_class }}">{{ wdayform.open_to(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}</td>
                         </tr>

@@ -18,10 +18,7 @@ $weekday-colors: (
   }
 }
 
-.field-schedule {
-  width: min(22rem, 100%);
-  position: relative;
-
+%schedule-table {
   th {
     font-size: initial;
   }
@@ -29,6 +26,13 @@ $weekday-colors: (
   td, th {
     padding: 0.5em;
   }
+}
+
+.field-schedule {
+  @extend %schedule-table;
+
+  width: min(22rem, 100%);
+  position: relative;
 }
 
 .schedule-buttons {
@@ -45,4 +49,9 @@ $weekday-colors: (
     display: block;
     padding: 0.5em;
   }
+}
+
+.schedule-table {
+  @extend %schedule-table;
+  width: auto;
 }

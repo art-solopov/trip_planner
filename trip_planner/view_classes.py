@@ -13,5 +13,5 @@ class ScheduleClasses:
 
 class ViewClasses:
     TRIP_SHOW = 'show-trip'
-    POINT_SHOW = 'show-point'
+    POINT_SHOW = 'plume show-point'
     AUTH_FORM = 'narrow-form'
