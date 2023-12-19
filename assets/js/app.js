@@ -7,6 +7,7 @@ import RepeatableField from './components/repeatable_field'
 import Flash from './components/flash'
 
 import '../css/app.scss'
+import '../css/plume-build.scss'
 
 initComponent(Dialog)
 // initComponent(Tooltip)

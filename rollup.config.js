@@ -59,6 +59,7 @@ export default {
         resolve({ jsnext: true, preferBuiltins: true, browser: true }),
         commonjs(),
         json(),
+        styles({ mode: ['extract', 'plume.css'], include: 'assets/css/plume-build.scss' }),
         styles({ mode: ['extract', 'app.css'], autoModules: true }),
         isProd && terser(),
         url({limit: 2048, publicPath: '/static/assets/', exclude: ['assets/js/**/icons/*.svg']}),

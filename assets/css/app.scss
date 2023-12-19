@@ -3,10 +3,7 @@
 
 @layer plume, components, pages;
 
-@layer plume {
-  @import '~plume-css/lib/plume-all';
-  @import "plume-custom";
-}
+@import "plume-custom";
 
 @layer components {
   @import "buttons";
