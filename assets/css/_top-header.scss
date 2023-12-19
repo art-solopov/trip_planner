@@ -24,6 +24,7 @@ body > header {
 
   background-image: linear-gradient(to right, pl.$primary, pl.$secondary);
   box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
+  margin-bottom: 0.5rem;
 
   &, & > .container {
     display: flex;

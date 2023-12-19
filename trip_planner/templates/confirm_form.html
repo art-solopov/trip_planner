@@ -1,7 +1,7 @@
 {% extends form_base_template %}
 
 {% block main %}
-    <form method="POST" action="{{ request.base_url }}">
+    <form class="plume" method="POST" action="{{ request.base_url }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
 	{%- if message -%}
@@ -9,11 +9,11 @@
 	{%- endif -%}
 
         <div>
-            <button class="btn btn-danger" type="submit">{{ submit_label | default('Yes') }}</button>
+            <button class="pm-btn-danger" type="submit">{{ submit_label | default('Yes') }}</button>
             {% if rendering_for_dialog -%}
-                <button class="btn btn-secondary" formmethod="dialog">Back</button>
+                <button class="pm-btn-secondary" formmethod="dialog">Back</button>
             {%- else -%}
-                <a class="btn btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
+                <a class="pm-btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
             {% endif %}
         </div>
     </form>

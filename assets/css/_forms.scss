@@ -10,6 +10,10 @@ fieldset legend {
   color: var(--pm-app-text-color);
 }
 
+form p {
+  font-family: unset;
+}
+
 .repeatable-field {
   display: grid;
   gap: 1em;
