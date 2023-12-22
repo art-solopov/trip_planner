@@ -1,38 +1,128 @@
 @use "sass:map";
-
-// .btn-success {
-//     @include button-variant($success, $success, $color: white)
-// }
+@use "colors" as c;
+@use "palette" as pl;
 
 // Button selector taken from Plume.CSS
-// and modified slightly for prefix
-
-button, .pm-button,
+// and modified slightly
+button, .btn,
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
-[class*="pm-btn-"] {
-  gap: 0.5ch;
+[class*="btn-"] {
+  display: inline-block;
+  padding: 0.5em 1em;
+
+  --_btn-border-color: var(--btn-border-color, var(--btn-color, #{c.$Gray-600}));
+  border-radius: 1em;
+  border: 3px dashed var(--_btn-border-color);
+
+  --_btn-color: var(--btn-color, var(--pm-app-text-color));
+  color: var(--_btn-color);
+
+  --_btn-bgcolor: var(--btn-bgcolor, #{c.$Gray-50});
+  background-color: var(--_btn-bgcolor);
+
+  --_btn-bg: var(--btn-bg, unset);
+  background-origin: border-box;
+  background-image: var(--_btn-bg);
+
+  outline: var(--_btn-bgcolor) solid 0;
+
+  transition: outline 0.2s, transform 0.2s;
+
+  &:hover,
+  &:focus {
+    outline-width: thick;
+    transform: translateY(-0.1rem);
+  }
+
+  &.btn-primary {
+    --gradient-color: #{c.$Peach-50};
+    --gradient-position: 20%;
+    --btn-bgcolor: var(--pm-primary-color);
+    --btn-bg: linear-gradient(to right,
+      var(--gradient-color),
+      var(--pm-primary-color) var(--gradient-position),
+      var(--pm-primary-color) calc(100% - var(--gradient-position)),
+      var(--gradient-color)
+    );
+  }
+
+  &.btn-secondary {
+    --btn-bgcolor: var(--pm-secondary-color);
+  }
+
+  &.btn-success {
+    --accent-color: #{c.$Green-500};
+
+    --btn-color: white;
+    --btn-border-color: var(--accent-color);
+    --btn-bgcolor: var(--pm-color-success);
+
+    --btn-bg: linear-gradient(to right,
+      var(--accent-color),
+      var(--btn-bgcolor) 40%,
+      #{c.$Blue-350} 90%,
+      #{c.$Blue-350}
+    );
+  }
+
+  &.btn-danger {
+    --accent-color: #{c.$Red-500};
+
+    --btn-color: white;
+    --btn-border-color: var(--accent-color);
+    --btn-bgcolor: var(--pm-color-error);
+    --btn-bg: repeating-linear-gradient(45deg,
+      var(--pm-color-error),
+      var(--pm-color-error) 0.66rem,
+      var(--accent-color) 0,
+      var(--accent-color) 1rem
+    );
+  }
+
+  &.btn-info {
+    --btn-bgcolor: var(--pm-color-info);
+    --accent-color: #{c.$Blue-200};
+
+    --btn-bg: linear-gradient(to right,
+      var(--accent-color),
+      var(--btn-bgcolor) 60%,
+      #{c.$Gray-50}
+    )
+  }
+
+  &.btn-white {
+    --btn-color: black;
+    --btn-bg: linear-gradient(to right,
+      #{c.$Gray-50},
+      white 30%,
+      white 70%,
+      #{c.$Gray-50}
+    );
+  }
 
   .icon {
     scale: 1.2;
+    margin-bottom: -0.1em;
   }
 }
+
 
 .buttons {
     display: flex;
     gap: 0.5rem;
 }
 
-.btn-small {
-  --pm-button-rounded-size: 42px;
-}
-
-.pm-btn-info {
-  color: black;
-  background-color: var(--pm-color-info);
-  border-color: var(--pm-color-info);
-}
+// .btn-small {
+//   --pm-button-rounded-size: 42px;
+// }
+//
+// .pm-btn-info {
+//   color: black;
+//   background-color: var(--pm-color-info);
+//   border-color: var(--pm-color-info);
+// }
 
 :root {
   --btn-close-font-size: 1.5rem;

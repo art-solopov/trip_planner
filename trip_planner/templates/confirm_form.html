@@ -9,11 +9,11 @@
 	{%- endif -%}
 
         <div>
-            <button class="pm-btn-danger" type="submit">{{ submit_label | default('Yes') }}</button>
+            <button class="btn btn-danger" type="submit">{{ submit_label | default('Yes') }}</button>
             {% if rendering_for_dialog -%}
-                <button class="pm-btn-secondary" formmethod="dialog">Back</button>
+                <button class="btn btn-secondary" formmethod="dialog">Back</button>
             {%- else -%}
-                <a class="pm-btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
+                <a class="btn btn-secondary" href="{{ request.referrer | default('/', true) }}">Back</a>
             {% endif %}
         </div>
     </form>
