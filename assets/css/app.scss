@@ -35,16 +35,6 @@
       color: c.$Gray-400;
   }
 
-  // Link colors
-
-  .link-secondary {
-    color: c.$Gray-400 !important; // TODO: remove !important after removing Bootstrap's link utility classes
-
-    &:hover, &:focus {
-      color: c.$Gray-600 !important;
-    }
-  }
-
   dialog {
     padding: 0;
     // border: $border-width $border-style $border-color;

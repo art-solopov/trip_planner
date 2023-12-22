@@ -14,6 +14,13 @@ form p {
   font-family: unset;
 }
 
+// Restoring some Plume effects
+input, textarea, select {
+  &:focus {
+    transition: all .1s;
+  }
+}
+
 .repeatable-field {
   display: grid;
   gap: 1em;
