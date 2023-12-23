@@ -67,6 +67,10 @@ input[type="reset"],
     );
   }
 
+  &.btn-warning {
+    --btn-bgcolor: var(--pm-color-warning);
+  }
+
   &.btn-danger {
     --accent-color: #{c.$Red-500};
 

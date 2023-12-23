@@ -11,14 +11,9 @@
   --pm-app-text-color: #{pl.$body-color};
   --pm-link-color: #{pl.$link-color};
 
-  --pm-button-border-radius: 0.7em;
-  --pm-button-margin-bottom: 0;
   // --pm-button-min-width: 0;
   // --pm-button-min-height: 0;
   --pm-list-item-margin-bottom: 0;
-
-  --pm-button-primary-text-color: var(--pm-app-text-color);
-  --pm-button-secondary-text-color: var(--pm-app-text-color);
 
   --pm-app-base-font-size: 1rem;
   --pm-h1-font-size:2.5rem;
@@ -31,4 +26,6 @@
 
   --pm-form-field-margin-bottom: 0.7em;
   --pm-label-margin-bottom: 0.25em;
+  --pm-input-border-width: 2px;
+  --pm-input-border-radius: 0.7em;
 }
