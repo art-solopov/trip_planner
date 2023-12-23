@@ -10,11 +10,12 @@ input[type="submit"],
 input[type="reset"],
 [class*="btn-"] {
   display: inline-block;
-  padding: 0.5em 1em;
+  line-height: 1;
+  padding: 0.7em 1em;
 
   --_btn-border-color: var(--btn-border-color, var(--btn-color, #{c.$Gray-600}));
   border-radius: 1em;
-  border: 3px dashed var(--_btn-border-color);
+  border: 2px solid var(--_btn-border-color);
 
   --_btn-color: var(--btn-color, var(--pm-app-text-color));
   color: var(--_btn-color);
@@ -60,10 +61,9 @@ input[type="reset"],
     --btn-bgcolor: var(--pm-color-success);
 
     --btn-bg: linear-gradient(to right,
-      var(--accent-color),
-      var(--btn-bgcolor) 40%,
-      #{c.$Blue-350} 90%,
-      #{c.$Blue-350}
+      #{c.$Green-600},
+      var(--accent-color) 30%,
+      var(--btn-bgcolor)
     );
   }
 
@@ -106,9 +106,15 @@ input[type="reset"],
     );
   }
 
+  &.btn-small {
+    padding: 0.7em;
+    border-radius: 0.7em;
+  }
+
   .icon {
     scale: 1.2;
-    margin-bottom: -0.1em;
+    // margin-bottom: -0.1em;
+    transform: translateY(0.1em);
   }
 }
 
