@@ -18,6 +18,7 @@
   summary {
     cursor: pointer;
     font-weight: bold;
+    text-decoration: underline dotted; // TODO: re-add the triangle
   }
 
   margin-bottom: var(--pm-form-field-margin-bottom);

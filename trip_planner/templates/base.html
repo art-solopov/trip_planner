@@ -18,7 +18,7 @@
 
         <meta name="js:icons_url" content="{{url_for('static', filename='vendor/bootstrap-icons.svg')}}">
     </head>
-    <body>
+    <body class="plume">
         {% include "_header.html" %}
         <div class="container">
             {% with messages = get_flashed_messages(with_categories=True) -%}
@@ -36,7 +36,7 @@
             <main class="{{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
                 {% block main %}{% endblock %}
             </main>
-            <footer class="main-footer plume pm-text-center">
+            <footer class="main-footer pm-text-center">
                 <p>© Artemiy Solopov, 2019–2023</p>
                 <p>All map data © OpenStreetMaps</p>
                 <p>Icons by <a href="https://icons.getbootstrap.com/">Bootstrap</a></p>

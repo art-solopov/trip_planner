@@ -1,7 +1,7 @@
 {% extends form_base_template %}
 
 {% block main %}
-    <form class="plume" method="POST" action="{{ request.base_url }}">
+    <form class="" method="POST" action="{{ request.base_url }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
 	{%- if message -%}

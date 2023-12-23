@@ -2,7 +2,7 @@
 
 {% macro collapsible(title, el_id, collapsed=True) -%}
     <details class="collapsible" data-controller="collapsible" data-action="toggle->collapsible#toggle">
-        <summary class="plume">{{ title }}</summary>
+        <summary>{{ title }}</summary>
         <div id="{{ el_id }}" class="collapse">{{ caller() }}</div>
     </details>
 

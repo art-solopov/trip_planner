@@ -1,6 +1,6 @@
 <header>
     <nav class="top-navbar">
-        <div class="plume container">
+        <div class="container">
             <a href="/" class="navbar-brand">
                 <img src="{{ url_for('static', filename='favicon.svg') }}" alt="Trip planner">
             </a>
@@ -17,7 +17,7 @@
     </nav>
 
     {%- if g.breadcrumbs %}
-    <nav aria-label="breadcrumb" class="plume container top-breadcrumbs">
+    <nav aria-label="breadcrumb" class="container top-breadcrumbs">
         <ul>
             {%- for breadcrumb in g.breadcrumbs %}
                 {%- set bc_class = "" -%}
