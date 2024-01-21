@@ -21,6 +21,7 @@ $btn-active-bg-tint-amount:       0%;
 $btn-active-border-shade-amount:  0%;
 $btn-active-border-tint-amount:   0%;
 $btn-transition: border-color 0.2s, background-position 0.4s, box-shadow 0.2s;
+$input-btn-border-width: 2px;
 
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/maps";

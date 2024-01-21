@@ -1,7 +1,6 @@
 @use "sass:color";
 
 @use "palette";
-@use "colors" as c;
 
 @import "./breakpoints";
 
@@ -21,7 +20,7 @@
         z-index: 5;
 
         backdrop-filter: blur(7px);
-        border-top: 2px solid c.$Gray-200;
+        border-top: 2px solid $light;
 
         transition: 0.25s transform;
 
@@ -56,7 +55,7 @@
             }
 
             a {
-                $c: color.change(c.$Gray-400, $alpha: 0.2);
+                $c: color.change($body-color, $alpha: 0.2);
                 border: 2px solid $c;
                 backdrop-filter: blur(15px);
                 border-radius: 2em;
@@ -103,7 +102,7 @@
         & > h1 .trip-title-author {
           font-size: 65%;
           font-style: italic;
-          color: c.$Gray-400;
+          color: $body-color;
           margin-left: 0.5em;
 
           .you {

@@ -1,7 +1,5 @@
 @use "sass:color";
 
-@use "colors" as c;
-
 body > header {
   margin-bottom: 0.5rem;
 }
@@ -9,7 +7,7 @@ body > header {
 .top-navbar {
   background-image: linear-gradient(to right, $primary, $secondary);
 
-  box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
+  box-shadow: $box-shadow;
 
   .navbar-brand > img {
     height: 2.5rem;

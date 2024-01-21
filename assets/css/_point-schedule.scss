@@ -1,12 +1,10 @@
 @use "sass:list";
 
-@use "colors" as c;
-
 $weekday-colors: (
-  "default": (c.$Gray-600, white),
-  "fri": (c.$Blue-500, white),
-  "sat": (c.$Fuchsia-100, c.$Fuchsia-700),
-  "sun": (c.$Yellow-100, black),
+  "default": ($body-color, white),
+  "fri": ($info, white),
+  "sat": ($highlight, $highlight-dark),
+  "sun": ($warning-light, black),
 );
 
 @each $name, $colors in $weekday-colors {

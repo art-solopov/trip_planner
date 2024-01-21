@@ -18,7 +18,6 @@
 
   &:hover,
   &:focus {
-    // border-color: var(--_btn-border-hover-color, white);
     &::before {
       inset: -1 * map.get($spacers, 1);
       filter: blur(map.get($spacers, 2));
@@ -36,12 +35,25 @@
   }
 }
 
+.btn-primary {
+    @extend %btn-hover-gradient-shift;
+    background-image: linear-gradient(-30deg, $primary, $secondary, $primary);
+}
+
+.btn-secondary {
+    @extend %btn-hover-gradient-shift;
+    background-image: linear-gradient(to right, $secondary, white 75%, $secondary);
+    --bs-btn-hover-border-color: #{$secondary};
+}
+
 .btn-success {
     @include button-variant($success, $success, $color: white, $hover-color: white, $hover-border: inherit);
+    @extend %btn-hover-gradient-shift;
+    background-image: linear-gradient(to right, $success-dark, $success);
 }
 
 .buttons {
     display: flex;
 
-    gap: map.get($spacers, 2);
+    gap: map.get($spacers, 3);
 }

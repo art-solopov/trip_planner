@@ -1,35 +1,35 @@
 @use "sass:color";
-@use "colors" as c;
 
-$primary: c.$Lavender-Pink-100;
-$secondary: c.$Peach-50;
-$success: c.$Green-350;
-$warning: c.$Yellow-100;
-$danger: c.$Red-350;
-$info: c.$Blue-100;
-$light: c.$Gray-100;
-$dark: c.$Gray-600;
+// TODO: add Oklch function to Sass config
+$primary: hsl(320.58 75% 82%); // oklch(82.95% 0.1 340)
+$primary-light: hsl(321.61 99% 90%); // hsl(321.61 99% 90%)
+$primary-dark: hsl(316.53 51% 22%); // oklch(33% 0.1 340)
+$secondary: hsl(23.14 99% 86%); // oklch(90% 0.06 53.87)
+$info: hsl(271.84 38% 54%); // oklch(57% 0.14 307)
+$success: hsl(89.98 50% 35%); // oklch(57% 0.13 132)
+$success-dark: hsl(89.04 69% 14%); // oklch(33% 0.08 132)
+$success-light: hsl(94.18 66% 83%); // oklch(92% 0.08 132)
+$warning: hsl(41.08 100% 57%); // oklch(83% 0.165 80)
+$warning-light: hsl(37.52 97% 80%); // oklch(90% 0.09 80)
+$warning-dark: hsl(42.18 95% 31%); // oklch(57% 0.117 80)
+$danger: hsl(359.07 73% 49%); // oklch(57% 0.215 27)
+$danger-light: hsl(5.35 100% 74%); // oklch(75% 0.15 27)
+$danger-dark: hsl(1.8 68% 23%); // oklch(33% 0.11 27)
+$danger-darker: hsl(359.92 84% 14%); // oklch(24.5% 0.09 27)
+$highlight: hsl(337.55 95% 74%); // oklch(75% 0.16 358)
+$highlight-dark: hsl(333.21 65% 22%); // oklch(33% 0.11 358)
+$light: hsl(223.81 0% 87%); // oklch(90% 0 0)
+$dark: $primary-dark;
 
-$body-color: c.$Gray-600;
-$border-color: c.$Gray-400;
-$link-color: c.$Blue-400;
-$link-hover-color: c.$Blue-600;
+$body-color: hsl(18.1 85% 4%); // oklch(15% 0.03 53.87)
+$border-color: $body-color;
+$link-color: $info;
+$link-hover-color: $success-dark;
 
-$component-active-bg: c.$Blue-100;
+// $component-active-bg: c.$Blue-100;
 
-$navbar-light-color: c.$Gray-600;
+$navbar-light-color: $light;
 $navbar-light-hover-color: $navbar-light-color;
 
-$breadcrumb-divider-color: c.$Gray-400;
-$breadcrumb-active-color: c.$Gray-400;
-
-$type-colors: (
-  "museum": c.$Blue-400,
-  "sight": c.$Blue-300,
-  "transport": c.$Green-400,
-  "accomodation": c.$Fuchsia-300,
-  "food": c.$Peach-500,
-  "entertainment": c.$Lavender-Pink-300,
-  "shop": c.$Lavender-300,
-  "other": c.$Gray-400
-);
+$breadcrumb-divider-color: $body-color;
+$breadcrumb-active-color: $body-color;
