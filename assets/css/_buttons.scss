@@ -1,7 +1,43 @@
 @use "sass:map";
 
+.btn {
+  position: relative;
+
+  --bs-btn-border-radius: 9999px;
+  --bs-btn-hover-border-color: white;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    z-index: -1;
+    transition: all 0.2s;
+  }
+
+  &:hover,
+  &:focus {
+    // border-color: var(--_btn-border-hover-color, white);
+    &::before {
+      inset: -1 * map.get($spacers, 1);
+      filter: blur(map.get($spacers, 2));
+    }
+  }
+}
+
+%btn-hover-gradient-shift {
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+
+  &:hover,
+  &:focus {
+    background-position: 100% 0%;
+  }
+}
+
 .btn-success {
-    @include button-variant($success, $success, $color: white)
+    @include button-variant($success, $success, $color: white, $hover-color: white, $hover-border: inherit);
 }
 
 .buttons {

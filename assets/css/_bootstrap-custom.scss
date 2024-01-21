@@ -5,7 +5,9 @@
 // Configuration
 @import "~bootstrap/scss/functions";
 
-@import "palette"; // Bootstrap override
+ // Bootstrap override
+@import "palette";
+@import "variables";
 
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/maps";
@@ -54,6 +56,7 @@ $utilities: map.remove($utilities, "display", "flex", "flex-direction", "flex-gr
   "opacity", "bg-opacity",
   "float",
   "gap", "row-gap", "column-gap");
+// TODO: remove all these probably (replace with open props maybe)
 $utilities: map.merge($utilities, (
   "padding": map.merge(map.get($utilities, "padding"), (responsive: false)),
   "padding-x": map.merge(map.get($utilities, "padding-x"), (responsive: false)),
