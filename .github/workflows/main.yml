@@ -10,8 +10,8 @@ jobs:
   requirements_txt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - run: pip install poetry
@@ -20,12 +20,12 @@ jobs:
       - name: Export dev requirements (for tests)
         run: poetry export --dev -o requirements.dev.txt
       - name: Store requirements.txt file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: requirements.txt
           path: requirements.txt
       - name: Store requirements.dev.txt file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: requirements.dev.txt
           path: requirements.dev.txt
@@ -38,8 +38,8 @@ jobs:
       POSTGRES_DB: trip_planner
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: requirements.dev.txt
       - uses: actions/setup-python@v3
@@ -65,16 +65,16 @@ jobs:
     env:
       NODE_ENV: production
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js 16.19.0
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 16.19.0
         cache: yarn
     - run: yarn install --immutable --check-cache
     - run: yarn rollup
     - name: Store compiled assets
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: assets
         path: trip_planner/static/assets
@@ -83,14 +83,14 @@ jobs:
     needs: [requirements_txt, assets, tests]
     if: github.ref_type == 'tag' || github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'deploy' || github.ref_name == 'github-actions'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: assets
         path: trip_planner/static/assets
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: requirements.txt
     - name: Login to DockerHub
