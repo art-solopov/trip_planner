@@ -68,10 +68,10 @@ jobs:
       NODE_ENV: production
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js 16.19.0
+    - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
-        node-version: 16.19.0
+        node-version: 20.11.1
         cache: yarn
     - run: yarn install --immutable --check-cache
     - run: yarn rollup

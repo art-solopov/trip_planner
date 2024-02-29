@@ -33,5 +33,6 @@
   "browserslist": [
     "defaults",
     "Firefox ESR"
-  ]
+  ],
+  "packageManager": "yarn@4.1.0"
 }
