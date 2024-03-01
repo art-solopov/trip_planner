@@ -42,7 +42,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: requirements.dev.txt
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
@@ -68,6 +68,9 @@ jobs:
       NODE_ENV: production
     steps:
     - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
     - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
@@ -77,7 +80,8 @@ jobs:
     - name: Unpack vendored bootstrap
       working-directory: ./assets/vendor
       run: "unzip bootstrap*.zip && find ./ -maxdepth 1 -type d -name 'bootstrap*' -exec mv {} bootstrap ';'"
-      # run: yarn rollup # TODO: replace with the new asset pipeline
+    - name: build assets
+      run: python assets/scripts/build.py trip_planner/static/assets
     - name: Store compiled assets
       uses: actions/upload-artifact@v4
       with:
