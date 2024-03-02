@@ -2,8 +2,8 @@
     --size: 3.5rem;
     --icon-size: calc(0.5 * var(--size));
 
-    height: $size;
-    width: $size;
+    height: var(--size);
+    width: var(--size);
 
     position: relative;
     isolation: isolate;

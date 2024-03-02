@@ -51,6 +51,7 @@ async function js(outdir) {
         splitting: true,
         metafile: true,
         minify: isProd(),
+        publicPath: '/static/assets', // TODO: maybe inject from outside
         format: 'esm',
         alias: {
             bootstrap: './assets/vendor/bootstrap'
