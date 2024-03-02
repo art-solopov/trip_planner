@@ -681,15 +681,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.2.0":
-  version: 5.2.3
-  resolution: "bootstrap@npm:5.2.3"
-  peerDependencies:
-    "@popperjs/core": ^2.11.6
-  checksum: 10/b986846817ddf9c7e16643db26fe9e61487c5138838c79ae71aa4ae2bda77ef59a648d37c2fc438d24258ecf67fb56b89ac774e04a40d104e2249ec44d3d1c0c
-  languageName: node
-  linkType: hard
-
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -3439,7 +3430,6 @@ __metadata:
     "@rollup/plugin-replace": "npm:^5.0.2"
     "@rollup/plugin-url": "npm:^8.0.1"
     autoprefixer: "npm:^10.4.16"
-    bootstrap: "npm:^5.2.0"
     esbuild: "npm:^0.20.1"
     postcss: "npm:^8.4.31"
     postcss-cli: "npm:^11.0.0"

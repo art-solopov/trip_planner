@@ -42,6 +42,9 @@ async function js(outdir) {
         splitting: true,
         metafile: true,
         format: 'esm',
+        alias: {
+            bootstrap: './assets/vendor/bootstrap'
+        },
         loader: {
             '.svg': 'file'
         },
