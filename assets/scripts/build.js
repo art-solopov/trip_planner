@@ -1,6 +1,7 @@
 const process = require('node:process')
 const fs = require('node:fs/promises')
 const path = require('node:path')
+const {createHash} = require('node:crypto')
 const {pathToFileURL} = require('node:url');
 
 const sass = require('sass')
@@ -24,12 +25,19 @@ const postcssPlugins = [
 const cssEntrypoint = 'assets/css/app.scss'
 const jsEntrypoints = ['app', 'trip_form', 'trip_show', 'point_form'].map(e => `assets/js/${e}.js`)
 
+function isProd() {
+    return process.env.NODE_ENV === 'production'
+}
 
 async function css(outdir) {
     let res = sass.compile(cssEntrypoint, {importers: [bsImporter]})
     res = await postcss(postcssPlugins).process(res.css, {from: cssEntrypoint, to: 'app.css'})
-    // TODO: add hashing
-    let outpath = path.join(outdir, 'app.css')
+    let outname = 'app.css'
+    if(isProd()) {
+        let h = createHash('md5').update(res.css).digest('base64')
+        outname = `app-${h.substring(0, 8)}.css`
+    }
+    let outpath = path.join(outdir, outname)
     await fs.writeFile(outpath, res.css)
     return [{src: 'app.css', dest: outpath}]
 }
@@ -37,10 +45,12 @@ async function css(outdir) {
 async function js(outdir) {
     let result = await esbuild.build({
         entryPoints: jsEntrypoints,
+        entryNames: isProd() ? '[name]-[hash]' : '[name]',
         bundle: true,
         write: false,
         splitting: true,
         metafile: true,
+        minify: isProd(),
         format: 'esm',
         alias: {
             bootstrap: './assets/vendor/bootstrap'
