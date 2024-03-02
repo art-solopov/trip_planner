@@ -68,9 +68,6 @@ jobs:
       NODE_ENV: production
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
     - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
@@ -81,7 +78,7 @@ jobs:
       working-directory: ./assets/vendor
       run: "unzip bootstrap*.zip && find ./ -maxdepth 1 -type d -name 'bootstrap*' -exec mv {} bootstrap ';'"
     - name: build assets
-      run: python assets/scripts/build.py trip_planner/static/assets
+      run: yarn node assets/scripts/build.js trip_planner/static/assets assets trip_planner/static/assets/manifest.json
     - name: Store compiled assets
       uses: actions/upload-artifact@v4
       with:

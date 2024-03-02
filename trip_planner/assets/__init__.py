@@ -1,11 +1,10 @@
 import os.path as opa
 import json
+import subprocess as sp
 
 from werkzeug.local import LocalProxy
 from flask import Blueprint, current_app, url_for
 from jinja2.ext import Markup
-
-import assets.scripts.build as ab
 
 assets = Blueprint('assets', __name__)
 
@@ -35,4 +34,7 @@ def style_tag(style_name: str) -> str:
 
 @assets.cli.command('build')
 def assets_build():
-    ab.main(current_app.static_folder)
+    sp.run(['yarn', 'node', 'assets/scripts/build.js',
+            opa.join(current_app.static_folder, 'assets'), 'assets',
+            opa.join(current_app.static_folder, 'assets', 'manifest.json')  # TODO: deduplicate manifest path
+            ])
