@@ -5,7 +5,7 @@ import Dialog from './components/dialog'
 import Tooltip from './components/tooltip'
 import RepeatableField from './components/repeatable_field'
 
-import '../css/app.scss'
+// import '../css/app.scss'
 
 initComponent(Dialog)
 initComponent(Tooltip)

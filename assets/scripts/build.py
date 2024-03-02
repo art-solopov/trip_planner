@@ -40,6 +40,11 @@ def build_css(outdir):
     return assets
 
 
+def build_js(outdir):
+    esbuild_sp = sp.run(['yarn', 'node', 'assets/scripts/compile-js.js', outdir], stdout=sp.PIPE, encoding='utf-8')
+    return [Asset(**data) for data in json.loads(esbuild_sp.stdout)]
+
+
 def main(static_folder):
     outdir = pjoin(static_folder, 'assets')
     makedirs(outdir, exist_ok=True)
@@ -47,7 +52,9 @@ def main(static_folder):
     manifest = {}
 
     css_assets = build_css(outdir)
-    for asset in css_assets:
+    js_assets = build_js(outdir)
+
+    for asset in (css_assets + js_assets):
         print(f"{asset.name} => {asset.dest_path}")  # TODO: replace with proper logging
         manifest[asset.asset_name] = asset.dest_name
 

@@ -51,7 +51,7 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
         app.config.from_object(f'trip_planner.config.{app_env.capitalize()}')
 
     secrets_path = app.config['SECRETS_PATH']
-    if os.path.exists(secrets_path):
+    if secrets_path:
         app.config.from_file(secrets_path, load=json.load) #  TODO: replace with TOML?
 
     db.init_app(app)
