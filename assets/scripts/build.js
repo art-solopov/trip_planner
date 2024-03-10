@@ -46,6 +46,7 @@ async function js(outdir) {
     let result = await esbuild.build({
         entryPoints: jsEntrypoints,
         entryNames: isProd() ? '[name]-[hash]' : '[name]',
+        assetNames: '[ext]/[name]-[hash]',
         bundle: true,
         write: false,
         splitting: true,
@@ -62,7 +63,10 @@ async function js(outdir) {
         outdir
     })
 
-    let outputFiles = result.outputFiles.map(ofile => fs.writeFile(ofile.path, ofile.contents))
+    let outputFiles = result.outputFiles.map(async ofile => {
+        await fs.mkdir(path.dirname(ofile.path), {recursive: true})
+        return await fs.writeFile(ofile.path, ofile.contents)
+    })
     await Promise.all(outputFiles)
 
     let manifest = []
