@@ -1,5 +1,6 @@
 import os.path as opa
 import json
+import subprocess as sp
 
 from werkzeug.local import LocalProxy
 from flask import Blueprint, current_app, url_for
@@ -21,7 +22,7 @@ manifest = LocalProxy(load_manifest)
 
 @assets.app_template_global('script_tag')
 def script_tag(chunk_id: str) -> str:
-    url = url_for('static', filename=manifest[chunk_id])
+    url = url_for('static', filename=manifest[chunk_id + '.js'])
     return Markup(f'<script type="module" src="{url}"></script>')
 
 
@@ -29,3 +30,11 @@ def script_tag(chunk_id: str) -> str:
 def style_tag(style_name: str) -> str:
     url = url_for('static', filename=manifest[style_name + '.css'])
     return Markup(f'<link rel="stylesheet" href="{url}" type="text/css">')
+
+
+@assets.cli.command('build')
+def assets_build():
+    sp.run(['yarn', 'node', 'assets/scripts/build.js',
+            opa.join(current_app.static_folder, 'assets'), 'assets',
+            opa.join(current_app.static_folder, 'assets', 'manifest.json')  # TODO: deduplicate manifest path
+            ])

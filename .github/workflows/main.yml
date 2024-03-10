@@ -42,7 +42,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: requirements.dev.txt
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
@@ -74,7 +74,11 @@ jobs:
         node-version: 20.11.1
         cache: yarn
     - run: yarn install --immutable --check-cache
-    - run: yarn rollup
+    - name: Unpack vendored bootstrap
+      working-directory: ./assets/vendor
+      run: "unzip bootstrap*.zip && find ./ -maxdepth 1 -type d -name 'bootstrap*' -exec mv {} bootstrap ';'"
+    - name: build assets
+      run: yarn node assets/scripts/build.js trip_planner/static/assets assets trip_planner/static/assets/manifest.json
     - name: Store compiled assets
       uses: actions/upload-artifact@v4
       with:

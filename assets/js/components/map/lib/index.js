@@ -2,7 +2,7 @@ import {iconsUrl} from '../../../utils'
 
 import MoveMarkerControl from './move-marker-control'
 
-import styles from './marker-styles.module.scss'
+import styles from './marker-styles.module.css'
 import icons from './icons'
 
 export const DEFAULT_ZOOM = 10

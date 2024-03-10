@@ -1,6 +1,6 @@
 import {iconsUrl} from '../../../utils'
 
-import styles from './move-marker-styles.module.scss'
+import styles from './move-marker-styles.module.css'
 
 export default class MoveMarkerControl {
     constructor(marker) {

@@ -1,0 +1,26 @@
+.marker {
+    --size: 3.5rem;
+    --icon-size: calc(0.5 * var(--size));
+
+    height: var(--size);
+    width: var(--size);
+
+    position: relative;
+    isolation: isolate;
+
+    .markerBody {
+        height: 100%;
+        width: 100%;
+        fill: var(--type-color, black);
+    }
+
+    .markerIcon {
+        height: var(--icon-size);
+        width: var(--icon-size);
+        position: absolute;
+
+        top: calc(0.15 * var(--size));
+        left: calc(0.5 * (var(--size) - var(--icon-size)));
+    }
+}
+
