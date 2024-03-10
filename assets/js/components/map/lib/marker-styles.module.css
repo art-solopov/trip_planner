@@ -5,7 +5,6 @@
     height: var(--size);
     width: var(--size);
 
-    position: relative;
     isolation: isolate;
 
     .markerBody {
