@@ -74,9 +74,6 @@ jobs:
         node-version: 20.11.1
         cache: yarn
     - run: yarn install --immutable --check-cache
-    - name: Unpack vendored bootstrap
-      working-directory: ./assets/vendor
-      run: "unzip bootstrap*.zip && find ./ -maxdepth 1 -type d -name 'bootstrap*' -exec mv {} bootstrap ';'"
     - name: build assets
       run: yarn node assets/scripts/build.js trip_planner/static/assets assets trip_planner/static/assets/manifest.json
     - name: Store compiled assets

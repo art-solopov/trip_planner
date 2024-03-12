@@ -8,13 +8,6 @@ const sass = require('sass')
 const postcss = require('postcss')
 const esbuild = require('esbuild')
 
-const bsImporter = {
-    findFileUrl(url) {
-        if(!url.startsWith('~bootstrap')) return null;
-        return pathToFileURL(url.replace(/^~bootstrap/, 'assets/vendor/bootstrap/'))
-    }
-}
-
 const postcssPlugins = [ 
     require('postcss-easy-import'),
     require('postcss-nesting'),
@@ -30,7 +23,7 @@ function isProd() {
 }
 
 async function css(outdir) {
-    let res = sass.compile(cssEntrypoint, {importers: [bsImporter]})
+    let res = sass.compile(cssEntrypoint, {importers: []})
     res = await postcss(postcssPlugins).process(res.css, {from: cssEntrypoint, to: 'app.css'})
     let outname = 'app.css'
     if(isProd()) {
@@ -54,9 +47,7 @@ async function js(outdir) {
         minify: isProd(),
         publicPath: '/static/assets', // TODO: maybe inject from outside
         format: 'esm',
-        alias: {
-            bootstrap: './assets/vendor/bootstrap'
-        },
+        alias: {},
         loader: {
             '.svg': 'file'
         },
