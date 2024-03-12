@@ -9,7 +9,6 @@ const postcss = require('postcss')
 const esbuild = require('esbuild')
 
 const postcssPlugins = [ 
-    require('postcss-easy-import'),
     require('postcss-nesting'),
     require('postcss-font-family-system-ui'),
     require('autoprefixer')

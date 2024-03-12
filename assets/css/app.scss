@@ -1,6 +1,8 @@
 @use "colors" as c;
 @use "sass:color";
 
+@import "/static/vendor/normalize-8.0.1.css"; /* TODO add layer */
+
 .main-footer {
     background-color: c.$Gray-50;
     color: c.$Gray-400;
