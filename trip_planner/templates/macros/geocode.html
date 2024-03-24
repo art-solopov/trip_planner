@@ -40,7 +40,7 @@
         <!-- <span class="ws">&nbsp;</span> -->
         {{ field(lon_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
         {% if hint -%}
-        <div class="fields-hint" data-controller="bs-tooltip" title="{{ hint }}">{{ icon('patch-question-fill') }}</div>
+        <div class="fields-hint" title="{{ hint }}">{{ icon('patch-question-fill') }}</div>
         {%- endif %}
     </div>
 {%- endmacro %}
