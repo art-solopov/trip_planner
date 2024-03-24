@@ -1,6 +1,7 @@
-@use "colors" as c;
 @use "sass:color";
 
+@use "colors" as c;
+@use "breakpoints";
 @use "components";
 
 @layer normalize, components, utilities;
@@ -40,3 +41,5 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+@include breakpoints.styles;

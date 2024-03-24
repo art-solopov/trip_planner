@@ -1,3 +1,7 @@
+@use "sass:map";
+
+@use "../breakpoints" as bp;
+
 @mixin styles {
   body {
     min-height: 100vh;
@@ -11,6 +15,17 @@
 
       & > main {
         flex-grow: 1;
+      }
+    }
+  }
+
+  .container {
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    @each $bp in map.values(bp.$breakpoints) {
+      @media(width >= $bp) {
+        width: $bp;
       }
     }
   }
