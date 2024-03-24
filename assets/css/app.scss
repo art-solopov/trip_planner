@@ -1,31 +1,40 @@
 @use "colors" as c;
 @use "sass:color";
 
-@import "/static/vendor/normalize-8.0.1.css"; /* TODO add layer */
+@use "components";
 
-.main-footer {
+@layer normalize, components, utilities;
+
+@import "/static/vendor/normalize-8.0.1.css" layer(normalize);
+
+@layer components {
+  @include components.styles;
+
+  .main-footer {
     background-color: c.$Gray-50;
     color: c.$Gray-400;
+  }
+
+
+  dialog {
+    padding: 0;
+    // border: $border-width $border-style $border-color;
+    // border-radius: $border-radius-lg;
+
+    &::backdrop {
+      background-color: color.change(c.$Gray-600, $alpha: 0.7);
+    }
+    & > * {
+      // padding: $spacer (2 * $spacer);
+    }
+
+    // Animation
+    &[open] {
+      animation: dialogFadeIn 0.2s ease normal;
+    }
+  }
 }
 
-
-dialog {
-  padding: 0;
-  // border: $border-width $border-style $border-color;
-  // border-radius: $border-radius-lg;
-
-  &::backdrop {
-    background-color: color.change(c.$Gray-600, $alpha: 0.7);
-  }
-  & > * {
-    // padding: $spacer (2 * $spacer);
-  }
-
-  // Animation
-  &[open] {
-    animation: dialogFadeIn 0.2s ease normal;
-  }
-}
 
 @keyframes dialogFadeIn {
   from { opacity: 0; }
