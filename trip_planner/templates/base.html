@@ -8,8 +8,7 @@
         {# Emoji icon #}
         <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
 
-        {# TODO: replace CDNs with proper vendoring #}
-        <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
+        <script src="{{ url_for('static', filename='vendor/htmx-1.7.0.min.js') }}"></script>
 
         {{ style_tag('app') }}
         {{ script_tag('app') }}

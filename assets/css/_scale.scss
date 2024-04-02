@@ -1,0 +1,16 @@
+@use "sass:map";
+
+$_coeffs: (
+  -3: 0.35,
+  -2: 0.5,
+  -1: 0.7,
+  0: 1,
+  1: 1.4,
+  2: 2,
+  3: 2.8,
+  4: 4
+);
+
+@function scale($coeff, $base: 1em) {
+  @return map.get($_coeffs, $coeff) * $base;
+}

@@ -1,9 +1,49 @@
 @use "sass:map";
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/variables";
+$breakpoints: (
+  'sm': 480px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1200px,
+  'xxl': 1400px
+);
 
-$break-sm: map.get($grid-breakpoints, "sm");
-$break-md: map.get($grid-breakpoints, "md");
-$break-lg: map.get($grid-breakpoints, "lg");
+@mixin break($breakpoint) {
+  @media(width >= map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin break-sm {
+  @include break('sm') {
+    @content;
+  }
+}
+
+@mixin break-md {
+  @include break('md') {
+    @content;
+  }
+}
+
+@mixin break-lg {
+  @include break('lg') {
+    @content;
+  }
+}
+
+@mixin break-xl {
+  @include break('xl') {
+    @content;
+  }
+}
+
+@mixin styles {
+  @at-root {
+    :root {
+      @each $name, $val in $breakpoints {
+        --breakpoint-#{$name}: #{$val};
+      }
+    }
+  }
+}
