@@ -1,14 +1,17 @@
 @use "sass:color";
 
-@use "colors" as c;
-@use "palette" as *;
+@use "../colors" as c;
+@use "../palette" as *;
+@use "../scale";
 
 @mixin styles {
   body > header {
-    margin-bottom: 0.5rem;
+    margin-bottom: scale.scale(-2, 1rem);
   }
 
   .top-navbar {
+    display: flex;
+
     background-image: linear-gradient(to right, $primary, $secondary);
 
     box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;

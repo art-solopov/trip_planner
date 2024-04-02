@@ -1,5 +1,7 @@
 @use "layout";
+@use "top-header";
 
 @mixin styles {
-  @include layout.styles
+  @include layout.styles;
+  @include top-header.styles;
 }
