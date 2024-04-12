@@ -22,7 +22,7 @@ const postcssPlugins = [
     require('autoprefixer')
 ]
 
-const cssEntrypoint = 'assets/css/app.scss'
+const cssEntrypoints = ['twbs', 'app'].map(e => `assets/css/${e}.scss`) 
 const jsEntrypoints = ['app', 'trip_form', 'trip_show', 'point_form'].map(e => `assets/js/${e}.js`)
 
 function isProd() {
@@ -30,16 +30,25 @@ function isProd() {
 }
 
 async function css(outdir) {
-    let res = sass.compile(cssEntrypoint, {importers: [bsImporter]})
-    res = await postcss(postcssPlugins).process(res.css, {from: cssEntrypoint, to: 'app.css'})
-    let outname = 'app.css'
-    if(isProd()) {
-        let h = createHash('md5').update(res.css).digest('base64')
-        outname = `app-${h.substring(0, 8)}.css`
-    }
-    let outpath = path.join(outdir, outname)
-    await fs.writeFile(outpath, res.css)
-    return [{src: 'app.css', dest: outpath}]
+    let promises = cssEntrypoints.map(async entry => {
+        let res = sass.compile(entry, {importers: [bsImporter]})
+        let basename = path.basename(entry)
+        let assetName = basename.replace(/\.scss$/, '.css')
+        let outname = assetName
+        res = await postcss(postcssPlugins).process(res.css, {from: entry, to: outname})
+
+        if(isProd()) {
+            let h = createHash('md5').update(res.css).digest('base64')
+            outname = `app-${h.substring(0, 8)}.css`
+        }
+
+        let outpath = path.join(outdir, outname)
+        await fs.writeFile(outpath, res.css)
+
+        return {src: assetName, dest: outpath}
+    })
+
+    return Promise.all(promises)
 }
 
 async function js(outdir) {

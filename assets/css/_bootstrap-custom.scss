@@ -3,13 +3,7 @@
 // Bootstrap customization
 
 // Configuration
-@import "~bootstrap/scss/functions";
-
-@import "palette"; // Bootstrap override
-
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/maps";
-@import "~bootstrap/scss/mixins";
+@import "prelude";
 @import "~bootstrap/scss/utilities";
 
 // === Layout & components ===

@@ -11,6 +11,7 @@
         {# TODO: replace CDNs with proper vendoring #}
         <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
 
+        {{ style_tag('twbs') }}
         {{ style_tag('app') }}
         {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}
