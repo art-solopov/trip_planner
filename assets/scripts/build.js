@@ -32,20 +32,19 @@ function isProd() {
 async function css(outdir) {
     let promises = cssEntrypoints.map(async entry => {
         let res = sass.compile(entry, {importers: [bsImporter]})
-        let basename = path.basename(entry)
-        let assetName = basename.replace(/\.scss$/, '.css')
-        let outname = assetName
+        let basename = path.basename(entry, '.scss')
+        let outname = basename
         res = await postcss(postcssPlugins).process(res.css, {from: entry, to: outname})
 
         if(isProd()) {
             let h = createHash('md5').update(res.css).digest('base64')
-            outname = `app-${h.substring(0, 8)}.css`
+            outname = `${outname}-${h.substring(0, 8)}`
         }
 
-        let outpath = path.join(outdir, outname)
+        let outpath = path.join(outdir, outname) + '.css'
         await fs.writeFile(outpath, res.css)
 
-        return {src: assetName, dest: outpath}
+        return {src: basename + '.css', dest: outpath}
     })
 
     return Promise.all(promises)
