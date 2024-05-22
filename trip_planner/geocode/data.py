@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List
+from logging import getLogger, DEBUG
 
 from flask import current_app
 from requests import get
@@ -10,6 +11,9 @@ from ..models import Trip
 from .forms import GeocodeForm
 
 GEOCODE_ENDPOINT = 'https://nominatim.openstreetmap.org/search'
+
+
+logger = getLogger('trip_planner.geocode')
 
 
 @dataclass
@@ -38,9 +42,11 @@ def geocode(form: GeocodeForm, country_code: str = None) -> List[PointData]:
         search = form.name.data
 
     map_data = MapData()
-    response = get(GEOCODE_ENDPOINT, params={'format': 'json',
-                                             'q': search,
-                                             'countrycodes': country_code,
-                                             'namedetails': 1})
-    current_app.logger.info((response.request.url, response.request.body))
+    response = get(GEOCODE_ENDPOINT,
+                   params={'format': 'json', 'q': search,
+                           'countrycodes': country_code, 'namedetails': 1},
+                   headers={'user-agent': 'trip-planner.geocode/1.0'})
+    logger.info('Sending geocoding request to %s', response.request.url)
+    logger.debug('Received geocoding response with status=%d, body=%s',
+                 response.status_code, (response.text if response.status_code > 400 else '...'))
     return [_point_data(map_data, x) for x in response.json()]

@@ -1,6 +1,7 @@
 import os
 import os.path
 import json
+import logging
 
 from flask import Flask, render_template, request, session, g, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -59,6 +60,12 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     csrf.init_app(app)
 
     app.url_map.converters['decimal_pair'] = DecimalPairConverter
+
+    # TODO configure logging properly
+    if app.debug:
+        app.logger.setLevel(logging.DEBUG)
+    else:
+        app.logger.setLevel(logging.INFO)
 
     @app.before_request
     def init_breadcrumbs():
