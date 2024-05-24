@@ -1,13 +1,12 @@
 from dataclasses import dataclass
 from typing import List
-from logging import getLogger, DEBUG
+from logging import getLogger
 
-from flask import current_app
 from requests import get
 from box import Box
 
 from ..data import MapData
-from ..models import Trip
+from ..result import success, failure
 from .forms import GeocodeForm
 
 GEOCODE_ENDPOINT = 'https://nominatim.openstreetmap.org/search'
@@ -47,6 +46,11 @@ def geocode(form: GeocodeForm, country_code: str = None) -> List[PointData]:
                            'countrycodes': country_code, 'namedetails': 1},
                    headers={'user-agent': 'trip-planner.geocode/1.0'})
     logger.info('Sending geocoding request to %s', response.request.url)
-    logger.debug('Received geocoding response with status=%d, body=%s',
-                 response.status_code, (response.text if response.status_code > 400 else '...'))
-    return [_point_data(map_data, x) for x in response.json()]
+
+    if response.status_code < 400:
+        logger.debug('Geocode response received: status=%d', response.status_code)
+        return success([_point_data(map_data, x) for x in response.json()])
+    else:
+        logger.warning('Problem with the geocoding: status=%d, message=%s',
+                       response.status_code, response.text)
+        return failure('Geocoding error. Please try again later.')

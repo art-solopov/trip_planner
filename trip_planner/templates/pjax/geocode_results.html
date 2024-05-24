@@ -1,19 +1,24 @@
-{% if results %}
-    <div class="geocode-results mt-2" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
-    {% for result in results %}
-        <div class="result card" data-lat="{{ result.lat }}" data-lon="{{ result.lon }}">
-            <div class="card-header">
-                <button type="button" class="btn btn-info" data-action="click->geocode#setData">Save</button>
+{% if result.is_success %}
+    {% if result.value %}
+        <div class="geocode-results mt-2" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
+        {% for res in result.value %}
+            <div class="result card" data-lat="{{ res.lat }}" data-lon="{{ res.lon }}">
+                <div class="card-header">
+                    <button type="button" class="btn btn-info" data-action="click->geocode#setData">Save</button>
+                </div>
+                <div class="card-body">
+                    <h3 class="name h5">{{ res.name }}</h3>
+                    <div class="address">{{ res.address }}</div>
+                </div>
+                <img class="preview card-img-bottom" src="{{ res.map_url }}">
             </div>
-            <div class="card-body">
-                <h3 class="name h5">{{ result.name }}</h3>
-                <div class="address">{{ result.address }}</div>
-            </div>
-            <img class="preview card-img-bottom" src="{{ result.map_url }}">
+        {% endfor %}
         </div>
-    {% endfor %}
-    </div>
+    {% else %}
+        <div id="geocode_results" class="">Geocode results not found</div>
+    {% endif %}
 {% else %}
-    <div id="geocode_results" class="">Geocode results not found</div>
+    <div id="geocode_results" class="text-danger">{{ result.message }}</div>
 {% endif %}
+
 

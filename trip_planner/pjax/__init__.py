@@ -4,8 +4,6 @@ from .. import csrf, db
 from ..shared import user_required
 from ..geocode.forms import GeocodeForm
 from ..geocode.data import geocode as geocode_op
-from ..models import Trip, Point
-from ..trips.policy import Policy as TripsPolicy
 
 
 pjax = Blueprint('pjax', __name__, url_prefix='/pjax')
@@ -16,11 +14,11 @@ pjax = Blueprint('pjax', __name__, url_prefix='/pjax')
 @user_required
 def geocode():
     form = GeocodeForm(request.form)
-    results = geocode_op(
+    gc = geocode_op(
         form,
         country_code=request.args.get('country_code', None)
         )
-    return render_template('pjax/geocode_results.html', results=results)
+    return render_template('pjax/geocode_results.html', result=gc)
 
 
 @pjax.route("/map_pointer", defaults={'latlon': (51.48, 0)})
