@@ -2,6 +2,7 @@ from functools import wraps
 from itertools import groupby
 from operator import attrgetter
 from typing import Dict
+import logging
 
 from flask import (Blueprint, g, render_template,
                    request, redirect, url_for, flash,
@@ -21,6 +22,9 @@ from .presenters import TripPresenter, PointPresenter
 from ..view_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
+
+
+logger = logging.getLogger('trip_planner.trips')
 
 
 # TODO: rewrite into local proxy maybe

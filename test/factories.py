@@ -30,7 +30,7 @@ class TripFactory(Factory):
         sqlalchemy_session = db.session
 
     name = factory.Faker('city')
-    slug = factory.LazyAttribute(lambda o: o.name.lower().replace(' ', '-'))
+    key = factory.Faker('pystr', min_chars=10, max_chars=20)
     author = factory.SubFactory(UserFactory)
 
 

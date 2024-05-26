@@ -1,18 +1,22 @@
 from os.path import join as pjoin
 import json
 from copy import copy
+import logging
 
 from flask_wtf import FlaskForm
 from wtforms import (Form, StringField, TextAreaField, FloatField,
                      SelectField, HiddenField, FormField, FieldList,
                      DecimalField, URLField)
-from wtforms.widgets import TimeInput
 from wtforms.utils import unset_value
+from wtforms.widgets import TimeInput
 from wtforms.validators import DataRequired, Length, Optional
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
 from ..models import PointTypes
+
+
+logger = logging.getLogger('trip_planner.trips.forms')
 
 
 class TripForm(FlaskForm):
@@ -73,6 +77,13 @@ class ScheduleField(FieldList):
         return (weekday, dct)
 
 
+def point_types_coerce(data):
+    logger.debug('data %s [%s]', data, type(data))
+    if isinstance(data, PointTypes):
+        return data.value
+    return data
+
+
 class PointForm(FlaskForm):
     TYPE_CHOICES = [(p.value, p.value.capitalize()) for p in PointTypes]
 
@@ -80,7 +91,7 @@ class PointForm(FlaskForm):
     address = TextAreaField('Address')
     lat = FloatField('Latitude', validators=[DataRequired()])
     lon = FloatField('Longitude', validators=[DataRequired()])
-    type = SelectField('Point type', choices=TYPE_CHOICES)
+    type = SelectField('Point type', choices=TYPE_CHOICES, coerce=point_types_coerce)
     websites = FieldList(URLField('Website'), min_entries=1, max_entries=20)
     notes = TextAreaField('Notes')
     schedule = ScheduleField('Schedule')
