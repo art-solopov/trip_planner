@@ -28,8 +28,6 @@ class Trip(db.Model):
                           nullable=False)
     name = db.Column(db.String(2000), nullable=False, index=True)
     country_code = db.Column(db.String(2))
-    slug = db.Column(db.String(2000), nullable=True)
-
     author = db.relationship('User',
                              backref=db.backref('trips',
                                                 order_by=lambda: Trip.name))
@@ -39,10 +37,7 @@ class Trip(db.Model):
 
     def __repr__(self):
         return f"<Trip {self.name} [{self.id}] " \
-            f"author_id={self.author_id} slug={self.slug}>"
-
-
-db.Index('idx_trip_author_slug', Trip.author_id, Trip.slug, unique=True)
+            f"author_id={self.author_id} key={self.key}>"
 
 
 class PointTypes(enum.Enum):
