@@ -84,9 +84,27 @@ jobs:
       with:
         name: assets
         path: trip_planner/static/assets
+
+  favicons:
+    runs-on: ubuntu-latest
+    env:
+      OUTDIR: favicons
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install ImageMagick
+      run: sudo apt-get install imagemagick
+    - run: mkdir -p "$OUTDIR"
+    - name: Apple icon
+      run: convert -background none trip_planner/static/favicon.svg -resize 180x180 "$OUTDIR/apple-touch-icon.png"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: favicons
+        path: favicons
+      
+
   docker:
     runs-on: ubuntu-latest
-    needs: [requirements_txt, assets, tests]
+    needs: [requirements_txt, assets, tests, favicons]
     if: github.ref_type == 'tag' || github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'deploy' || github.ref_name == 'github-actions'
     steps:
     - uses: actions/checkout@v4
