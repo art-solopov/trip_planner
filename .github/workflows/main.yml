@@ -121,6 +121,10 @@ jobs:
         path: trip_planner/static/assets
     - uses: actions/download-artifact@v4
       with:
+        name: favicons
+        path: trip_planner/static/favicons
+    - uses: actions/download-artifact@v4
+      with:
         name: requirements.txt
     - name: Login to DockerHub
       uses: docker/login-action@v2
