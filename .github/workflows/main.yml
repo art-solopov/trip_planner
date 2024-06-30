@@ -89,13 +89,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OUTDIR: favicons
+      CMD: "convert -background none trip_planner/static/favicon.svg"
     steps:
     - uses: actions/checkout@v4
     - name: Install ImageMagick
       run: sudo apt-get install imagemagick
     - run: mkdir -p "$OUTDIR"
     - name: Apple icon
-      run: convert -background none trip_planner/static/favicon.svg -resize 180x180 "$OUTDIR/apple-touch-icon.png"
+      run: $CMD -resize 180x180 "$OUTDIR/apple-touch-icon.png"
+    - name: Android icons
+      run: >
+        $CMD -geometry 192 "$OUTDIR/icon-192.png" &&
+        $CMD -geometry 512 "$OUTDIR/icon-512.png"
     - uses: actions/upload-artifact@v4
       with:
         name: favicons
