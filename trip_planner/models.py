@@ -37,12 +37,18 @@ class Trip(db.Model):
     key = db.Column(db.String(200), nullable=True, index=True, default=generate_key, unique=True)
 
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.current_timestamp(),
+    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
+                           onupdate=db.func.current_timestamp(),
                            index=True)
 
     def __repr__(self):
         return f"<Trip {self.name} [{self.id}] " \
             f"author_id={self.author_id} key={self.key}>"
+
+    def touch(self, session=None):
+        self.updated_at = db.func.current_timestamp()
+        if session is not None:
+            session.add(self)
 
 
 class PointTypes(enum.Enum):
@@ -81,7 +87,8 @@ class Point(db.Model):
                            ))
 
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.current_timestamp(),
+    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
+                           onupdate=db.func.current_timestamp(),
                            index=True)
 
     @validates('websites')

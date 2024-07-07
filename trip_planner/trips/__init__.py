@@ -264,6 +264,7 @@ def add_point(key: str):
     if form.validate_on_submit():
         form.populate_obj(point)
         db.session.add(point)
+        point.trip.touch(db.session)
         db.session.commit()
         flash(f"Point «{point.name}» added", 'success')
         return redirect(url_for('.show', key=trip.key))
@@ -298,6 +299,7 @@ def edit_point(trip: Trip, point: Point):
     if form.validate_on_submit():
         form.populate_obj(point)
         db.session.add(point)
+        point.trip.touch(db.session)
         db.session.commit()
         flash(f"Point «{point.name}» updated", 'success')
         return redirect(url_for('.show_point', key=trip.key, id=point.id))
@@ -316,6 +318,7 @@ def edit_point(trip: Trip, point: Point):
 def delete_point(trip: Trip, point: Point):
     policy.authorize('delete_point', point)
     if request.method == 'POST':
+        point.trip.touch(db.session)
         db.session.delete(point)
         db.session.commit()
         flash(f"Point «{point.name}» deleted", 'success')
