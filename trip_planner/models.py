@@ -36,7 +36,9 @@ class Trip(db.Model):
     center_lon = db.Column(db.Numeric(8, 5), nullable=True)
     key = db.Column(db.String(200), nullable=True, index=True, default=generate_key, unique=True)
 
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.current_timestamp(),
+                           index=True)
 
     def __repr__(self):
         return f"<Trip {self.name} [{self.id}] " \
@@ -78,7 +80,9 @@ class Point(db.Model):
                                cascade='save-update, merge, delete'
                            ))
 
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.current_timestamp(),
+                           index=True)
 
     @validates('websites')
     def delete_empty_websites(self, _key, websites):
