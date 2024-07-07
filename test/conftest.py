@@ -13,37 +13,32 @@ from test import create_app, TestConfig, test_instance_dir
 
 @pytest.fixture(scope='session')
 def app(session_mocker: pytest_mock.MockerFixture):
-    static_folder = mkdtemp(prefix='static')
-    _app = create_app(TestConfig(), instance_path=test_instance_dir,
-                      static_folder=static_folder)
-    ctx = _app.app_context()
-    ctx.push()
+    _app = create_app(TestConfig(), instance_path=test_instance_dir)
     session_mocker.patch('trip_planner.assets.manifest',
                          new=defaultdict(str))
 
-    yield _app
-
-    ctx.pop()
-    os.rmdir(static_folder)
+    return _app
 
 
 @pytest.fixture(scope='session')
 def db(app):
-    _db.create_all()
+    with app.app_context():
+        _db.create_all()
 
-    yield _db
+        yield _db
 
-    _db.drop_all()
+        _db.drop_all()
 
 
 @pytest.fixture(scope='function', autouse=True)
-def db_session(db):
-    yield db.session
+def db_session(app, db):
+    with app.app_context():
+        yield db.session
 
-    db.session.remove()
+        db.session.remove()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def app_client(app):
     return app.test_client()
 
@@ -52,5 +47,6 @@ def app_client(app):
 def session_user(db_session):
     user = User(username='username',
                 password_digest=bcrypt.hash('password'))
-    db_session.add(user)
+    with db_session.begin_nested():
+        db_session.add(user)
     return user

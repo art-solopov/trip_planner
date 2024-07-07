@@ -9,7 +9,7 @@ from wtforms import (Form, StringField, TextAreaField, FloatField,
                      DecimalField, URLField)
 from wtforms.utils import unset_value
 from wtforms.widgets import TimeInput
-from wtforms.validators import DataRequired, Length, Optional
+from wtforms.validators import DataRequired, InputRequired, Length, Optional
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
@@ -89,8 +89,8 @@ class PointForm(FlaskForm):
 
     name = StringField('Name', validators=[DataRequired(), Length(max=2000)])
     address = TextAreaField('Address')
-    lat = FloatField('Latitude', validators=[DataRequired()])
-    lon = FloatField('Longitude', validators=[DataRequired()])
+    lat = FloatField('Latitude', validators=[InputRequired()])
+    lon = FloatField('Longitude', validators=[InputRequired()])
     type = SelectField('Point type', choices=TYPE_CHOICES, coerce=point_types_coerce)
     websites = FieldList(URLField('Website'), min_entries=1, max_entries=20)
     notes = TextAreaField('Notes')

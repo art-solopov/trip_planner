@@ -15,7 +15,7 @@ class User(db.Model):
     password_digest = db.Column(db.String(100), nullable=True)
 
     def __repr__(self):
-        return f"<User {self.username}>"
+        return f"<User {self.username} [{self.id}]>"
 
 
 class Trip(db.Model):
