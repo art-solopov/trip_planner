@@ -1,11 +1,6 @@
 from os import getenv
 from os import path as path
 
-from flask.ctx import AppContext
-from flask.wrappers import Response
-from flask.testing import FlaskClient
-
-from trip_planner import create_app, db
 from trip_planner.config import Config
 
 

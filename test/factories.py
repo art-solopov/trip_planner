@@ -3,11 +3,8 @@ from factory.alchemy import SQLAlchemyModelFactory as Factory
 from passlib.hash import bcrypt
 from faker import Faker
 
-from trip_planner import models
+from trip_planner import db, models
 from trip_planner.trips.forms import PointForm
-
-
-from . import db
 
 
 class UserFactory(Factory):

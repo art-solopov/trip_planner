@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from trip_planner.models import Trip, Point, PointTypes, User
+from trip_planner.models import Trip, Point, PointTypes
 from trip_planner.trips.presenters import PointPresenter
 from test.factories import TripFactory, PointFactory
 
@@ -10,11 +10,11 @@ def test_point_presenter_colors():
 
 
 def test_point_edit_form(app_client, db_session, session_user):
-    with db_session.begin_nested():
-        trip = TripFactory(author=session_user)
-        point = PointFactory(trip=trip, type=PointTypes.ENTERTAINMENT.value)
-        db_session.add(trip)
-        db_session.add(point)
+    trip = TripFactory(author=session_user)
+    point = PointFactory(trip=trip, type=PointTypes.ENTERTAINMENT.value)
+    db_session.add(trip)
+    db_session.add(point)
+    db_session.commit()
 
     with app_client.session_transaction() as session:
         session['user_id'] = session_user.id
@@ -28,9 +28,9 @@ def test_point_edit_form(app_client, db_session, session_user):
 
 
 def test_point_create_zero_latlon(app_client, db_session, session_user):
-    with db_session.begin_nested():
-        trip = TripFactory(author=session_user)
-        db_session.add(trip)
+    trip = TripFactory(author=session_user)
+    db_session.add(trip)
+    db_session.commit()
 
     with app_client.session_transaction() as session:
         session['user_id'] = session_user.id
