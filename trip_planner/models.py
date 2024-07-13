@@ -1,5 +1,6 @@
 import enum
 from secrets import token_urlsafe
+import datetime
 
 from sqlalchemy.orm import validates
 from sqlalchemy.dialects.postgresql import ARRAY
@@ -35,9 +36,19 @@ class Trip(db.Model):
     center_lon = db.Column(db.Numeric(8, 5), nullable=True)
     key = db.Column(db.String(200), nullable=True, index=True, default=generate_key, unique=True)
 
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
+                           onupdate=db.func.current_timestamp(),
+                           index=True)
+
     def __repr__(self):
         return f"<Trip {self.name} [{self.id}] " \
             f"author_id={self.author_id} key={self.key}>"
+
+    def touch(self, session=None):
+        self.updated_at = db.func.current_timestamp()
+        if session is not None:
+            session.add(self)
 
 
 class PointTypes(enum.Enum):
@@ -74,6 +85,11 @@ class Point(db.Model):
                                order_by=lambda: (Point.type, Point.name),
                                cascade='save-update, merge, delete'
                            ))
+
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
+                           onupdate=db.func.current_timestamp(),
+                           index=True)
 
     @validates('websites')
     def delete_empty_websites(self, _key, websites):

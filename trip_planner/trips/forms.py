@@ -78,7 +78,6 @@ class ScheduleField(FieldList):
 
 
 def point_types_coerce(data):
-    logger.debug('data %s [%s]', data, type(data))
     if isinstance(data, PointTypes):
         return data.value
     return data

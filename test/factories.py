@@ -7,10 +7,14 @@ from trip_planner import db, models
 from trip_planner.trips.forms import PointForm
 
 
+class DefaultMeta:
+    sqlalchemy_session = db.session
+    sqlalchemy_session_persistence = 'flush'
+
+
 class UserFactory(Factory):
-    class Meta:
+    class Meta(DefaultMeta):
         model = models.Trip
-        sqlalchemy_session = db.session
 
     username = factory.Faker('ascii_email')
 
@@ -22,9 +26,8 @@ class UserFactory(Factory):
 
 
 class TripFactory(Factory):
-    class Meta:
+    class Meta(DefaultMeta):
         model = models.Trip
-        sqlalchemy_session = db.session
 
     name = factory.Faker('city')
     key = factory.Faker('pystr', min_chars=10, max_chars=20)
@@ -32,9 +35,8 @@ class TripFactory(Factory):
 
 
 class PointFactory(Factory):
-    class Meta:
+    class Meta(DefaultMeta):
         model = models.Point
-        sqlalchemy_session = db.session
 
     trip = factory.SubFactory(TripFactory)
     name = factory.Faker('sentence', nb_words=3)

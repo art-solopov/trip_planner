@@ -1,5 +1,7 @@
 from copy import copy
 import re
+import itertools as it
+import datetime as dt
 
 from flask import Blueprint
 import sqlalchemy as sa
@@ -59,4 +61,20 @@ def add_key_to_trips():
     for trip in query:
         trip.key = Trip.generate_key()
         db.session.add(trip)
+    db.session.commit()
+
+
+@scripts.cli.command('set_trip_point_created')
+def set_trip_point_created():
+    ch = it.chain(
+        Trip.query.filter_by(created_at=None),
+        Point.query.filter_by(created_at=None)
+        )
+    created_at = dt.datetime.combine(
+        dt.date.today(),
+        dt.time(hour=0, minute=0, second=0, tzinfo=dt.timezone.utc)
+        )
+    for model in ch:
+        model.created_at = created_at
+        db.session.add(model)
     db.session.commit()
