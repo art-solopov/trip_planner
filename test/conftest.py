@@ -65,7 +65,7 @@ def app_client(app):
 
 
 @pytest.fixture(scope='function')
-def session_user(db_session):
+def session_user(db_session, app_client):
     user = User(username='username',
                 password_digest=bcrypt.hash('password'))
     db_session.add(user)
