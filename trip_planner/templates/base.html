@@ -23,28 +23,27 @@
     </head>
     <body>
         {% include "_header.html" %}
-        <div class="container">
-            {% with messages = get_flashed_messages(with_categories=True) -%}
-                {%- if messages %}
-                    <div class="flashes">
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                                <span>{{ message }}</span>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif -%}
-            {%- endwith %}
-            <main class="{{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
-                {% block main %}{% endblock %}
-            </main>
-            <footer class="main-footer py-2 px-3 mt-2 text-center">
-                <p>© Artemiy Solopov, 2019–2023</p>
-                <p>All map data © OpenStreetMaps</p>
-                <p>Icons by <a href="https://icons.getbootstrap.com/">Bootstrap</a></p>
-            </footer>
-        </div>
+        {% with messages = get_flashed_messages(with_categories=True) -%}
+            {%- if messages %}
+                <div class="top flashes">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            <span>{{ message }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif -%}
+        {%- endwith %}
+        <main class="responsive {{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="responsive">
+            <p>© Artemiy Solopov, 2019–2024</p>
+            <p>All map data © OpenStreetMaps</p>
+            <p>Icons by <a href="https://icons.getbootstrap.com/">Bootstrap</a></p>
+        </footer>
 
         <dialog id="form_dialog"></dialog>
         {%- block extra_body %}{% endblock %}
