@@ -12,7 +12,7 @@
 // @import "forms";
 // @import "map-with-coords";
 // @import "geocode";
-// @import "trips-index";
+@import "trips-index";
 // @import "trip-show";
 // @import "point-schedule";
 // @import "point-show";
@@ -21,6 +21,11 @@
 //     background-color: c.$Gray-50;
 //     color: c.$Gray-400;
 // }
+
+/* Overrides */
+body {
+  font-size: 1rem;
+}
 
 // Link colors
 
