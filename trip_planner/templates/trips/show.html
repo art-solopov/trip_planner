@@ -2,15 +2,18 @@
 {% from "macros/icon.html" import icon %}
 {% from "macros/buttons.html" import hx_dialog_attrs %}
 
+{% set button_classes = "button square round no-margin" %}
+
 {% block main %}
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
         <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>
     </div>
     <div class="app">
         <header>
-            <div class="trip-title">
-                <h1>
+            <div class="trip-title row wrap max">
+                <h1 class="small max">
                     <div>{{ trip.name }}</div>
+                    {#
                     <div class="trip-title-author">
                         by
                         {% if trip.belongs_to_current_user %}
@@ -18,12 +21,12 @@
                         {% else %}
                             {{ trip.author.username }}
                         {% endif %}
-                    </div>
+                    </div> #}
                 </h1>
                 <div class="ms-auto buttons">
-                    <a href="{{ url_for('.add_point', key=trip.key) }}" class="btn btn-primary" title="Add point">{{ icon('plus-circle-fill') }}</a>
-                    <a href="{{ url_for('.edit', key=trip.key) }}" class="btn btn-secondary" title="Edit">{{ icon('pencil-fill') }}</a>
-                    <a class="btn btn-danger" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('trash-fill') }}</a>
+                    <a href="{{ url_for('.add_point', key=trip.key) }}" class="{{ button_classes }} primary" title="Add point">{{ icon('add_circle') }}</a>
+                    <a href="{{ url_for('.edit', key=trip.key) }}" class="{{ button_classes }} secondary" title="Edit">{{ icon('edit') }}</a>
+                    <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
                 </div>
             </div>
             <!-- <div>Count: {{ points_count }}</div> -->
@@ -34,7 +37,7 @@
 
         {%- for g_type, pts in points %}
             <section class="trip-point-items is-{{ g_type | lower }}">
-                <h2 class="h4">{{ g_type | capitalize }}</h2>
+                <h2 class="small">{{ g_type | capitalize }}</h2>
                 <ul class="">
                     {%- for point in pts %}
                         <li class="trip-point-item"
@@ -45,14 +48,14 @@
                             data-category="{{ point.type }}"
                             data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
                             <div>
-                                <h3 class="h5 m-0 item-name">{{ point.name }}</h3>
+                                <h3 class="small item-name">{{ point.name }}</h3>
                                 <address class="item-address">{{ point.address }}</address>
                             </div>
                             <div class="item-links btn-group" role="group" aria-label="Point controls">
-                                <a class="btn btn-small btn-light pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('compass') }}</a>
-                                <a class="btn btn-small btn-info more-link" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">{{ icon('box-arrow-up-right') }}</a>
-                                <a class="btn btn-small btn-secondary edit-link" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">{{ icon('pencil-fill') }}</a>
-                                <a class="btn btn-small btn-danger delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', key=trip.key, id=point.id)) }}>{{ icon('trash-fill') }}</a>
+                                <a class="{{ button_classes }} fill pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('explore') }}</a>
+                                <a class="{{ button_classes }} tertiary more-link" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">{{ icon('open_in_new') }}</a>
+                                <a class="{{ button_classes }} secondary edit-link" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">{{ icon('edit') }}</a>
+                                <a class="{{ button_classes }} error delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', key=trip.key, id=point.id)) }}>{{ icon('delete') }}</a>
                             </div>
                         </li>
                     {% endfor %}

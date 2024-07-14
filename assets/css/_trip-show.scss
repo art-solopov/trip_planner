@@ -2,8 +2,7 @@
 
 @use "palette";
 @use "colors" as c;
-
-@import "./breakpoints";
+@use "breakpoints" as bp;
 
 .trip-map {
     min-height: 60vh;
@@ -74,7 +73,7 @@
     display: flex;
     flex-flow: column;
 
-    @include media-breakpoint-up(lg) {
+    @media(width > bp.$break-md) {
         flex-flow: row nowrap;
         gap: 0.5rem;
 
@@ -114,17 +113,17 @@
 }
 
 .trip-point-items {
-    & > * {
-        padding-inline: 1rem;
-    }
-
-    ul {
-        list-style: none;
-    }
-
-    h2 {
-        margin-bottom: 0.5em;
-    }
+    // & > * {
+    //     padding-inline: 1rem;
+    // }
+    //
+    // ul {
+    //     list-style: none;
+    // }
+    //
+    // h2 {
+    //     margin-bottom: 0.5em;
+    // }
 
     --decoration-color: var(--type-color, #aaa);
 
@@ -136,11 +135,11 @@
 }
 
 .trip-point-item {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 0.25em;
-    margin-bottom: 0.25em;
-    border-bottom: 2px dotted palette.$border-color;
+    // display: flex;
+    // flex-flow: row nowrap;
+    // align-items: center;
+    // justify-content: space-between;
+    // padding-bottom: 0.25em;
+    // margin-bottom: 0.25em;
+    // border-bottom: 2px dotted palette.$border-color;
 }

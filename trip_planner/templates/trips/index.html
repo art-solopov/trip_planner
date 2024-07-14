@@ -3,11 +3,10 @@
 
 {% block main %}
     <header class="bottom-margin">
-        <nav>
-            <h3>Your trips</h3>
-            <a href="{{ url_for('trips.new') }}" class="button m l" role="button" title="Add trip">{{ icon('add_circle', 'fill') }} Add trip</a>
+        <nav class="wrap">
+            <h1 class="small">Your trips</h1>
+            <a href="{{ url_for('trips.new') }}" class="button" role="button" title="Add trip">{{ icon('add_circle', 'fill') }} Add trip</a>
         </nav>
-        <a href="{{ url_for('trips.new') }}" class="button responsive s small-margin bottom-margin" role="button" title="Add trip">{{ icon('add_circle', 'fill') }} Add trip</a>
     </header>
 
     <ul class="trips">

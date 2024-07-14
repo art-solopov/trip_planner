@@ -13,7 +13,7 @@
 // @import "map-with-coords";
 // @import "geocode";
 @import "trips-index";
-// @import "trip-show";
+@import "trip-show";
 // @import "point-schedule";
 // @import "point-show";
 
@@ -25,6 +25,12 @@
 /* Overrides */
 body {
   font-size: 1rem;
+}
+
+.mapboxgl-ctrl-group button {
+  border-radius: 0;
+  margin: 0;
+  min-width: initial;
 }
 
 // Link colors

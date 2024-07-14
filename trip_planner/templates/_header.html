@@ -18,9 +18,11 @@
             <a class="button fill" href="{{ url_for('auth.login') }}">Sign in</a>
         {% endif %}
     </nav>
+</header>
 
-    {%- if g.breadcrumbs %}
-    <nav aria-label="breadcrumb" class="container top-breadcrumbs">
+{%- if g.breadcrumbs %}
+<section class="responsive vertical-padding small-padding">
+    <nav aria-label="breadcrumb" class="top-breadcrumbs">
         <ol class="breadcrumb">
             {%- for breadcrumb in g.breadcrumbs %}
                 {%- set bc_class = "breadcrumb-item" -%}
@@ -29,7 +31,7 @@
                 {%- endif %}
                 <li class="{{ bc_class }}">
                     {%- if breadcrumb.link -%}
-                        <a href="{{ breadcrumb.link }}">{{ breadcrumb.text }}</a>
+                        <a href="{{ breadcrumb.link }}" class="chip fill">{{ breadcrumb.text }}</a>
                     {%- else -%}
                         {{ breadcrumb.text }}
                     {%- endif %}
@@ -37,5 +39,5 @@
             {% endfor %}
         </ol>
     </nav>
-    {% endif -%}
-</header>
+</section>
+{% endif -%}
