@@ -2,55 +2,55 @@
 @use "sass:color";
 
 // @import "~bootstrap/scss/bootstrap";
-@import "prelude";
-@import "buttons";
-@import "links";
-@import "layout";
-@import "icons";
-@import "flashes";
-@import "top-header";
-@import "forms";
-@import "map-with-coords";
-@import "geocode";
-@import "trips-index";
-@import "trip-show";
-@import "point-schedule";
-@import "point-show";
+// @import "prelude";
+// @import "buttons";
+// @import "links";
+// @import "layout";
+// @import "icons";
+// @import "flashes";
+// @import "top-header";
+// @import "forms";
+// @import "map-with-coords";
+// @import "geocode";
+// @import "trips-index";
+// @import "trip-show";
+// @import "point-schedule";
+// @import "point-show";
 
-.main-footer {
-    background-color: c.$Gray-50;
-    color: c.$Gray-400;
-}
+// .main-footer {
+//     background-color: c.$Gray-50;
+//     color: c.$Gray-400;
+// }
 
 // Link colors
 
-.link-secondary {
-  color: c.$Gray-400 !important; // TODO: remove !important after removing Bootstrap's link utility classes
-
-  &:hover, &:focus {
-    color: c.$Gray-600 !important;
-  }
-}
-
-dialog {
-  padding: 0;
-  border: $border-width $border-style $border-color;
-  border-radius: $border-radius-lg;
-
-  &::backdrop {
-    background-color: color.change(c.$Gray-600, $alpha: 0.7);
-  }
-  & > * {
-    padding: $spacer (2 * $spacer);
-  }
-
-  // Animation
-  &[open] {
-    animation: dialogFadeIn 0.2s ease normal;
-  }
-}
-
-@keyframes dialogFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+// .link-secondary {
+//   color: c.$Gray-400 !important; // TODO: remove !important after removing Bootstrap's link utility classes
+//
+//   &:hover, &:focus {
+//     color: c.$Gray-600 !important;
+//   }
+// }
+//
+// dialog {
+//   padding: 0;
+//   border: $border-width $border-style $border-color;
+//   border-radius: $border-radius-lg;
+//
+//   &::backdrop {
+//     background-color: color.change(c.$Gray-600, $alpha: 0.7);
+//   }
+//   & > * {
+//     padding: $spacer (2 * $spacer);
+//   }
+//
+//   // Animation
+//   &[open] {
+//     animation: dialogFadeIn 0.2s ease normal;
+//   }
+// }
+//
+// @keyframes dialogFadeIn {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }

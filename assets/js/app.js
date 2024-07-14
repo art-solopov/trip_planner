@@ -1,4 +1,4 @@
-import './bootstrap_custom'
+// import './bootstrap_custom'
 import { createApp } from './utils'
 
 import Dialog from './components/dialog'

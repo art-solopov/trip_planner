@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Trip planner</title>
-        {# Emoji icon #}
         <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
         <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
         <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
@@ -13,7 +12,6 @@
         {# TODO: replace CDNs with proper vendoring #}
         <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
 
-        {{ style_tag('twbs') }}
         {{ style_tag('app') }}
         {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}
