@@ -1,19 +1,19 @@
 @use "colors" as c;
 @use "sass:color";
 
-// @import "~bootstrap/scss/bootstrap";
-// @import "prelude";
+@use "cssvars";
+@use "typography";
 // @import "buttons";
 // @import "links";
 // @import "layout";
 // @import "icons";
 // @import "flashes";
-@import "top-header";
+@use "top-header";
 // @import "forms";
 // @import "map-with-coords";
 // @import "geocode";
-@import "trips-index";
-@import "trip-show";
+@use "trips-index";
+@use "trip-show";
 // @import "point-schedule";
 // @import "point-show";
 
@@ -23,15 +23,12 @@
 // }
 
 /* Overrides */
-body {
-  font-size: 1rem;
-}
-
 .mapboxgl-ctrl-group button {
   border-radius: 0;
   margin: 0;
   min-width: initial;
 }
+
 
 // Link colors
 

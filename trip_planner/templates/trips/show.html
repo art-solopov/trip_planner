@@ -29,24 +29,22 @@
                     <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
                 </div>
             </div>
-            <div>
-            </div>
         </header>
 
         {%- for g_type, pts in points %}
             <section class="trip-point-items is-{{ g_type | lower }}">
-                <h2 class="small">{{ g_type | capitalize }}</h2>
-                <ul class="">
+                <h2 class="h4 tiny-padding">{{ g_type | capitalize }}</h2>
+                <ul class="bottom-margin">
                     {%- for point in pts %}
-                        <li class="trip-point-item"
+                        <li class="trip-point-item small-margin vertical-margin"
                             id="{{ point.id }}"
                             data-map-target="point"
                             data-lat="{{ point.lat }}"
                             data-lon="{{ point.lon }}"
                             data-category="{{ point.type }}"
                             data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
-                            <div>
-                                <h3 class="small item-name">{{ point.name }}</h3>
+                            <div class="left-margin small-margin">
+                                <h3 class="h6 bold item-name">{{ point.name }}</h3>
                                 <address class="item-address">{{ point.address }}</address>
                             </div>
                             <div class="item-links" role="group" aria-label="Point controls">

@@ -69,7 +69,9 @@
     }
 }
 
-.show-trip {
+// Had to add main to prevent beer.css from overriding.
+// TODO: maybe extract into a styles mixin and add to layer
+main.show-trip {
     display: flex;
     flex-flow: column;
 
@@ -78,20 +80,17 @@
         gap: 0.5rem;
 
         // Height hack, TODO rework later
-        height: calc(100vh - 9rem);
+        flex: 0 0 calc(100vh - 9rem);
 
         .app {
             flex-grow: 1;
+            overflow-y: scroll;
         }
 
         .trip-map {
             order: 1;
             flex-basis: 60%;
         }
-    }
-
-    .app {
-        overflow-y: scroll;
     }
 
     .trip-title {
