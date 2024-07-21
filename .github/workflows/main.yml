@@ -93,7 +93,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install Inkscape
-      run: sudo apt-get install inkscape
+      run: sudo apt-get update && sudo apt-get install inkscape
     - run: mkdir -p "$OUTDIR"
     - name: Apple icon
       run: >
