@@ -1,7 +1,7 @@
 {% from "macros/icon.html" import icon %}
 
-{% set default_input_class = "form-control" %}
-{% set wrapper_base_class = "mb-2" %}
+{% set default_input_class = "" %}
+{% set wrapper_base_class = "field label" %}
 
 {% macro input(field, input_class=default_input_class, field_kwargs={}) %}
     {{ field(class_=input_class, **field_kwargs) }}
@@ -9,11 +9,12 @@
 
 {% macro field(field, extra = None, wrapper_class='', input_class=default_input_class, field_kwargs={}) -%}
     {%- set wrapper_field_class = "field-" + field.name -%}
+    {# TODO: replace default beer.css with custom form #}
     <div class="{{ [wrapper_base_class, wrapper_field_class, wrapper_class] | join(' ') }}">
-        {{ field.label(class="form-label") }}
         {{ input(field, input_class, field_kwargs) }}
+        {{ field.label(class="form-label") }}
         {% if field.description %}
-        <div class="form-text">{{ field.description }}</div>
+        <span class="helper">{{ field.description }}</span>
         {% endif %}
         {%- if extra %}{{ extra }}{% endif %}
     </div>

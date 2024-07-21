@@ -10,7 +10,7 @@
 // @import "flashes";
 @use "top-header";
 // @import "forms";
-// @import "map-with-coords";
+@use "map-with-coords";
 // @import "geocode";
 @use "trips-index";
 @use "trip-show";

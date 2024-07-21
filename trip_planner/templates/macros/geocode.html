@@ -34,13 +34,16 @@
 {%- endmacro %}
 
 {% macro latlon_fields(lat_field, lon_field, hint=None) -%}
-    <div class="lat-lon-fields {%- if hint %} lat-lon-fields-with-hint{% endif %}">
+    <div class="row lat-lon-fields {%- if hint %} lat-lon-fields-with-hint{% endif %}">
         {% set geo_wrapper_class='field' %}
         {{ field(lat_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
         <!-- <span class="ws">&nbsp;</span> -->
         {{ field(lon_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
         {% if hint -%}
-        <div class="fields-hint" data-controller="bs-tooltip" title="{{ hint }}">{{ icon('patch-question-fill') }}</div>
+        <button class="chip round">
+            {{ icon('help', classes='fill') }}
+            <span class="tooltip">{{ hint }}</span>
+        </button>
         {%- endif %}
     </div>
 {%- endmacro %}

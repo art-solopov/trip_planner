@@ -1,17 +1,3 @@
-.btn[data-bs-toggle="collapse"] {
-  $span_sel: "span:first-child";
-
-  & > #{$span_sel} {
-    display: inline-block;
-    transition: transform 0.35s;
-  }
-
-  &:is([aria-expanded="true"]) > #{$span_sel} {
-    transform: rotate(90deg);
-  }
-
-}
-
 .map-with-coords {
   height: min(50vh, 25rem);
 
