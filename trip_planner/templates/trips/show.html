@@ -29,8 +29,6 @@
                     <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
                 </div>
             </div>
-            <!-- <div>Count: {{ points_count }}</div> -->
-
             <div>
             </div>
         </header>
@@ -51,7 +49,7 @@
                                 <h3 class="small item-name">{{ point.name }}</h3>
                                 <address class="item-address">{{ point.address }}</address>
                             </div>
-                            <div class="item-links btn-group" role="group" aria-label="Point controls">
+                            <div class="item-links" role="group" aria-label="Point controls">
                                 <a class="{{ button_classes }} fill pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('explore') }}</a>
                                 <a class="{{ button_classes }} tertiary more-link" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">{{ icon('open_in_new') }}</a>
                                 <a class="{{ button_classes }} secondary edit-link" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">{{ icon('edit') }}</a>

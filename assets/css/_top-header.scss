@@ -1,41 +1,15 @@
-@use "sass:color";
-
-@use "colors" as c;
-
-body > header {
-  margin-bottom: 0.5rem;
-}
-
 .top-navbar {
-  background-image: linear-gradient(to right, $primary, $secondary);
+  // background-image: linear-gradient(to right, $primary, $secondary);
 
-  box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
-
-  .navbar-brand > img {
-    height: 2.5rem;
-  }
-
-  %nav-link {
-    transition: text-shadow 0.1s;
-
-    &:hover,
-    &:focus {
-      text-shadow: color.change($navbar-light-color, $alpha: 0.3) 0 0.1em 0.25em;
-    }
-  }
-
-  .nav-link {
-    @extend %nav-link;
-  }
-
-  .user-dropdown > [data-bs-toggle="dropdown"] {
-    @extend %nav-link;
-    color: $body-color;
-  }
+  // box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
 }
 
 .top-breadcrumbs {
   .breadcrumb {
     margin: 0;
+  }
+
+  .breadcrumb-item.active {
+    font-weight: bold;
   }
 }
