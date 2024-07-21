@@ -1,14 +1,10 @@
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/variables";
-
-@import "./breakpoints";
+@use "./breakpoints" as bp;
 
 .geocode-results {
   display: grid;
 
   grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
-  gap: $spacer;
+  gap: 1rem;
 }
 
 .lat-lon-fields {
@@ -16,7 +12,7 @@
   column-gap: 0.5em;
 
   .fields-hint {
-    color: c.$Gray-350;
+    // color: c.$Gray-350;
     font-size: 200%;
     align-self: start;
     justify-self: start;
@@ -34,7 +30,7 @@
     }
   }
 
-  @media(width >= $break-sm) {
+  @media(width >= bp.$break-sm) {
     column-gap: 1rem;
     grid-template-columns: min(40%, 15rem) min(40%, 15rem) auto;
 

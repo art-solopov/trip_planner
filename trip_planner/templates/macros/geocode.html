@@ -2,7 +2,7 @@
 {% from "macros/icon.html" import icon %}
 
 {% macro geocode_fieldset(field_selector, country_code, data={}) -%}
-    <fieldset class="border rounded p-3" {{ data | xmlattr }}>
+    <fieldset class="vertical-margin padding" {{ data | xmlattr }}>
         <legend>Geocoding</legend>
 
         {% if field_selector -%}
@@ -34,16 +34,18 @@
 {%- endmacro %}
 
 {% macro latlon_fields(lat_field, lon_field, hint=None) -%}
-    <div class="row lat-lon-fields {%- if hint %} lat-lon-fields-with-hint{% endif %}">
-        {% set geo_wrapper_class='field' %}
+    <div class="lat-lon-fields vertical-margin {%- if hint %} lat-lon-fields-with-hint{% endif %}">
+        {% set geo_wrapper_class='' %}
         {{ field(lat_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
         <!-- <span class="ws">&nbsp;</span> -->
         {{ field(lon_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
         {% if hint -%}
-        <button class="chip round">
-            {{ icon('help', classes='fill') }}
-            <span class="tooltip">{{ hint }}</span>
-        </button>
+        <div>
+            <button class="chip round">
+                {{ icon('help', classes='fill') }}
+                <span class="tooltip">{{ hint }}</span>
+            </button>
+        </div>
         {%- endif %}
     </div>
 {%- endmacro %}
