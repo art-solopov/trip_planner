@@ -40,10 +40,11 @@
         <!-- <span class="ws">&nbsp;</span> -->
         {{ field(lon_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
         {% if hint -%}
-        <div>
+        <div class="fields-hint">
             <button class="chip round">
                 {{ icon('help', classes='fill') }}
-                <span class="tooltip">{{ hint }}</span>
+                <span class="tooltip right s">{{ hint }}</span>
+                <span class="tooltip top m l">{{ hint }}</span>
             </button>
         </div>
         {%- endif %}
