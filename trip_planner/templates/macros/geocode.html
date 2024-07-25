@@ -2,16 +2,20 @@
 {% from "macros/icon.html" import icon %}
 
 {% macro geocode_fieldset(field_selector, country_code, data={}) -%}
-    <fieldset class="vertical-margin padding" {{ data | xmlattr }}>
+    <fieldset class="geocode-fieldset vertical-margin padding" {{ data | xmlattr }}>
         <legend>Geocoding</legend>
 
         {% if field_selector -%}
-            <div>
-                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
-                <label for="geocode_field_name">By name</label>
+            <div class="row">
+                <label class="radio">
+                    <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
+                    <span>By name</span>
+                </label>
 
-                <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
-                <label for="geocode_field_address">By address</label>
+                <label class="radio">
+                    <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
+                    <span>By address</span>
+                </label>
             </div>
         {% else %}
             <input name="geocode_field" type="hidden" value="name">

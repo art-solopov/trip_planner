@@ -14,7 +14,7 @@
 @use "geocode";
 @use "trips-index";
 @use "trip-show";
-// @import "point-schedule";
+@use "point-schedule";
 // @import "point-show";
 
 // .main-footer {
@@ -62,3 +62,9 @@
 //   from { opacity: 0; }
 //   to { opacity: 1; }
 // }
+
+/* Utils */
+
+.invisible {
+  display: none;
+}

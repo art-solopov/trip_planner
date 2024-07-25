@@ -24,11 +24,7 @@ form.narrow-form {
 
   grid-template-columns: 1fr auto;
 
-  & > label {
-    grid-area: 1 / 1 / 1 / -1;
-  }
-
-  & > .form-control {
+  & > .field {
     grid-column: 1;
   }
 
@@ -41,22 +37,18 @@ form.narrow-form {
   }
 
   @media (width > bp.$break-sm) {
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: 1fr auto auto;
 
-    & > label {
-      grid-area: 1 / 1 / 1 / 1;
-    }
-
-    & > .form-control {
-      grid-column: 2;
+    & > .field {
+      grid-column: 1;
     }
 
     & > .remove-button {
-      grid-column: 3;
+      grid-column: 2;
     }
 
     & > .add-button {
-      grid-column: 4;
+      grid-column: 3;
     }
   }
 

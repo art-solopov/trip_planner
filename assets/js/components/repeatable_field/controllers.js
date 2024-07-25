@@ -13,13 +13,14 @@ export class RepeatableFieldController extends Controller {
     }
 
     addField() {
-        let control = this.controlTargets[0].cloneNode()
+        let control = this.controlTargets[0].cloneNode(true)
         let removeButton = this.removeButtonTargets[0].cloneNode(true)
+        let controlInput = control.querySelector('input')
         const count = this.countValue + 1
 
-        control.id = replaceVal(control.id, count)
-        control.name = replaceVal(control.name, count)
-        control.value = ''
+        controlInput.id = replaceVal(controlInput.id, count)
+        controlInput.name = replaceVal(controlInput.name, count)
+        controlInput.value = ''
         removeButton.dataset.targetId = replaceVal(removeButton.dataset.targetId, count)
 
         this.addButtonTarget.insertAdjacentElement('beforebegin', control)

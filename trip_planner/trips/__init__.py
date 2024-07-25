@@ -239,6 +239,8 @@ trips.add_app_template_global(ScheduleClasses.HEADER_CELL_CLASS,
                               'schedule_header_cell_class')
 trips.add_app_template_global(ScheduleClasses.COMMON_WEEKDAY_CLASS,
                               'schedule_weekday_class')
+trips.add_app_template_global(ScheduleClasses.CONTROL_WEEKDAY_CLASS,
+                              'schedule_control_cell_class')
 
 
 def trip_point_wrapper(f):

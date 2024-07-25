@@ -19,7 +19,18 @@ $weekday-colors: (
 }
 
 .field-schedule {
-  width: min(22rem, 100%);
+  width: min(24rem, 100%);
+  padding-right: 1em;
+  contain: layout;
+
+  td, th {
+    max-inline-size: initial;
+  }
+
+  td.control {
+    inline-size: max-content;
+    min-inline-size: 2.2em;
+  }
 }
 
 .schedule-buttons {
@@ -27,4 +38,13 @@ $weekday-colors: (
   right: 0;
   display: flex;
   flex-flow: column;
+  z-index: 1;
+
+  button {
+    margin: 0;
+  }
+
+  button + button {
+    margin-top: 0.25em;
+  }
 }

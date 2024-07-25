@@ -1,5 +1,11 @@
 @use "./breakpoints" as bp;
 
+fieldset.geocode-fieldset {
+  .row {
+    margin: 0 0 0.5rem;
+  }
+}
+
 .geocode-results {
   display: grid;
 
