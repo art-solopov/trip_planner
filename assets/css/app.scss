@@ -29,6 +29,10 @@
   min-width: initial;
 }
 
+:is(a, :any-link):not(.button, .chip) {
+  color: var(--primary);
+  text-decoration: underline;
+}
 
 // Link colors
 
