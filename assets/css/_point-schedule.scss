@@ -18,14 +18,21 @@ $weekday-colors: (
   }
 }
 
-.field-schedule {
+.schedule-table {
   width: min(24rem, 100%);
-  padding-right: 1em;
   contain: layout;
 
   td, th {
     max-inline-size: initial;
   }
+
+  .weekday {
+    inline-size: 8ch;
+  }
+}
+
+.field-schedule {
+  padding-right: 1em;
 
   td.control {
     inline-size: max-content;

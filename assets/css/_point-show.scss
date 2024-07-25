@@ -1,48 +1,49 @@
 .show-point {
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  grid-template-areas: "header" "figure" "body";
-  gap: 0.5 * $spacer;
-
-  @include media-breakpoint-up(lg) {
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "header figure" "body figure";
-  }
-
   & > header {
-    grid-area: header;
-    // display: flex;
-    // flex-flow: row wrap;
-    // align-items: flex-start;
-
   }
 
-  & > figure {
-    grid-area: figure;
-    text-align: center;
-    margin: 0;
+  section {
+    margin: 1rem 0;
 
-    img {
-      width: 100%;
+    align-items: stretch;
+
+    & > * {
+      max-width: 100%;
+    }
+
+    & > figure {
+      flex: 1 0 auto;
+
+      text-align: center;
+      margin: 0;
+      float: right;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    & > article {
+      flex: 10 1 min-content;
     }
   }
 
   & > .body {
-    grid-area: body;
   }
 
   .websites {
-    display: flex;
-    flex-flow: row wrap;
+    gap: 0;
 
-    list-style: none;
-    padding: 0;
-    margin: 0 0 $spacer;
+    li {
+      max-width: 100%;
+      overflow: clip;
+      text-overflow: ellipsis;
 
-    li:not(:last-child)::after {
-      content: '|';
-      color: $light;
+      a {
+        white-space: nowrap;
+        display: initial;
+        padding: 0.5em;
+      }
     }
   }
 }

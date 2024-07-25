@@ -232,7 +232,10 @@ def weekday_class(weekday: str) -> str:
     return weekday_classes.get(wday_short, weekday_classes['_default'])
 
 
+# TODO: probably replace with context processor
 trips.add_app_template_filter(weekday_class, 'weekday_class')
+trips.add_app_template_global(ScheduleClasses.SCHEDULE_TABLE_CLASS,
+                              'schedule_table_class')
 trips.add_app_template_global(ScheduleClasses.CELL_CLASS,
                               'schedule_cell_class')
 trips.add_app_template_global(ScheduleClasses.HEADER_CELL_CLASS,

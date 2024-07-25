@@ -15,7 +15,7 @@
 @use "trips-index";
 @use "trip-show";
 @use "point-schedule";
-// @import "point-show";
+@use "point-show";
 
 // .main-footer {
 //     background-color: c.$Gray-50;
@@ -67,4 +67,8 @@
 
 .invisible {
   display: none;
+}
+
+:is(ul, ol).list-no-style {
+  list-style: none;
 }

@@ -10,6 +10,7 @@ from trip_planner.view_classes import ScheduleClasses
 class PointScheduleData:
     WEEKDAYS = 'mon tue wed thu fri sat sun'.split()
 
+    TABLE_CLASS = ScheduleClasses.SCHEDULE_TABLE_CLASS
     COMMON_CELL_CLASS = ScheduleClasses.CELL_CLASS
     COMMON_WDAY_CLASS = ScheduleClasses.COMMON_WEEKDAY_CLASS
     WDAY_CLASSES = ScheduleClasses.WEEKDAYS
@@ -31,7 +32,7 @@ class PointScheduleData:
         return f'<th class="{dow_class}">{day_of_week}</th>'
 
     def _schedule_rows(self):
-        yield '<table class="schedule-table">'
+        yield f'<table class="{self.TABLE_CLASS}">'
 
         for wday in self.WEEKDAYS:
             weekday_data = self.schedule.get(wday)
