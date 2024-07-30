@@ -11,7 +11,7 @@
     <div class="app">
         <header>
             <div class="trip-title row wrap max">
-                <h1 class="small max">
+                <h1 class="max">
                     <div>{{ trip.name }}</div>
                     {#
                     <div class="trip-title-author">
@@ -33,7 +33,7 @@
 
         {%- for g_type, pts in points %}
             <section class="trip-point-items is-{{ g_type | lower }}">
-                <h2 class="h4 tiny-padding">{{ g_type | capitalize }}</h2>
+                <h2 class="small tiny-padding">{{ g_type | capitalize }}</h2>
                 <ul class="bottom-margin">
                     {%- for point in pts %}
                         <li class="trip-point-item small-margin vertical-margin"
@@ -44,7 +44,7 @@
                             data-category="{{ point.type }}"
                             data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
                             <div class="left-margin small-margin">
-                                <h3 class="h6 bold item-name">{{ point.name }}</h3>
+                                <h3 class="small bold item-name">{{ point.name }}</h3>
                                 <address class="item-address">{{ point.address }}</address>
                             </div>
                             <div class="item-links" role="group" aria-label="Point controls">

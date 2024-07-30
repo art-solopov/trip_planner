@@ -1,3 +1,5 @@
+{% from "macros/icon.html" import icon -%}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,14 +27,14 @@
         {% include "_header.html" %}
         {% with messages = get_flashed_messages(with_categories=True) -%}
             {%- if messages %}
-                <div class="top flashes">
+                <section class="top flashes responsive vertical-margin small-margin" aria-label="Flash alerts">
                     {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                            <span>{{ message }}</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></span>
+                        <div class="flash flash-{{ category }}" role="alert" data-controller="flash">
+                            <span class="padding">{{ message }}</span>
+                            <button type="button" class="transparent circle small" aria-label="close" data-action="flash#remove">{{ icon('close') }}</span>
                         </div>
                     {% endfor %}
-                </div>
+                </section>
             {% endif -%}
         {%- endwith %}
         <main class="responsive {{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
