@@ -2,11 +2,12 @@
 
 @use "colors" as c;
 
+// TODO: change
 $weekday-colors: (
-  "default": (c.$Gray-600, white),
-  "fri": (c.$Blue-500, white),
-  "sat": (c.$Fuchsia-100, c.$Fuchsia-700),
-  "sun": (c.$Yellow-100, black),
+  "default": (black, white),
+  "fri": (var(--tertiary), var(--on-tertiary)),
+  "sat": (var(--primary), var(--on-primary)),
+  "sun": (yellow, black),
 );
 
 @each $name, $colors in $weekday-colors {

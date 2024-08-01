@@ -1,7 +1,5 @@
 @use "sass:color";
 
-@use "palette";
-@use "colors" as c;
 @use "breakpoints" as bp;
 
 .trip-map {
@@ -20,7 +18,7 @@
         z-index: 5;
 
         backdrop-filter: blur(7px);
-        border-top: 2px solid c.$Gray-200;
+        border-top: 2px solid var(--secondary);
 
         transition: 0.25s transform;
 
@@ -55,7 +53,8 @@
             }
 
             a {
-                $c: color.change(c.$Gray-400, $alpha: 0.2);
+                // $c: color.change(var(--surface-dim), $alpha: 0.2);
+                $c: hsla(300, 7%, 86%, 0.2); // TODO: remove hardcode
                 border: 2px solid $c;
                 backdrop-filter: blur(15px);
                 border-radius: 2em;
@@ -101,7 +100,7 @@ main.show-trip {
         & > h1 .trip-title-author {
           font-size: 65%;
           font-style: italic;
-          color: c.$Gray-400;
+          color: var(--surface-dim);
           margin-left: 0.5em;
 
           .you {

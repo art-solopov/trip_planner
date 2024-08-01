@@ -32,7 +32,7 @@
 
 {% macro errors(form) -%}
     {%- if form.errors %}
-        <ul class="form-errors alert alert-danger">
+        <ul class="form-errors error-container padding">
             {%- for fname, errors in form.errors.items() %}
                 {% set field_name = form[fname].label.text %}
                 {%- for err in errors %}
@@ -58,7 +58,7 @@
 
 {% macro submit_btn(submit_text, submit_class="success") -%}
     <div class="{{ wrapper_base_class }} top-margin">
-        <button type="submit" class="btn btn-{{ submit_class }}">{{ submit_text | default('Submit') }}</button>
+        <button type="submit" class="{{ submit_class }}">{{ submit_text | default('Submit') }}</button>
     </div>
 {%- endmacro %}
 

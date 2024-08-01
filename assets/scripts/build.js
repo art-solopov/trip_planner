@@ -37,7 +37,7 @@ async function css(outdir) {
         res = await postcss(postcssPlugins).process(res.css, {from: entry, to: outname})
 
         if(isProd()) {
-            let h = createHash('md5').update(res.css).digest('base64')
+            let h = createHash('md5').update(res.css).digest('base64url')
             outname = `${outname}-${h.substring(0, 8)}`
         }
 

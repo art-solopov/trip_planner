@@ -29,20 +29,36 @@
   min-width: initial;
 }
 
-:is(a, :any-link):not(.button, .chip) {
-  color: var(--primary);
+:is(a, :any-link, .link):not(.button, .chip) {
+  color: var(--primary-dark) !important;
   text-decoration: underline;
 }
 
-// Link colors
+.primary-border {
+  border-color: var(--primary-dark) !important;
+}
 
-// .link-secondary {
-//   color: c.$Gray-400 !important; // TODO: remove !important after removing Bootstrap's link utility classes
-//
-//   &:hover, &:focus {
-//     color: c.$Gray-600 !important;
-//   }
-// }
+.primary-text {
+  color: var(--primary-dark) !important;
+}
+
+:is(.checkbox, .radio) > input + span::before {
+  color: var(--primary-dark) !important;
+}
+
+.secondary-border {
+  border-color: var(--secondary-dark) !important;
+}
+
+.secondary-text {
+  color: var(--secondary-dark) !important;
+}
+
+.success {
+  background-color: var(--success);
+  color: var(--on-success);
+}
+
 //
 // dialog {
 //   padding: 0;

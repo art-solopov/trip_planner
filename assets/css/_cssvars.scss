@@ -1,5 +1,7 @@
 /* @link https://utopia.fyi/type/calculator?c=320,16,1.125,1240,20,1.125,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
+@use "colors" as *;
+
 :root {
   --step--2: clamp(0.7901rem, 0.7214rem + 0.3435vw, 0.9877rem);
   --step--1: clamp(0.8889rem, 0.8116rem + 0.3865vw, 1.1111rem);
@@ -11,4 +13,25 @@
   --step-5: clamp(1.802rem, 1.6453rem + 0.7835vw, 2.2525rem);
   --step-6: clamp(2.0273rem, 1.851rem + 0.8814vw, 2.5341rem);
   --step-7: clamp(2.2807rem, 2.0824rem + 0.9916vw, 2.8509rem);
+}
+
+/* Color scheme */
+
+:root {
+  --primary: #{color("primary", "light")};
+  --primary-dark: #{color("primary", "meddark")};
+  --on-primary: var(--on-surface);
+  --primary-container: #{color("primary", "superlight")};
+  --on-primary-container: var(--on-surface);
+  --secondary: #{color("secondary", "superlight")};
+  --secondary-dark: #{color("secondary", "dark")};
+  --on-secondary: var(--secondary-dark);
+  --secondary-container: var(--secondary);
+  --on-secondary-container: var(--on-surface);
+  --success: #{color("success", "medium")};
+  --on-success: var(--inverse-on-surface);
+  --success-container: #{color("success", "superlight")};
+  --on-success-container: var(--on-surface);
+
+  --highlight: #{color("highlight", "medium")};
 }

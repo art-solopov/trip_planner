@@ -11,7 +11,7 @@ ul.trips {
 
   a {
     display: block;
-    $shadow-color: c.$Fuchsia-200;
+    $shadow-color: var(--highlight);
     // --hover-shadow: 0.25em 0.25em 0.5em #{c.$Fuchsia-400};
 
     box-shadow: none;
