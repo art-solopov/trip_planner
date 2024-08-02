@@ -23,10 +23,20 @@
 // }
 
 /* Overrides */
-.mapboxgl-ctrl-group button {
-  border-radius: 0;
+.mapboxgl-control-container {
+  position: initial;
+}
+
+:is(.mapboxgl-ctrl-group, .mapboxgl-ctrl-attrib) :is(.mapboxgl-ctrl button) {
   margin: 0;
   min-width: initial;
+  padding: 0;
+  border-radius: revert;
+
+  &:hover,
+  &:focus {
+    box-shadow: none;
+  }
 }
 
 :is(a, :any-link, .link):not(.button, .chip, menu a) {
@@ -59,7 +69,6 @@
   color: var(--on-success);
 }
 
-//
 // dialog {
 //   padding: 0;
 //   border: $border-width $border-style $border-color;
