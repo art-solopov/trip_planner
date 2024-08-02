@@ -1,7 +1,5 @@
 import {iconsUrl} from '../../../utils'
 
-import styles from './move-marker-styles.module.css'
-
 export default class MoveMarkerControl {
     constructor(marker) {
         this._marker = marker
@@ -12,7 +10,7 @@ export default class MoveMarkerControl {
         this._container = document.createElement('div');
         this._container.innerHTML = `
         <button title="Marker to center" data-action="map-pointer#setCoordinates" data-map-pointer-source-param="map">
-            <svg class="${styles.icon}"><use xlink:href="${iconsUrl}#bullseye"></svg>
+            <i class="icon">target</i>
         </button>
         `
         this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
