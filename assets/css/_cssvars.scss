@@ -18,6 +18,16 @@
 /* Color scheme */
 
 :root {
+  --surface: hsl(0, 0%, 97%);
+  --surface-container-low: hsl(0, 0%, 94%);
+  --surface-container: hsl(0, 0%, 90%);
+  --surface-container-high: hsl(0, 0%, 85%);
+  --surface-container-highest: hsl(0, 0%, 79%);
+  --on-surface: hsl(0, 0%, 13%);
+
+  --inverse-surface: var(--on-surface);
+  --inverse-on-surface: var(--surface);
+
   --primary: #{color("primary", "light")};
   --primary-dark: #{color("primary", "meddark")};
   --on-primary: var(--on-surface);
@@ -32,6 +42,17 @@
   --on-success: var(--inverse-on-surface);
   --success-container: #{color("success", "superlight")};
   --on-success-container: var(--on-surface);
+  --tertiary: #{color("tertiary", "meddark")};
+  --on-tertiary: var(--inverse-on-surface);
+  --tertiary-container: #{color("tertiary", "superlight")};
+  --on-tertiary-container: #{color("tertiary", "dark")};
 
-  --highlight: #{color("highlight", "medium")};
+  --highlight: #{color("highlight", "medlight")};
+}
+
+@supports (background-color: color-mix(in lch, black, white)) {
+  :root {
+    --surface-variant: color-mix(in lch, var(--secondary), var(--surface));
+    --on-surface-variant: var(--secondary-dark);
+  }
 }

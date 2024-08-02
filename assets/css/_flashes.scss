@@ -8,13 +8,8 @@
     justify-content: space-between;
 
     &.flash-success {
-      /*
       background-color: var(--success-container);
       color: var(--on-success-container);
-      */
-      // TODO: temporary while there's no success in the palette
-      background-color: var(--tertiary-container);
-      color: var(--on-tertiary-container);
     }
 
     &.flash-danger {

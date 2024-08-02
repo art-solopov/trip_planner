@@ -3,6 +3,7 @@
 $-lights: (
   superlight: 90,
   light: 83,
+  medlight: 63,
   medium: 57,
   meddark: 50,
   dark: 40,
@@ -16,7 +17,8 @@ $-palette: (
       superlight: 0.07,
       light: 0.088,
       medium: 0.135,
-      meddark: 0.1
+      meddark: 0.1,
+      dark: 0.066
     )
   ),
   secondary: (
@@ -27,9 +29,19 @@ $-palette: (
       dark: 0.095
     )
   ),
+  tertiary: (
+    hue: 307,
+    chroma: (
+      superlight: 0.06,
+      medium: 0.14,
+      meddark: 0.11,
+      dark: 0.075
+    )
+  ),
   highlight: (
     hue: 1.1,
     chroma: (
+      medlight: 0.225,
       medium: 0.21,
       meddark: 0.175
     )

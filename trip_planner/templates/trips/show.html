@@ -10,7 +10,7 @@
     </div>
     <div class="app">
         <header>
-            <div class="trip-title row wrap max">
+            <div class="trip-title row wrap max small-margin vertical-margin">
                 <h1 class="max">
                     <div>{{ trip.name }}</div>
                     {#
@@ -32,7 +32,7 @@
         </header>
 
         {%- for g_type, pts in points %}
-            <section class="trip-point-items is-{{ g_type | lower }}">
+            <section class="trip-point-items is-{{ g_type | lower }} vertical-margin">
                 <h2 class="small tiny-padding">{{ g_type | capitalize }}</h2>
                 <ul class="bottom-margin">
                     {%- for point in pts %}

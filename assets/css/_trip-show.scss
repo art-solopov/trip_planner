@@ -73,10 +73,10 @@
 main.show-trip {
     display: flex;
     flex-flow: column;
+    gap: 0.5rem;
 
     @media(width > bp.$break-md) {
         flex-flow: row nowrap;
-        gap: 0.5rem;
 
         // Height hack, TODO rework later
         flex: 0 0 calc(100vh - 9rem);

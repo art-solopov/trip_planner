@@ -1,21 +1,24 @@
-<header class="primary-container medium-elevate">
+{% from "macros/icon.html" import icon %}
+{% set header_button_classes = "button tertiary" -%}
+
+<header class="top-header primary-container medium-elevate">
     <nav>
         <a href="/" class="button square extra transparent">
             <img src="{{ url_for('static', filename='favicon.svg') }}" class="responsive" alt="Trip planner">
         </a>
         <div class="max"></div>
         {% if g.user %}
-            <!-- <div class="dropdown ms-auto user-dropdown"> -->
-            <!--     <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ g.user.username }}</button> -->
-            <!--     <ul class="dropdown-menu"> -->
-            <!--         <li><a class="dropdown-item" href="{{ url_for('auth.change_password') }}">Change password</a></li> -->
-            <!--         <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Sign out</a></li> -->
-            <!--     </ul> -->
-            <!-- </div> -->
-            <div>{{ g.user.username }}</div>
-            <a class="button fill" href="{{ url_for('auth.logout') }}">Sign out</a>
+            {# TODO: replace with something different #}
+            <button class="transparent">
+                <span>{{ g.user.username }}</span>
+                {{ icon('arrow_drop_down') }}
+                <menu>
+                    <a href="{{ url_for('auth.change_password') }}">Change password</a>
+                    <a href="{{ url_for('auth.logout') }}">Sign out</a>
+                </menu>
+            </button>
         {% else %}
-            <a class="button fill" href="{{ url_for('auth.login') }}">Sign in</a>
+            <a class="{{ header_button_classes }}" href="{{ url_for('auth.login') }}">Sign in</a>
         {% endif %}
     </nav>
 </header>

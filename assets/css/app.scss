@@ -29,7 +29,7 @@
   min-width: initial;
 }
 
-:is(a, :any-link, .link):not(.button, .chip) {
+:is(a, :any-link, .link):not(.button, .chip, menu a) {
   color: var(--primary-dark) !important;
   text-decoration: underline;
 }
