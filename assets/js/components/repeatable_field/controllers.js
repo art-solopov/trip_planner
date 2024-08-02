@@ -31,7 +31,7 @@ export class RepeatableFieldController extends Controller {
 
     removeField(event) {
         const removeButton = event.target.closest('button')
-        const control = this.controlTargets.find(e => e.id === removeButton.dataset.targetId)
+        const control = this.controlTargets.find(e => e.querySelector('input').id === removeButton.dataset.targetId)
         
         control.remove()
         removeButton.remove()
