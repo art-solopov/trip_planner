@@ -2,16 +2,20 @@
 {% from "macros/icon.html" import icon %}
 
 {% macro geocode_fieldset(field_selector, country_code, data={}) -%}
-    <fieldset class="border rounded p-3" {{ data | xmlattr }}>
+    <fieldset class="geocode-fieldset vertical-margin padding" {{ data | xmlattr }}>
         <legend>Geocoding</legend>
 
         {% if field_selector -%}
-            <div>
-                <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
-                <label for="geocode_field_name">By name</label>
+            <div class="row">
+                <label class="radio">
+                    <input name="geocode_field" type="radio" id="geocode_field_name" value="name" data-geocode-target="geocodeField" checked>
+                    <span>By name</span>
+                </label>
 
-                <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
-                <label for="geocode_field_address">By address</label>
+                <label class="radio">
+                    <input name="geocode_field" type="radio" id="geocode_field_address" value="address" data-geocode-target="geocodeField">
+                    <span>By address</span>
+                </label>
             </div>
         {% else %}
             <input name="geocode_field" type="hidden" value="name">
@@ -34,13 +38,19 @@
 {%- endmacro %}
 
 {% macro latlon_fields(lat_field, lon_field, hint=None) -%}
-    <div class="lat-lon-fields {%- if hint %} lat-lon-fields-with-hint{% endif %}">
-        {% set geo_wrapper_class='field' %}
+    <div class="lat-lon-fields vertical-margin {%- if hint %} lat-lon-fields-with-hint{% endif %}">
+        {% set geo_wrapper_class='' %}
         {{ field(lat_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lat')) }}
         <!-- <span class="ws">&nbsp;</span> -->
         {{ field(lon_field, wrapper_class=geo_wrapper_class, field_kwargs=geocode_field_kwargs('lon')) }}
         {% if hint -%}
-        <div class="fields-hint" data-controller="bs-tooltip" title="{{ hint }}">{{ icon('patch-question-fill') }}</div>
+        <div class="fields-hint">
+            <button class="chip round">
+                {{ icon('help', classes='fill') }}
+                <span class="tooltip right s">{{ hint }}</span>
+                <span class="tooltip top m l">{{ hint }}</span>
+            </button>
+        </div>
         {%- endif %}
     </div>
 {%- endmacro %}

@@ -16,9 +16,10 @@
 {%- endmacro %}
 
 {% macro collapsible_map(title, el_id, latlon, collapsed=True) -%}
-    {% call collapsible("Map", el_id=el_id, collapsed=collapsed) %}
-    <div class="map-with-coords" hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="shown.bs.collapse once from:closest .collapse"></div>
-    {% endcall %}
+    <details>
+        <summary>Map</summary>
+        <div class="map-with-coords" hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="intersect once"></div>
+    </details>
 {%- endmacro %}
 
 {% macro map_pointer_mount(center_lat, center_lon) %}

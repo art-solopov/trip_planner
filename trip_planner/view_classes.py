@@ -6,9 +6,11 @@ class ScheduleClasses:
         'sun': 'wday-sun'
     }
 
-    CELL_CLASS = 'p-2'
-    HEADER_CELL_CLASS = f"{CELL_CLASS} fw-bold text-center"
-    COMMON_WEEKDAY_CLASS = 'fw-bold'
+    SCHEDULE_TABLE_CLASS = "schedule-table"
+    CELL_CLASS = ''
+    HEADER_CELL_CLASS = f"{CELL_CLASS} bold text-center"
+    COMMON_WEEKDAY_CLASS = 'weekday bold'
+    CONTROL_WEEKDAY_CLASS = 'control'
 
 
 class ViewClasses:

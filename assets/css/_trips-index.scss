@@ -5,9 +5,13 @@ ul.trips {
   padding: 0;
   column-width: 20ch;
 
+  li {
+    break-inside: avoid;
+  }
+
   a {
     display: block;
-    $shadow-color: c.$Fuchsia-200;
+    $shadow-color: var(--highlight);
     // --hover-shadow: 0.25em 0.25em 0.5em #{c.$Fuchsia-400};
 
     box-shadow: none;

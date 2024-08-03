@@ -9,7 +9,8 @@ export class ScheduleController extends Controller {
         this.buttonsTarget.classList.remove('invisible')
         let currentRow = ev.target.closest('tr')
         this.currentRow = currentRow
-        this.buttonsTarget.style.top = `${currentRow.offsetTop}px`
+        let offsetTop = currentRow.offsetTop + currentRow.closest('tbody').offsetTop
+        this.buttonsTarget.style.top = `${offsetTop}px`
     }
 
     copyNext(_ev) {

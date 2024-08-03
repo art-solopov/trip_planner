@@ -7,22 +7,27 @@
 {% block main %}
     <h1>{{ title }}</h1>
     {% set center_lat, center_lon = latlon %}
-    <div class="map-with-coords">
-        {{ map_pointer_mount(center_lat, center_lon) }}
-    </div>
 
     <form id="trip_form" method="POST" action="">
         {{ errors(form) }}
 
         {{ form.hidden_tag() }}
 
-        {{ field(form.name, wrapper_class="lg:w-100") }}
+        <div class="grid">
+            <div class="s12 m6">
+                <div class="map-with-coords">
+                    {{ map_pointer_mount(center_lat, center_lon) }}
+                </div>
+            </div>
+            <div class="s12 m6">
+                {{ field(form.name, wrapper_class="lg:w-100") }}
+                {{ field_select(form.country_code) }}
+            </div>
+        </div>
 
         {{ latlon_fields(form.center_lat, form.center_lon, 'These coordinates determine how the trip is displayed with no points') }}
 
         {{ geocode_fieldset(field_selector=False, country_code='', data={'data-action': 'geocode:set->map-pointer#moveMap'}) }}
-
-        {{ field_select(form.country_code) }}
 
         {{ submit_btn(submit_text) }}
     </form>

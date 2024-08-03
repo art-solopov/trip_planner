@@ -1,3 +1,20 @@
 .flashes {
-  margin-block: 0.5rem;
+  // margin-block: 0.5rem;
+
+  .flash {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    &.flash-success {
+      background-color: var(--success-container);
+      color: var(--on-success-container);
+    }
+
+    &.flash-danger {
+      background-color: var(--error-container);
+      color: var(--on-error-container);
+    }
+  }
 }

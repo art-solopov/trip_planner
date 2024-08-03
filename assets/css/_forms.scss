@@ -1,21 +1,30 @@
 @use "sass:map";
+@use "breakpoints" as bp;
 
 form.narrow-form {
   max-width: 36em;
   margin-inline: auto;
 }
 
+.form-field {
+  label {
+    font-size: 1em;
+    font-weight: 500;
+  }
+
+  .field {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 .repeatable-field {
   display: grid;
-  gap: map.get($spacers, 2);
+  gap: 0.5rem;
 
   grid-template-columns: 1fr auto;
 
-  & > label {
-    grid-area: 1 / 1 / 1 / -1;
-  }
-
-  & > .form-control {
+  & > .field {
     grid-column: 1;
   }
 
@@ -27,23 +36,19 @@ form.narrow-form {
     grid-column: 1 / -1;
   }
 
-  @include media-breakpoint-up(md) {
-    grid-template-columns: auto 1fr auto auto;
+  @media (width > bp.$break-sm) {
+    grid-template-columns: 1fr auto auto;
 
-    & > label {
-      grid-area: 1 / 1 / 1 / 1;
-    }
-
-    & > .form-control {
-      grid-column: 2;
+    & > .field {
+      grid-column: 1;
     }
 
     & > .remove-button {
-      grid-column: 3;
+      grid-column: 2;
     }
 
     & > .add-button {
-      grid-column: 4;
+      grid-column: 3;
     }
   }
 

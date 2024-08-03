@@ -79,7 +79,7 @@ function addPointsMarkers(map, points) {
         el.dataset.pointId = point.id
 
         el.innerHTML = [
-            `<svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#geo-alt-fill"></svg>`,
+            `<svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#marker" /></svg>`,
             `<img class=${styles.markerIcon} src=${icons[point.category]}></img>`
         ].join("\n")
 

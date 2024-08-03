@@ -1,9 +1,6 @@
 @use "sass:color";
 
-@use "palette";
-@use "colors" as c;
-
-@import "./breakpoints";
+@use "breakpoints" as bp;
 
 .trip-map {
     min-height: 60vh;
@@ -21,7 +18,7 @@
         z-index: 5;
 
         backdrop-filter: blur(7px);
-        border-top: 2px solid c.$Gray-200;
+        border-top: 2px solid var(--surface-container-highest);
 
         transition: 0.25s transform;
 
@@ -29,7 +26,7 @@
           transform: translateY(100%);
         }
 
-        .btn-close {
+        .button-close {
           float: right;
           margin-right: 0.25rem;
           margin-top: 0.25rem;
@@ -56,43 +53,42 @@
             }
 
             a {
-                $c: color.change(c.$Gray-400, $alpha: 0.2);
-                border: 2px solid $c;
+                border: 2px solid var(--surface-container-highest);
                 backdrop-filter: blur(15px);
                 border-radius: 2em;
+                color: var(--on-surface);
 
                 &:hover,
                 &:focus {
-                    background-color: $c;
+                    background-color: hsl(0 0% 79% / 0.2);
                 }
             }
         }
     }
 }
 
-.show-trip {
+// Had to add main to prevent beer.css from overriding.
+// TODO: maybe extract into a styles mixin and add to layer
+main.show-trip {
     display: flex;
     flex-flow: column;
+    gap: 0.5rem;
 
-    @include media-breakpoint-up(lg) {
+    @media(width > bp.$break-md) {
         flex-flow: row nowrap;
-        gap: 0.5rem;
 
         // Height hack, TODO rework later
-        height: calc(100vh - 9rem);
+        flex: 0 0 calc(100vh - 9rem);
 
         .app {
             flex-grow: 1;
+            overflow-y: scroll;
         }
 
         .trip-map {
             order: 1;
             flex-basis: 60%;
         }
-    }
-
-    .app {
-        overflow-y: scroll;
     }
 
     .trip-title {
@@ -103,7 +99,7 @@
         & > h1 .trip-title-author {
           font-size: 65%;
           font-style: italic;
-          color: c.$Gray-400;
+          color: var(--surface-dim);
           margin-left: 0.5em;
 
           .you {
@@ -114,17 +110,17 @@
 }
 
 .trip-point-items {
-    & > * {
-        padding-inline: 1rem;
-    }
-
-    ul {
-        list-style: none;
-    }
-
-    h2 {
-        margin-bottom: 0.5em;
-    }
+    // & > * {
+    //     padding-inline: 1rem;
+    // }
+    //
+    // ul {
+    //     list-style: none;
+    // }
+    //
+    // h2 {
+    //     margin-bottom: 0.5em;
+    // }
 
     --decoration-color: var(--type-color, #aaa);
 
@@ -140,7 +136,11 @@
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 0.25em;
-    margin-bottom: 0.25em;
-    border-bottom: 2px dotted palette.$border-color;
+    // padding-bottom: 0.25em;
+    // margin-bottom: 0.25em;
+    // border-bottom: 2px dotted palette.$border-color;
+
+    .item-links {
+      white-space: nowrap;
+    }
 }

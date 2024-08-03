@@ -70,7 +70,8 @@ def _update_password(user, password):
 def _render_password_change_form(form):
     return render_template('form.html', form=form, form_class=ViewClasses.AUTH_FORM,
                            title='Change password',
-                           submit_text='Change password')
+                           submit_text='Change password',
+                           description=form.DESCRIPTION)
 
 
 @auth.route('/change_password', methods=('GET', 'POST'))

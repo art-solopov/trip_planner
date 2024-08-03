@@ -11,7 +11,7 @@ const esbuild = require('esbuild')
 const bsImporter = {
     findFileUrl(url) {
         if(!url.startsWith('~bootstrap')) return null;
-        return pathToFileURL(url.replace(/^~bootstrap/, 'assets/vendor/bootstrap/'))
+        // return pathToFileURL(url.replace(/^~bootstrap/, 'assets/vendor/bootstrap/'))
     }
 }
 
@@ -22,7 +22,7 @@ const postcssPlugins = [
     require('autoprefixer')
 ]
 
-const cssEntrypoints = ['twbs', 'app'].map(e => `assets/css/${e}.scss`) 
+const cssEntrypoints = ['app'].map(e => `assets/css/${e}.scss`) 
 const jsEntrypoints = ['app', 'trip_form', 'trip_show', 'point_form'].map(e => `assets/js/${e}.js`)
 
 function isProd() {
@@ -37,7 +37,7 @@ async function css(outdir) {
         res = await postcss(postcssPlugins).process(res.css, {from: entry, to: outname})
 
         if(isProd()) {
-            let h = createHash('md5').update(res.css).digest('base64')
+            let h = createHash('md5').update(res.css).digest('base64url')
             outname = `${outname}-${h.substring(0, 8)}`
         }
 
@@ -63,7 +63,7 @@ async function js(outdir) {
         publicPath: '/static/assets', // TODO: maybe inject from outside
         format: 'esm',
         alias: {
-            bootstrap: './assets/vendor/bootstrap'
+            // bootstrap: './assets/vendor/bootstrap'
         },
         loader: {
             '.svg': 'file'

@@ -3,24 +3,36 @@
 
 {% block main %}
     <header>
-        <div class="point-title">
-            <h1>{{ point.name }}</h1>
-            <address>{{ point.address }}</address>
-
-            {% if point.websites %}
-                <ul class="websites">
-                    {% for website in point.websites %}<li><a class="btn btn-link" href="{{ website }}" target="_blank">{{ website }}&nbsp;{{icon('box-arrow-up-right')}}</a></li>{% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <div class="buttons">
-            <a class="btn btn-secondary" href="{{ url_for('.edit_point', key=point.trip.key, id=point.id) }}" hx-boost="true">{{ icon('pencil') }}&nbsp;Edit</a>
+        <div class="row no-space wrap bottom-margin medium-margin">
+            <div class="point-title max">
+                <h1>{{ point.name }}</h1>
+            </div>
+            <div class="buttons">
+                <a class="button secondary" href="{{ url_for('.edit_point', key=point.trip.key, id=point.id) }}" hx-boost="true">{{ icon('edit') }}&nbsp;Edit</a>
+            </div>
         </div>
     </header>
 
-    <figure class="figure">
-        <img class="figure-img map-image" src="{{ data.point_map_url }}">
-    </figure>
+    <section class="row wrap">
+        <figure class="figure">
+            <img class="figure-img map-image" src="{{ data.point_map_url }}">
+        </figure>
+
+        <article>
+            <address>{{ point.address }}</address>
+
+            {% if point.websites %}
+            <ul class="websites row wrap list-no-style">
+                {% for website in point.websites %}
+                    {% if not loop.first -%}
+                        <li>•</li>
+                    {%- endif %}
+                    <li><a class="btn btn-link" href="{{ website }}" target="_blank">{{ website }}&nbsp;{{icon('open_in_new')}}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </article>
+    </section>
     
     <section class="body">
         {% if point.notes and not point.notes.isspace() %}

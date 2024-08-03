@@ -1,17 +1,17 @@
 {% if result.is_success %}
     {% if result.value %}
-        <div class="geocode-results mt-2" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
+        <div class="geocode-results vertical-margin small-margin" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
         {% for res in result.value %}
-            <div class="result card" data-lat="{{ res.lat }}" data-lon="{{ res.lon }}">
-                <div class="card-header">
-                    <button type="button" class="btn btn-info" data-action="click->geocode#setData">Save</button>
-                </div>
-                <div class="card-body">
+            <article class="result no-padding no-margin" data-lat="{{ res.lat }}" data-lon="{{ res.lon }}">
+                <img class="responsive large" src="{{ res.map_url }}">
+                <div class="padding">
                     <h3 class="name h5">{{ res.name }}</h3>
                     <div class="address">{{ res.address }}</div>
+                    <nav>
+                        <button type="button" class="tertiary" data-action="click->geocode#setData">Save</button>
+                    </nav>
                 </div>
-                <img class="preview card-img-bottom" src="{{ res.map_url }}">
-            </div>
+            </article>
         {% endfor %}
         </div>
     {% else %}

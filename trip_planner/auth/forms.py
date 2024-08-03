@@ -10,6 +10,11 @@ class LoginForm(FlaskForm):
 
 
 class PasswordChangeForm(FlaskForm):
+    DESCRIPTION = '''
+    Your password should be 8-70 characters long
+    and have an uppercase letter, a lowercase letter and a number
+    '''
+
     current_password = PasswordField('Current password', validators=[DataRequired()])
     new_password = PasswordField(
         'New password', validators=[
@@ -17,9 +22,6 @@ class PasswordChangeForm(FlaskForm):
             Length(min=8, max=70),
             Regexp(r'.*\d.*', message='must have a number'),
             ],
-        description=('Your password should be 8-70 characters long '
-                     'and have an uppercase letter, a lowercase letter and a number'
-                     )
         )
     password_confirmation = PasswordField('Confirm password', validators=[DataRequired()])
 

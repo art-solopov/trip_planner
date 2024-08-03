@@ -3,5 +3,9 @@
 {% block main %}
     <h1>{{ title }}</h1>
 
+    {% if description -%}
+        <div class="surface-container small-padding vertical-margin">{{ description }}</div>
+    {%- endif %}
+
     {% include "_form.html" with context %}
 {% endblock %}

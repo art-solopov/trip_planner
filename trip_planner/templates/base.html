@@ -1,3 +1,5 @@
+{% from "macros/icon.html" import icon -%}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,47 +7,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Trip planner</title>
-        {# Emoji icon #}
         <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}">
         <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
         <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
 
         {# TODO: replace CDNs with proper vendoring #}
-        <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" async></script>
+        <script src="{{ url_for('static', filename='vendor/htmx.min.js') }}" async></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link href="{{ url_for('static', filename='vendor/beer.min.css') }}" rel="stylesheet">
+        <script type="module" src="{{ url_for('static', filename='vendor/beer.min.js') }}"></script>
 
-        {{ style_tag('twbs') }}
+        <meta name="js:icons_url" content="{{url_for('static', filename='vendor/icons.svg')}}">
+
         {{ style_tag('app') }}
         {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}
-
-        <meta name="js:icons_url" content="{{url_for('static', filename='vendor/bootstrap-icons.svg')}}">
     </head>
     <body>
         {% include "_header.html" %}
-        <div class="container">
-            {% with messages = get_flashed_messages(with_categories=True) -%}
-                {%- if messages %}
-                    <div class="flashes">
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                                <span>{{ message }}</span>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif -%}
-            {%- endwith %}
-            <main class="{{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
-                {% block main %}{% endblock %}
-            </main>
-            <footer class="main-footer py-2 px-3 mt-2 text-center">
-                <p>© Artemiy Solopov, 2019–2023</p>
-                <p>All map data © OpenStreetMaps</p>
-                <p>Icons by <a href="https://icons.getbootstrap.com/">Bootstrap</a></p>
-            </footer>
-        </div>
+        {% with messages = get_flashed_messages(with_categories=True) -%}
+            {%- if messages %}
+                <section class="top flashes responsive vertical-margin small-margin" aria-label="Flash alerts">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}" role="alert" data-controller="flash">
+                            <span class="padding">{{ message }}</span>
+                            <button type="button" class="transparent circle small" aria-label="close" data-action="flash#remove">{{ icon('close') }}</span>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif -%}
+        {%- endwith %}
+        <main class="responsive {{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
+            {% block main %}{% endblock %}
+        </main>
 
-        <dialog id="form_dialog"></dialog>
+        <footer class="responsive">
+            <p>© Artemiy Solopov, 2019–2024</p>
+            <p>All map data © OpenStreetMaps</p>
+            <!-- <p>Icons by <a href="https://icons.getbootstrap.com/">Bootstrap</a></p> -->
+            <p>Icons by <a href="https://fonts.google.com/icons">Google</a> and <a href="https://labs.mapbox.com/maki-icons/">Mapbox</a></p>
+        </footer>
+
+        <dialog id="form_dialog" class="surface-container-low"></dialog>
         {%- block extra_body %}{% endblock %}
     </body>
 </html>

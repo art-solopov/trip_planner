@@ -1,56 +1,103 @@
 @use "colors" as c;
 @use "sass:color";
 
-// @import "~bootstrap/scss/bootstrap";
-@import "prelude";
-@import "buttons";
-@import "links";
-@import "layout";
-@import "icons";
-@import "flashes";
-@import "top-header";
-@import "forms";
-@import "map-with-coords";
-@import "geocode";
-@import "trips-index";
-@import "trip-show";
-@import "point-schedule";
-@import "point-show";
+@use "cssvars";
+@use "typography";
+// @import "buttons";
+// @import "links";
+// @import "layout";
+// @import "icons";
+@use "flashes";
+@use "top-header";
+@use "forms";
+@use "map-with-coords";
+@use "geocode";
+@use "trips-index";
+@use "trip-show";
+@use "point-schedule";
+@use "point-show";
 
-.main-footer {
-    background-color: c.$Gray-50;
-    color: c.$Gray-400;
+// .main-footer {
+//     background-color: c.$Gray-50;
+//     color: c.$Gray-400;
+// }
+
+/* Overrides */
+.mapboxgl-control-container {
+  position: initial;
 }
 
-// Link colors
-
-.link-secondary {
-  color: c.$Gray-400 !important; // TODO: remove !important after removing Bootstrap's link utility classes
-
-  &:hover, &:focus {
-    color: c.$Gray-600 !important;
-  }
-}
-
-dialog {
+:is(.mapboxgl-ctrl-group, .mapboxgl-ctrl-attrib) :is(.mapboxgl-ctrl button) {
+  margin: 0;
+  min-width: initial;
   padding: 0;
-  border: $border-width $border-style $border-color;
-  border-radius: $border-radius-lg;
+  border-radius: revert;
 
-  &::backdrop {
-    background-color: color.change(c.$Gray-600, $alpha: 0.7);
-  }
-  & > * {
-    padding: $spacer (2 * $spacer);
-  }
-
-  // Animation
-  &[open] {
-    animation: dialogFadeIn 0.2s ease normal;
+  &:hover,
+  &:focus {
+    box-shadow: none;
   }
 }
 
-@keyframes dialogFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+:is(a, :any-link, .link):not(.button, .chip, menu a) {
+  color: var(--primary-dark) !important;
+  text-decoration: underline;
+}
+
+.primary-border {
+  border-color: var(--primary-dark) !important;
+}
+
+.primary-text {
+  color: var(--primary-dark) !important;
+}
+
+:is(.checkbox, .radio) > input + span::before {
+  color: var(--primary-dark) !important;
+}
+
+.secondary-border {
+  border-color: var(--secondary-dark) !important;
+}
+
+.secondary-text {
+  color: var(--secondary-dark) !important;
+}
+
+.success {
+  background-color: var(--success);
+  color: var(--on-success);
+}
+
+// dialog {
+//   padding: 0;
+//   border: $border-width $border-style $border-color;
+//   border-radius: $border-radius-lg;
+//
+//   &::backdrop {
+//     background-color: color.change(c.$Gray-600, $alpha: 0.7);
+//   }
+//   & > * {
+//     padding: $spacer (2 * $spacer);
+//   }
+//
+//   // Animation
+//   &[open] {
+//     animation: dialogFadeIn 0.2s ease normal;
+//   }
+// }
+//
+// @keyframes dialogFadeIn {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+
+/* Utils */
+
+.invisible {
+  display: none;
+}
+
+:is(ul, ol).list-no-style {
+  list-style: none;
 }
