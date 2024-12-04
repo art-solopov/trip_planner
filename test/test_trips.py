@@ -87,7 +87,7 @@ class TestTripTouches:
         self._check_trip_touched()
 
     def _check_trip_touched(self):
-        today = dt.datetime.combine(dt.date.today(), dt.time())
+        today = dt.datetime.combine(dt.datetime.utcnow().date(), dt.time())
         db.session.refresh(self.trip)
         assert self.trip.created_at < today
         assert self.trip.updated_at > today
