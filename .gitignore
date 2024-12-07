@@ -120,7 +120,7 @@ node_modules
 trip_planner/static/css
 trip_planner/static/js
 trip_planner/static/assets
-trip_planner/static/assets
+trip_planner/static/favicon.svg
 
 tmp
 log

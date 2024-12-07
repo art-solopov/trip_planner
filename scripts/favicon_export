@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex
+
+inkscape --export-type=svg -l -o trip_planner/static/favicon.svg assets/favicon/travelpiggy-icon.svg
