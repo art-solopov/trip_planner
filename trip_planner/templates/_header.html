@@ -9,7 +9,7 @@
         <div class="max"></div>
         {% if g.user %}
             {# TODO: replace with something different #}
-            <button class="transparent">
+            <button class="{{ header_button_classes }}">
                 <span>{{ g.user.username }}</span>
                 {{ icon('arrow_drop_down') }}
                 <menu>
