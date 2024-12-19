@@ -5,6 +5,7 @@ on: push
 
 env:
   PYTHON_VERSION: 3.10.5
+  NODE_VERSION: 20.11.1
 
 jobs:
   requirements_txt:
@@ -71,7 +72,7 @@ jobs:
     - name: Install NodeJS
       uses: actions/setup-node@v4
       with:
-        node-version: 20.11.1
+        node-version: ${{ env.NODE_VERSION }}
         cache: yarn
     - run: yarn install --immutable --check-cache
     - name: build assets
@@ -89,9 +90,18 @@ jobs:
       CMD: "inkscape trip_planner/static/favicon.svg"
     steps:
     - uses: actions/checkout@v4
+    - name: Install NodeJS
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
     - name: Install Inkscape
       run: sudo apt-get update && sudo apt-get install inkscape
+    - name: Install svgo
+      run: npm install -g svgo
     - run: mkdir -p "$OUTDIR"
+    - name: Favicon
+      run: scripts/favicon_export && svgo -i trip_planner/static/favicon.svg
+      # TODO: deduplicate favicon path
     - name: Apple icon
       run: >
         ${{ env.CMD }} -w 180 -o "$OUTDIR/apple-touch-icon.png"
@@ -99,6 +109,10 @@ jobs:
       run: >
         ${{ env.CMD }} -w 192 -o "$OUTDIR/icon-192.png" &&
         ${{ env.CMD }} -w 512 -o "$OUTDIR/icon-512.png"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: favicon.svg
+        path: trip_planner/static/favicon.svg
     - uses: actions/upload-artifact@v4
       with:
         name: favicons
@@ -121,6 +135,10 @@ jobs:
       with:
         name: favicons
         path: trip_planner/static/favicons
+    - uses: actions/download-artifact@v4
+      with:
+        name: favicon.svg
+        path: trip_planner/static/favicon.svg
     - uses: actions/download-artifact@v4
       with:
         name: requirements.txt

@@ -4,12 +4,12 @@
 <header class="top-header primary-container medium-elevate">
     <nav>
         <a href="/" class="button square extra transparent">
-            <img src="{{ url_for('static', filename='favicon.svg') }}" class="responsive" alt="Trip planner">
+            <img src="{{ url_for('static', filename='favicon.svg') }}" class="responsive" alt="Home">
         </a>
         <div class="max"></div>
         {% if g.user %}
             {# TODO: replace with something different #}
-            <button class="transparent">
+            <button class="{{ header_button_classes }}">
                 <span>{{ g.user.username }}</span>
                 {{ icon('arrow_drop_down') }}
                 <menu>
