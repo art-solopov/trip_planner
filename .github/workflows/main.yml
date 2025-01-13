@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - run: pip install poetry
+      - run: pip install poetry==1.8.3
       - name: Export requirements
         run: poetry export -o requirements.txt
       - name: Export dev requirements (for tests)
