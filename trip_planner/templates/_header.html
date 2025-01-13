@@ -9,10 +9,10 @@
         <div class="max"></div>
         {% if g.user %}
             {# TODO: replace with something different #}
-            <button class="{{ header_button_classes }}">
+            <button class="{{ header_button_classes }}" data-ui="#user_dropdown">
                 <span>{{ g.user.username }}</span>
                 {{ icon('arrow_drop_down') }}
-                <menu>
+                <menu id="user_dropdown">
                     <a href="{{ url_for('auth.change_password') }}">Change password</a>
                     <a href="{{ url_for('auth.logout') }}">Sign out</a>
                 </menu>
