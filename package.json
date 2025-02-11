@@ -13,7 +13,7 @@
     "@hotwired/stimulus": "^3.0.1",
     "@popperjs/core": "^2.11.6",
     "autoprefixer": "^10.4.16",
-    "esbuild": "^0.20.1",
+    "esbuild": "^0.25.0",
     "postcss": "^8.4.31",
     "postcss-cli": "^11.0.0",
     "postcss-easy-import": "^4.0.0",
