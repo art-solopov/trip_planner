@@ -114,13 +114,10 @@ main.show-trip {
     //     padding-inline: 1rem;
     // }
     //
-    // ul {
-    //     list-style: none;
-    // }
-    //
-    // h2 {
-    //     margin-bottom: 0.5em;
-    // }
+    ul {
+        list-style: none;
+        padding-inline-start: 0;
+    }
 
     --decoration-color: var(--type-color, #aaa);
 
@@ -139,6 +136,10 @@ main.show-trip {
     // padding-bottom: 0.25em;
     // margin-bottom: 0.25em;
     // border-bottom: 2px dotted palette.$border-color;
+
+    address {
+      margin-block-start: initial;
+    }
 
     .item-links {
       white-space: nowrap;
