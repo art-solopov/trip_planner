@@ -13,8 +13,8 @@
                 <span>{{ g.user.username }}</span>
                 {{ icon('arrow_drop_down') }}
                 <menu id="user_dropdown">
-                    <a href="{{ url_for('auth.change_password') }}">Change password</a>
-                    <a href="{{ url_for('auth.logout') }}">Sign out</a>
+                    <li><a href="{{ url_for('auth.change_password') }}">Change password</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
                 </menu>
             </button>
         {% else %}

@@ -17,7 +17,7 @@
 
 /* Color scheme */
 
-:root {
+:root, body.light, body.dark { // TODO: add proper dark scheme
   --surface: hsl(0, 0%, 99%);
   --surface-container-low: hsl(0, 0%, 96%);
   --surface-container: hsl(0, 0%, 90%);
