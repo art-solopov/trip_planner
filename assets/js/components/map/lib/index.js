@@ -1,9 +1,5 @@
-import {iconsUrl} from '../../../utils'
-
 import MoveMarkerControl from './move-marker-control'
-
-import styles from './marker-styles.module.css'
-import icons from './icons'
+import { pointMarkerElement, draggableMarkerElement } from './markers'
 
 export const DEFAULT_ZOOM = 10
 export const CITY_ZOOM = 11.5
@@ -26,7 +22,9 @@ export function addPoints(map, points) {
 }
 
 export function addDraggableMarker(map) {
-    const marker = new mapboxgl.Marker({anchor: 'bottom', draggable: true})
+    const el = draggableMarkerElement()
+
+    const marker = new mapboxgl.Marker({anchor: 'bottom', draggable: true, element: el})
     marker.setLngLat(map.getCenter()).addTo(map)
 
     map.addControl(new MoveMarkerControl(marker), 'bottom-right')
@@ -72,17 +70,10 @@ function loadMap(options) {
 
 function addPointsMarkers(map, points) {
     for (let point of points) {
-        const el = document.createElement('div')
-        el.className = `${styles.marker} is-${point.category}`
+        const el = pointMarkerElement(point.category)
         el.dataset.mapTarget = 'marker'
         el.dataset.action = 'click->map#activateMarker'
         el.dataset.pointId = point.id
-
-        el.innerHTML = [
-            `<svg class=${styles.markerBody}><use xlink:href="${iconsUrl}#marker" /></svg>`,
-            `<img class=${styles.markerIcon} src=${icons[point.category]}></img>`
-        ].join("\n")
-
 
         new mapboxgl.Marker({
             anchor: 'bottom',

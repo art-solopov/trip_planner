@@ -22,5 +22,16 @@
         top: calc(0.17 * var(--size));
         left: calc(0.5 * (var(--size) - var(--icon-size)));
     }
+
+    &.draggableMarker {
+        --size: 2.5rem;
+
+        .markerBody {
+            /* TODO fill colors from palette */
+            fill: oklch(0.785 0.09 243); 
+            stroke: #222;
+            stroke-width: 2rem;
+        }
+    }
 }
 
