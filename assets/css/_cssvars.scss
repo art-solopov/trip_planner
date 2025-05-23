@@ -48,6 +48,8 @@
   --on-tertiary-container: #{color("secondary", "dark")};
 
   --highlight: #{color("highlight", "medlight")};
+
+  --base-marker-color: #{color("primary", "superlight")};
 }
 
 @supports (background-color: color-mix(in lch, black, white)) {
