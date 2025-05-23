@@ -6,16 +6,7 @@
 
 {% block main %}
     <h1>{{ title }}</h1>
-    {# collapsible_map('Map', 'point_form_map', latlon) #}
-
-    <aside>
-        <h2>Map</h2>
-        {% set center_lat=latlon[0] %}
-        {% set center_lon=latlon[1] %}
-        <div class="map-with-coords">
-            {% include "pjax/map_pointer.html" with context %}
-        </div>
-    </aside>
+    {{ collapsible_map('Map', 'point_form_map', latlon) }}
 
     <form id="point_form"
           method="POST"
