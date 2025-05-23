@@ -3,9 +3,6 @@
 
 @use "cssvars";
 @use "typography";
-// @import "buttons";
-// @import "links";
-// @import "layout";
 // @import "icons";
 @use "flashes";
 @use "top-header";
@@ -16,11 +13,6 @@
 @use "trip-show";
 @use "point-schedule";
 @use "point-show";
-
-// .main-footer {
-//     background-color: c.$Gray-50;
-//     color: c.$Gray-400;
-// }
 
 /* Overrides */
 .mapboxgl-control-container {
@@ -72,29 +64,6 @@
 .field textarea {
   white-space-collapse: revert;
 }
-
-// dialog {
-//   padding: 0;
-//   border: $border-width $border-style $border-color;
-//   border-radius: $border-radius-lg;
-//
-//   &::backdrop {
-//     background-color: color.change(c.$Gray-600, $alpha: 0.7);
-//   }
-//   & > * {
-//     padding: $spacer (2 * $spacer);
-//   }
-//
-//   // Animation
-//   &[open] {
-//     animation: dialogFadeIn 0.2s ease normal;
-//   }
-// }
-//
-// @keyframes dialogFadeIn {
-//   from { opacity: 0; }
-//   to { opacity: 1; }
-// }
 
 /* Utils */
 

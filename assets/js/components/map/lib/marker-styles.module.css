@@ -12,6 +12,8 @@
         height: 100%;
         width: 100%;
         fill: var(--type-color, black);
+        stroke: #222;
+        stroke-width: 2rem;
     }
 
     .markerIcon {
@@ -27,10 +29,7 @@
         --size: 2.5rem;
 
         .markerBody {
-            /* TODO fill colors from palette */
-            fill: oklch(0.785 0.09 243); 
-            stroke: #222;
-            stroke-width: 2rem;
+            fill: var(--base-marker-color);
         }
     }
 }
