@@ -31,7 +31,7 @@
   }
 }
 
-:is(a, :any-link, .link):not(.button, .chip, menu a) {
+:where(a, :any-link, .link):not(.button, .chip, menu a) {
   color: var(--primary-dark) !important;
   text-decoration: underline;
 }

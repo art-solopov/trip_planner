@@ -17,6 +17,7 @@ ul.trips {
     box-shadow: none;
     transition: box-shadow 0.2s, border-color 0.2s;
     border: 3px solid transparent;
+    text-decoration: none;
 
     &:hover,
     &:focus {
