@@ -11,7 +11,7 @@
 
     <ul class="trips">
         {% for trip in trips -%}
-            <li><a href="{{ url_for('trips.show', key=trip.key) }}" class="medium-padding">{{ trip.name }}</a></li>
+            <li><a href="{{ url_for('trips.show', key=trip.key) }}" class="medium-padding">{{ trip.flag() }}&nbsp;{{ trip.name }}</a></li>
         {% endfor -%}
     </ul>
 {% endblock %}

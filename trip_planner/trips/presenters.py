@@ -4,11 +4,19 @@ from trip_planner.models import Trip, Point, PointTypes
 
 
 class TripPresenter:
+    REGIONAL_INDICATOR_A = 0x1F1E6
+
     def __init__(self, trip: Trip):
         self.trip = trip
 
     def belongs_to_current_user(self):
         return self.trip.author == g.user
+
+    def flag(self):
+        return ''.join(
+            chr(self.REGIONAL_INDICATOR_A + ord(x) - ord('A'))
+            for x in self.country_code
+        )
 
     def __getattr__(self, name):
         return getattr(self.trip, name)

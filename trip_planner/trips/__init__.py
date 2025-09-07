@@ -63,7 +63,10 @@ def _map_pointer_view_attrs(map_pointer_mode) -> Dict[str, str]:
 @user_required
 def index():
     trips = db.session.scalars(policy.trips_query().order_by(Trip.name))
-    response = make_response(render_template('trips/index.html', trips=trips))
+    response = make_response(
+        render_template('trips/index.html',
+                        trips=[TripPresenter(t) for t in trips])
+        )
     response.add_etag()
     return response.make_conditional(request)
 
