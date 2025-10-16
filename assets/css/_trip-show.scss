@@ -78,7 +78,9 @@ main.show-trip {
         flex-flow: row nowrap;
 
         // Height hack, TODO rework later
-        flex: 0 0 calc(100vh - 9rem);
+        body:has(> &) {
+            grid-template-rows: auto auto fit-content(calc(100vh - 9.5rem)) auto auto;
+        }
 
         .app {
             flex-grow: 1;
