@@ -1,7 +1,13 @@
 .top-header {
   background-image: linear-gradient(to right, var(--primary), var(--secondary));
 
-  // box-shadow: 0.25rem 0.25rem 0.5rem c.$Gray-500;
+  & + header:empty {
+    min-block-size: 0;
+  }
+
+  & ~ footer {
+    background-color: var(--surface-container);
+  }
 }
 
 .top-breadcrumbs {

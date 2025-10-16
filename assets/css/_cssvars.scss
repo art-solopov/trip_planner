@@ -53,7 +53,7 @@
 }
 
 @supports (background-color: color-mix(in lch, black, white)) {
-  :root {
+  :root, body.light, body.dark {
     --surface-variant: color-mix(in lch, var(--secondary), var(--surface));
     --on-surface-variant: var(--secondary-dark);
   }
