@@ -34,7 +34,7 @@
         {%- for g_type, pts in points %}
             <section class="trip-point-items is-{{ g_type | lower }} vertical-margin">
                 <h2 class="small tiny-padding">{{ g_type | capitalize }}</h2>
-                <ul class="bottom-margin">
+                <ul class="vertical-margin">
                     {%- for point in pts %}
                         <li class="trip-point-item small-margin vertical-margin"
                             id="{{ point.id }}"
@@ -45,7 +45,7 @@
                             data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
                             <div class="left-margin small-margin">
                                 <h3 class="small bold item-name">{{ point.name }}</h3>
-                                <address class="item-address">{{ point.address }}</address>
+                                <address class="item-address no-margin">{{ point.address }}</address>
                             </div>
                             <div class="item-links" role="group" aria-label="Point controls">
                                 <a class="{{ button_classes }} border secondary-border secondary-text pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('explore') }}</a>

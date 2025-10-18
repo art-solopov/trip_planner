@@ -1,46 +1,59 @@
 {% from "macros/icon.html" import icon %}
 {% set header_button_classes = "button tertiary" -%}
 
-<header class="top-header primary-container medium-elevate">
-    <nav>
-        <a href="/" class="button square extra transparent">
-            <img src="{{ url_for('static', filename='favicon.svg') }}" class="responsive" alt="Home">
-        </a>
-        <div class="max"></div>
-        {% if g.user %}
-            {# TODO: replace with something different #}
-            <button class="{{ header_button_classes }}" data-ui="#user_dropdown">
-                <span>{{ g.user.username }}</span>
-                {{ icon('arrow_drop_down') }}
-                <menu id="user_dropdown">
-                    <li><a href="{{ url_for('auth.change_password') }}">Change password</a></li>
-                    <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
-                </menu>
-            </button>
-        {% else %}
-            <a class="{{ header_button_classes }}" href="{{ url_for('auth.login') }}">Sign in</a>
-        {% endif %}
-    </nav>
-</header>
+<nav class="top responsive top-header medium-elevate">
+    <a href="/" class="button square extra transparent">
+        <img src="{{ url_for('static', filename='favicon.svg') }}" class="responsive" alt="Home">
+    </a>
+    <div class="max"></div>
+    {% if g.user %}
+        {# TODO: replace with something different #}
+        <button class="{{ header_button_classes }}" data-ui="#user_dropdown">
+            <span>{{ g.user.username }}</span>
+            {{ icon('arrow_drop_down') }}
+            <menu id="user_dropdown">
+                <li><a href="{{ url_for('auth.change_password') }}">Change password</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Sign out</a></li>
+            </menu>
+        </button>
+    {% else %}
+        <a class="{{ header_button_classes }}" href="{{ url_for('auth.login') }}">Sign in</a>
+    {% endif %}
+</nav>
 
-{%- if g.breadcrumbs %}
-<section class="responsive vertical-padding small-padding">
-    <nav aria-label="breadcrumb" class="top-breadcrumbs">
-        <ol class="breadcrumb">
-            {%- for breadcrumb in g.breadcrumbs %}
-                {%- set bc_class = "breadcrumb-item" -%}
-                {%- if loop.last -%}
-                    {%- set bc_class = bc_class + " active" -%}
-                {%- endif %}
-                <li class="{{ bc_class }}">
-                    {%- if breadcrumb.link -%}
-                        <a href="{{ breadcrumb.link }}" class="chip fill">{{ breadcrumb.text }}</a>
-                    {%- else -%}
-                        {{ breadcrumb.text }}
-                    {%- endif %}
-                </li>
-            {% endfor %}
-        </ol>
-    </nav>
-</section>
-{% endif -%}
+<header>
+    {%- if g.breadcrumbs %}
+        <section class="responsive vertical-padding small-padding">
+            <nav aria-label="breadcrumb" class="top-breadcrumbs">
+                <ol class="breadcrumb">
+                    {%- for breadcrumb in g.breadcrumbs %}
+                        {%- set bc_class = "breadcrumb-item" -%}
+                        {%- if loop.last -%}
+                            {%- set bc_class = bc_class + " active" -%}
+                        {%- endif %}
+                        <li class="{{ bc_class }}">
+                            {%- if breadcrumb.link -%}
+                                <a href="{{ breadcrumb.link }}" class="chip fill">{{ breadcrumb.text }}</a>
+                            {%- else -%}
+                                {{ breadcrumb.text }}
+                            {%- endif %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </nav>
+        </section>
+    {% endif -%}
+
+    {% with messages = get_flashed_messages(with_categories=True) -%}
+        {%- if messages %}
+            <section class="top flashes responsive vertical-margin small-margin" aria-label="Flash alerts">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}" role="alert" data-controller="flash">
+                        <span class="padding">{{ message }}</span>
+                        <button type="button" class="transparent circle small" aria-label="close" data-action="flash#remove">{{ icon('close') }}</span>
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif -%}
+    {%- endwith -%}
+</header>

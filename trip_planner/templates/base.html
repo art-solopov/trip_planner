@@ -12,8 +12,8 @@
         <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
 
         <script src="{{ url_for('static', filename='vendor/htmx-1.7.0.min.js') }}" async></script>
-        <link href="{{ url_for('static', filename='vendor/beer-3.9.7.min.css') }}" rel="stylesheet">
-        <script type="module" src="{{ url_for('static', filename='vendor/beer-3.9.7.min.js') }}"></script>
+        <link href="{{ url_for('static', filename='vendor/beer-3.12.12.min.css') }}" rel="stylesheet">
+        <script type="module" src="{{ url_for('static', filename='vendor/beer-3.12.12.min.js') }}"></script>
 
         <meta name="js:icons_url" content="{{url_for('static', filename='vendor/icons.svg')}}">
 
@@ -23,18 +23,6 @@
     </head>
     <body>
         {% include "_header.html" %}
-        {% with messages = get_flashed_messages(with_categories=True) -%}
-            {%- if messages %}
-                <section class="top flashes responsive vertical-margin small-margin" aria-label="Flash alerts">
-                    {% for category, message in messages %}
-                        <div class="flash flash-{{ category }}" role="alert" data-controller="flash">
-                            <span class="padding">{{ message }}</span>
-                            <button type="button" class="transparent circle small" aria-label="close" data-action="flash#remove">{{ icon('close') }}</span>
-                        </div>
-                    {% endfor %}
-                </section>
-            {% endif -%}
-        {%- endwith %}
         <main class="responsive {{ view_class }}" {{ view_attrs | default({}) | xmlattr }}>
             {% block main %}{% endblock %}
         </main>

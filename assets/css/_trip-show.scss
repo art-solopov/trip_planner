@@ -77,8 +77,10 @@ main.show-trip {
     @media(width > bp.$break-md) {
         flex-flow: row nowrap;
 
-        // Height hack, TODO rework later
-        flex: 0 0 calc(100vh - 9rem);
+        body:has(> &) {
+            // HACK: Height hack, rework later?
+            --main-row-size: fit-content(calc(100vh - 9.5rem));
+        }
 
         .app {
             flex-grow: 1;
