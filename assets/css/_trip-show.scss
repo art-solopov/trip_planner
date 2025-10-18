@@ -77,9 +77,9 @@ main.show-trip {
     @media(width > bp.$break-md) {
         flex-flow: row nowrap;
 
-        // Height hack, TODO rework later
         body:has(> &) {
-            grid-template-rows: auto auto fit-content(calc(100vh - 9.5rem)) auto auto;
+            // HACK: Height hack, rework later?
+            --main-row-size: fit-content(calc(100vh - 9.5rem));
         }
 
         .app {
