@@ -1,0 +1,13 @@
+name: trip_planner
+
+services:
+  postgres:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    env_file: pg.env
+    volumes:
+      - postgres:/var/lib/postgres/data
+
+volumes:
+  postgres:

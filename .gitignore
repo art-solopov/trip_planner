@@ -141,3 +141,6 @@ assets/js/**/*.bs.js
 
 # Assets de-ignoring
 !assets/js/**/lib
+
+# Env files
+*.env
