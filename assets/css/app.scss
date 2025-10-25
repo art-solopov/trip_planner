@@ -79,3 +79,13 @@
 :is(ul, ol).list-no-style {
   list-style: none;
 }
+
+.htmx-indicator {
+  /* Initial style to load while HTMX is loading */
+  opacity: 0;
+  visibility: hidden;
+
+  &.htmx-request {
+    visibility: visible;
+  }
+}

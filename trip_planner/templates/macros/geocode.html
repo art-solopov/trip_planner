@@ -30,8 +30,9 @@
                                                                              >Geocode</button>
         </div>
 
-        <!-- <div id="geocode_indicator" class="htmx-indicator">Loading…</div> --> {# TODO: replace with better indicator #} 
-        {# Temporarily removed because of htmx indicator class issues #}
+        <div id="geocode_indicator" class="htmx-indicator">
+            <progress class="circle"></progress>
+        </div>
 
         <div id="geocode_results" data-geocode-target="results"></div>
     </fieldset>
