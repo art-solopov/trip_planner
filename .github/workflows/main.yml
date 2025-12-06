@@ -4,8 +4,7 @@ on: push
     # branches: [ master, deploy, github-actions ]
 
 env:
-  # Cannot yet upgrade to 3.13 due to SQLAlchemy
-  PYTHON_VERSION: 3.12.12
+  PYTHON_VERSION: 3.13.10
   NODE_VERSION: 24.11.1
 
 jobs:

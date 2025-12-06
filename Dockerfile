@@ -1,4 +1,4 @@
-FROM python:3.12-trixie
+FROM python:3.13-trixie
 
 ARG uid=1100
 
