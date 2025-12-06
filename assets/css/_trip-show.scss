@@ -79,7 +79,7 @@ main.show-trip {
 
         body:has(> &) {
             // HACK: Height hack, rework later?
-            --main-row-size: fit-content(calc(100vh - 9.5rem));
+            --main-row-size: calc(100vh - 9.5rem);
         }
 
         .app {
