@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "trip_planner"
-version = "1.2.0"
+version = "2025.12"
 description = ""
 authors = ["Artemiy Solopov <art-solopov@yandex.ru>"]
 
