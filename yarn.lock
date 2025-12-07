@@ -5,16 +5,6 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@csstools/selector-specificity@npm:^2.0.0":
-  version: 2.0.2
-  resolution: "@csstools/selector-specificity@npm:2.0.2"
-  peerDependencies:
-    postcss: ^8.2
-    postcss-selector-parser: ^6.0.10
-  checksum: 10/23cddfc930b0d37641c10a1e3c7514732ce3d7f50a474a8f028cfc7d0829bc7dabf5ebd00a112a0bdcaa214c274bffdf81ebc3652ba08b3654c309ae4a3e0f20
-  languageName: node
-  linkType: hard
-
 "@esbuild/aix-ppc64@npm:0.27.1":
   version: 0.27.1
   resolution: "@esbuild/aix-ppc64@npm:0.27.1"
@@ -545,7 +535,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.0.0, browserslist@npm:^4.21.10":
+"browserslist@npm:^4.21.10":
   version: 4.22.1
   resolution: "browserslist@npm:4.22.1"
   dependencies:
@@ -585,7 +575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30000655, caniuse-lite@npm:^1.0.30001538, caniuse-lite@npm:^1.0.30001541":
+"caniuse-lite@npm:^1.0.30001538, caniuse-lite@npm:^1.0.30001541":
   version: 1.0.30001557
   resolution: "caniuse-lite@npm:1.0.30001557"
   checksum: 10/612986326114873adeba57f4cebb0aa4376ed19771317ef9f2adb6394ccd4044c5eb9c845930b95361af4a847c3992746557b4f683d6f41c3b2e74cf20b707d4
@@ -681,15 +671,6 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 10/27b5fa302bc8e9ae9e98c03c66d76ca289ad0c61ce2fe20ab288d288bee875d217512d2edb2363fc83165e88f1c405180cf3f5413a46e51b4fe1a004840c6cdb
-  languageName: node
-  linkType: hard
-
-"cssesc@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "cssesc@npm:3.0.0"
-  bin:
-    cssesc: bin/cssesc
-  checksum: 10/0e161912c1306861d8f46e1883be1cbc8b1b2879f0f509287c0db71796e4ddfb97ac96bdfca38f77f452e2c10554e1bb5678c99b07a5cf947a12778f73e47e12
   languageName: node
   linkType: hard
 
@@ -1620,18 +1601,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-font-family-system-ui@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "postcss-font-family-system-ui@npm:5.0.0"
-  dependencies:
-    browserslist: "npm:^4.0.0"
-    caniuse-lite: "npm:^1.0.30000655"
-  peerDependencies:
-    postcss: ^8.0.0
-  checksum: 10/df80869bed6222e5b30d9bc77a4930c77743db67062691b355c702af0738d0b4ad4b4ac4fff2c48e1f45068660474fd4d86b5f80f419a1c2c028a165867265a7
-  languageName: node
-  linkType: hard
-
 "postcss-import@npm:^14.0.0":
   version: 14.1.0
   resolution: "postcss-import@npm:14.1.0"
@@ -1663,18 +1632,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-nesting@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "postcss-nesting@npm:10.2.0"
-  dependencies:
-    "@csstools/selector-specificity": "npm:^2.0.0"
-    postcss-selector-parser: "npm:^6.0.10"
-  peerDependencies:
-    postcss: ^8.2
-  checksum: 10/eb3531612243379ce43aeb864acc146b77fb61a3b34e8679b61226c3078f318a06def50c9468650e6eb904022d4de325e2555d09866ba893f413e4b0416059d8
-  languageName: node
-  linkType: hard
-
 "postcss-reporter@npm:^7.0.0":
   version: 7.1.0
   resolution: "postcss-reporter@npm:7.1.0"
@@ -1684,16 +1641,6 @@ __metadata:
   peerDependencies:
     postcss: ^8.1.0
   checksum: 10/fc5dea0edf689d1cc68e83d761e7cee7b65dc264025e4ce249a817861a840c415a2cb841c3754a8b98966d89025dba10e73657b88827455010250aa7c5ed0bd8
-  languageName: node
-  linkType: hard
-
-"postcss-selector-parser@npm:^6.0.10":
-  version: 6.0.11
-  resolution: "postcss-selector-parser@npm:6.0.11"
-  dependencies:
-    cssesc: "npm:^3.0.0"
-    util-deprecate: "npm:^1.0.2"
-  checksum: 10/14d2c77e533a7b0688f35c909c07f74a9f3cc8d7aea19fd4042093c2df96d6d1ca0d41fcf0ecea28e8560e09913e8a58e5d95a6504cea31c71e23acb80927bab
   languageName: node
   linkType: hard
 
@@ -2020,8 +1967,6 @@ __metadata:
     postcss: "npm:^8.4.31"
     postcss-cli: "npm:^11.0.0"
     postcss-easy-import: "npm:^4.0.0"
-    postcss-font-family-system-ui: "npm:^5.0.0"
-    postcss-nesting: "npm:^10.2.0"
     sass: "npm:^1.71.1"
   languageName: unknown
   linkType: soft
@@ -2065,7 +2010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2":
+"util-deprecate@npm:^1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 10/474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2

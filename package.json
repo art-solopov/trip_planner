@@ -17,8 +17,6 @@
     "postcss": "^8.4.31",
     "postcss-cli": "^11.0.0",
     "postcss-easy-import": "^4.0.0",
-    "postcss-font-family-system-ui": "^5.0.0",
-    "postcss-nesting": "^10.2.0",
     "sass": "^1.71.1"
   },
   "browserslist": [
