@@ -1,13 +1,13 @@
 from collections import defaultdict
-# import logging
+import logging
 
 import pytest
 import pytest_mock
 from passlib.hash import bcrypt
 
-from trip_planner import create_app, db as _db
+from trip_planner import create_app, db
 from trip_planner.models import User
-from test import TestConfig, test_instance_dir
+from test import TestConfig, test_instance_dir, Session, db_session
 
 
 @pytest.fixture(scope='session')
@@ -19,55 +19,49 @@ def app(session_mocker: pytest_mock.MockerFixture):
     return _app
 
 
-@pytest.fixture(scope='session')
-def db(app):
+@pytest.fixture(scope='session', autouse=True)
+def bootstrap_db(app):
+    sql_logger = logging.getLogger("sqlalchemy.engine")
+    sql_logger.setLevel(logging.INFO)
+
     with app.app_context():
-        _db.create_all()
+        db.create_all()
 
-        yield _db
+        yield
 
-        _db.drop_all()
-
-
-# @pytest.fixture(scope='session', autouse=True)
-# def _db_log():
-#     logger = logging.getLogger('sqlalchemy.engine')
-#     logger.setLevel('DEBUG')
-#
-#     handler = logging.FileHandler('log/sql-test.log')
-#     handler.setFormatter(logging.Formatter())
-#     logger.addHandler(handler)
+        db.drop_all()
 
 
 @pytest.fixture(scope='function', autouse=True)
-def _cleanup_db(app, db):
-    yield
+def db_trx_session(app, caplog):
+    caplog.set_level(logging.INFO)
+
+    connection = db.engine.connect()
+    transaction = connection.begin()
+    Session.configure(bind=connection, join_transaction_mode='create_savepoint')
 
     with app.app_context():
-        tables = list(db.Model.metadata.tables.keys())
-        tables.reverse()
-        tables = ', '.join(tables)
-        db.session.execute(db.text(f'TRUNCATE {tables} CASCADE'))
-        db.session.commit()
-
-
-@pytest.fixture(scope='function')
-def db_session(app, db):
-    with app.app_context():
+        db.close_all_sessions()
+        db.session = db_session
         yield db.session
 
-        db.session.remove()
+        db.session.close()
+
+    transaction.rollback()
+    connection.close()
 
 
 @pytest.fixture(scope='function')
 def app_client(app):
-    return app.test_client()
+    yield app.test_client()
 
 
 @pytest.fixture(scope='function')
-def session_user(db_session, app_client):
+def session_user():
+    print("Creating user")
     user = User(username='username',
                 password_digest=bcrypt.hash('password'))
-    db_session.add(user)
-    db_session.commit()
+    db.session.add(user)
+    db.session.commit()
+
     return user

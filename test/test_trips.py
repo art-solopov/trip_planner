@@ -27,7 +27,7 @@ def test_point_presenter_colors():
     assert PointPresenter.POINT_COLORS.keys() == set(PointTypes)
 
 
-def test_point_edit_form(app_client, db_session, session_user, trip):
+def test_point_edit_form(app_client, session_user, trip):
     point = PointFactory(trip=trip, type=PointTypes.ENTERTAINMENT.value)
 
     with app_client.session_transaction() as session:
@@ -41,7 +41,7 @@ def test_point_edit_form(app_client, db_session, session_user, trip):
     assert 'selected' in option.attrs
 
 
-def test_point_create_zero_latlon(app_client, db_session, session_user, trip):
+def test_point_create_zero_latlon(app_client, session_user, trip):
     with app_client.session_transaction() as session:
         session['user_id'] = session_user.id
 

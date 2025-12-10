@@ -5,10 +5,11 @@ from faker import Faker
 
 from trip_planner import db, models
 from trip_planner.trips.forms import PointForm
+from test import db_session
 
 
 class DefaultMeta:
-    sqlalchemy_session = db.session
+    sqlalchemy_session = db_session
     sqlalchemy_session_persistence = 'flush'
 
 

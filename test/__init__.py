@@ -1,7 +1,13 @@
 from os import getenv
 from os import path as path
 
+from sqlalchemy.orm import sessionmaker, scoped_session
+
 from trip_planner.config import Config
+
+
+Session = sessionmaker()
+db_session = scoped_session(Session)
 
 
 class TestConfig(Config):
