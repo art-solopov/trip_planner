@@ -144,6 +144,10 @@ main.show-trip {
     }
 
     .item-links {
-      white-space: nowrap;
+      // white-space: nowrap;
+      display: grid;
+      grid-template-rows: auto auto;
+      grid-auto-flow: column;
+      gap: 0.25em;
     }
 }

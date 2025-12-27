@@ -317,7 +317,8 @@ def edit_point(trip: Trip, point: Point):
     return render_template('points/form.html', form=form, point=point,
                            view_attrs=_map_pointer_view_attrs('point'),
                            latlon=(point.lat, point.lon),
-                           title=title)
+                           title=title,
+                           delete_url=url_for('.delete_point', key=trip.key, id=point.id))
 
 
 @trips.route("/<key>/<int:id>/delete", methods=('GET', 'POST'))
