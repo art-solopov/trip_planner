@@ -6,6 +6,10 @@ body {
   }
 }
 
+%h1-large {
+  font-size: var(--step-6);
+}
+
 %h1 {
   font-size: var(--step-5);
 }
@@ -30,30 +34,82 @@ body {
   font-size: var(--step-0);
 }
 
+%h6-small {
+  font-size: var(--step--1);
+}
+
 // %h1, %h2, %h3, %h4, %h5, %h6 {
 //   font-weight: 500;
 // }
 
-h1, .h1 {
+:is(h1, .h1) {
   @extend %h1;
+
+  &.small {
+    @extend %h2;
+  }
+
+  &.large {
+    @extend %h1-large;
+  }
 }
 
-h2, .h2, h1.small {
+:is(h2, .h2) {
   @extend %h2;
+
+  &.small {
+    @extend %h3;
+  }
+
+  &.large {
+    @extend %h1;
+  }
 }
 
-h3, .h3, h2.small {
+:is(h3, .h3) {
   @extend %h3;
+
+  &.small {
+    @extend %h4;
+  }
+
+  &.large {
+    @extend %h2;
+  }
 }
 
-h4, .h4, h3.small {
+:is(h4, .h4) {
   @extend %h4;
+
+  &.small {
+    @extend %h5;
+  }
+
+  &.large {
+    @extend %h3;
+  }
 }
 
-h5, .h5, h4.small {
+:is(h5, .h5) {
   @extend %h5;
+
+  &.small {
+    @extend %h6;
+  }
+
+  &.large {
+    @extend %h4;
+  }
 }
 
-h6, .h6, h5.small {
+:is(h6, .h6) {
   @extend %h6;
+
+  &.small {
+    @extend %h6-small;
+  }
+
+  &.large {
+    @extend %h5;
+  }
 }
