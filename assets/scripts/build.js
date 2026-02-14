@@ -20,7 +20,7 @@ const postcssPlugins = [
     require('autoprefixer')
 ]
 
-const cssEntrypoints = ['app'].map(e => `assets/css/${e}.scss`) 
+const cssEntrypoints = ['app.scss', 'vars.css'].map(e => `assets/css/${e}`)
 const jsEntrypoints = ['app', 'trip_form', 'trip_show', 'point_form'].map(e => `assets/js/${e}.js`)
 
 function isProd() {
@@ -29,8 +29,14 @@ function isProd() {
 
 async function css(outdir) {
     let promises = cssEntrypoints.map(async entry => {
-        let res = sass.compile(entry, {importers: [bsImporter]})
-        let basename = path.basename(entry, '.scss')
+        let res
+        if (path.extname(entry) == '.scss') {
+            res = sass.compile(entry, {importers: [bsImporter]})
+        } else {
+            let css = await fs.readFile(entry)
+            res = {css}
+        }
+        let basename = path.basename(entry, path.extname(entry))
         let outname = basename
         res = await postcss(postcssPlugins).process(res.css, {from: entry, to: outname})
 
