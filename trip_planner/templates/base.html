@@ -17,6 +17,7 @@
 
         <meta name="js:icons_url" content="{{url_for('static', filename='vendor/icons.svg')}}">
 
+        {{ style_tag('vars') }}
         {{ style_tag('app') }}
         {{ script_tag('app') }}
         {%- block extra_head %}{% endblock %}

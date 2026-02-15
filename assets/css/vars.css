@@ -1,7 +1,5 @@
 /* @link https://utopia.fyi/type/calculator?c=320,16,1.125,1240,20,1.125,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
-@use "colors" as *;
-
 :root {
   --step--2: clamp(0.7901rem, 0.7214rem + 0.3435vw, 0.9877rem);
   --step--1: clamp(0.8889rem, 0.8116rem + 0.3865vw, 1.1111rem);
@@ -17,7 +15,7 @@
 
 /* Color scheme */
 
-:root, body.light, body.dark { // TODO: add proper dark scheme
+:root, body.light, body.dark { /* TODO: add proper dark scheme */
   --surface: hsl(0, 0%, 99%);
   --surface-container-low: hsl(0, 0%, 96%);
   --surface-container: hsl(0, 0%, 90%);
@@ -28,28 +26,28 @@
   --inverse-surface: var(--on-surface);
   --inverse-on-surface: var(--surface);
 
-  --primary: #{color("primary", "light")};
-  --primary-dark: #{color("primary", "meddark")};
+  --primary: oklch(83% 0.088 340);
+  --primary-dark: oklch(50% 0.1 340);
   --on-primary: var(--on-surface);
-  --primary-container: #{color("primary", "superlight")};
+  --primary-container: oklch(90% 0.07 340);
   --on-primary-container: var(--on-surface);
-  --secondary: #{color("secondary", "superlight")};
-  --secondary-dark: #{color("secondary", "dark")};
+  --secondary: oklch(90% 0.06 53.87);
+  --secondary-dark: oklch(40% 0.095 53.87);
   --on-secondary: var(--secondary-dark);
   --secondary-container: var(--secondary);
   --on-secondary-container: var(--on-surface);
-  --success: #{color("success", "medium")};
+  --success: oklch(57% 0.15 129);
   --on-success: var(--inverse-on-surface);
-  --success-container: #{color("success", "superlight")};
+  --success-container: oklch(90% 0.126 129);
   --on-success-container: var(--on-surface);
-  --tertiary: #{color("secondary", "dark")};
+  --tertiary: oklch(40% 0.095 53.87);
   --on-tertiary: var(--inverse-on-surface);
-  --tertiary-container: #{color("secondary", "superlight")};
-  --on-tertiary-container: #{color("secondary", "dark")};
+  --tertiary-container: oklch(90% 0.06 53.87);
+  --on-tertiary-container: var(--tertiary);
 
-  --highlight: #{color("highlight", "medlight")};
+  --highlight: oklch(63% 0.225 1.1);
 
-  --base-marker-color: #{color("primary", "superlight")};
+  --base-marker-color: oklch(90% 0.07 340);
 }
 
 @supports (background-color: color-mix(in lch, black, white)) {
