@@ -49,12 +49,12 @@
                             <td class="{{ wdayform.weekday.data | weekday_class }} {{ schedule_cell_class }} {{ schedule_weekday_class }}">{{ wdayform.weekday.data | capitalize }}</td>
                             <td class="{{ schedule_cell_class }} {{ schedule_control_cell_class }}">
                                 <div class="field small border">
-                                {{ wdayform.open_from(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}
+                                    {{ wdayform.open_from(placeholder='__:__', pattern='\d{1,2}:\d{2}', **{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}
                                 </div>
                             </td>
                             <td class="{{ schedule_cell_class }} {{ schedule_control_cell_class }}">
                                 <div class="field small border">
-                                {{ wdayform.open_to(**{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}
+                                    {{ wdayform.open_to(placeholder='__:__', pattern='\d{1,2}:\d{2}', **{'data-action': 'focus->point-form-schedule#shiftScheduleButtons'}) }}
                                 </div>
                             </td>
                         </tr>

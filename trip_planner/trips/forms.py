@@ -9,7 +9,8 @@ from wtforms import (Form, StringField, TextAreaField, FloatField,
                      DecimalField, URLField)
 from wtforms.utils import unset_value
 from wtforms.widgets import TimeInput
-from wtforms.validators import DataRequired, InputRequired, Length, Optional
+from wtforms.validators import (DataRequired, InputRequired, Length, Optional,
+                                Regexp)
 
 from trip_planner import DATA_PATH
 from .data import PointScheduleData
@@ -41,8 +42,8 @@ class TripForm(FlaskForm):
 
 class ScheduleSubForm(Form):
     weekday = HiddenField()
-    open_from = StringField('From', widget=TimeInput())
-    open_to = StringField('To', widget=TimeInput())
+    open_from = StringField('From', validators=[Regexp(r'\d{1,2}:\d{2}')])
+    open_to = StringField('To', validators=[Regexp(r'\d{1,2}:\d{2}')])
 
 
 class ScheduleField(FieldList):
