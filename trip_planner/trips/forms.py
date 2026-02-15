@@ -42,8 +42,10 @@ class TripForm(FlaskForm):
 
 class ScheduleSubForm(Form):
     weekday = HiddenField()
-    open_from = StringField('From', validators=[Regexp(r'\d{1,2}:\d{2}')])
-    open_to = StringField('To', validators=[Regexp(r'\d{1,2}:\d{2}')])
+    open_from = StringField('From', validators=[Optional(),
+                                                Regexp(r'\d{1,2}:\d{2}')])
+    open_to = StringField('To', validators=[Optional(),
+                                            Regexp(r'\d{1,2}:\d{2}')])
 
 
 class ScheduleField(FieldList):
