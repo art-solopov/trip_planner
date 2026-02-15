@@ -3,7 +3,7 @@
 @use "breakpoints" as bp;
 
 .trip-map {
-    min-height: 60vh;
+    height: 100%;
 
     .trip-title {
         display: flex;
@@ -68,29 +68,9 @@
 }
 
 // Had to add main to prevent beer.css from overriding.
-// TODO: maybe extract into a styles mixin and add to layer
 main.show-trip {
-    display: flex;
-    flex-flow: column;
-    gap: 0.5rem;
-
-    @media(width > bp.$break-md) {
-        flex-flow: row nowrap;
-
-        body:has(> &) {
-            // HACK: Height hack, rework later?
-            --main-row-size: calc(100vh - 9.5rem);
-        }
-
-        .app {
-            flex-grow: 1;
-            overflow-y: scroll;
-        }
-
-        .trip-map {
-            order: 1;
-            flex-basis: 60%;
-        }
+    body:has(> &) {
+      --main-row-size: calc(100vh - 9.5rem);
     }
 
     .trip-title {
@@ -109,13 +89,16 @@ main.show-trip {
           }
         }
     }
+
+    .app-drawer-button {
+      position: absolute;
+      top: 8rem;
+      left: 1rem;
+      z-index: 99;
+    }
 }
 
 .trip-point-items {
-    // & > * {
-    //     padding-inline: 1rem;
-    // }
-    //
     ul {
         list-style: none;
         padding-inline-start: 0;
@@ -135,9 +118,7 @@ main.show-trip {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-    // padding-bottom: 0.25em;
-    // margin-bottom: 0.25em;
-    // border-bottom: 2px dotted palette.$border-color;
+    gap: 0.5em;
 
     address {
       margin-block-start: initial;

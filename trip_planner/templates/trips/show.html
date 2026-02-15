@@ -5,59 +5,68 @@
 {% set button_classes = "button square round no-margin" %}
 
 {% block main %}
+    <dialog class="left" id="app_drawer" popover>
+        <div class="app">
+            <header>
+                <div class="trip-title row wrap max small-margin vertical-margin">
+                    <h1 class="max">
+                        <div>{{ trip.flag() }} {{ trip.name }}</div>
+                        {#
+                        <div class="trip-title-author">
+                            by
+                            {% if trip.belongs_to_current_user %}
+                                <abbr class="you" title="{{ g.user.username }}">you</abbr>
+                            {% else %}
+                                {{ trip.author.username }}
+                            {% endif %}
+                        </div> #}
+                    </h1>
+                    <div class="ms-auto buttons">
+                        <a href="{{ url_for('.add_point', key=trip.key) }}" class="{{ button_classes }} primary" title="Add point">{{ icon('add_circle') }}</a>
+                        <a href="{{ url_for('.edit', key=trip.key) }}" class="{{ button_classes }} secondary" title="Edit">{{ icon('edit') }}</a>
+                        <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
+                    </div>
+                </div>
+            </header>
+
+            {%- for g_type, pts in points %}
+                <section class="trip-point-items is-{{ g_type | lower }} vertical-margin">
+                    <h2 class="small tiny-padding">{{ g_type | capitalize }}</h2>
+                    <ul class="vertical-margin">
+                        {%- for point in pts %}
+                            <li class="trip-point-item small-margin vertical-margin"
+                                id="{{ point.id }}"
+                                data-map-target="point"
+                                data-lat="{{ point.lat }}"
+                                data-lon="{{ point.lon }}"
+                                data-category="{{ point.type }}"
+                                data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
+                                <div class="left-margin small-margin">
+                                    <h3 class="small bold item-name">{{ point.name }}</h3>
+                                    <address class="item-address no-margin">{{ point.address }}</address>
+                                </div>
+                                <div class="item-links" role="group" aria-label="Point controls">
+                                    <a class="{{ button_classes }} border secondary-border secondary-text pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('explore') }}</a>
+                                    <a class="{{ button_classes }} tertiary more-link" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">{{ icon('open_in_new') }}</a>
+                                    <a class="{{ button_classes }} secondary edit-link" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">{{ icon('edit') }}</a>
+                                    <a class="{{ button_classes }} error delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', key=trip.key, id=point.id)) }}>{{ icon('delete') }}</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endfor %}
+        </div>
+
+        <nav class="right-align no-space">
+            <button class="tertiary" popovertarget="app_drawer" popovertargetaction="hide">{{ icon('cancel') }} Cancel</button>
+        </nav>
+    </dialog>
+
+    <button class="app-drawer-button circle primary large small-elevate" popovertarget="app_drawer">{{ icon('menu') }}</button>
+
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
         <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>
-    </div>
-    <div class="app">
-        <header>
-            <div class="trip-title row wrap max small-margin vertical-margin">
-                <h1 class="max">
-                    <div>{{ trip.flag() }} {{ trip.name }}</div>
-                    {#
-                    <div class="trip-title-author">
-                        by
-                        {% if trip.belongs_to_current_user %}
-                            <abbr class="you" title="{{ g.user.username }}">you</abbr>
-                        {% else %}
-                            {{ trip.author.username }}
-                        {% endif %}
-                    </div> #}
-                </h1>
-                <div class="ms-auto buttons">
-                    <a href="{{ url_for('.add_point', key=trip.key) }}" class="{{ button_classes }} primary" title="Add point">{{ icon('add_circle') }}</a>
-                    <a href="{{ url_for('.edit', key=trip.key) }}" class="{{ button_classes }} secondary" title="Edit">{{ icon('edit') }}</a>
-                    <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
-                </div>
-            </div>
-        </header>
-
-        {%- for g_type, pts in points %}
-            <section class="trip-point-items is-{{ g_type | lower }} vertical-margin">
-                <h2 class="small tiny-padding">{{ g_type | capitalize }}</h2>
-                <ul class="vertical-margin">
-                    {%- for point in pts %}
-                        <li class="trip-point-item small-margin vertical-margin"
-                            id="{{ point.id }}"
-                            data-map-target="point"
-                            data-lat="{{ point.lat }}"
-                            data-lon="{{ point.lon }}"
-                            data-category="{{ point.type }}"
-                            data-buttons-row-link="{{ url_for('.buttons_row', key=trip.key, id=point.id) }}">
-                            <div class="left-margin small-margin">
-                                <h3 class="small bold item-name">{{ point.name }}</h3>
-                                <address class="item-address no-margin">{{ point.address }}</address>
-                            </div>
-                            <div class="item-links" role="group" aria-label="Point controls">
-                                <a class="{{ button_classes }} border secondary-border secondary-text pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('explore') }}</a>
-                                <a class="{{ button_classes }} tertiary more-link" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">{{ icon('open_in_new') }}</a>
-                                <a class="{{ button_classes }} secondary edit-link" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">{{ icon('edit') }}</a>
-                                <a class="{{ button_classes }} error delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', key=trip.key, id=point.id)) }}>{{ icon('delete') }}</a>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </section>
-        {% endfor %}
     </div>
 {% endblock %}
 
