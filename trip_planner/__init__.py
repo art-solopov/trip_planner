@@ -103,6 +103,17 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
         tmpl = 'form_bare.html' if flag else 'base.html'
         return dict(form_base_template=tmpl, rendering_for_dialog=flag)
 
+    @app.context_processor
+    def inject_htmx_attributes():
+        rq = request.headers.get('HX-Request')
+        htmx = {
+            'request': rq,
+            'target': request.headers.get('HX-Target'),
+        }
+        htmx_base = app.jinja_env.get_template(
+            'htmx_base.html' if rq else 'base.html')
+        return dict(htmx=htmx, htmx_base=htmx_base)
+
     if app.debug:
         import IPython
 
