@@ -83,7 +83,7 @@ def show(key):
     add_breadcrumb(trip.name)
 
     view_attrs = {
-        'data-controller': 'map',
+        'data-controller': 'map trip-show',
         'data-map-apikey-value': g.map_data.api_key,
         'data-map-styleurl-value': g.map_data.MAPBOX_STYLE_URL,
         'data-map-centerlat-value': trip.center_lat,
