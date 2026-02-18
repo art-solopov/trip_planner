@@ -10,7 +10,7 @@
 
     <form id="point_form"
           method="POST"
-          action=""
+          action="{{ request.path }}"
           data-trip-id="{{ point.trip.id }}"
           data-controller="geocode"
           >
