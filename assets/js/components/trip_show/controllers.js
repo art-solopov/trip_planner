@@ -4,6 +4,8 @@ export class TripShowController extends Controller {
     static targets = ['dataDrawer']
 
     showDataDrawer() {
-        ui(this.dataDrawerTarget)
+        if(!this.dataDrawerTarget.open) {
+            ui(this.dataDrawerTarget)
+        }
     }
 }
