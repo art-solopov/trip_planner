@@ -10,11 +10,13 @@ from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
 
 from .shared import DecimalPairConverter
+from .ext.htmx import HTMX
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
+htmx = HTMX()
 
 DATA_PATH = os.path.abspath(
     os.path.join(
@@ -57,6 +59,7 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
     db.init_app(app)
     migrate.init_app(app, db)
     csrf.init_app(app)
+    htmx.init_app(app)
 
     app.url_map.converters['decimal_pair'] = DecimalPairConverter
 
@@ -104,14 +107,10 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
 
     @app.context_processor
     def inject_htmx_attributes():
-        rq = request.headers.get('HX-Request')
-        htmx = {
-            'request': rq,
-            'target': request.headers.get('HX-Target'),
-        }
         htmx_base = app.jinja_env.get_template(
-            'htmx_base.html' if rq else 'base.html')
-        return dict(htmx=htmx, htmx_base=htmx_base)
+            'htmx_base.html' if htmx.is_htmx and not htmx.is_boosted
+            else 'base.html')
+        return dict(htmx_base=htmx_base)
 
     if app.debug:
         import IPython
