@@ -96,6 +96,12 @@ main.show-trip {
       left: 1rem;
       z-index: 99;
     }
+
+    dialog {
+      @media (width > bp.$break-sm) {
+        max-width: 40vw;
+      }
+    }
 }
 
 .trip-point-items {

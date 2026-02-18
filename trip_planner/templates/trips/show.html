@@ -4,8 +4,16 @@
 
 {% set button_classes = "button square round no-margin" %}
 
+{% macro item_button(content, href, title='', classes='') %}
+<a class="{{ button_classes }} {{ classes }}" title="{{ title }}" href="{{ href|default('#', true) }}"
+                                              {%- if href -%}
+                                                hx-get="{{ href }}" hx-select="[data-htmx-main]" hx-target="#data_drawer div:first-child"
+                                              {%- endif -%}
+                                              {{ kwargs|xmlattr }}>{{ content }}</a>
+{% endmacro %}
+
 {% block main %}
-    <dialog class="left" id="app_drawer" popover>
+    <dialog class="left" id="main_app_drawer" popover>
         <div class="app">
             <header>
                 <div class="trip-title row wrap max small-margin vertical-margin">
@@ -46,9 +54,11 @@
                                     <address class="item-address no-margin">{{ point.address }}</address>
                                 </div>
                                 <div class="item-links" role="group" aria-label="Point controls">
-                                    <a class="{{ button_classes }} border secondary-border secondary-text pan-link" href="#" title="Center map" data-action="click->map#panTo">{{ icon('explore') }}</a>
-                                    <a class="{{ button_classes }} tertiary more-link" href="{{ url_for('.show_point', key=trip.key, id=point.id) }}" title="More">{{ icon('open_in_new') }}</a>
-                                    <a class="{{ button_classes }} secondary edit-link" href="{{ url_for('.edit_point', key=trip.key, id=point.id) }}" title="Edit">{{ icon('edit') }}</a>
+                                    {# TODO: DRY #}
+
+                                    {{ item_button(icon('explore'), href=None, title="Center map", classes='border secondary-border secondary-text pan-link', **{'data-action': 'click->map#panTo'}) }}
+                                    {{ item_button(icon('open_in_new'), url_for('.show_point', key=trip.key, id=point.id), title="More", classes='tertiary more-link') }}
+                                    {{ item_button(icon('edit'), url_for('.edit_point', key=trip.key, id=point.id), title="Edit", classes='secondary edit-link') }}
                                     <a class="{{ button_classes }} error delete-link" title="Delete" {{ hx_dialog_attrs(url_for('.delete_point', key=trip.key, id=point.id)) }}>{{ icon('delete') }}</a>
                                 </div>
                             </li>
@@ -59,11 +69,19 @@
         </div>
 
         <nav class="right-align no-space">
-            <button class="tertiary" popovertarget="app_drawer" popovertargetaction="hide">{{ icon('cancel') }} Cancel</button>
+            <button class="tertiary" popovertarget="main_app_drawer" popovertargetaction="hide">{{ icon('cancel') }} Cancel</button>
         </nav>
     </dialog>
 
-    <button class="app-drawer-button circle primary large small-elevate" popovertarget="app_drawer">{{ icon('menu') }}</button>
+    <dialog class="right" id="data_drawer" data-trip-show-target="dataDrawer" data-action="htmx:afterSwap->trip-show#showDataDrawer">
+        <div id="data_drawer_target" hx-target="this"></div>
+
+        <nav class="right-align no-space">
+            <button class="tertiary" formmethod="dialog">{{ icon('cancel') }} Cancel</button>
+        </nav>
+    </dialog>
+
+    <button class="app-drawer-button circle primary large small-elevate" popovertarget="main_app_drawer">{{ icon('menu') }}</button>
 
     <div class="trip-map" id="map" data-map-target="map" aria-label="Map">
         <div id="buttons_row" class="buttons-row" data-map-target="buttonRow" data-action="htmx:afterSettle->map#postActivateMarker"></div>

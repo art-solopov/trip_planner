@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends htmx_base %}
 {% from "macros/forms.html" import field, repeatable_field, field_select, errors, submit_btn %}
 {% from "macros/icon.html" import icon %}
 {% from "macros/geocode.html" import geocode_fieldset, latlon_fields %}
@@ -10,9 +10,11 @@
 
     <form id="point_form"
           method="POST"
-          action=""
+          action="{{ request.path }}"
           data-trip-id="{{ point.trip.id }}"
           data-controller="geocode"
+          hx-post="{{ request.path }}"
+          hx-select="[data-htmx-main]"
           >
         {{ errors(form) }}
 
