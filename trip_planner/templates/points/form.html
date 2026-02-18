@@ -13,6 +13,8 @@
           action="{{ request.path }}"
           data-trip-id="{{ point.trip.id }}"
           data-controller="geocode"
+          hx-post="{{ request.path }}"
+          hx-select="[data-htmx-main]"
           >
         {{ errors(form) }}
 
