@@ -73,9 +73,8 @@
         </nav>
     </dialog>
 
-    <dialog class="right" id="data_drawer" data-trip-show-target="dataDrawer" data-action="htmx:afterSwap->trip-show#showDataDrawer" popover>
-        <div id="data_drawer_target">
-        </div>
+    <dialog class="right" id="data_drawer" data-trip-show-target="dataDrawer" data-action="htmx:afterSwap->trip-show#showDataDrawer">
+        <div id="data_drawer_target" hx-target="this"></div>
 
         <nav class="right-align no-space">
             <button class="tertiary" formmethod="dialog">{{ icon('cancel') }} Cancel</button>
