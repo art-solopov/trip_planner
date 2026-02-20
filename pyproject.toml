@@ -6,7 +6,7 @@ authors = ["Artemiy Solopov <art-solopov@yandex.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Flask = "~=2.0"
+Flask = "~=3.1"
 SQLAlchemy = "^2.0.0"
 Flask-SQLAlchemy = "^3.0.0"
 Flask-Migrate = "^4.0.0"
