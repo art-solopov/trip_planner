@@ -3,6 +3,16 @@ from flask import g
 from trip_planner.models import Trip, Point, PointTypes
 
 
+_REGIONAL_INDICATOR_A = 0x1F1E6
+
+
+def unicode_flag(country_code):
+    return ''.join(
+        chr(_REGIONAL_INDICATOR_A + ord(x) - ord('A'))
+        for x in country_code
+        )
+
+
 class TripPresenter:
     REGIONAL_INDICATOR_A = 0x1F1E6
 
@@ -13,10 +23,7 @@ class TripPresenter:
         return self.trip.author == g.user
 
     def flag(self):
-        return ''.join(
-            chr(self.REGIONAL_INDICATOR_A + ord(x) - ord('A'))
-            for x in self.country_code
-        )
+        return unicode_flag(self.trip.country_code)
 
     def __getattr__(self, name):
         return getattr(self.trip, name)
