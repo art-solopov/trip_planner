@@ -10,9 +10,9 @@
     </header>
 
     <section>
-        <form method="GET" action="/trips" class="row wrap horizontal-margin">
+        <form method="GET" action="/trips" class="row wrap horizontal-margin" hx-boost>
             <div class="field small label suffix round border">
-                {{filter_form.country_code(**{'hx-get': '/trips', 'hx-replace-url': 'true', 'hx-target': '#trips_list', 'hx-select': '#trips_list', 'hx-swap': 'outerHTML'})}}
+                {{filter_form.country_code(**{'hx-on:change': 'this.form.requestSubmit()'})}}
                 {{filter_form.country_code.label(class="form-label")}}
                 <i>arrow_drop_down</i>
             </div>
