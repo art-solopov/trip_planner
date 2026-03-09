@@ -16,9 +16,9 @@ from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
 from .data import PointData
-from .forms import TripForm, PointForm
+from .forms import TripForm, PointForm, FilterTripsForm
 from .policy import Policy
-from .presenters import TripPresenter, PointPresenter
+from .presenters import TripPresenter, PointPresenter, unicode_flag
 from ..view_classes import ViewClasses, ScheduleClasses
 
 trips = Blueprint('trips', __name__, url_prefix='/trips')
@@ -62,10 +62,20 @@ def _map_pointer_view_attrs(map_pointer_mode) -> Dict[str, str]:
 @trips.route("/")
 @user_required
 def index():
-    trips = db.session.scalars(policy.trips_query().order_by(Trip.name))
+    trips_query = policy.trips_query()
+    country_codes = db.session.scalars(
+        trips_query.with_only_columns(Trip.country_code).distinct()
+        )
+    filter_form = FilterTripsForm(formdata=request.args,
+                                  country_codes=list(country_codes))
+    # TODO: extract into a query
+    if (country_code := filter_form.data['country_code']):
+        trips_query = trips_query.filter(Trip.country_code == country_code)
+    trips = db.session.scalars(trips_query.order_by(Trip.name))
     response = make_response(
         render_template('trips/index.html',
-                        trips=[TripPresenter(t) for t in trips])
+                        trips=[TripPresenter(t) for t in trips],
+                        filter_form=filter_form)
         )
     response.add_etag()
     return response.make_conditional(request)
@@ -341,3 +351,6 @@ def delete_point(trip: Trip, point: Point):
 @trip_point_wrapper
 def buttons_row(trip: Trip, point: Point):
     return render_template('points/button_row.html', trip=trip, point=point)
+
+
+trips.add_app_template_filter(unicode_flag, 'unicode_flag')

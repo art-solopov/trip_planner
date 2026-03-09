@@ -19,6 +19,16 @@ from ..models import PointTypes
 logger = logging.getLogger('trip_planner.trips.forms')
 
 
+def _country_code_choices(country_codes=None):
+    yield ('', '')
+    file_name = pjoin(DATA_PATH, 'countries.json')
+    print(country_codes)
+    with open(file_name) as f:
+        for country in json.load(f):
+            if country_codes is None or country['Code'] in country_codes:
+                yield (country['Code'], country['Name'])
+
+
 class TripForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=2000)])
     country_code = SelectField('Country', choices=[],
@@ -29,14 +39,7 @@ class TripForm(FlaskForm):
     def __init__(self,  *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.country_code.choices = list(self._country_code_choices())
-
-    def _country_code_choices(self):
-        yield ('', '')
-        file_name = pjoin(DATA_PATH, 'countries.json')
-        with open(file_name) as f:
-            for country in json.load(f):
-                yield (country['Code'], country['Name'])
+        self.country_code.choices = list(_country_code_choices())
 
 
 class ScheduleSubForm(Form):
@@ -94,3 +97,13 @@ class PointForm(FlaskForm):
     websites = FieldList(URLField('Website'), min_entries=1, max_entries=20)
     notes = TextAreaField('Notes')
     schedule = ScheduleField('Schedule')
+
+
+class FilterTripsForm(FlaskForm):
+    country_code = SelectField('Filter by country', choices=[],
+                               validators=[Optional(strip_whitespace=True)])
+
+    def __init__(self, *args, country_codes=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.country_code.choices = list(_country_code_choices(country_codes))

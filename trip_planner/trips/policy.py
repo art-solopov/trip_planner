@@ -1,4 +1,5 @@
 from flask import abort
+from sqlalchemy import Select
 
 from .. import db
 from ..models import User, Trip, Point
@@ -8,7 +9,7 @@ class Policy:
     def __init__(self, user: User):
         self.user = user
 
-    def trips_query(self):
+    def trips_query(self) -> Select:
         return db.select(Trip).filter_by(author=self.user)
 
     def points_query(self, trip: Trip):
