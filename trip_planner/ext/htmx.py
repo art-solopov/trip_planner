@@ -14,6 +14,9 @@ class HTMX:
         """Returns true if the request was sent with HTMX"""
         return request.headers.get('HX-Request') is not None
 
+    def __bool__(self) -> bool:
+        return self.is_htmx
+
     @property
     def is_boosted(self) -> bool:
         return request.headers.get('HX-Boosted') is not None
