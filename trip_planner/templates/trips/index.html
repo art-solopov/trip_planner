@@ -10,7 +10,7 @@
     </header>
 
     <section>
-        <form method="GET" action="/trips" class="row wrap horizontal-margin" hx-boost>
+        <form method="GET" action="/trips" class="row wrap horizontal-margin" hx-boost="true">
             <div class="field small label suffix round border">
                 {{filter_form.country_code(**{'hx-on:change': 'this.form.requestSubmit()'})}}
                 {{filter_form.country_code.label(class="form-label")}}
