@@ -30,7 +30,7 @@
                         </div> #}
                     </h1>
                     <div class="ms-auto buttons">
-                        <a href="{{ url_for('.add_point', key=trip.key) }}" class="{{ button_classes }} primary" title="Add point">{{ icon('add_circle') }}</a>
+                        {{ item_button(icon('add_circle'), url_for('.add_point', key=trip.key), title="Add point", classes="primary") }}
                         <a href="{{ url_for('.edit', key=trip.key) }}" class="{{ button_classes }} secondary" title="Edit">{{ icon('edit') }}</a>
                         <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
                     </div>
@@ -74,7 +74,7 @@
     </dialog>
 
     <dialog class="right" id="data_drawer" data-trip-show-target="dataDrawer" data-action="htmx:afterSwap->trip-show#showDataDrawer">
-        <div id="data_drawer_target" hx-target="this"></div>
+        <div id="data_drawer_target" hx-target="this" hx-select="[data-htmx-main]"></div>
 
         <nav class="right-align no-space">
             <button class="tertiary" formmethod="dialog">{{ icon('cancel') }} Cancel</button>
