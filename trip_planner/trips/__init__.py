@@ -11,7 +11,7 @@ from flask.views import MethodView as View
 from markupsafe import escape
 from werkzeug.local import LocalProxy
 
-from .. import db
+from .. import db, htmx
 from ..shared import user_required, add_breadcrumb
 from ..models import Trip, Point
 from ..data import MapData
@@ -93,7 +93,7 @@ def show(key):
     add_breadcrumb(trip.name)
 
     view_attrs = {
-        'data-controller': 'map',
+        'data-controller': 'map trip-show',
         'data-map-apikey-value': g.map_data.api_key,
         'data-map-styleurl-value': g.map_data.MAPBOX_STYLE_URL,
         'data-map-centerlat-value': trip.center_lat,
@@ -320,7 +320,11 @@ def edit_point(trip: Trip, point: Point):
         point.trip.touch(db.session)
         db.session.commit()
         flash(f"Point «{point.name}» updated", 'success')
-        return redirect(url_for('.show_point', key=trip.key, id=point.id))
+        if htmx:
+            location = url_for('.show', key=trip.key)
+        else:
+            location = url_for('.show_point', key=trip.key, id=point.id)
+        return redirect(location)
 
     title = f'Edit point {point.name}'
     add_breadcrumb(title)

@@ -1,0 +1,10 @@
+{% with messages = get_flashed_messages(with_categories=True) -%}
+    <section id="flash_messages" hx-swap-oob="true" class="top flashes responsive vertical-margin small-margin" aria-label="Flash alerts">
+        {%- for category, message in messages -%}
+            <div class="flash flash-{{ category }}" role="alert" data-controller="flash">
+                <span class="padding">{{ message }}</span>
+                <button type="button" class="transparent circle small" aria-label="close" data-action="flash#remove">{{ icon('close') }}</span>
+            </div>
+        {%- endfor -%}
+    </section>
+{%- endwith -%}
