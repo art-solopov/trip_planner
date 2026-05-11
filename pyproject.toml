@@ -21,7 +21,7 @@ gunicorn = "^23.0"
 beautifulsoup4 = "~=4.10"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.2"
+pytest = ">=7.2,<10.0"
 jedi = ">=0.18"
 flake8 = "^4.0.1"
 Faker = "^11.3.0"
