@@ -22,6 +22,7 @@
                         </div> #}
                     </h1>
                     <div class="ms-auto buttons">
+                        <button class="{{ button_classes }} border secondary-border secondary-text" popovertarget="app_drawer" popovertargetaction="hide">{{ icon('keyboard_double_arrow_left') }}</button>
                         <a href="{{ url_for('.add_point', key=trip.key) }}" class="{{ button_classes }} primary" title="Add point">{{ icon('add_circle') }}</a>
                         <a href="{{ url_for('.edit', key=trip.key) }}" class="{{ button_classes }} secondary" title="Edit">{{ icon('edit') }}</a>
                         <a class="{{ button_classes }} error" title="Delete" {{ hx_dialog_attrs(url_for('.delete_trip', key=trip.key)) }}>{{ icon('delete') }}</a>
@@ -57,10 +58,6 @@
                 </section>
             {% endfor %}
         </div>
-
-        <nav class="right-align no-space">
-            <button class="tertiary" popovertarget="app_drawer" popovertargetaction="hide">{{ icon('cancel') }} Cancel</button>
-        </nav>
     </dialog>
 
     <button class="app-drawer-button circle primary large small-elevate" popovertarget="app_drawer">{{ icon('menu') }}</button>

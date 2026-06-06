@@ -5,11 +5,6 @@
 .trip-map {
     height: 100%;
 
-    .trip-title {
-        display: flex;
-        align-items: baseline;
-    }
-
     .buttons-row {
         position: absolute;
         left: 0;
@@ -77,7 +72,7 @@ main.show-trip {
     .trip-title {
         display: flex;
         flex-flow: row nowrap;
-        align-items: baseline;
+        align-items: flex-start;
 
         & > h1 .trip-title-author {
           font-size: 65%;
