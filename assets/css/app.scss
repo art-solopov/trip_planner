@@ -60,6 +60,12 @@
   white-space-collapse: revert;
 }
 
+.buttons {
+  a, button {
+    vertical-align: top;
+  }
+}
+
 // WARNING: look after Beer.css's layout styles, fix as necessary
 :has(> main) {
   grid-template-rows: auto auto var(--main-row-size, 1fr) auto auto
