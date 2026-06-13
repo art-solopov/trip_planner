@@ -27,16 +27,16 @@
 }
 
 :where(a, :any-link, .link):not(.button, .chip, menu a) {
-  color: var(--primary-dark) !important;
+  color: var(--primary-text) !important;
   text-decoration: underline;
 }
 
 .primary-border {
-  border-color: var(--primary-dark) !important;
+  border-color: var(--primary-text) !important;
 }
 
 .primary-text {
-  color: var(--primary-dark) !important;
+  color: var(--primary-text) !important;
 }
 
 :is(.checkbox, .radio) > input + span::before {

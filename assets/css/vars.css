@@ -15,23 +15,22 @@
 
 /* Color scheme */
 
-:root, body.light, body.dark { /* TODO: add proper dark scheme */
-  --surface: hsl(0, 0%, 99%);
-  --surface-container-low: hsl(0, 0%, 96%);
-  --surface-container: hsl(0, 0%, 90%);
-  --surface-container-high: hsl(0, 0%, 85%);
-  --surface-container-highest: hsl(0, 0%, 79%);
-  --on-surface: hsl(300, 4%, 13%);
+:root {
+    color-scheme: light dark;
 
-  --inverse-surface: var(--on-surface);
-  --inverse-on-surface: var(--surface);
+    --primary-base: oklch(83% 0.088 340);
+    --secondary-base: oklch(90% 0.06 53.87);
 
-  --primary: oklch(83% 0.088 340);
+    --_color-light: hsl(0, 0%, 99%);
+    --_color-dark: hsl(300, 4%, 13%);
+}
+
+:root, body.light, body.dark {
+  --on-primary: var(--_color-dark);
   --primary-dark: oklch(50% 0.1 340);
-  --on-primary: var(--on-surface);
   --primary-container: oklch(90% 0.07 340);
   --on-primary-container: var(--on-surface);
-  --secondary: oklch(90% 0.06 53.87);
+  --secondary: $secondary-base;
   --secondary-dark: oklch(40% 0.095 53.87);
   --on-secondary: var(--secondary-dark);
   --secondary-container: var(--secondary);
@@ -41,7 +40,7 @@
   --success-container: oklch(90% 0.126 129);
   --on-success-container: var(--on-surface);
   --tertiary: oklch(40% 0.095 53.87);
-  --on-tertiary: var(--inverse-on-surface);
+  --on-tertiary: var(--_color-light);
   --tertiary-container: oklch(90% 0.06 53.87);
   --on-tertiary-container: var(--tertiary);
 
@@ -50,8 +49,30 @@
   --base-marker-color: oklch(90% 0.07 340);
 }
 
+body.light { /* TODO: add proper dark scheme */
+  --surface: var(--_color-light);
+  --surface-container-low: hsl(0, 0%, 96%);
+  --surface-container: hsl(0, 0%, 90%);
+  --surface-container-high: hsl(0, 0%, 85%);
+  --surface-container-highest: hsl(0, 0%, 79%);
+  --on-surface: var(--_color-dark);
+
+  --inverse-surface: var(--on-surface);
+  --inverse-on-surface: var(--surface);
+
+  --primary: var(--primary-base);
+  --primary-text: var(--primary-dark);
+  --secondary: var(--secondary-base);
+}
+
+body.dark {
+    --primary: oklch(from var(--primary-base) calc(l * 0.9) c h);
+    --primary-text: var(--primary);
+    --secondary: oklch(from var(--secondary-base) calc(l * 0.9) c h);
+}
+
 @supports (background-color: color-mix(in lch, black, white)) {
-  :root, body.light, body.dark {
+  body.light {
     --surface-variant: color-mix(in lch, var(--secondary), var(--surface));
     --on-surface-variant: var(--secondary-dark);
   }
