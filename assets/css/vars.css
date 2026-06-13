@@ -51,10 +51,10 @@
 
 body.light { /* TODO: add proper dark scheme */
   --surface: var(--_color-light);
-  --surface-container-low: hsl(0, 0%, 96%);
-  --surface-container: hsl(0, 0%, 90%);
-  --surface-container-high: hsl(0, 0%, 85%);
-  --surface-container-highest: hsl(0, 0%, 79%);
+  --surface-container-low: hsl(from var(--_color-light) h s 96%);
+  --surface-container: hsl(from var(--_color-light) h s 90%);
+  --surface-container-high: hsl(from var(--_color-light) h s 85%);
+  --surface-container-highest: hsl(from var(--_color-light) h s 79%);
   --on-surface: var(--_color-dark);
 
   --inverse-surface: var(--on-surface);
