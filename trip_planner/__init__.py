@@ -1,14 +1,13 @@
 import os
 import os.path
-import json
 import logging
+import tomllib
 
-from flask import Flask, render_template, request, session, g, url_for
+from flask import Flask, render_template, request, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 from wtforms import Field
-from markupsafe import Markup
 
 from .shared import DecimalPairConverter
 
@@ -53,7 +52,7 @@ def create_app(test_config=None, instance_path=None, static_folder='static'):
 
     secrets_path = app.config['SECRETS_PATH']
     if secrets_path:
-        app.config.from_file(secrets_path, load=json.load) #  TODO: replace with TOML?
+        app.config.from_file(secrets_path, load=tomllib.load, text=False)
 
     db.init_app(app)
     migrate.init_app(app, db)

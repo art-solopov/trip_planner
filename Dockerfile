@@ -1,8 +1,8 @@
-FROM python:3.13-trixie
+FROM python:3.13-slim-trixie
 
 ARG uid=1100
 
-RUN apt-get update && apt-get -y install postgresql-client rsync
+RUN apt-get update && apt-get -y install postgresql-client rsync libpq-dev gcc
 
 RUN useradd -u $uid -s /bin/bash -m trip_planner
 

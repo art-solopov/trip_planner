@@ -1,0 +1,27 @@
+name: trip_planner
+
+services:
+  postgres:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    env_file: pg.env
+    volumes:
+      - postgres:/var/lib/postgres/data
+
+  service:
+    image: git.artemis-grove.me/artemis/trip_planner:dev
+    build: .
+    command: "python -m flask run -h 0.0.0.0"
+    ports:
+      - "5000:5000"
+    environment:
+      INSTANCE_PATH: /etc/instance
+      DATABASE_URI: postgresql://trip_planner:trip_planner@postgres/trip_planner
+      GUNICORN_DEV: "True"
+    volumes:
+      - "./instance:/etc/instance"
+      - "./log:/app/log"
+    profiles: ["dockertest"]
+volumes:
+  postgres:
