@@ -5,6 +5,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URI')
     SECRETS_PATH = 'secrets.toml'
+    VITE_DEVSERVER_URL = None
 
 
 class Development(Config):
@@ -12,6 +13,7 @@ class Development(Config):
     SQLALCHEMY_ECHO = True
     # Don't let the client cache static files:
     SEND_FILE_MAX_AGE_DEFAULT = 0
+    VITE_DEVSERVER_URL = 'http://localhost:5173'
 
 
 class Production(Config):

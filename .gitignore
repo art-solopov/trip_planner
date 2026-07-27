@@ -117,6 +117,7 @@ dmypy.json
 .venv
 node_modules
 
+trip_planner/static/.vite
 trip_planner/static/css
 trip_planner/static/js
 trip_planner/static/assets

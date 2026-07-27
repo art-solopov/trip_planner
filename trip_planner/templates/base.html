@@ -5,6 +5,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Travelpiggy</title>
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/normalize-8.0.1.css') }}">
+        <script src="{{ url_for('static', filename='vendor/htmx-2.0.10.min.js') }}"></script>
+
+        {% if config.VITE_DEVSERVER_URL %}
+            <script type="module" src="{{ config.VITE_DEVSERVER_URL }}/@vite/client"></script>
+            <script type="module" src="{{ config.VITE_DEVSERVER_URL }}/app.js"></script>
+        {% else %}
+            <!-- TODO: assets rendering -->
+        {% endif %}
     </head>
     <body>
         {% block main %}{% endblock %}
