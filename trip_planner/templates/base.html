@@ -17,6 +17,14 @@
         {% endif %}
     </head>
     <body>
-        {% block main %}{% endblock %}
+        <header>
+            {% include "_topnav.html" %}
+        </header>
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        <footer>
+            
+        </footer>
     </body>
 </html>

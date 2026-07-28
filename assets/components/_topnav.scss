@@ -1,0 +1,33 @@
+nav.topnav {
+  padding: 0.25em;
+  background: mistyrose; // TODO: replace with proper colors
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+
+    &.brand {
+      height: 4em;
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  &, & > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+  }
+
+  & > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &.right {
+      margin-left: auto;
+    }
+  }
+}
