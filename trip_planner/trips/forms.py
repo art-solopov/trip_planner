@@ -100,7 +100,7 @@ class PointForm(FlaskForm):
 
 
 class FilterTripsForm(FlaskForm):
-    country_code = SelectField('Filter by country', choices=[],
+    country_code = SelectField('Country', choices=[],
                                validators=[Optional(strip_whitespace=True)])
 
     def __init__(self, *args, country_codes=None, **kwargs):

@@ -2,4 +2,16 @@ body {
   display: flex;
   flex-flow: column;
   gap: 0.5em;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  width: min(100%, 960px);
+  margin: 0 auto;
+}
+
+body > footer {
+  max-width: 960px;
+  margin: 0 auto;
 }

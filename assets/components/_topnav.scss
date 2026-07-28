@@ -1,6 +1,8 @@
 nav.topnav {
   padding: 0.25em;
   background: mistyrose; // TODO: replace with proper colors
+  border-bottom: 2px solid lightgray;
+  box-shadow: 0 0.25rem 1rem darkgray;
 
   a {
     display: inline-block;

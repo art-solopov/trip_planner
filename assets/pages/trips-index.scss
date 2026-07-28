@@ -1,0 +1,21 @@
+.trips-index {
+  list-style: none;
+  padding: 0;
+  column-width: 20ch;
+
+  li {
+    break-inside: avoid;
+
+    a {
+      display: block;
+      padding: 1em;
+      border: 3px solid transparent;
+      transition: 0.2s border-color;
+
+      &:hover,
+      &:focus {
+        border-color: blue; // TODO: replace with proper colors
+      }
+    }
+  }
+}

@@ -1,7 +1,13 @@
 @use "./components/topnav";
 @use "./components/layout";
 
+@use "./pages/trips-index";
+
 body {
   font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
   font-weight: normal;
+}
+
+section {
+  margin-bottom: 0.5em;
 }

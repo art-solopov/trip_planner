@@ -1,4 +1,18 @@
 {% extends "base.html" %}
 
 {% block main %}
+    <h1>Your trips</h1>
+
+    <section>
+        <form method="GET" action="{{ url_for('trips.index') }}" hx-boost="true">
+            {{ filter_form.country_code.label }}
+            {{ filter_form.country_code(**{'hx-on:change': 'this.form.requestSubmit()'}) }}
+        </form>
+    </section>
+
+    <ul class="trips-index">
+        {% for trip in trips %}
+            <li><a href="{{ url_for('trips.show', key=trip.key) }}">{{ trip.name }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
