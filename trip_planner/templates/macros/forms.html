@@ -1,0 +1,6 @@
+{% macro field(f, wrapper_class='') %}
+    <div class="{{ ['form-field', wrapper_class]|select|join(' ') }}">
+        {{ f.label }}
+        {{ f }}
+    </div>
+{% endmacro %}

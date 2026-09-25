@@ -1,0 +1,9 @@
+{% from "macros/forms.html" import field %}
+
+{{ form.hidden_tag() }}
+
+{%- for f in form if f is not hidden_field %}
+    {{ field(f) }}
+{%- endfor %}
+
+<button type="submit">{{ submit_text }}</button>

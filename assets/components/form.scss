@@ -1,0 +1,13 @@
+form {
+  label, input:is([type="text" i],[type="number" i],[type="password" i]), textarea {
+    display: block;
+  }
+
+  label {
+    font-weight: 500;
+  }
+
+  .form-field {
+    margin-bottom: 1em; /* TODO: replace with a variable */
+  }
+}
