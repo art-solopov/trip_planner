@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>{{ trip.name }}</h1>
+    <div class="buttons">
+        <button @click="$refs.pointsList.showModal()">Show</button>
+    </div>
+
+    <section class="map" x-ref="map"></section>
+
+    <dialog class="points-list" x-ref="pointsList" closedby="any">
+        {% for type, pts in points %}
+            <section>
+                <h2>{{ type | capitalize }}</h2>
+                <ul>
+                    {% for point in pts %}
+                        <li data-lat="{{ point.lat }}" data-lon="{{ point.lon }}">
+                            <h3>{{ point.name }}</h3>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        {% endfor %}
+    </dialog>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
+{% endblock %}

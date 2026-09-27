@@ -93,11 +93,9 @@ def show(key):
     add_breadcrumb(trip.name)
 
     view_attrs = {
-        'data-controller': 'map',
-        'data-map-apikey-value': g.map_data.api_key,
-        'data-map-styleurl-value': g.map_data.MAPBOX_STYLE_URL,
-        'data-map-centerlat-value': trip.center_lat,
-        'data-map-centerlon-value': trip.center_lon
+        'x-data': f"map({trip.center_lat}, {trip.center_lon})",
+        'data-map-api-key': g.map_data.api_key,
+        'data-map-style-url': g.map_data.MAPBOX_STYLE_URL,
     }
 
     response = make_response(
@@ -106,7 +104,7 @@ def show(key):
                         points_count=len(trip.points),
                         points_colors_map=PointPresenter.point_colors_map(),
                         points_colors_css=PointPresenter.point_colors_css(),
-                        view_class=ViewClasses.TRIP_SHOW,
+                        main_class=ViewClasses.TRIP_SHOW,
                         view_attrs=view_attrs))
     response.add_etag()
 

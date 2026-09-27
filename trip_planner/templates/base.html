@@ -1,4 +1,3 @@
-<!DOCTYPE>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +19,7 @@
         <header>
             {% include "_topnav.html" %}
         </header>
-        <main>
+        <main class="{{ main_class }}" {{ view_attrs | xmlattr }}>
             {% block main %}{% endblock %}
         </main>
         <footer>

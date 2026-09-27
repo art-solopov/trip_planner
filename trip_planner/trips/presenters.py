@@ -22,6 +22,7 @@ class TripPresenter:
     def belongs_to_current_user(self):
         return self.trip.author == g.user
 
+    @property
     def flag(self):
         return unicode_flag(self.trip.country_code)
 
