@@ -1,3 +1,6 @@
 import './app.scss'
 
-console.log('application')
+import Alpine from 'alpinejs'
+
+window.Alpine = Alpine
+Alpine.start()
