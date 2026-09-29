@@ -1,10 +1,7 @@
 import './app.scss'
 
 import Alpine from 'alpinejs'
-
-import map from './components/map'
-
-Alpine.data('map', map)
+import.meta.glob('./pages/*.js', {eager: true})
 
 window.Alpine = Alpine
 Alpine.start()

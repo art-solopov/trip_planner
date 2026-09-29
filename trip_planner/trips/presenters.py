@@ -1,4 +1,4 @@
-from flask import g
+from flask import g, url_for
 
 from trip_planner.models import Trip, Point, PointTypes
 
@@ -42,6 +42,17 @@ class PointPresenter:
         PointTypes.OTHER: '#aaa'
     }
 
+    POINT_ICONS = {
+        PointTypes.MUSEUM: 'museum',
+        PointTypes.SIGHT: 'castle',
+        PointTypes.TRANSPORT: 'rail-light',
+        PointTypes.ACCOMODATION: 'home',
+        PointTypes.FOOD: 'restaurant',
+        PointTypes.ENTERTAINMENT: 'amusement-park',
+        PointTypes.SHOP: 'grocery',
+        PointTypes.OTHER: 'triangle-stroked',
+    }
+
     @staticmethod
     def point_colors_map():
         return {k.value: v for k, v in PointPresenter.POINT_COLORS.items()}
@@ -57,6 +68,11 @@ class PointPresenter:
     @property
     def type(self):
         return self.point.type.value
+
+    @property
+    def icon_url(self):
+        icon = self.POINT_ICONS[self.point.type]
+        return url_for('static', filename=f"vendor/icons/maki/{icon}.svg")
 
     def __getattr__(self, name):
         return getattr(self.point, name)

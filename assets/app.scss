@@ -3,7 +3,6 @@
 @use "components/form";
 
 @use "./pages/trips-index";
-@use "./pages/trips-show.scss";
 
 body {
   font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
@@ -12,4 +11,12 @@ body {
 
 section {
   margin-bottom: 0.5em;
+}
+
+article, section, div, dialog {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
 }

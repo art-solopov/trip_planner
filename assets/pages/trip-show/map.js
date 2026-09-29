@@ -1,3 +1,5 @@
+import { makeMarker } from "./marker"
+
 export default function(centerLat, centerLon) {
     return {
         init() {
@@ -9,7 +11,7 @@ export default function(centerLat, centerLon) {
             }
 
             const points = [...this.$refs.pointsList.querySelectorAll('li')]
-                .map(e => e.dataset)
+                .map(e => Object.assign({}, e.dataset, {marker: makeMarker(e)}))
 
             if(points.length > 1) {
                 mapOptions.bounds = [
@@ -23,12 +25,12 @@ export default function(centerLat, centerLon) {
                 mapOptions.zoom = 12
             }
 
-            const map = new mapboxgl.Map(mapOptions)
+            this.map = new mapboxgl.Map(mapOptions)
            
             for(let point of points) {
-                let marker = new mapboxgl.Marker()
+                let marker = new mapboxgl.Marker({element: point.marker, anchor: 'bottom'})
                     .setLngLat([point.lon, point.lat])
-                    .addTo(map)
+                    .addTo(this.map)
             }
         }
     }

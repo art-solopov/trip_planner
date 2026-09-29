@@ -14,12 +14,14 @@
         {% else %}
             <!-- TODO: assets rendering -->
         {% endif %}
+
+        {% block extra_head %}{% endblock %}
     </head>
     <body>
         <header>
             {% include "_topnav.html" %}
         </header>
-        <main class="{{ main_class }}" {{ view_attrs | xmlattr }}>
+        <main class="{{ main_class }}" {{ view_attrs | default({}) | xmlattr }}>
             {% block main %}{% endblock %}
         </main>
         <footer>
