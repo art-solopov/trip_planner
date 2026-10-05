@@ -34,7 +34,7 @@ def style_tag(style_name: str) -> str:
 
 @assets.cli.command('build')
 def assets_build():
-    sp.run(['yarn', 'node', 'assets/scripts/build.js',
+    sp.run(['pnpm', 'node', 'assets/scripts/build.js',
             opa.join(current_app.static_folder, 'assets'), 'assets',
             opa.join(current_app.static_folder, 'assets', 'manifest.json')  # TODO: deduplicate manifest path
             ])

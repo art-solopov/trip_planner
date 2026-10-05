@@ -73,10 +73,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: yarn
-    - run: yarn install --immutable --check-cache
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile
     - name: build assets
-      run: yarn node assets/scripts/build.js trip_planner/static/assets assets trip_planner/static/assets/manifest.json
+      run: pnpm node assets/scripts/build.js trip_planner/static/assets assets trip_planner/static/assets/manifest.json
     - name: Store compiled assets
       uses: actions/upload-artifact@v4
       with:
