@@ -86,7 +86,7 @@ jobs:
         name: assets
         path: |
           trip_planner/static/assets
-          trip_planner/static/.vite
+          trip_planner/static/vite.manifest.json
 
   favicons:
     runs-on: ubuntu-latest

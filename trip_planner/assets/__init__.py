@@ -11,7 +11,7 @@ assets = Blueprint('assets', __name__)
 
 def _load_manifest():
     manifest_path = opa.join(current_app.static_folder,
-                             '.vite', 'manifest.json')
+                             'vite.manifest.json')
 
     with open(manifest_path) as mff:
         return json.load(mff)

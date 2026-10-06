@@ -10,6 +10,6 @@ export default defineConfig({
     'css/vars.css'],
   build: {
     outDir: '../trip_planner/static',
-    manifest: true
+    manifest: 'vite.manifest.json'
   }
 })
