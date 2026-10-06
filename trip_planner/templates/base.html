@@ -17,9 +17,14 @@
 
         <meta name="js:icons_url" content="{{url_for('static', filename='vendor/icons.svg')}}">
 
-        {{ style_tag('vars') }}
-        {{ style_tag('app') }}
-        {{ script_tag('app') }}
+        {% if config.VITE_SERVER %}
+            <!-- Vite development -->
+            <script type="module" src="{{ config.VITE_SERVER }}/@vite/client"></script>
+        {% endif %} 
+
+        {{ vite_style('vars.css') }}
+        {{ vite_style('app.scss') }}
+        {{ vite_script('app') }}
         {%- block extra_head %}{% endblock %}
     </head>
     <body>
