@@ -135,7 +135,7 @@ jobs:
     - uses: actions/download-artifact@v8
       with:
         name: assets
-        path: trip_planner/static/assets
+        path: trip_planner/static
     - uses: actions/download-artifact@v8
       with:
         name: favicons
