@@ -14,7 +14,7 @@ from test import TestConfig, test_instance_dir
 def app(session_mocker: pytest_mock.MockerFixture):
     _app = create_app(TestConfig(), instance_path=test_instance_dir)
     session_mocker.patch('trip_planner.assets.manifest',
-                         new=defaultdict(str))
+                         new=defaultdict(lambda: {'file': ''}))
 
     return _app
 

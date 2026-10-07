@@ -21,12 +21,12 @@ jobs:
       - name: Export dev requirements (for tests)
         run: poetry export --with dev -o requirements.dev.txt
       - name: Store requirements.txt file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: requirements.txt
           path: requirements.txt
       - name: Store requirements.dev.txt file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: requirements.dev.txt
           path: requirements.dev.txt
@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: requirements.dev.txt
       - uses: actions/setup-python@v5
@@ -69,19 +69,24 @@ jobs:
       NODE_ENV: production
     steps:
     - uses: actions/checkout@v4
+    - uses: pnpm/setup@v3
+      with:
+        runtime: "node@${{ env.NODE_VERSION }}"        
     - name: Install NodeJS
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION }}
-        cache: yarn
-    - run: yarn install --immutable --check-cache
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile
     - name: build assets
-      run: yarn node assets/scripts/build.js trip_planner/static/assets assets trip_planner/static/assets/manifest.json
+      run: pnpm vite build
     - name: Store compiled assets
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: assets
-        path: trip_planner/static/assets
+        path: |
+          trip_planner/static/assets
+          trip_planner/static/vite.manifest.json
 
   favicons:
     runs-on: ubuntu-latest
@@ -109,11 +114,11 @@ jobs:
       run: >
         ${{ env.CMD }} -w 192 -o "$OUTDIR/icon-192.png" &&
         ${{ env.CMD }} -w 512 -o "$OUTDIR/icon-512.png"
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: favicon.svg
         path: trip_planner/static/favicon.svg
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: favicons
         path: ${{ env.OUTDIR }}
@@ -127,19 +132,19 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v4
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         name: assets
         path: trip_planner/static/assets
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         name: favicons
         path: trip_planner/static/favicons
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         name: favicon.svg
         path: trip_planner/static
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v8
       with:
         name: requirements.txt
     - name: Login to registry

@@ -78,9 +78,6 @@
     <style>
         {{ points_colors_css }}
     </style>
-{% endblock %}
 
-{% block extra_body %}
-    {{ script_tag('trip_show') }}
-    {{ style_tag('trip_show.js') }}
+    {{ vite_script('trip_show') }}
 {% endblock %}
