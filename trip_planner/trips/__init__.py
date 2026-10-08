@@ -45,14 +45,15 @@ policy: Policy = LocalProxy(_get_policy)
 
 @trips.app_template_global()
 def geocode_field_kwargs(field_name: str) -> Dict[str, str]:
-    return {'data-geocode-target': field_name,
+    return {'x-ref': f"field{field_name.capitalize()}",
             'data-map-pointer-target': field_name,
             'data-action': 'change->map-pointer#moveMap'}
 
 
 def _map_pointer_view_attrs(map_pointer_mode) -> Dict[str, str]:
     return {
-        'data-controller': 'map-pointer geocode',
+        'x-data': '',
+        'data-controller': 'map-pointer',
         'data-map-pointer-apikey-value': g.map_data.api_key,
         'data-map-pointer-styleurl-value': g.map_data.MAPBOX_STYLE_URL,
         'data-map-pointer-mode-value': map_pointer_mode,

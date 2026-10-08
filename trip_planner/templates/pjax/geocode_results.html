@@ -2,13 +2,15 @@
     {% if result.value %}
         <div class="geocode-results vertical-margin small-margin" id="geocode_results" data-geocode-target="results" aria-label="Geocode results">
         {% for res in result.value %}
-            <article class="result no-padding no-margin" data-lat="{{ res.lat }}" data-lon="{{ res.lon }}">
+            <article class="result no-padding no-margin" x-data="{ lat: {{res.lat}}, lon: {{res.lon}} }">
                 <img class="responsive large" src="{{ res.map_url }}">
                 <div class="padding">
                     <h3 class="name h5">{{ res.name }}</h3>
                     <div class="address">{{ res.address }}</div>
                     <nav>
-                        <button type="button" class="tertiary" data-action="click->geocode#setData">Save</button>
+                        <button type="button" class="tertiary"
+                            x-on:click="$refs.fieldLat.value = lat; $refs.fieldLon.value = lon; $dispatch('geocode:set')"
+                            >Save</button>
                     </nav>
                 </div>
             </article>
