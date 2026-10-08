@@ -1,4 +1,4 @@
-import { createApp } from './utils'
+import { createApp } from './init/stimulus'
 
 import Geocode from './components/geocode'
 import PointForm from './components/point_form'

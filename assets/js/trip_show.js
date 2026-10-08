@@ -1,4 +1,4 @@
-import { createApp } from './utils'
+import { createApp } from './init/stimulus'
 
 import Map from './components/map'
 
