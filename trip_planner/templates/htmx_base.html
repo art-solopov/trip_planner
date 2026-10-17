@@ -1,0 +1,6 @@
+<section data-htmx-main {{ view_attrs | default({}) | xmlattr }}>
+    {% block main %}{% endblock %}
+</section>
+
+{% include "_flashes.html" %}
+

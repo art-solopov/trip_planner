@@ -1,7 +1,7 @@
 .top-header {
   background-image: linear-gradient(to right, var(--primary), var(--secondary));
 
-  & + header:empty {
+  & + header {
     min-block-size: 0;
   }
 

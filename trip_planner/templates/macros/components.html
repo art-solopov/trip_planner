@@ -22,7 +22,7 @@
                 <div class="button tertiary">Map <i>expand_more</i></div>
             </nav>
         </summary>
-        <div class="map-with-coords" hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="intersect once"></div>
+        <div class="map-with-coords" hx-get="{{ url_for('pjax.map_pointer', latlon=latlon) }}" hx-trigger="intersect once" hx-target="this"></div>
     </details>
 {%- endmacro %}
 
