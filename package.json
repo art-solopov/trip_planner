@@ -8,7 +8,7 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "sass-embedded": "^1.105.1",
-    "vite": "^8.1.1"
+    "vite": "^8.3.3"
   },
   "browserslist": [
     "defaults",
